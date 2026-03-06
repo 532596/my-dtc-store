@@ -44,9 +44,19 @@ export default function Home() {
       <section className="relative overflow-hidden py-14">
         {/* 卡片下方的渐变与柔光，透过磨砂玻璃可见 */}
         <div className="absolute inset-0 bg-gradient-to-br from-warm-cream via-warm-white to-[#f0ebe3]" aria-hidden />
-        <div className="absolute left-1/4 top-1/4 h-[280px] w-[280px] rounded-full bg-[#c4b8a8]/25 blur-3xl" aria-hidden />
-        <div className="absolute bottom-1/4 right-1/5 h-[320px] w-[320px] rounded-full bg-[#e8ebee]/40 blur-3xl" aria-hidden />
-        <div className="absolute right-1/3 top-1/2 h-[200px] w-[200px] rounded-full bg-[#e8e6e2]/50 blur-3xl" aria-hidden />
+        {/* 轻微“智能感”冷色渐变（保持低饱和，不抢整体暖调） */}
+        <div
+          className="absolute inset-0 opacity-60 mix-blend-multiply"
+          style={{
+            background:
+              "radial-gradient(900px 420px at 78% 20%, rgba(91,107,122,0.16), transparent 60%), radial-gradient(640px 360px at 20% 78%, rgba(120,170,210,0.14), transparent 62%)",
+          }}
+          aria-hidden
+        />
+        {/* 柔光球（暖木 + 冷灰蓝） */}
+        <div className="absolute left-[18%] top-[22%] h-[320px] w-[320px] rounded-full bg-[#c4b8a8]/24 blur-3xl" aria-hidden />
+        <div className="absolute bottom-[18%] right-[14%] h-[360px] w-[360px] rounded-full bg-accent/14 blur-3xl" aria-hidden />
+        <div className="absolute right-[34%] top-[54%] h-[240px] w-[240px] rounded-full bg-[#e8e6e2]/55 blur-3xl" aria-hidden />
 
         <div className="relative mx-auto max-w-content px-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
