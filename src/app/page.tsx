@@ -40,33 +40,77 @@ export default function Home() {
     <main>
       <HeroShowcase slides={HERO_SLIDES} />
 
-      <section className="border-y border-warm-gray/50 bg-warm-white py-8">
-        <div className="mx-auto flex max-w-content flex-wrap items-center justify-center gap-12 px-6 md:gap-20">
-          <div className="flex items-center gap-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-light">
-              <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h2a2 2 0 00-2 2" />
-              </svg>
-            </div>
-            <span className="text-sm font-medium text-foreground">Sit & Stand Ergonomics</span>
-          </div>
-          <div className="hidden h-8 w-px bg-warm-gray md:block" />
-          <div className="flex items-center gap-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-light">
-              <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-              </svg>
-            </div>
-            <span className="text-sm font-medium text-foreground">Space Optimized Design</span>
-          </div>
-          <div className="hidden h-8 w-px bg-warm-gray md:block" />
-          <div className="flex items-center gap-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-light">
-              <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <span className="text-sm font-medium text-foreground">Smart Control System</span>
+      <section className="border-y border-warm-gray/50 bg-warm-white py-10">
+        <div className="mx-auto max-w-content px-6">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
+            {[
+              {
+                title: "Dual Motor Lift",
+                desc: "稳定顺滑，静音升降。",
+                icon: (
+                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 20h10M9 20V8m6 12V8M6 8h12M8 8V5a2 2 0 012-2h4a2 2 0 012 2v3" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Height Memory",
+                desc: "一键预设，随手到位。",
+                icon: (
+                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Voice Control",
+                desc: "一句话调整高度。",
+                icon: (
+                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3a3 3 0 00-3 3v6a3 3 0 006 0V6a3 3 0 00-3-3z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 10v2a7 7 0 01-14 0v-2" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19v2" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Cable Management",
+                desc: "桌下整洁，桌面清爽。",
+                icon: (
+                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 8h10M7 12h6M7 16h10" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 6a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H8a2 2 0 01-2-2V6z" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Anti-collision",
+                desc: "遇阻即停，更安心。",
+                icon: (
+                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4" />
+                  </svg>
+                ),
+              },
+              {
+                title: "TÜV Safety",
+                desc: "标准认证，耐用可靠。",
+                icon: (
+                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2l3 6 6 .9-4.5 4.4 1.1 6.2L12 16.9 6.4 19.5l1.1-6.2L3 8.9 9 8l3-6z" />
+                  </svg>
+                ),
+              },
+            ].map((f) => (
+              <div key={f.title} className="flex flex-col items-center text-center">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-accent-light">
+                  {f.icon}
+                </div>
+                <p className="mt-3 text-sm font-medium text-foreground">{f.title}</p>
+                <p className="mt-1 text-xs text-warm-muted">{f.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
