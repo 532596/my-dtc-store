@@ -2,47 +2,43 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
+import HeroShowcase, { type HeroSlide } from "@/components/HeroShowcase";
+
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    id: "model-b",
+    name: "MODEL B",
+    tagline: "Smart control. Everyday ready.",
+    imageSrc: "/images/hero.jpg",
+    imageAlt: "Smart standing desk hero scene",
+  },
+  {
+    id: "office",
+    name: "DESK PRO",
+    tagline: "Home office focus.",
+    imageSrc: "/images/scene-office.jpg",
+    imageAlt: "Home office scene",
+  },
+  {
+    id: "learning",
+    name: "FAMILY MODE",
+    tagline: "One desk for all.",
+    imageSrc: "/images/scene-learning.jpg",
+    imageAlt: "Family learning scene",
+  },
+  {
+    id: "relax",
+    name: "STUDIO",
+    tagline: "Work, read, relax.",
+    imageSrc: "/images/scene-relax.jpg",
+    imageAlt: "Multi-purpose room scene",
+  },
+];
 
 export default function Home() {
   return (
     <main>
-      <section className="relative min-h-[85vh] overflow-hidden bg-warm-gray/80 md:min-h-[92vh]">
-        <Image
-          src="/images/hero.jpg"
-          alt="Smart desk at home"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/5" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-
-        <div className="relative mx-auto flex min-h-[85vh] max-w-content items-end px-6 pb-14 pt-20 md:min-h-[92vh] md:items-center md:pb-0">
-          <div className="max-w-2xl text-warm-white drop-shadow-[0_18px_50px_rgba(0,0,0,0.55)]">
-            <h1 className="text-5xl font-semibold tracking-tight md:text-6xl lg:text-7xl lg:leading-[1.02]">
-              Work Healthier. Live Smarter.
-            </h1>
-            <p className="mt-6 max-w-xl text-base text-white/85 md:text-lg">
-              The smart standing desk for any space and any pace. 一张桌子，满足全家办公学习。
-            </p>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link
-                href="/series"
-                className="inline-flex items-center justify-center rounded-xl bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-              >
-                Shop Now
-              </Link>
-              <Link
-                href="/series#compare"
-                className="inline-flex items-center justify-center rounded-xl border border-white/25 bg-white/10 px-8 py-3.5 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15"
-              >
-                Compare
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroShowcase slides={HERO_SLIDES} />
 
       <section className="border-y border-warm-gray/50 bg-warm-white py-8">
         <div className="mx-auto flex max-w-content flex-wrap items-center justify-center gap-12 px-6 md:gap-20">
