@@ -17,24 +17,25 @@ export default function Header() {
   const pathname = usePathname();
   const [accountOpen, setAccountOpen] = React.useState<boolean>(false);
   const [productsOpen, setProductsOpen] = React.useState<boolean>(false);
-  const [discoverOpen, setDiscoverOpen] = React.useState<boolean>(false);
+  /** 当前展开的「发现」下拉对应的 nav href，避免 About/Support 同时渲染两个下拉 */
+  const [discoverOpen, setDiscoverOpen] = React.useState<string | null>(null);
   const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const openProducts = () => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     setProductsOpen(true);
-    setDiscoverOpen(false);
+    setDiscoverOpen(null);
   };
   const closeProducts = () => {
     closeTimerRef.current = setTimeout(() => setProductsOpen(false), 150);
   };
-  const openDiscover = () => {
+  const openDiscover = (itemHref: string) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    setDiscoverOpen(true);
+    setDiscoverOpen(itemHref);
     setProductsOpen(false);
   };
   const closeDiscover = () => {
-    closeTimerRef.current = setTimeout(() => setDiscoverOpen(false), 150);
+    closeTimerRef.current = setTimeout(() => setDiscoverOpen(null), 150);
   };
 
   React.useEffect(() => {
@@ -104,22 +105,23 @@ export default function Header() {
               );
             }
 
-            // 发现下拉：同上，保持可点击
+            // 发现下拉：仅当前悬停项（About 或 Support）显示一个下拉，避免重叠
             if (item.menu === "discover") {
+              const isThisDiscoverOpen = discoverOpen === item.href;
               return (
                 <div
                   key={item.href}
                   className="relative"
-                  onMouseEnter={openDiscover}
+                  onMouseEnter={() => openDiscover(item.href)}
                   onMouseLeave={closeDiscover}
                 >
                   <Link href={item.href} className={baseClass}>
                     {item.label}
                   </Link>
-                  {discoverOpen && (
+                  {isThisDiscoverOpen && (
                     <div
                       className="absolute left-1/2 top-full z-40 mt-0 w-72 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 pt-3 text-xs text-warm-muted shadow-lg"
-                      onMouseEnter={openDiscover}
+                      onMouseEnter={() => openDiscover(item.href)}
                     >
                       <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
                         发现
