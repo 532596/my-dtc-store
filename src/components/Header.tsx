@@ -8,7 +8,7 @@ import * as React from "react";
 const NAV = [
   { href: "/", label: "Home" as const },
   { href: "/series", label: "Desks" as const, menu: "products" as const },
-  { href: "/scenarios", label: "Solutions" as const },
+  { href: "/scenarios", label: "Solutions" as const, menu: "solutions" as const },
   { href: "/about", label: "About" as const, menu: "discover" as const },
   { href: "/support", label: "Support" as const, menu: "discover" as const },
 ];
@@ -17,6 +17,7 @@ export default function Header() {
   const pathname = usePathname();
   const [accountOpen, setAccountOpen] = React.useState<boolean>(false);
   const [productsOpen, setProductsOpen] = React.useState<boolean>(false);
+  const [solutionsOpen, setSolutionsOpen] = React.useState<boolean>(false);
   /** 当前展开的「发现」下拉对应的 nav href，避免 About/Support 同时渲染两个下拉 */
   const [discoverOpen, setDiscoverOpen] = React.useState<string | null>(null);
   const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -24,15 +25,26 @@ export default function Header() {
   const openProducts = () => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     setProductsOpen(true);
+    setSolutionsOpen(false);
     setDiscoverOpen(null);
   };
   const closeProducts = () => {
     closeTimerRef.current = setTimeout(() => setProductsOpen(false), 150);
   };
+  const openSolutions = () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    setSolutionsOpen(true);
+    setProductsOpen(false);
+    setDiscoverOpen(null);
+  };
+  const closeSolutions = () => {
+    closeTimerRef.current = setTimeout(() => setSolutionsOpen(false), 150);
+  };
   const openDiscover = (itemHref: string) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     setDiscoverOpen(itemHref);
     setProductsOpen(false);
+    setSolutionsOpen(false);
   };
   const closeDiscover = () => {
     closeTimerRef.current = setTimeout(() => setDiscoverOpen(null), 150);
@@ -98,6 +110,50 @@ export default function Header() {
                         className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
                       >
                         产品对比
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            // Solutions 下拉：场景 + 技术原理（语音控制、高度记忆等）
+            if (item.menu === "solutions") {
+              return (
+                <div
+                  key={item.href}
+                  className="relative"
+                  onMouseEnter={openSolutions}
+                  onMouseLeave={closeSolutions}
+                >
+                  <Link href={item.href} className={baseClass}>
+                    {item.label}
+                  </Link>
+                  {solutionsOpen && (
+                    <div
+                      className="absolute left-1/2 top-full z-40 mt-0 w-56 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 pt-3 text-xs text-warm-muted shadow-lg"
+                      onMouseEnter={openSolutions}
+                    >
+                      <Link
+                        href="/scenarios"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        场景
+                      </Link>
+                      <p className="mt-2 px-2 pb-1 pt-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
+                        技术原理
+                      </p>
+                      <Link
+                        href="/guide#voice-control"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        语音控制
+                      </Link>
+                      <Link
+                        href="/guide#height-memory"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        高度记忆
                       </Link>
                     </div>
                   )}
