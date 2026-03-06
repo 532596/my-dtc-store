@@ -123,39 +123,46 @@ export default function Header() {
                       className="absolute left-1/2 top-full z-40 mt-0 w-72 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 pt-3 text-xs text-warm-muted shadow-lg"
                       onMouseEnter={() => openDiscover(item.href)}
                     >
-                      <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
-                        发现
-                      </p>
-                      <Link
-                        href="/about"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        品牌介绍
-                      </Link>
-                      <Link
-                        href="/about#stories"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        客户故事（预留）
-                      </Link>
-                      <Link
-                        href="/support"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        售后服务
-                      </Link>
-                      <Link
-                        href="/support#faq"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        常见问题 FAQ
-                      </Link>
-                      <Link
-                        href="/guide"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        健康办公指南
-                      </Link>
+                      {item.href === "/about" ? (
+                        <>
+                          <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
+                            发现
+                          </p>
+                          <Link
+                            href="/about"
+                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            品牌介绍
+                          </Link>
+                          <Link
+                            href="/about#stories"
+                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            客户故事（预留）
+                          </Link>
+                          <Link
+                            href="/support"
+                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            售后服务
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <Link
+                            href="/support#faq"
+                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            常见问题 FAQ
+                          </Link>
+                          <Link
+                            href="/guide"
+                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            健康办公指南
+                          </Link>
+                        </>
+                      )}
                     </div>
                   )}
                 </div>
