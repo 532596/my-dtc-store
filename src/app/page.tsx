@@ -123,9 +123,9 @@ export default function Home() {
             ].map((f) => (
               <div
                 key={f.title}
-                className="group flex flex-col gap-3 rounded-3xl bg-stone-50/80 p-7 text-left shadow-sm/0 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-stone-200/60"
+                className="group flex flex-col gap-3 rounded-3xl bg-stone-50/95 p-7 text-left shadow-[0_0_0_1px_rgba(214,211,209,0.8)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-stone-200/70"
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/90 shadow-sm">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm">
                   {f.icon}
                 </div>
                 <div>
