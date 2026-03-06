@@ -9,7 +9,6 @@ const NAV = [
   { href: "/", label: "Home" as const },
   { href: "/series", label: "Desks" as const, menu: "products" as const },
   { href: "/scenarios", label: "Solutions" as const },
-  { href: "/accessories", label: "Accessories" as const },
   { href: "/about", label: "About" as const, menu: "discover" as const },
   { href: "/support", label: "Support" as const, menu: "discover" as const },
 ];
@@ -17,6 +16,32 @@ const NAV = [
 export default function Header() {
   const pathname = usePathname();
   const [accountOpen, setAccountOpen] = React.useState<boolean>(false);
+  const [productsOpen, setProductsOpen] = React.useState<boolean>(false);
+  const [discoverOpen, setDiscoverOpen] = React.useState<boolean>(false);
+  const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openProducts = () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    setProductsOpen(true);
+    setDiscoverOpen(false);
+  };
+  const closeProducts = () => {
+    closeTimerRef.current = setTimeout(() => setProductsOpen(false), 150);
+  };
+  const openDiscover = () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    setDiscoverOpen(true);
+    setProductsOpen(false);
+  };
+  const closeDiscover = () => {
+    closeTimerRef.current = setTimeout(() => setDiscoverOpen(false), 150);
+  };
+
+  React.useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-warm-gray/50 bg-warm-white/95 backdrop-blur-md">
@@ -35,81 +60,102 @@ export default function Header() {
               "transition-colors " +
               (isActive ? "font-medium text-foreground" : "text-warm-muted hover:text-foreground");
 
-            // 产品 / 发现 分组下拉，仅在桌面端显示
+            // 产品下拉：鼠标移入触发区或面板时保持展开，移出后延迟关闭，便于点击子链接
             if (item.menu === "products") {
               return (
-                <div key={item.href} className="relative group">
+                <div
+                  key={item.href}
+                  className="relative"
+                  onMouseEnter={openProducts}
+                  onMouseLeave={closeProducts}
+                >
                   <Link href={item.href} className={baseClass}>
                     {item.label}
                   </Link>
-                  <div className="pointer-events-none absolute left-1/2 top-full z-40 mt-3 w-64 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 text-xs text-warm-muted shadow-lg opacity-0 transition group-hover:pointer-events-auto group-hover:opacity-100">
-                    <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
-                      产品
-                    </p>
-                    <Link
-                      href="/series"
-                      className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                  {productsOpen && (
+                    <div
+                      className="absolute left-1/2 top-full z-40 mt-0 w-64 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 pt-3 text-xs text-warm-muted shadow-lg"
+                      onMouseEnter={openProducts}
                     >
-                      升降桌系列
-                    </Link>
-                    <Link
-                      href="/accessories"
-                      className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                    >
-                      配件
-                    </Link>
-                    <Link
-                      href="/series#compare"
-                      className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                    >
-                      产品对比
-                    </Link>
-                  </div>
+                      <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
+                        产品
+                      </p>
+                      <Link
+                        href="/series"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        升降桌系列
+                      </Link>
+                      <Link
+                        href="/accessories"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        配件
+                      </Link>
+                      <Link
+                        href="/series#compare"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        产品对比
+                      </Link>
+                    </div>
+                  )}
                 </div>
               );
             }
 
+            // 发现下拉：同上，保持可点击
             if (item.menu === "discover") {
               return (
-                <div key={item.href} className="relative group">
+                <div
+                  key={item.href}
+                  className="relative"
+                  onMouseEnter={openDiscover}
+                  onMouseLeave={closeDiscover}
+                >
                   <Link href={item.href} className={baseClass}>
                     {item.label}
                   </Link>
-                  <div className="pointer-events-none absolute left-1/2 top-full z-40 mt-3 w-72 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 text-xs text-warm-muted shadow-lg opacity-0 transition group-hover:pointer-events-auto group-hover:opacity-100">
-                    <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
-                      发现
-                    </p>
-                    <Link
-                      href="/about"
-                      className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                  {discoverOpen && (
+                    <div
+                      className="absolute left-1/2 top-full z-40 mt-0 w-72 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 pt-3 text-xs text-warm-muted shadow-lg"
+                      onMouseEnter={openDiscover}
                     >
-                      品牌介绍
-                    </Link>
-                    <Link
-                      href="/about#stories"
-                      className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                    >
-                      客户故事（预留）
-                    </Link>
-                    <Link
-                      href="/support"
-                      className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                    >
-                      售后服务
-                    </Link>
-                    <Link
-                      href="/support#faq"
-                      className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                    >
-                      常见问题 FAQ
-                    </Link>
-                    <Link
-                      href="/guide"
-                      className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                    >
-                      健康办公指南
-                    </Link>
-                  </div>
+                      <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
+                        发现
+                      </p>
+                      <Link
+                        href="/about"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        品牌介绍
+                      </Link>
+                      <Link
+                        href="/about#stories"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        客户故事（预留）
+                      </Link>
+                      <Link
+                        href="/support"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        售后服务
+                      </Link>
+                      <Link
+                        href="/support#faq"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        常见问题 FAQ
+                      </Link>
+                      <Link
+                        href="/guide"
+                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                      >
+                        健康办公指南
+                      </Link>
+                    </div>
+                  )}
                 </div>
               );
             }
@@ -162,7 +208,7 @@ export default function Header() {
                   href="/account"
                   className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70"
                 >
-                  My Account
+                  My Lists
                 </Link>
                 <Link
                   href="/account/orders"

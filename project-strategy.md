@@ -50,7 +50,7 @@
    - **可点击区域清晰**：主 CTA（Shop Now、Compare Now、加入购物车）样式统一、位置稳定；导航当前页可做**下划线或字重强调**，减少认知负担。
 
 2. **首页页面结构（与参考图风格一致）**：
-   - **Header**：简洁导航（Home / Desks / Solutions / Accessories / About / Support）+ 右侧账户与购物车图标（含数量），白底、细分割线，不喧宾夺主。
+   - **Header**：简洁导航（Home / Desks / Solutions / About / Support，共 5 项；配件入口在 Desks 下拉内）+ 右侧账户与购物车图标（含数量），白底、细分割线，不喧宾夺主。
    - **Hero**：**左右分栏** — 左侧大标题 + 一句价值主张 + 主 CTA 按钮（低饱和蓝）；右侧**高质量场景图**（家庭办公/生活化场景），传递「智能、生活化」第一印象。
    - **Feature Bar（Hero 下）**：一条横向**价值主张条**，三块核心卖点（如 Sit & Stand Ergonomics / Space Optimized Design / Smart Control System），配线型图标、细竖线分隔，信息密度低、扫一眼即懂。
    - **Why Choose**：居中标题 + **三列功能卡**，每卡含图标、标题、短文案 + 配图占位；卡片浅底、圆角、轻阴影/边框，风格统一。
@@ -65,20 +65,24 @@
    - **信息架构（桌面端）**：
      - 左侧为品牌 Logo（文案：Smart Standing Desk），点击返回首页 `/`。
      - 中部为**主导航组**，与现有路由一一对应，并按「产品 / 发现 / 原理介绍」分组展示（仅为分组视觉，不新增复杂层级）：
-       - **产品（Desks / Accessories）**：下拉中展示「升降桌系列（跳转 `/series`）」「配件（跳转 `/accessories`）」「产品对比（锚点 `/series#compare`）」。
+       - **产品（Desks）**：下拉中展示「升降桌系列（跳转 `/series`）」「配件（跳转 `/accessories`）」「产品对比（锚点 `/series#compare`）」；顶部一级不单独显示 Accessories。
        - **发现（About / Support）**：下拉中聚合「品牌介绍（`/about`）」「客户故事（`/about#stories`，可后续补充）」「售后服务（`/support`）」「常见问题 FAQ（`/support#faq`）」「联系与支持（`/support#contact`）」。
        - **原理介绍（Guide）**：指向「升降原理 & 人体工学」内容（`/guide`），下拉中可预留「健康办公指南」「高度设置教程」等二级短链接。
      - 右侧为**功能入口区**：包括「搜索（可选）」「我的账户（`/account`）」「购物车（`/cart`）」三个图标/按钮，视觉上与参考站相似：图标 + 简短文案（如 My Account / Cart），保持低饱和蓝描边或描边+填充的统一样式。
    - **账号入口交互**（参考第三、四、五张图，不一比一复刻）：
-     - 桌面端点击或 hover「我的账户」时，下拉菜单包含：`Log in / Create Account`（登录/创建账号）、`My Account`（进入 `/account`）、`Order Status`（订单状态，可跳转 `/account/orders`），结构与参考站点一致但文案可本地化。
+     - 桌面端点击或 hover「我的账户」时，下拉菜单包含：`Log in / Create Account`（登录/创建账号）、`My Lists`（我的列表/心愿单，进入 `/account` 或 `/account/lists`）、`Order Status`（订单状态，可跳转 `/account/orders`），结构与参考站点一致但文案可本地化。
      - 移动端将「我的账户」「购物车」收纳为右上角图标，点击后进入独立页面或抽屉式菜单，避免复杂悬浮层。
    - **登录 / 注册窗口样式**（参考最后两张弹窗图）：
      - 使用独立的**居中白色卡片**表现（模态层覆盖背景），卡片圆角与全站统一，背景可轻微模糊当前页面场景图，营造「浮在产品之上」的感觉。
      - 表单字段控制在 3–5 个以内（邮箱 / 手机、密码、国家/地区选择、同意条款勾选），主按钮使用低饱和蓝或品牌高亮色，次要链接（已有账号去登录、忘记密码）用小号文本置于下方。
      - 移动端注册/登录优先使用**全屏卡片**（顶部为品牌 Logo + 简短说明，中部为表单），与桌面模态保持视觉一致性。
    - **与现有导航规范的统一**：
-     - 仍保持「导航项不超过 6 个」的原则：Home, Desks, Solutions, Accessories, About, Support；上述「产品 / 发现 / 原理介绍」为视觉分组与下拉结构，不额外增加顶部文案。
+     - 顶部**一级导航共 5 项**：Home, Desks, Solutions, About, Support。**不单独展示 Accessories**，配件入口仅放在 Desks 下拉中的「配件」链接（跳转 `/accessories`），避免顶栏过长。
      - 不新增复杂多级 Mega Menu，所有下拉内容控制在 4–6 行之内，单列展示即可，确保信息可一扫而过。
+   - **下拉栏交互（必达）**：
+     - 鼠标悬停「Desks」或「About/Support」时展开对应下拉；**鼠标从导航项移入下拉面板时，下拉须保持展开**，直至鼠标离开整个「触发项 + 下拉面板」区域后再收起，确保用户能顺利点击「升降桌系列」「配件」「产品对比」等链接，避免移开即消失导致无法跳转。
+     - 实现方式：下拉面板与触发项同属一个 hover 区域（如无间隙或下拉用 padding 衔接），或使用短暂延迟关闭（onMouseLeave + 约 150ms 延迟），二者择一即可。
+   - **账号下拉文案**：My Account 下拉菜单中，第二项展示为 **「My Lists」**（我的列表/心愿单），跳转 `/account` 或预留 `/account/lists`；第一项为 Log in / Create Account，第三项为 Order Status。
 
 ---
 
@@ -188,6 +192,6 @@
 - **品牌核心**：Smart, Health-oriented, Home-integrated, Professional；设计哲学「Warm Home + Precise Tech」；色板：浅灰、米白、木色、**低饱和蓝 CTA/高亮**。
 - **风格锚定**：向苹果官网靠拢 — 极简、留白、圆角与轻阴影/边框、线型图标、**智能感交互**（轻微 hover、滚动触发轻动效、统一 CTA 样式）。
 - **首页结构**：Header（导航 + 账户/购物车）→ Hero 左右分栏 → Feature Bar → Why Choose 三卡 → Adjust to Your Life + 参数 + Compare → 对比表（推荐列高亮）→ 用户评价卡 → 尾屏 CTA。
-- **导航结构**：顶部一级仍保持 [Home, Desks, Solutions, Accessories, About, Support] 六项，右侧为 Account、Cart 图标；在视觉与交互上，通过下拉菜单实现「产品（升降桌系列、配件、产品对比）/ 发现（品牌介绍、客户故事、售后与 FAQ）/ 原理介绍（健康办公指南、使用教程）」的分组展示，避免增加额外顶级入口但覆盖完整信息架构。
+- **导航结构**：顶部一级为 [Home, Desks, Solutions, About, Support] 五项（不单独展示 Accessories，配件在 Desks 下拉内），右侧为 Account、Cart 图标；下拉须在鼠标移入面板时保持展开以便点击。My Account 下拉第二项为「My Lists」。通过下拉实现「产品（升降桌系列、配件、产品对比）/ 发现（品牌介绍、客户故事、售后与 FAQ、健康办公指南）」的分组展示。
 - **技术翻译示例**：「500N Motor」→「静音升降，深夜办公不扰邻」；「72-120cm Range」→「适配 150-190cm 身高，大人小孩都能用」。
 - **开发反模式**：Hero 不放大促、留白 ≥30%、无复杂导航、无未解释术语、安装与质保需明确；动效克制、拒绝高频闪烁。
