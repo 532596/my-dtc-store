@@ -131,30 +131,39 @@ export default function Header() {
                   </Link>
                   {solutionsOpen && (
                     <div
-                      className="absolute left-1/2 top-full z-40 mt-0 w-56 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 pt-3 text-xs text-warm-muted shadow-lg"
+                      className="absolute left-1/2 top-full z-40 mt-0 w-72 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 text-xs text-warm-muted shadow-lg"
                       onMouseEnter={openSolutions}
                     >
-                      <Link
-                        href="/scenarios"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        场景
-                      </Link>
-                      <p className="mt-2 px-2 pb-1 pt-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
-                        技术原理
-                      </p>
-                      <Link
-                        href="/guide#voice-control"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        语音控制
-                      </Link>
-                      <Link
-                        href="/guide#height-memory"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        高度记忆
-                      </Link>
+                      <div className="grid grid-cols-[1fr_1fr] gap-x-4 gap-y-1">
+                        <Link
+                          href="/scenarios"
+                          className="col-span-2 block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                        >
+                          场景
+                        </Link>
+
+                        <Link
+                          href="/guide"
+                          className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                        >
+                          技术原理
+                        </Link>
+
+                        <div className="flex flex-col gap-0.5">
+                          <Link
+                            href="/guide#voice-control"
+                            className="block rounded-lg px-2 py-1.5 text-[11px] hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            语音控制
+                          </Link>
+                          <Link
+                            href="/guide#height-memory"
+                            className="block rounded-lg px-2 py-1.5 text-[11px] hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            高度记忆
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
