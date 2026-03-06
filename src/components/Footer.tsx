@@ -134,53 +134,48 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* 右侧：联系方式 + 社交 */}
+          {/* 右侧：联系方式 + 社交，与导航列等高、同风格 */}
           <div className="lg:col-span-3">
-            <div className="rounded-xl border border-warm-gray/40 bg-warm-white p-6 shadow-sm">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
-                需要帮助？
-              </h3>
-              <p className="mt-2 text-sm text-warm-muted">
-                工作日 9:00–18:00，或通过下方方式联系我们。
-              </p>
-              <ul className="mt-4 divide-y divide-warm-gray/50">
-                {CONTACT_ITEMS.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <li key={item.label}>
-                      <Link
-                        href={item.href}
-                        className="flex items-center gap-3 py-3 text-sm text-warm-muted transition-colors hover:text-foreground"
-                      >
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-warm-cream text-accent">
-                          <Icon className="h-4 w-4" strokeWidth={1.5} />
-                        </span>
-                        <span className="flex-1">
-                          <span className="font-medium text-foreground">{item.label}</span>
-                          {item.desc && (
-                            <span className="ml-1.5 text-accent hover:underline">{item.desc}</span>
-                          )}
-                        </span>
-                        <ChevronRight className="h-4 w-4 shrink-0 text-warm-stone" />
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-              <h3 className="mt-6 text-xs font-semibold uppercase tracking-wider text-foreground">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
+              需要帮助？
+            </h3>
+            <p className="mt-1.5 text-xs text-warm-muted">工作日 9:00–18:00</p>
+            <div className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-0.5">
+              {CONTACT_ITEMS.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="flex items-center gap-1.5 py-1 text-sm text-warm-muted transition-colors hover:text-foreground"
+                  >
+                    <Icon className="h-3.5 w-3.5 shrink-0 text-accent" strokeWidth={1.5} />
+                    <span className="min-w-0 truncate">
+                      {item.label}
+                      {item.desc && (
+                        <span className="ml-0.5 text-accent hover:underline">{item.desc}</span>
+                      )}
+                    </span>
+                    <ChevronRight className="h-3.5 w-3.5 shrink-0 text-warm-stone" />
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="mt-4 flex items-center gap-2">
+              <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
                 关注我们
-              </h3>
-              <div className="mt-3 flex gap-2">
+              </span>
+              <div className="flex gap-1.5">
                 {SOCIAL_LINKS.map((item) => {
                   const Icon = item.icon;
                   return (
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-warm-gray/60 bg-warm-white text-warm-muted transition-colors hover:border-accent hover:text-accent"
+                      className="flex h-7 w-7 items-center justify-center rounded-full border border-warm-gray/50 text-warm-muted transition-colors hover:border-accent hover:text-accent"
                       aria-label={item.label}
                     >
-                      <Icon className="h-4 w-4" strokeWidth={1.5} />
+                      <Icon className="h-3.5 w-3.5" strokeWidth={1.5} />
                     </Link>
                   );
                 })}
