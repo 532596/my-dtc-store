@@ -1,4 +1,5 @@
 /// <reference types="react" />
+import { CheckCircle2, Quote, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
@@ -272,22 +273,61 @@ export default function Home() {
               What Our Customers Say
             </h2>
           </Reveal>
-          <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-4">
+          <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
             {[
-              { quote: "Great Investment!", review: "使用前后对比明显，腰背轻松多了。", name: "Zhang" },
-              { quote: "Perfect for Remote Work", review: "静音升降，深夜加班不扰家人。", name: "Li" },
-              { quote: "Kids Love It", review: "高度可调，孩子写作业、大人办公都能用。", name: "Wang" },
-              { quote: "Worth Every Penny", review: "TÜV 认证、5 年电机质保，买得放心。", name: "Chen" },
+              {
+                name: "Sarah J.",
+                role: "Freelance Designer",
+                quote: "Finally no more lower back pain after long workdays.",
+                review: "I work from home 8+ hours. Switching between sit and stand with one tap made a real difference. My lower back feels so much better after two weeks.",
+              },
+              {
+                name: "Michael T.",
+                role: "Software Engineer",
+                quote: "Quiet enough for late-night coding.",
+                review: "I often code past midnight. The desk moves almost silently, so my family never gets woken up. Height memory is a lifesaver for focus sessions.",
+              },
+              {
+                name: "Emma L.",
+                role: "Parent & WFH",
+                quote: "One desk for homework and my meetings.",
+                review: "My son uses it for homework at his height, I raise it for my calls. No more hunching. Kids love the smooth up-down; we all share one space now.",
+              },
+              {
+                name: "James K.",
+                role: "Product Manager",
+                quote: "TÜV and 5-year motor warranty sold me.",
+                review: "I compared a few brands. TÜV certification and the 5-year motor warranty gave me confidence. Six months in, build quality has been solid.",
+              },
             ].map((t, i) => (
-              <Reveal key={t.quote} delay={i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : 3}>
-                <div className="rounded-xl border border-warm-gray/60 bg-warm-cream/30 p-6">
-                  <div className="relative h-12 w-12 overflow-hidden rounded-full bg-warm-gray">
-                    <Image src={`/images/avatar-${i + 1}.jpg`} alt="" fill className="object-cover" sizes="48px" />
+              <Reveal key={t.name} delay={i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : 3}>
+                <div className="relative rounded-2xl border border-warm-gray/20 bg-white p-8 shadow-[0_4px_40px_-10px_rgba(0,0,0,0.05)]">
+                  <Quote
+                    className="pointer-events-none absolute left-4 top-4 h-20 w-20 text-stone-300"
+                    strokeWidth={0.5}
+                    style={{ opacity: 0.12 }}
+                    aria-hidden
+                  />
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-stone-200 text-lg font-semibold text-stone-600">
+                      {t.name.charAt(0)}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="font-semibold text-stone-900">{t.name}</p>
+                        <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
+                        <span className="text-xs text-stone-400">Verified Buyer</span>
+                      </div>
+                      <p className="mt-0.5 text-sm text-stone-500">{t.role}</p>
+                      <div className="mt-3 flex gap-0.5" aria-label="5 stars">
+                        {[1, 2, 3, 4, 5].map((_) => (
+                          <Star key={_} className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden />
+                        ))}
+                      </div>
+                      <p className="mt-4 font-medium text-stone-900">&quot;{t.quote}&quot;</p>
+                      <p className="mt-2 text-sm leading-relaxed text-stone-600">{t.review}</p>
+                    </div>
                   </div>
-                  <p className="mt-4 font-medium text-foreground">{t.name}</p>
-                  <p className="mt-1 text-warm-stone">★★★★★</p>
-                  <p className="mt-3 font-medium text-foreground">&quot;{t.quote}&quot;</p>
-                  <p className="mt-2 text-body text-warm-muted">{t.review}</p>
                 </div>
               </Reveal>
             ))}
