@@ -42,21 +42,19 @@ export default function Home() {
       <HeroShowcase slides={HERO_SLIDES} />
 
       <section className="relative overflow-hidden py-14">
-        {/* 卡片下方的渐变与柔光，透过磨砂玻璃可见 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-warm-cream via-warm-white to-[#f0ebe3]" aria-hidden />
-        {/* 轻微“智能感”冷色渐变（保持低饱和，不抢整体暖调） */}
+        {/* 底层氛围：柔和高级渐变 + 角落模糊光晕，衬托玻璃折射感 */}
         <div
-          className="absolute inset-0 opacity-60 mix-blend-multiply"
-          style={{
-            background:
-              "radial-gradient(900px 420px at 78% 20%, rgba(91,107,122,0.16), transparent 60%), radial-gradient(640px 360px at 20% 78%, rgba(120,170,210,0.14), transparent 62%)",
-          }}
+          className="absolute inset-0 bg-gradient-to-br from-[#f5f5f0] via-[#faf9f6] to-[#ebebe6]"
           aria-hidden
         />
-        {/* 柔光球（暖木 + 冷灰蓝） */}
-        <div className="absolute left-[18%] top-[22%] h-[320px] w-[320px] rounded-full bg-[#c4b8a8]/24 blur-3xl" aria-hidden />
-        <div className="absolute bottom-[18%] right-[14%] h-[360px] w-[360px] rounded-full bg-accent/14 blur-3xl" aria-hidden />
-        <div className="absolute right-[34%] top-[54%] h-[240px] w-[240px] rounded-full bg-[#e8e6e2]/55 blur-3xl" aria-hidden />
+        <div
+          className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-stone-200/50 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-stone-200/40 blur-3xl"
+          aria-hidden
+        />
 
         <div className="relative mx-auto max-w-content px-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -140,14 +138,14 @@ export default function Home() {
             ].map((f) => (
               <div
                 key={f.title}
-                className="group relative flex flex-col gap-3 rounded-3xl border border-white/40 bg-white/25 p-7 text-left shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/35 hover:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.12)]"
+                className="group relative flex flex-col gap-3 rounded-3xl border border-white/60 bg-white/50 p-7 text-left shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-1 hover:border-white/80 hover:bg-white/60"
               >
-                <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/50 bg-white/40 shadow-sm backdrop-blur-md">
+                <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm">
                   {f.icon}
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-stone-900">{f.title}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-stone-600">{f.desc}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-stone-500">{f.desc}</p>
                 </div>
               </div>
             ))}
