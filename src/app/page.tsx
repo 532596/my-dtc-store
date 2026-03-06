@@ -40,33 +40,33 @@ export default function Home() {
     <main>
       <HeroShowcase slides={HERO_SLIDES} />
 
-      <section className="border-y border-warm-gray/50 bg-warm-white py-10">
+      <section className="bg-stone-50/90 py-14">
         <div className="mx-auto max-w-content px-6">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 title: "Dual Motor Lift",
-                desc: "稳定顺滑，静音升降。",
+                desc: "稳定顺滑，静音升降，支持长时间高频调节。",
                 icon: (
-                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 20h10M9 20V8m6 12V8M6 8h12M8 8V5a2 2 0 012-2h4a2 2 0 012 2v3" />
                   </svg>
                 ),
               },
               {
                 title: "Height Memory",
-                desc: "一键预设，随手到位。",
+                desc: "四组高度记忆，一键切换办公/学习/站立模式。",
                 icon: (
-                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 ),
               },
               {
                 title: "Voice Control",
-                desc: "一句话调整高度。",
+                desc: "支持语音助手，解放双手完成高度调整。",
                 icon: (
-                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3a3 3 0 00-3 3v6a3 3 0 006 0V6a3 3 0 00-3-3z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 10v2a7 7 0 01-14 0v-2" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19v2" />
@@ -75,9 +75,9 @@ export default function Home() {
               },
               {
                 title: "Cable Management",
-                desc: "桌下整洁，桌面清爽。",
+                desc: "隐藏式理线槽与走线孔，让桌面始终干净利落。",
                 icon: (
-                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 8h10M7 12h6M7 16h10" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 6a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H8a2 2 0 01-2-2V6z" />
                   </svg>
@@ -85,9 +85,9 @@ export default function Home() {
               },
               {
                 title: "Anti-collision",
-                desc: "遇阻即停，更安心。",
+                desc: "智能防撞检测，遇到障碍立即回弹，保护桌面与家人。",
                 icon: (
-                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4" />
                   </svg>
@@ -95,39 +95,43 @@ export default function Home() {
               },
               {
                 title: "TÜV Safety",
-                desc: "标准认证，耐用可靠。",
+                desc: "关键结构通过 TÜV 等级测试，经久耐用更放心。",
                 icon: (
-                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2l3 6 6 .9-4.5 4.4 1.1 6.2L12 16.9 6.4 19.5l1.1-6.2L3 8.9 9 8l3-6z" />
                   </svg>
                 ),
               },
               {
                 title: "Wide Height Range",
-                desc: "适配 150–190cm 身高。",
+                desc: "覆盖 60–125cm，高个与儿童都能找到舒适区间。",
                 icon: (
-                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 4h8M8 20h8M12 4v16" />
                   </svg>
                 ),
               },
               {
                 title: "Low Noise",
-                desc: "夜间升降≤50dB。",
+                desc: "运行噪音低于 50dB，深夜升降也不打扰家人。",
                 icon: (
-                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 9l6 6M15 9l-6 6" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 10v4m3-7v10m10-8a4 4 0 010 6" />
+                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 8v8m4-11v14m4-9v4m4-6a4 4 0 010 6" />
                   </svg>
                 ),
               },
             ].map((f) => (
-              <div key={f.title} className="flex flex-col items-center text-center">
-                <div className="flex h-10 w-10 items-center justify-center rounded-md border border-accent/40 bg-accent-light/40">
+              <div
+                key={f.title}
+                className="group flex flex-col gap-3 rounded-3xl bg-stone-50/80 p-7 text-left shadow-sm/0 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-stone-200/60"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
                   {f.icon}
                 </div>
-                <p className="mt-3 text-sm font-medium text-foreground">{f.title}</p>
-                <p className="mt-1 text-xs text-warm-muted">{f.desc}</p>
+                <div>
+                  <p className="text-sm font-semibold text-stone-900">{f.title}</p>
+                  <p className="mt-1 text-sm text-stone-500">{f.desc}</p>
+                </div>
               </div>
             ))}
           </div>
