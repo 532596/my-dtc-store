@@ -42,7 +42,7 @@ export default function Home() {
 
       <section className="border-y border-warm-gray/50 bg-warm-white py-10">
         <div className="mx-auto max-w-content px-6">
-          <div className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
             {[
               {
                 title: "Dual Motor Lift",
@@ -102,9 +102,28 @@ export default function Home() {
                   </svg>
                 ),
               },
+              {
+                title: "Wide Height Range",
+                desc: "适配 150–190cm 身高。",
+                icon: (
+                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 4h8M8 20h8M12 4v16" />
+                  </svg>
+                ),
+              },
+              {
+                title: "Low Noise",
+                desc: "夜间升降≤50dB。",
+                icon: (
+                  <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 9l6 6M15 9l-6 6" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 10v4m3-7v10m10-8a4 4 0 010 6" />
+                  </svg>
+                ),
+              },
             ].map((f) => (
               <div key={f.title} className="flex flex-col items-center text-center">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-accent-light">
+                <div className="flex h-10 w-10 items-center justify-center rounded-md border border-accent/40 bg-accent-light/40">
                   {f.icon}
                 </div>
                 <p className="mt-3 text-sm font-medium text-foreground">{f.title}</p>
