@@ -125,7 +125,7 @@ export default function Home() {
                 key={f.title}
                 className="group flex flex-col gap-3 rounded-3xl bg-stone-50/80 p-7 text-left shadow-sm/0 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-stone-200/60"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/90 shadow-sm">
                   {f.icon}
                 </div>
                 <div>
