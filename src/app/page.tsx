@@ -42,21 +42,23 @@ export default function Home() {
       <HeroShowcase slides={HERO_SLIDES} />
 
       <section className="relative overflow-hidden py-14">
-        {/* 底层氛围：柔和高级渐变 + 角落模糊光晕，衬托玻璃折射感 */}
         <div
           className="absolute inset-0 bg-gradient-to-br from-[#f5f5f0] via-[#faf9f6] to-[#ebebe6]"
           aria-hidden
         />
-        <div
-          className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-stone-200/50 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-stone-200/40 blur-3xl"
-          aria-hidden
-        />
 
-        <div className="relative mx-auto max-w-content px-6">
+        {/* Grid 父容器：相对定位 + 底层巨大光晕（玻璃才有东西可折射） */}
+        <div className="relative mx-auto max-w-content overflow-hidden px-6">
+          <div className="absolute -z-10 -left-24 top-0 h-96 w-96 rounded-full bg-stone-300/40 blur-[100px]" aria-hidden />
+          <div
+            className="absolute -z-10 -right-32 bottom-0 h-[30rem] w-[30rem] rounded-full bg-orange-100/30 blur-[120px]"
+            aria-hidden
+          />
+          <div
+            className="absolute -z-10 left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-50/25 blur-[100px]"
+            aria-hidden
+          />
+
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
@@ -138,7 +140,7 @@ export default function Home() {
             ].map((f) => (
               <div
                 key={f.title}
-                className="group relative flex flex-col gap-3 rounded-3xl border border-white/60 bg-white/50 p-7 text-left shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-1 hover:border-white/80 hover:bg-white/60"
+                className="group relative flex flex-col gap-3 rounded-3xl border border-white/60 border-t-white/80 bg-white/25 p-7 text-left shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-[40px] transition-all duration-500 ease-out hover:-translate-y-1 hover:border-white/80 hover:bg-white/35"
               >
                 <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm">
                   {f.icon}
