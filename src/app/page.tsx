@@ -6,25 +6,41 @@ import Reveal, { type RevealProps } from "@/components/Reveal";
 export default function Home() {
   return (
     <main>
-      <section className="grid min-h-[85vh] grid-cols-1 items-center md:grid-cols-2">
-        <div className="mx-auto max-w-content px-6 py-20 md:py-28">
-          <div className="max-w-xl">
-            <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl lg:leading-[1.08]">
+      <section className="relative min-h-[85vh] overflow-hidden bg-warm-gray/80 md:min-h-[92vh]">
+        <Image
+          src="/images/hero.jpg"
+          alt="Smart desk at home"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/5" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+
+        <div className="relative mx-auto flex min-h-[85vh] max-w-content items-end px-6 pb-14 pt-20 md:min-h-[92vh] md:items-center md:pb-0">
+          <div className="max-w-2xl text-warm-white drop-shadow-[0_18px_50px_rgba(0,0,0,0.55)]">
+            <h1 className="text-5xl font-semibold tracking-tight md:text-6xl lg:text-7xl lg:leading-[1.02]">
               Work Healthier. Live Smarter.
             </h1>
-            <p className="mt-6 text-body-lg text-warm-muted">
+            <p className="mt-6 max-w-xl text-base text-white/85 md:text-lg">
               The smart standing desk for any space and any pace. 一张桌子，满足全家办公学习。
             </p>
-            <Link
-              href="/series"
-              className="mt-10 inline-block rounded-xl bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
-            >
-              Shop Now
-            </Link>
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <Link
+                href="/series"
+                className="inline-flex items-center justify-center rounded-xl bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+              >
+                Shop Now
+              </Link>
+              <Link
+                href="/series#compare"
+                className="inline-flex items-center justify-center rounded-xl border border-white/25 bg-white/10 px-8 py-3.5 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15"
+              >
+                Compare
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className="relative min-h-[50vh] bg-warm-gray/80 md:min-h-[85vh]">
-          <Image src="/images/hero.jpg" alt="Smart desk at home" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
         </div>
       </section>
 
