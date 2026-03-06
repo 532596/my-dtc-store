@@ -41,8 +41,14 @@ export default function Home() {
     <main>
       <HeroShowcase slides={HERO_SLIDES} />
 
-      <section className="bg-stone-50/90 py-14">
-        <div className="mx-auto max-w-content px-6">
+      <section className="relative overflow-hidden py-14">
+        {/* 卡片下方的渐变与柔光，透过磨砂玻璃可见 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-warm-cream via-warm-white to-[#f0ebe3]" aria-hidden />
+        <div className="absolute left-1/4 top-1/4 h-[280px] w-[280px] rounded-full bg-[#c4b8a8]/25 blur-3xl" aria-hidden />
+        <div className="absolute bottom-1/4 right-1/5 h-[320px] w-[320px] rounded-full bg-[#e8ebee]/40 blur-3xl" aria-hidden />
+        <div className="absolute right-1/3 top-1/2 h-[200px] w-[200px] rounded-full bg-[#e8e6e2]/50 blur-3xl" aria-hidden />
+
+        <div className="relative mx-auto max-w-content px-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
@@ -124,16 +130,14 @@ export default function Home() {
             ].map((f) => (
               <div
                 key={f.title}
-                className="group relative flex flex-col gap-3 rounded-3xl bg-white/55 p-7 text-left shadow-[0_12px_40px_-20px_rgba(0,0,0,0.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/65 hover:shadow-[0_24px_70px_-30px_rgba(0,0,0,0.25)]"
+                className="group relative flex flex-col gap-3 rounded-3xl border border-white/40 bg-white/25 p-7 text-left shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/35 hover:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.12)]"
               >
-                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-white/35" />
-                <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-white/35 via-transparent to-transparent opacity-70" />
-                <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-white/70 shadow-sm ring-1 ring-white/40 backdrop-blur">
+                <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/50 bg-white/40 shadow-sm backdrop-blur-md">
                   {f.icon}
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-stone-900">{f.title}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-stone-600/80">{f.desc}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-stone-600">{f.desc}</p>
                 </div>
               </div>
             ))}
