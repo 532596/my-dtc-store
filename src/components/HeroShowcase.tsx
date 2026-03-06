@@ -80,7 +80,7 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
 
       {/* copy: slightly smaller and pushed to bottom-left */}
-      <div className="relative mx-auto flex min-h-[85vh] max-w-content items-end px-6 pb-18 pt-20 md:min-h-[92vh] md:pb-24">
+      <div className="relative flex min-h-[85vh] w-full items-end px-5 pb-18 pt-20 md:min-h-[92vh] md:px-8 md:pb-24">
         <div className="max-w-2xl text-warm-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.6)]">
           <h1 className="text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl lg:leading-[1.06]">
             Work Healthier. Live Smarter.
@@ -114,8 +114,8 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
 
       {/* bottom selector (secretlab-like) */}
       {slideCount > 1 && (
-        <div className="absolute inset-x-0 bottom-6 z-20 px-6">
-          <div className="mx-auto max-w-content">
+        <div className="absolute inset-x-0 bottom-6 z-20 px-4 md:px-8">
+          <div className="w-full">
             <div className="rounded-2xl border border-white/10 bg-black/35 p-2 shadow-lg backdrop-blur">
               <div className="flex items-center justify-between gap-2">
                 <button
@@ -129,14 +129,14 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
                   </svg>
                 </button>
 
-                <div className="flex flex-1 items-center gap-2 overflow-x-auto px-1">
+                <div className="grid flex-1 grid-cols-4 gap-2 px-1">
                   {slides.map((s, i) => (
                     <button
                       key={s.id}
                       type="button"
                       onClick={() => go(i)}
                       className={
-                        "whitespace-nowrap rounded-xl px-4 py-2 text-xs font-medium transition " +
+                        "min-w-0 whitespace-nowrap rounded-xl px-4 py-2 text-xs font-medium transition " +
                         (i === safeActive
                           ? "bg-white text-foreground"
                           : "text-white/80 hover:bg-white/10 hover:text-white")
