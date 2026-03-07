@@ -294,6 +294,7 @@ export default function Home() {
               {
                 name: "Sarah J.",
                 role: "Freelance Designer",
+                region: "上海",
                 quote: "Finally no more lower back pain after long workdays.",
                 image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600",
                 imageAlt: "升降桌办公场景",
@@ -303,6 +304,7 @@ export default function Home() {
               {
                 name: "Michael T.",
                 role: "Software Engineer",
+                region: "北京",
                 quote: "Quiet enough for late-night coding.",
                 image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600",
                 imageAlt: "桌面与显示器使用",
@@ -312,6 +314,7 @@ export default function Home() {
               {
                 name: "Emma L.",
                 role: "Parent & WFH",
+                region: "深圳",
                 quote: "One desk for homework and my meetings.",
                 image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=600",
                 imageAlt: "家用办公桌场景",
@@ -321,6 +324,7 @@ export default function Home() {
               {
                 name: "James K.",
                 role: "Product Manager",
+                region: "杭州",
                 quote: "TÜV and 5-year motor warranty sold me.",
                 image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600",
                 imageAlt: "桌面产品使用",
@@ -358,10 +362,13 @@ export default function Home() {
                         <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
                         <span className="text-xs text-warm-muted">Verified Buyer</span>
                       </div>
-                      <p className="mt-0.5 text-xs text-warm-muted">{t.role}</p>
-                      <p className="mt-1.5 text-xs text-warm-stone">
-                        {t.productModel} · 购买于 {t.purchaseDate}
-                      </p>
+                      <div className="mt-1.5 text-right text-xs text-warm-muted">
+                        <p>{t.role}</p>
+                        <p className="mt-0.5">{t.region}</p>
+                        <p className="mt-0.5 text-warm-stone">
+                          {t.productModel} · 购买于 {t.purchaseDate}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </Reveal>
