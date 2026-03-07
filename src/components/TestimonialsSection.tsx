@@ -12,6 +12,8 @@ export type TestimonialItem = {
   region: string;
   /** 国家/地区代码，用于按用户所在位置远近排序（同国家优先） */
   countryCode?: string;
+  /** 场景标签，如 办公场景、居家办公，显示在图片区 */
+  scene?: string;
   quote: string;
   image: string;
   imageAlt: string;
@@ -154,6 +156,11 @@ export default function TestimonialsSection({ items }: { items: TestimonialItem[
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 11rem"
                       />
+                      {t.scene && (
+                        <span className="absolute left-2 top-2 rounded-md bg-warm-white/90 px-2 py-1 text-[11px] font-medium text-foreground shadow-sm">
+                          {t.scene}
+                        </span>
+                      )}
                     </div>
                     <div
                       className={`min-w-0 flex-1 ${i % 2 === 0 ? "md:text-right" : "md:text-left"}`}

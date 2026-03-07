@@ -42,6 +42,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     role: "Freelance Designer",
     region: "上海",
     countryCode: "CN",
+    scene: "办公场景",
     quote: "Finally no more lower back pain after long workdays.",
     image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600",
     imageAlt: "升降桌办公场景",
@@ -53,6 +54,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     role: "Software Engineer",
     region: "北京",
     countryCode: "CN",
+    scene: "开发场景",
     quote: "Quiet enough for late-night coding.",
     image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600",
     imageAlt: "桌面与显示器使用",
@@ -64,6 +66,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     role: "Parent & WFH",
     region: "深圳",
     countryCode: "CN",
+    scene: "亲子学习",
     quote: "One desk for homework and my meetings.",
     image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=600",
     imageAlt: "家用办公桌场景",
@@ -75,6 +78,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     role: "Product Manager",
     region: "杭州",
     countryCode: "CN",
+    scene: "会议/办公",
     quote: "TÜV and 5-year motor warranty sold me.",
     image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600",
     imageAlt: "桌面产品使用",
@@ -86,6 +90,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     role: "UX Designer",
     region: "广州",
     countryCode: "CN",
+    scene: "办公场景",
     quote: "Height memory is a game-changer. I switch between standing for meetings and sitting for deep work without thinking about it.",
     image: "https://images.unsplash.com/photo-1593062096033-9a26f09a8d7e?q=80&w=600",
     imageAlt: "办公场景",
@@ -97,6 +102,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     role: "Teacher",
     region: "成都",
     countryCode: "CN",
+    scene: "书房",
     quote: "学生和老师都能用，高度范围够大。",
     image: "https://images.unsplash.com/photo-1507925921952-c4e2579030c0?q=80&w=600",
     imageAlt: "书房场景",
@@ -108,6 +114,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     role: "Writer",
     region: "南京",
     countryCode: "CN",
+    scene: "居家办公",
     quote: "静音升降太重要了，夜里写稿不会吵到家人。语音调高度也很方便。",
     image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=600",
     imageAlt: "居家办公",
@@ -119,6 +126,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     role: "Developer",
     region: "武汉",
     countryCode: "CN",
+    scene: "开发场景",
     quote: "Sturdy and quiet. The cable tray keeps my desk clean.",
     image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600",
     imageAlt: "开发桌面",
@@ -265,17 +273,18 @@ export default function Home() {
 
       <section className="bg-warm-cream py-section md:py-section-md">
         <div className="mx-auto max-w-content px-6">
+          <hr className="border-0 border-t border-warm-gray/70" aria-hidden />
           <Reveal>
-            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
+            <h2 className="mt-12 text-center text-3xl font-semibold tracking-tight text-foreground">
               智能功能
             </h2>
           </Reveal>
 
-          {/* 非卡片、上下排列；高度记忆 = 动图左 / 文字右，整体拉长 */}
+          {/* 非卡片、上下排列；高度记忆 = 动图左 / 文字右，整体缩短 */}
           <Reveal delay={0}>
-            <div className="mt-16 flex flex-col gap-6 md:flex-row md:items-stretch md:gap-0">
+            <div className="mt-10 flex flex-col gap-4 md:mt-12 md:flex-row md:items-stretch md:gap-0">
               <div className="relative w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/60 md:w-[42%]">
-                <div className="relative aspect-[3/2] min-h-[280px] md:min-h-[360px]">
+                <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
                   <video
                     src="/videos/height-memory.mp4"
                     poster="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=800"
@@ -289,7 +298,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex flex-col justify-center md:w-[58%]">
-                <div className="px-0 py-6 md:py-14 md:pl-12 md:pr-10">
+                <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
                   <span className="text-xs font-medium uppercase tracking-widest text-accent" aria-hidden>01</span>
                   <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
                     Height Memory
@@ -297,7 +306,7 @@ export default function Home() {
                   <p className="mt-3 text-body text-warm-muted">
                     四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松。
                   </p>
-                  <ul className="mt-5 space-y-2.5 text-sm text-warm-muted">
+                  <ul className="mt-3 space-y-2 text-sm text-warm-muted">
                     <li className="flex items-start gap-2.5">
                       <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
                       <span><strong className="text-foreground">4 组记忆位</strong>：办公 / 站立 / 学习 / 放松，一键切换当前场景。</span>
@@ -316,11 +325,11 @@ export default function Home() {
             </div>
           </Reveal>
 
-          {/* 语音控制 = 文字左 / 动图右，非卡片、拉长 */}
+          {/* 语音控制 = 文字左 / 动图右，非卡片、缩短 */}
           <Reveal delay={1}>
-            <div className="mt-20 flex flex-col gap-6 md:mt-28 md:flex-row md:items-stretch md:gap-0">
+            <div className="mt-12 flex flex-col gap-4 md:mt-14 md:flex-row md:items-stretch md:gap-0">
               <div className="order-2 flex flex-col justify-center md:order-1 md:w-[58%]">
-                <div className="px-0 py-6 md:py-14 md:pl-12 md:pr-10">
+                <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
                   <span className="text-xs font-medium uppercase tracking-widest text-accent" aria-hidden>02</span>
                   <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
                     Voice Control
@@ -328,7 +337,7 @@ export default function Home() {
                   <p className="mt-3 text-body text-warm-muted">
                     接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节。
                   </p>
-                  <ul className="mt-5 space-y-2.5 text-sm text-warm-muted">
+                  <ul className="mt-3 space-y-2 text-sm text-warm-muted">
                     <li className="flex items-start gap-2.5">
                       <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
                       <span><strong className="text-foreground">语音指令</strong>：如「升高桌面」「切换到站立高度」等，免动手调节。</span>
@@ -345,7 +354,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative order-1 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/60 md:order-2 md:w-[42%]">
-                <div className="relative aspect-[3/2] min-h-[280px] md:min-h-[360px]">
+                <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
                   <video
                     src="/videos/voice-control.mp4"
                     poster="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800"
@@ -361,7 +370,7 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="mt-16 flex flex-wrap items-center justify-center gap-10 text-center md:mt-20">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-10 text-center md:mt-12">
             <div>
               <p className="text-2xl font-semibold text-foreground">4 组</p>
               <p className="mt-1 text-sm text-warm-muted">高度记忆</p>
@@ -375,7 +384,7 @@ export default function Home() {
               <p className="mt-1 text-sm text-warm-muted">精确升降</p>
             </div>
           </div>
-          <div className="mt-12 text-center">
+          <div className="mt-8 text-center">
             <Link
               href="/guide"
               className="btn-primary inline-block px-8 py-3.5"
@@ -383,6 +392,7 @@ export default function Home() {
               了解智能功能 →
             </Link>
           </div>
+          <hr className="mt-14 border-0 border-t border-warm-gray/70" aria-hidden />
         </div>
       </section>
 
@@ -410,20 +420,6 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-10 text-center">
-            <div>
-              <p className="text-2xl font-semibold text-foreground">24&quot; - 47&quot;</p>
-              <p className="mt-1 text-sm text-warm-muted">Height Range</p>
-            </div>
-            <div>
-              <p className="text-2xl font-semibold text-foreground">220 lbs</p>
-              <p className="mt-1 text-sm text-warm-muted">Load Capacity</p>
-            </div>
-            <div>
-              <p className="text-2xl font-semibold text-foreground">&lt; 45 dB</p>
-              <p className="mt-1 text-sm text-warm-muted">Noise Level</p>
-            </div>
-          </div>
           <div className="mt-12 text-center">
             <Link href="/series#compare" className="btn-primary inline-block px-8 py-3.5">
               Compare Now →
@@ -443,34 +439,50 @@ export default function Home() {
             </p>
           </Reveal>
           <Reveal>
-            <div className="mt-14 overflow-hidden rounded-xl border border-warm-gray/60 bg-warm-white">
-              <table className="w-full text-left text-sm">
+            <div className="mt-14 overflow-x-auto overflow-hidden rounded-xl border border-warm-gray/60 bg-warm-white">
+              <table className="w-full min-w-[640px] text-left text-sm">
                 <thead>
                   <tr className="border-b border-warm-gray bg-warm-cream/50">
-                    <th className="p-4 font-semibold text-foreground">Model</th>
-                    <th className="p-4 font-semibold text-foreground">Height Range</th>
-                    <th className="p-4 font-semibold text-foreground">Weight Capacity</th>
-                    <th className="p-4 font-semibold text-foreground">Smart Controls</th>
+                    <th className="p-3 font-semibold text-foreground">Model</th>
+                    <th className="p-3 font-semibold text-foreground">Height Range</th>
+                    <th className="p-3 font-semibold text-foreground">Load Capacity</th>
+                    <th className="p-3 font-semibold text-foreground">Noise Level</th>
+                    <th className="p-3 font-semibold text-foreground">Smart Controls</th>
+                    <th className="p-3 font-semibold text-foreground">Motor Warranty</th>
+                    <th className="p-3 font-semibold text-foreground">Structure</th>
+                    <th className="p-3 font-semibold text-foreground">Certification</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-warm-gray/50">
-                    <td className="p-4 font-medium text-foreground">Model A</td>
-                    <td className="p-4 text-warm-muted">24&quot; - 43&quot;</td>
-                    <td className="p-4 text-warm-muted">176 lbs</td>
-                    <td className="p-4 text-warm-muted">—</td>
+                    <td className="p-3 font-medium text-foreground">Model A</td>
+                    <td className="p-3 text-warm-muted">24&quot; - 43&quot;</td>
+                    <td className="p-3 text-warm-muted">176 lbs</td>
+                    <td className="p-3 text-warm-muted">&lt; 50 dB</td>
+                    <td className="p-3 text-warm-muted">—</td>
+                    <td className="p-3 text-warm-muted">3 年</td>
+                    <td className="p-3 text-warm-muted">3 年</td>
+                    <td className="p-3 text-warm-muted">—</td>
                   </tr>
                   <tr className="border-b border-warm-gray/50 bg-accent-light/50">
-                    <td className="p-4 font-medium text-foreground">Model B</td>
-                    <td className="p-4 text-warm-muted">24&quot; - 47&quot;</td>
-                    <td className="p-4 text-warm-muted">220 lbs</td>
-                    <td className="p-4 text-foreground">✓</td>
+                    <td className="p-3 font-medium text-foreground">Model B</td>
+                    <td className="p-3 text-warm-muted">24&quot; - 47&quot;</td>
+                    <td className="p-3 text-warm-muted">220 lbs</td>
+                    <td className="p-3 text-warm-muted">&lt; 45 dB</td>
+                    <td className="p-3 text-foreground">✓</td>
+                    <td className="p-3 text-warm-muted">5 年</td>
+                    <td className="p-3 text-warm-muted">3 年</td>
+                    <td className="p-3 text-warm-muted">TÜV</td>
                   </tr>
                   <tr>
-                    <td className="p-4 font-medium text-foreground">Model C</td>
-                    <td className="p-4 text-warm-muted">24&quot; - 50&quot;</td>
-                    <td className="p-4 text-warm-muted">265 lbs</td>
-                    <td className="p-4 text-foreground">✓</td>
+                    <td className="p-3 font-medium text-foreground">Model C</td>
+                    <td className="p-3 text-warm-muted">24&quot; - 50&quot;</td>
+                    <td className="p-3 text-warm-muted">265 lbs</td>
+                    <td className="p-3 text-warm-muted">&lt; 45 dB</td>
+                    <td className="p-3 text-foreground">✓</td>
+                    <td className="p-3 text-warm-muted">5 年</td>
+                    <td className="p-3 text-warm-muted">3 年</td>
+                    <td className="p-3 text-warm-muted">TÜV</td>
                   </tr>
                 </tbody>
               </table>
@@ -567,10 +579,21 @@ export default function Home() {
 
       <TestimonialsSection items={TESTIMONIALS} />
 
-      <section className="bg-warm-cream py-section md:py-section-md">
-        <div className="mx-auto max-w-content px-6 text-center">
+      {/* P2：买的不是家具，hero 首图做背景、黑白+低对比 */}
+      <section className="relative py-section md:py-section-md">
+        <div className="absolute inset-0 overflow-hidden" aria-hidden>
+          <Image
+            src="/images/hero.jpg"
+            alt=""
+            fill
+            className="object-cover grayscale contrast-[0.85] brightness-[0.92]"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-warm-white/75" aria-hidden />
+        </div>
+        <div className="relative mx-auto max-w-content px-6 py-16 text-center md:py-20">
           <Reveal>
-            <p className="text-2xl font-semibold text-foreground">
+            <p className="text-2xl font-semibold text-foreground md:text-3xl">
               买的不是家具，是健康生活方式。
             </p>
             <p className="mt-3 text-body text-warm-muted">
