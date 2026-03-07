@@ -322,7 +322,7 @@ export default function Home() {
             ].map((t, i) => (
               <Reveal key={t.name} delay={i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : 3}>
                 <div
-                  className={`group flex flex-col gap-4 border-b border-warm-gray/60 py-6 transition-all duration-300 first:pt-6 last:border-b-0 hover:bg-warm-cream/50 md:flex-row md:items-center md:gap-10 md:px-6 md:py-5 md:hover:shadow-[inset_4px_0_0_0_rgba(91,107,122,0.35)] ${
+                  className={`group flex flex-col gap-4 border-b border-warm-gray py-6 transition-all duration-300 first:pt-6 last:border-b-0 hover:bg-warm-cream/50 md:flex-row md:items-center md:gap-10 md:px-6 md:py-5 md:hover:shadow-[inset_4px_0_0_0_rgba(91,107,122,0.35)] ${
                     i % 2 === 1 ? "md:flex-row-reverse md:hover:shadow-[inset_-4px_0_0_0_rgba(91,107,122,0.35)]" : ""
                   }`}
                 >
