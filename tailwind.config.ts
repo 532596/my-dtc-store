@@ -20,6 +20,8 @@ const config: Config = {
           stone: "#9c9892",
           muted: "#6b6560",
           wood: "#c4b8a8",
+          /** 卡片区块下方背景：深暖灰褐，参考 FAMILY MODE / STUDIO 条下背景 */
+          charcoal: "#2c2928",
         },
         foreground: "#2c2926",
         accent: {
