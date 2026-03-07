@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { CheckCircle2, Mic, ArrowUp, ArrowDown } from "lucide-react";
+import { CheckCircle2, Mic } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
@@ -155,97 +155,84 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-warm-cream py-section md:py-section-md">
-        <div className="mx-auto max-w-content px-6">
+      <section className="relative overflow-hidden bg-gradient-to-b from-warm-cream to-warm-white py-section md:py-section-md">
+        <div className="relative mx-auto max-w-content px-6">
           <Reveal>
-            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
-              智能功能
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-center text-body text-warm-muted">
-              精确到毫米的高度调节，一键记忆、一语即达。
+            <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-warm-stone">
+              Smart Functions
             </p>
+            <h2 className="mt-2 text-center text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+              精确到毫米，一键一语即达
+            </h2>
           </Reveal>
 
-          {/* 高度记忆：左图右文，控制面板视觉 */}
+          {/* 高度记忆：极简数字 + 预设指示，左视觉右文案 */}
           <Reveal delay={0}>
-            <div className="mt-16 flex flex-col gap-10 rounded-2xl border border-warm-gray/40 bg-warm-white/80 p-8 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.06)] transition-all duration-500 md:flex-row md:items-center md:gap-16 md:p-12 md:hover:shadow-[0_12px_48px_-12px_rgba(0,0,0,0.08)]">
-              <div className="flex shrink-0 justify-center md:order-1 md:w-[42%]">
-                <div className="relative rounded-2xl bg-stone-900 px-8 py-8 shadow-xl ring-1 ring-white/10">
-                  <div className="mb-4 flex items-center justify-between">
-                    <span className="text-[10px] font-medium uppercase tracking-widest text-stone-500">
-                      Height
-                    </span>
-                    <span className="font-mono text-2xl font-light tabular-nums text-white transition-all duration-500 md:hover:tracking-wider">
-                      72.5 <span className="text-sm text-stone-400">cm</span>
-                    </span>
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      className="flex h-9 w-9 items-center justify-center rounded-lg bg-stone-700/80 text-stone-300 transition-colors hover:bg-accent/90 hover:text-white"
-                      aria-label="升高"
-                    >
-                      <ArrowUp className="h-4 w-4" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      className="flex h-9 w-9 items-center justify-center rounded-lg bg-stone-700/80 text-stone-300 transition-colors hover:bg-accent/90 hover:text-white"
-                      aria-label="降低"
-                    >
-                      <ArrowDown className="h-4 w-4" strokeWidth={2} />
-                    </button>
-                  </div>
-                  <div className="mt-4 flex gap-1.5">
-                    {[1, 2, 3, 4, 5, 6].map((n) => (
+            <div className="mt-20 flex flex-col items-center gap-12 md:flex-row md:items-stretch md:gap-20">
+              <div className="flex w-full flex-col items-center justify-center md:w-[44%]">
+                <div className="flex flex-col items-center rounded-3xl bg-foreground/[0.02] px-12 py-16 ring-1 ring-warm-gray/50 transition-all duration-500 hover:ring-accent/20 md:px-16 md:py-20">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-warm-stone">
+                    Height
+                  </span>
+                  <p className="mt-4 font-mono text-5xl font-light tabular-nums tracking-tight text-foreground md:text-6xl">
+                    72<span className="text-accent">.</span>5
+                  </p>
+                  <p className="mt-1 text-sm text-warm-muted">cm</p>
+                  <div className="mt-8 flex gap-2" aria-hidden>
+                    {[1, 2, 3, 4].map((i) => (
                       <span
-                        key={n}
-                        className="flex h-8 w-8 items-center justify-center rounded-lg bg-stone-800 text-xs font-medium text-stone-300 ring-1 ring-stone-600/50 transition-all duration-300 hover:bg-accent/80 hover:text-white hover:ring-accent/50"
-                      >
-                        {n}
-                      </span>
+                        key={i}
+                        className={`h-1.5 w-8 rounded-full transition-colors duration-300 ${
+                          i === 1 ? "bg-accent" : "bg-warm-gray/60"
+                        }`}
+                      />
                     ))}
                   </div>
                 </div>
               </div>
-              <div className="min-w-0 flex-1 md:order-2">
-                <p className="text-xs font-semibold uppercase tracking-wider text-accent">Height Memory</p>
-                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+              <div className="flex w-full flex-1 flex-col justify-center md:max-w-[48%]">
+                <span className="text-xs font-semibold uppercase tracking-wider text-accent">
+                  Height Memory
+                </span>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
                   高度记忆，一键到位
                 </h3>
-                <p className="mt-4 text-body leading-relaxed text-warm-muted">
+                <p className="mt-5 text-body leading-relaxed text-warm-muted">
                   四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松，久坐提醒配合记忆位，让每一天都处在最舒适的高度。
                 </p>
               </div>
             </div>
           </Reveal>
 
-          {/* 语音控制：左文右图，麦克风与声波视觉 */}
+          {/* 语音控制：左文案右极简麦克风与声波 */}
           <Reveal delay={1}>
-            <div className="mt-12 flex flex-col gap-10 rounded-2xl border border-warm-gray/40 bg-warm-white/80 p-8 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.06)] transition-all duration-500 md:flex-row md:items-center md:gap-16 md:p-12 md:hover:shadow-[0_12px_48px_-12px_rgba(0,0,0,0.08)]">
-              <div className="min-w-0 flex-1 md:order-1">
-                <p className="text-xs font-semibold uppercase tracking-wider text-accent">Voice Control</p>
-                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-                  语音控制，解放双手
-                </h3>
-                <p className="mt-4 text-body leading-relaxed text-warm-muted">
-                  接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节，智能家居联动，让升降桌真正「听得懂」你。
-                </p>
-              </div>
-              <div className="flex shrink-0 justify-center md:order-2 md:w-[42%]">
-                <div className="flex flex-col items-center gap-6 rounded-2xl bg-gradient-to-br from-stone-800 to-stone-900 px-12 py-14 shadow-xl ring-1 ring-white/10">
-                  <div className="flex h-24 w-24 items-center justify-center rounded-full border-2 border-stone-600/60 bg-stone-800/80 p-6 transition-transform duration-500 hover:scale-105">
-                    <Mic className="h-full w-full text-stone-400" strokeWidth={1.5} />
+            <div className="mt-24 flex flex-col items-center gap-12 md:flex-row-reverse md:items-stretch md:gap-20">
+              <div className="flex w-full flex-col items-center justify-center md:w-[44%]">
+                <div className="flex flex-col items-center rounded-3xl bg-foreground/[0.02] px-12 py-16 ring-1 ring-warm-gray/50 transition-all duration-500 hover:ring-accent/20 md:px-16 md:py-20">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-warm-gray/50 transition-colors duration-300 hover:bg-accent/10">
+                    <Mic className="h-10 w-10 text-foreground/70" strokeWidth={1.25} />
                   </div>
-                  <div className="flex items-end gap-1.5 animate-pulse">
-                    {[0.4, 0.7, 1, 0.6, 0.9, 0.5, 0.8].map((h, i) => (
+                  <div className="mt-8 flex items-end gap-1 opacity-90 animate-pulse" aria-hidden>
+                    {[0.35, 0.6, 0.9, 0.5, 0.75, 0.45, 0.65].map((h, i) => (
                       <span
                         key={i}
-                        className="w-1.5 rounded-full bg-accent/60 transition-all duration-300"
-                        style={{ height: `${h * 28}px` }}
+                        className="w-1 rounded-full bg-accent/50 transition-all duration-500"
+                        style={{ height: `${h * 24}px` }}
                       />
                     ))}
                   </div>
                 </div>
+              </div>
+              <div className="flex w-full flex-1 flex-col justify-center md:max-w-[48%]">
+                <span className="text-xs font-semibold uppercase tracking-wider text-accent">
+                  Voice Control
+                </span>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+                  语音控制，解放双手
+                </h3>
+                <p className="mt-5 text-body leading-relaxed text-warm-muted">
+                  接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节，智能家居联动，让升降桌真正「听得懂」你。
+                </p>
               </div>
             </div>
           </Reveal>
