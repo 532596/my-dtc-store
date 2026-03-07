@@ -281,110 +281,118 @@ export default function Home() {
             </h2>
           </Reveal>
 
-          {/* 非卡片、上下排列；高度记忆 = 图片/动图左 / 文字右，悬停时内容左滑、右侧按钮渐进出现 */}
+          {/* 非卡片、上下排列；高度记忆 = 图片/动图左 / 文字右，悬停时内容左滑、竖条与左侧图片同高 */}
           <Reveal delay={0}>
-            <SmartFeatureBlock href="/guide#height-memory" label="了解">
-              <div className="mt-10 flex flex-col gap-4 md:mt-12 md:flex-row md:items-stretch md:gap-0">
-                <div className="relative w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/60 md:w-[42%]">
-                  <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
-                    <Image
-                      src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=800"
-                      alt="高度记忆办公场景"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 42vw"
-                    />
-                    <video
-                      src="/videos/height-memory.mp4"
-                      className="absolute inset-0 h-full w-full object-cover"
-                      playsInline
-                      muted
-                      loop
-                      autoPlay
-                      aria-label="高度记忆演示"
-                    />
+            <div className="mt-10 md:mt-12">
+              <SmartFeatureBlock href="/guide#height-memory" label="了解"
+                leftContent={
+                  <div className="relative w-full overflow-hidden rounded-lg bg-warm-gray/60">
+                    <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
+                      <Image
+                        src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=800"
+                        alt="高度记忆办公场景"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 42vw"
+                      />
+                      <video
+                        src="/videos/height-memory.mp4"
+                        className="absolute inset-0 h-full w-full object-cover"
+                        playsInline
+                        muted
+                        loop
+                        autoPlay
+                        aria-label="高度记忆演示"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col justify-center md:w-[58%]">
-                  <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
-                    <span className="text-xs font-medium uppercase tracking-widest text-accent" aria-hidden>01</span>
-                    <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-                      Height Memory
-                    </h3>
-                    <p className="mt-3 text-body text-warm-muted">
-                      四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松。
-                    </p>
-                    <ul className="mt-3 space-y-2 text-sm text-warm-muted">
-                      <li className="flex items-start gap-2.5">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                        <span><strong className="text-foreground">4 组记忆位</strong>：办公 / 站立 / 学习 / 放松，一键切换当前场景。</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                        <span><strong className="text-foreground">毫米级精度</strong>：升降稳定可调，坐站交替更轻松。</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                        <span><strong className="text-foreground">久坐提醒</strong>：到点提醒站立，养成健康习惯。</span>
-                      </li>
-                    </ul>
+                }
+                rightContent={
+                  <div className="flex flex-col justify-center md:w-[58%]">
+                    <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
+                      <span className="text-xs font-medium uppercase tracking-widest text-accent" aria-hidden>01</span>
+                      <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+                        Height Memory
+                      </h3>
+                      <p className="mt-3 text-body text-warm-muted">
+                        四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松。
+                      </p>
+                      <ul className="mt-3 space-y-2 text-sm text-warm-muted">
+                        <li className="flex items-start gap-2.5">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
+                          <span><strong className="text-foreground">4 组记忆位</strong>：办公 / 站立 / 学习 / 放松，一键切换当前场景。</span>
+                        </li>
+                        <li className="flex items-start gap-2.5">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
+                          <span><strong className="text-foreground">毫米级精度</strong>：升降稳定可调，坐站交替更轻松。</span>
+                        </li>
+                        <li className="flex items-start gap-2.5">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
+                          <span><strong className="text-foreground">久坐提醒</strong>：到点提醒站立，养成健康习惯。</span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </SmartFeatureBlock>
+                }
+              />
+            </div>
           </Reveal>
 
-          {/* 语音控制 = 文字左 / 动图右，悬停时内容左滑、右侧按钮渐进出现 */}
+          {/* 语音控制 = 文字左 / 动图右，悬停时内容左滑、竖条与图片同高 */}
           <Reveal delay={1}>
-            <SmartFeatureBlock href="/guide#voice-control" label="了解">
-              <div className="mt-12 flex flex-col gap-4 md:mt-14 md:flex-row md:items-stretch md:gap-0">
-                <div className="order-2 flex flex-col justify-center md:order-1 md:w-[58%]">
-                  <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
-                    <span className="text-xs font-medium uppercase tracking-widest text-accent" aria-hidden>02</span>
-                    <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-                      Voice Control
-                    </h3>
-                    <p className="mt-3 text-body text-warm-muted">
-                      接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节。
-                    </p>
-                    <ul className="mt-3 space-y-2 text-sm text-warm-muted">
-                      <li className="flex items-start gap-2.5">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                        <span><strong className="text-foreground">语音指令</strong>：如「升高桌面」「切换到站立高度」等，免动手调节。</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                        <span><strong className="text-foreground">多场景适用</strong>：会议中、手脏、抱娃或双手占用时尤其方便。</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                        <span><strong className="text-foreground">兼容主流助手</strong>：支持常见智能音箱与语音助手，无缝联动。</span>
-                      </li>
-                    </ul>
+            <div className="mt-12 md:mt-14">
+              <SmartFeatureBlock href="/guide#voice-control" label="了解" reverse
+                leftContent={
+                  <div className="relative w-full overflow-hidden rounded-lg bg-warm-gray/60">
+                    <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
+                      <Image
+                        src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800"
+                        alt="语音控制场景"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 42vw"
+                      />
+                      <video
+                        src="/videos/voice-control.mp4"
+                        className="absolute inset-0 h-full w-full object-cover"
+                        playsInline
+                        muted
+                        loop
+                        autoPlay
+                        aria-label="语音控制演示"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="relative order-1 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/60 md:order-2 md:w-[42%]">
-                  <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
-                    <Image
-                      src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800"
-                      alt="语音控制场景"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 42vw"
-                    />
-                    <video
-                      src="/videos/voice-control.mp4"
-                      className="absolute inset-0 h-full w-full object-cover"
-                      playsInline
-                      muted
-                      loop
-                      autoPlay
-                      aria-label="语音控制演示"
-                    />
+                }
+                rightContent={
+                  <div className="flex flex-col justify-center md:w-[58%]">
+                    <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
+                      <span className="text-xs font-medium uppercase tracking-widest text-accent" aria-hidden>02</span>
+                      <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+                        Voice Control
+                      </h3>
+                      <p className="mt-3 text-body text-warm-muted">
+                        接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节。
+                      </p>
+                      <ul className="mt-3 space-y-2 text-sm text-warm-muted">
+                        <li className="flex items-start gap-2.5">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
+                          <span><strong className="text-foreground">语音指令</strong>：如「升高桌面」「切换到站立高度」等，免动手调节。</span>
+                        </li>
+                        <li className="flex items-start gap-2.5">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
+                          <span><strong className="text-foreground">多场景适用</strong>：会议中、手脏、抱娃或双手占用时尤其方便。</span>
+                        </li>
+                        <li className="flex items-start gap-2.5">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
+                          <span><strong className="text-foreground">兼容主流助手</strong>：支持常见智能音箱与语音助手，无缝联动。</span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </SmartFeatureBlock>
+                }
+              />
+            </div>
           </Reveal>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-10 text-center md:mt-12">
