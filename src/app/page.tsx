@@ -309,45 +309,52 @@ export default function Home() {
                 name: "Emma L.",
                 role: "Parent & WFH",
                 quote: "One desk for homework and my meetings.",
-                image: "https://images.unsplash.com/photo-1593062096033-9a26f09a8d7e?q=80&w=600",
+                image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=600",
                 imageAlt: "家用办公桌场景",
               },
               {
                 name: "James K.",
                 role: "Product Manager",
                 quote: "TÜV and 5-year motor warranty sold me.",
-                image: "https://images.unsplash.com/photo-1507925921952-c4e2579030c0?q=80&w=600",
+                image: "https://images.unsplash.com/photo-1527689368865-37c2d6f736e0?q=80&w=600",
                 imageAlt: "桌面产品使用",
               },
             ].map((t, i) => (
-              <Reveal key={t.name} delay={i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : 3}>
-                <div
-                  className={`group flex flex-col gap-4 border-b border-warm-gray py-6 transition-all duration-300 first:pt-6 last:border-b-0 hover:bg-warm-cream/50 md:flex-row md:items-center md:gap-10 md:px-6 md:py-5 md:hover:shadow-[inset_4px_0_0_0_rgba(91,107,122,0.35)] ${
-                    i % 2 === 1 ? "md:flex-row-reverse md:hover:shadow-[inset_-4px_0_0_0_rgba(91,107,122,0.35)]" : ""
-                  }`}
-                >
-                  <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/30 transition-transform duration-300 group-hover:shadow-md md:h-28 md:w-44">
-                    <Image
-                      src={t.image}
-                      alt={t.imageAlt}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 11rem"
-                    />
+              <div key={t.name}>
+                {i > 0 && (
+                  <div className="px-6 md:px-6" aria-hidden>
+                    <hr className="border-0 border-t border-warm-gray" />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-base font-medium text-foreground md:text-lg">
-                      &quot;{t.quote}&quot;
-                    </p>
-                    <div className="mt-2 flex flex-wrap items-center gap-2">
-                      <span className="font-semibold text-stone-900">{t.name}</span>
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
-                      <span className="text-xs text-warm-muted">Verified Buyer</span>
+                )}
+                <Reveal delay={i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : 3}>
+                  <div
+                    className={`group flex flex-col gap-4 py-6 transition-all duration-300 hover:bg-warm-cream/50 md:flex-row md:items-center md:gap-10 md:px-6 md:py-5 md:hover:shadow-[inset_4px_0_0_0_rgba(91,107,122,0.35)] ${
+                      i % 2 === 1 ? "md:flex-row-reverse md:hover:shadow-[inset_-4px_0_0_0_rgba(91,107,122,0.35)]" : ""
+                    }`}
+                  >
+                    <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/30 transition-transform duration-300 group-hover:shadow-md md:h-28 md:w-44">
+                      <Image
+                        src={t.image}
+                        alt={t.imageAlt}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 11rem"
+                      />
                     </div>
-                    <p className="mt-0.5 text-xs text-warm-muted">{t.role}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-base font-medium text-foreground md:text-lg">
+                        &quot;{t.quote}&quot;
+                      </p>
+                      <div className="mt-2 flex flex-wrap items-center gap-2">
+                        <span className="font-semibold text-stone-900">{t.name}</span>
+                        <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
+                        <span className="text-xs text-warm-muted">Verified Buyer</span>
+                      </div>
+                      <p className="mt-0.5 text-xs text-warm-muted">{t.role}</p>
+                    </div>
                   </div>
-                </div>
-              </Reveal>
+                </Reveal>
+              </div>
             ))}
           </div>
         </div>
