@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 // @ts-ignore: IDE 在解析 @types/react 时误报「not a module」，实际编译通过
 import * as React from "react";
-import { useUserCountry, countryCodeToFlag } from "@/contexts/UserCountryContext";
+import { useUserCountry } from "@/contexts/UserCountryContext";
 
 const NAV = [
   { href: "/", label: "Home" as const },
@@ -313,16 +313,20 @@ export default function Header() {
             <span className="text-xs">Cart</span>
           </Link>
 
-          {/* 根据 IP 显示所在国家/地区（国旗 + 代码），便于评价按远近排序 */}
+          {/* 根据 IP 显示所在国家/地区（国旗图标 + 代码），便于评价按远近排序 */}
           {!isLoading && countryCode && (
             <div
-              className="flex flex-col items-center gap-0.5 rounded-lg border border-warm-gray/40 px-2 py-1.5 text-warm-muted"
+              className="flex items-center gap-1.5 rounded-lg border border-warm-gray/40 px-2 py-1.5 text-warm-muted"
               title={`当前地区：${countryCode}`}
               aria-label={`当前地区 ${countryCode}`}
             >
-              <span className="text-base leading-none" aria-hidden>
-                {countryCodeToFlag(countryCode)}
-              </span>
+              <img
+                src={`https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`}
+                alt=""
+                width={24}
+                height={18}
+                className="h-[18px] w-6 shrink-0 rounded-sm object-cover"
+              />
               <span className="text-[11px] font-medium uppercase tracking-wide text-foreground">
                 {countryCode}
               </span>
