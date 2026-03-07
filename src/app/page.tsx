@@ -42,8 +42,13 @@ export default function Home() {
       <HeroShowcase slides={HERO_SLIDES} />
 
       <section className="relative overflow-hidden py-14">
+        {/* 底色渐变：暖色家居感 + 轻微冷色智能感 */}
         <div
-          className="absolute inset-0 bg-gradient-to-br from-[#f5f5f0] via-[#faf9f6] to-[#ebebe6]"
+          className="absolute inset-0 bg-gradient-to-br from-warm-cream via-warm-white to-[#ebece8]"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-tl from-accent/[0.04] via-transparent to-transparent"
           aria-hidden
         />
 
