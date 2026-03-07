@@ -1,9 +1,9 @@
 /// <reference types="react" />
-import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
 import HeroShowcase, { type HeroSlide } from "@/components/HeroShowcase";
+import TestimonialsSection, { type TestimonialItem } from "@/components/TestimonialsSection";
 
 const HERO_SLIDES: HeroSlide[] = [
   {
@@ -33,6 +33,49 @@ const HERO_SLIDES: HeroSlide[] = [
     tagline: "Work, read, relax.",
     imageSrc: "/images/scene-relax.jpg",
     imageAlt: "Multi-purpose room scene",
+  },
+];
+
+const TESTIMONIALS: TestimonialItem[] = [
+  {
+    name: "Sarah J.",
+    role: "Freelance Designer",
+    region: "上海",
+    quote: "Finally no more lower back pain after long workdays.",
+    image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600",
+    imageAlt: "升降桌办公场景",
+    productModel: "Model B",
+    purchaseDate: "2024年3月",
+  },
+  {
+    name: "Michael T.",
+    role: "Software Engineer",
+    region: "北京",
+    quote: "Quiet enough for late-night coding.",
+    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600",
+    imageAlt: "桌面与显示器使用",
+    productModel: "Model B",
+    purchaseDate: "2024年1月",
+  },
+  {
+    name: "Emma L.",
+    role: "Parent & WFH",
+    region: "深圳",
+    quote: "One desk for homework and my meetings.",
+    image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=600",
+    imageAlt: "家用办公桌场景",
+    productModel: "Desk Pro",
+    purchaseDate: "2024年5月",
+  },
+  {
+    name: "James K.",
+    role: "Product Manager",
+    region: "杭州",
+    quote: "TÜV and 5-year motor warranty sold me.",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600",
+    imageAlt: "桌面产品使用",
+    productModel: "Model C",
+    purchaseDate: "2024年2月",
   },
 ];
 
@@ -322,107 +365,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-warm-white py-section md:py-section-md">
-        <div className="mx-auto max-w-content px-6">
-          <Reveal>
-            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
-              What Our Customers Say
-            </h2>
-          </Reveal>
-          <div className="mx-auto mt-14 max-w-5xl space-y-0">
-            {[
-              {
-                name: "Sarah J.",
-                role: "Freelance Designer",
-                region: "上海",
-                quote: "Finally no more lower back pain after long workdays.",
-                image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600",
-                imageAlt: "升降桌办公场景",
-                productModel: "Model B",
-                purchaseDate: "2024年3月",
-              },
-              {
-                name: "Michael T.",
-                role: "Software Engineer",
-                region: "北京",
-                quote: "Quiet enough for late-night coding.",
-                image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600",
-                imageAlt: "桌面与显示器使用",
-                productModel: "Model B",
-                purchaseDate: "2024年1月",
-              },
-              {
-                name: "Emma L.",
-                role: "Parent & WFH",
-                region: "深圳",
-                quote: "One desk for homework and my meetings.",
-                image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=600",
-                imageAlt: "家用办公桌场景",
-                productModel: "Desk Pro",
-                purchaseDate: "2024年5月",
-              },
-              {
-                name: "James K.",
-                role: "Product Manager",
-                region: "杭州",
-                quote: "TÜV and 5-year motor warranty sold me.",
-                image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600",
-                imageAlt: "桌面产品使用",
-                productModel: "Model C",
-                purchaseDate: "2024年2月",
-              },
-            ].map((t, i) => (
-              <div key={t.name}>
-                {i > 0 && (
-                  <div className="px-6 md:px-6" aria-hidden>
-                    <hr className="border-0 border-t border-warm-gray" />
-                  </div>
-                )}
-                <Reveal delay={i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : 3}>
-                  <div
-                    className={`group flex flex-col gap-4 py-6 transition-all duration-300 hover:bg-warm-cream/50 md:flex-row md:items-center md:gap-10 md:px-6 md:py-5 md:hover:shadow-[inset_4px_0_0_0_rgba(91,107,122,0.35)] ${
-                      i % 2 === 1 ? "md:flex-row-reverse md:hover:shadow-[inset_-4px_0_0_0_rgba(91,107,122,0.35)]" : ""
-                    }`}
-                  >
-                    <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/30 transition-transform duration-300 group-hover:shadow-md md:h-28 md:w-44">
-                      <Image
-                        src={t.image}
-                        alt={t.imageAlt}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 11rem"
-                      />
-                    </div>
-                    <div
-                      className={`min-w-0 flex-1 ${i % 2 === 0 ? "md:text-right" : "md:text-left"}`}
-                    >
-                      <p className="text-base font-medium text-foreground md:text-lg">
-                        &quot;{t.quote}&quot;
-                      </p>
-                      <div
-                        className={`mt-2 flex flex-wrap items-center gap-2 ${i % 2 === 0 ? "md:justify-end" : "md:justify-start"}`}
-                      >
-                        <span className="font-semibold text-stone-900">{t.name}</span>
-                        <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
-                        <span className="text-xs text-warm-muted">Verified Buyer</span>
-                      </div>
-                      <div
-                        className={`mt-1.5 text-xs text-warm-muted ${i % 2 === 0 ? "md:text-right" : "md:text-left"}`}
-                      >
-                        <p>{t.role}</p>
-                        <p className="mt-0.5">{t.region}</p>
-                        <p className="mt-0.5 text-warm-stone">
-                          {t.productModel} · 购买于 {t.purchaseDate}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TestimonialsSection items={TESTIMONIALS} />
 
       <section className="bg-warm-cream py-section md:py-section-md">
         <div className="mx-auto max-w-content px-6 text-center">
