@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { CheckCircle2, Quote, Star } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
@@ -289,60 +289,62 @@ export default function Home() {
               What Our Customers Say
             </h2>
           </Reveal>
-          <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="mt-14 space-y-0">
             {[
               {
                 name: "Sarah J.",
                 role: "Freelance Designer",
                 quote: "Finally no more lower back pain after long workdays.",
-                review: "I work from home 8+ hours. Switching between sit and stand with one tap made a real difference. My lower back feels so much better after two weeks.",
+                image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800",
+                imageAlt: "Home office workspace",
               },
               {
                 name: "Michael T.",
                 role: "Software Engineer",
                 quote: "Quiet enough for late-night coding.",
-                review: "I often code past midnight. The desk moves almost silently, so my family never gets woken up. Height memory is a lifesaver for focus sessions.",
+                image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=800",
+                imageAlt: "Desk setup",
               },
               {
                 name: "Emma L.",
                 role: "Parent & WFH",
                 quote: "One desk for homework and my meetings.",
-                review: "My son uses it for homework at his height, I raise it for my calls. No more hunching. Kids love the smooth up-down; we all share one space now.",
+                image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800",
+                imageAlt: "Shared home space",
               },
               {
                 name: "James K.",
                 role: "Product Manager",
                 quote: "TÜV and 5-year motor warranty sold me.",
-                review: "I compared a few brands. TÜV certification and the 5-year motor warranty gave me confidence. Six months in, build quality has been solid.",
+                image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=800",
+                imageAlt: "Standing desk in use",
               },
             ].map((t, i) => (
               <Reveal key={t.name} delay={i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : 3}>
-                <div className="relative rounded-2xl border border-warm-gray/20 bg-white p-8 shadow-[0_4px_40px_-10px_rgba(0,0,0,0.05)]">
-                  <Quote
-                    className="pointer-events-none absolute left-4 top-4 h-20 w-20 text-stone-300"
-                    strokeWidth={0.5}
-                    style={{ opacity: 0.12 }}
-                    aria-hidden
-                  />
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-stone-200 text-lg font-semibold text-stone-600">
-                      {t.name.charAt(0)}
+                <div
+                  className={`flex flex-col gap-6 border-b border-warm-gray/40 py-12 first:pt-12 last:border-b-0 md:flex-row md:items-center md:gap-12 ${
+                    i % 2 === 1 ? "md:flex-row-reverse" : ""
+                  }`}
+                >
+                  <div className="relative h-56 w-full shrink-0 overflow-hidden rounded-xl bg-warm-gray/30 md:h-64 md:max-w-md">
+                    <Image
+                      src={t.image}
+                      alt={t.imageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 28rem"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col justify-center">
+                    <p className="text-xl font-medium text-foreground md:text-2xl">
+                      &quot;{t.quote}&quot;
+                    </p>
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                      <span className="font-semibold text-stone-900">{t.name}</span>
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
+                      <span className="text-sm text-warm-muted">Verified Buyer</span>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <p className="font-semibold text-stone-900">{t.name}</p>
-                        <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
-                        <span className="text-xs text-stone-400">Verified Buyer</span>
-                      </div>
-                      <p className="mt-0.5 text-sm text-stone-500">{t.role}</p>
-                      <div className="mt-3 flex gap-0.5" aria-label="5 stars">
-                        {[1, 2, 3, 4, 5].map((_) => (
-                          <Star key={_} className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden />
-                        ))}
-                      </div>
-                      <p className="mt-4 font-medium text-stone-900">&quot;{t.quote}&quot;</p>
-                      <p className="mt-2 text-sm leading-relaxed text-stone-600">{t.review}</p>
-                    </div>
+                    <p className="mt-0.5 text-sm text-warm-muted">{t.role}</p>
                   </div>
                 </div>
               </Reveal>
