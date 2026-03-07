@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { CheckCircle2, Mic } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
@@ -167,51 +167,26 @@ export default function Home() {
               {
                 title: "Height Memory",
                 desc: "四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松。",
-                visual: (
-                  <div className="flex h-full flex-col items-center justify-center rounded-lg bg-warm-gray/40 px-6 py-8">
-                    <span className="text-[10px] font-medium uppercase tracking-widest text-warm-stone">
-                      Height
-                    </span>
-                    <p className="mt-2 font-mono text-3xl font-light tabular-nums text-foreground">
-                      72<span className="text-accent">.</span>5
-                    </p>
-                    <p className="text-xs text-warm-muted">cm</p>
-                    <div className="mt-4 flex gap-1.5" aria-hidden>
-                      {[1, 2, 3, 4].map((i) => (
-                        <span
-                          key={i}
-                          className={`h-1.5 w-6 rounded-full ${i === 1 ? "bg-accent" : "bg-warm-gray/50"}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ),
+                img: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=800",
+                imgAlt: "升降桌办公场景",
               },
               {
                 title: "Voice Control",
                 desc: "接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节。",
-                visual: (
-                  <div className="flex h-full flex-col items-center justify-center rounded-lg bg-warm-gray/40 px-6 py-8">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-warm-gray/50">
-                      <Mic className="h-7 w-7 text-foreground/60" strokeWidth={1.25} />
-                    </div>
-                    <div className="mt-4 flex items-end gap-1 animate-pulse" aria-hidden>
-                      {[0.4, 0.65, 0.9, 0.55, 0.7].map((h, i) => (
-                        <span
-                          key={i}
-                          className="w-1 rounded-full bg-accent/50"
-                          style={{ height: `${h * 20}px` }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ),
+                img: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800",
+                imgAlt: "智能办公桌面",
               },
             ].map((item, i) => (
               <Reveal key={item.title} delay={i === 0 ? 0 : 1}>
                 <div className="rounded-xl border border-warm-gray/60 bg-warm-cream/50 p-6">
                   <div className="relative aspect-video overflow-hidden rounded-lg bg-warm-gray/60">
-                    {item.visual}
+                    <Image
+                      src={item.img}
+                      alt={item.imgAlt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                   </div>
                   <h3 className="mt-5 text-lg font-semibold text-foreground">{item.title}</h3>
                   <p className="mt-2 text-body text-warm-muted">{item.desc}</p>
