@@ -148,7 +148,7 @@ export default function TestimonialsSection({ items }: { items: TestimonialItem[
                       i % 2 === 1 ? "md:flex-row-reverse md:hover:shadow-[inset_-4px_0_0_0_rgba(91,107,122,0.35)]" : ""
                     }`}
                   >
-                    <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/30 transition-transform duration-300 group-hover:shadow-md md:h-28 md:w-44">
+                    <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/20 transition-transform duration-300 group-hover:shadow-md md:h-28 md:w-44">
                       <Image
                         src={t.image}
                         alt={t.imageAlt}

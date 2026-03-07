@@ -104,7 +104,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     countryCode: "CN",
     scene: "书房",
     quote: "学生和老师都能用，高度范围够大。",
-    image: "https://images.unsplash.com/photo-1507925921952-c4e2579030c0?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600",
     imageAlt: "书房场景",
     productModel: "Desk Pro",
     purchaseDate: "2023年11月",

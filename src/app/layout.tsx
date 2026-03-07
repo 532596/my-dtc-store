@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
+import FloatingActionButton from "@/components/FloatingActionButton";
 import { UserCountryProvider } from "@/contexts/UserCountryContext";
 import "./globals.css";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           {children}
           <NewsletterSection />
           <Footer />
+          <FloatingActionButton />
         </UserCountryProvider>
       </body>
     </html>
