@@ -297,6 +297,8 @@ export default function Home() {
                 quote: "Finally no more lower back pain after long workdays.",
                 image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600",
                 imageAlt: "升降桌办公场景",
+                productModel: "Model B",
+                purchaseDate: "2024年3月",
               },
               {
                 name: "Michael T.",
@@ -304,6 +306,8 @@ export default function Home() {
                 quote: "Quiet enough for late-night coding.",
                 image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600",
                 imageAlt: "桌面与显示器使用",
+                productModel: "Model B",
+                purchaseDate: "2024年1月",
               },
               {
                 name: "Emma L.",
@@ -311,13 +315,17 @@ export default function Home() {
                 quote: "One desk for homework and my meetings.",
                 image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=600",
                 imageAlt: "家用办公桌场景",
+                productModel: "Desk Pro",
+                purchaseDate: "2024年5月",
               },
               {
                 name: "James K.",
                 role: "Product Manager",
                 quote: "TÜV and 5-year motor warranty sold me.",
-                image: "https://images.unsplash.com/photo-1527689368865-37c2d6f736e0?q=80&w=600",
+                image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600",
                 imageAlt: "桌面产品使用",
+                productModel: "Model C",
+                purchaseDate: "2024年2月",
               },
             ].map((t, i) => (
               <div key={t.name}>
@@ -351,6 +359,9 @@ export default function Home() {
                         <span className="text-xs text-warm-muted">Verified Buyer</span>
                       </div>
                       <p className="mt-0.5 text-xs text-warm-muted">{t.role}</p>
+                      <p className="mt-1.5 text-xs text-warm-stone">
+                        {t.productModel} · 购买于 {t.purchaseDate}
+                      </p>
                     </div>
                   </div>
                 </Reveal>
