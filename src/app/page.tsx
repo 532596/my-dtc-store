@@ -255,10 +255,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-warm-charcoal py-section md:py-section-md">
+      <section className="bg-warm-cream py-section md:py-section-md">
         <div className="mx-auto max-w-content px-6">
           <Reveal>
-            <h2 className="text-center text-3xl font-semibold tracking-tight text-white">
+            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
               智能功能
             </h2>
           </Reveal>
@@ -296,16 +296,16 @@ export default function Home() {
           </div>
           <div className="mt-14 flex flex-wrap items-center justify-center gap-10 text-center">
             <div>
-              <p className="text-2xl font-semibold text-white">4 组</p>
-              <p className="mt-1 text-sm text-white/70">高度记忆</p>
+              <p className="text-2xl font-semibold text-foreground">4 组</p>
+              <p className="mt-1 text-sm text-warm-muted">高度记忆</p>
             </div>
             <div>
-              <p className="text-2xl font-semibold text-white">语音</p>
-              <p className="mt-1 text-sm text-white/70">一键调节</p>
+              <p className="text-2xl font-semibold text-foreground">语音</p>
+              <p className="mt-1 text-sm text-warm-muted">一键调节</p>
             </div>
             <div>
-              <p className="text-2xl font-semibold text-white">毫米级</p>
-              <p className="mt-1 text-sm text-white/70">精确升降</p>
+              <p className="text-2xl font-semibold text-foreground">毫米级</p>
+              <p className="mt-1 text-sm text-warm-muted">精确升降</p>
             </div>
           </div>
           <div className="mt-12 text-center">
@@ -319,10 +319,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-warm-charcoal py-section md:py-section-md">
+      <section className="bg-warm-white py-section md:py-section-md">
         <div className="mx-auto max-w-content px-6">
           <Reveal>
-            <h2 className="text-center text-3xl font-semibold tracking-tight text-white">
+            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
               Adjust to Your Life
             </h2>
           </Reveal>
@@ -345,16 +345,16 @@ export default function Home() {
           </div>
           <div className="mt-14 flex flex-wrap items-center justify-center gap-10 text-center">
             <div>
-              <p className="text-2xl font-semibold text-white">24&quot; - 47&quot;</p>
-              <p className="mt-1 text-sm text-white/70">Height Range</p>
+              <p className="text-2xl font-semibold text-foreground">24&quot; - 47&quot;</p>
+              <p className="mt-1 text-sm text-warm-muted">Height Range</p>
             </div>
             <div>
-              <p className="text-2xl font-semibold text-white">220 lbs</p>
-              <p className="mt-1 text-sm text-white/70">Load Capacity</p>
+              <p className="text-2xl font-semibold text-foreground">220 lbs</p>
+              <p className="mt-1 text-sm text-warm-muted">Load Capacity</p>
             </div>
             <div>
-              <p className="text-2xl font-semibold text-white">&lt; 45 dB</p>
-              <p className="mt-1 text-sm text-white/70">Noise Level</p>
+              <p className="text-2xl font-semibold text-foreground">&lt; 45 dB</p>
+              <p className="mt-1 text-sm text-warm-muted">Noise Level</p>
             </div>
           </div>
           <div className="mt-12 text-center">
