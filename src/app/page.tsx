@@ -270,38 +270,67 @@ export default function Home() {
               智能功能
             </h2>
           </Reveal>
-          <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2">
-            {[
-              {
-                title: "Height Memory",
-                desc: "四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松。",
-                img: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=800",
-                imgAlt: "升降桌办公场景",
-              },
-              {
-                title: "Voice Control",
-                desc: "接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节。",
-                img: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800",
-                imgAlt: "智能办公桌面",
-              },
-            ].map((item, i) => (
-              <Reveal key={item.title} delay={i === 0 ? 0 : 1}>
-                <div className="rounded-xl border border-warm-gray/60 bg-warm-cream/50 p-6">
-                  <div className="relative aspect-video overflow-hidden rounded-lg bg-warm-gray/60">
-                    <Image
-                      src={item.img}
-                      alt={item.imgAlt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+
+          {/* 上下排列：高度记忆 = 动图左 / 文字右 */}
+          <Reveal delay={0}>
+            <div className="mt-16 flex flex-col gap-8 rounded-xl border border-warm-gray/60 bg-warm-cream/50 p-6 md:gap-12 md:p-8">
+              <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+                <div className="relative w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/60 md:w-[48%]">
+                  <div className="relative aspect-video">
+                    <video
+                      src="/videos/height-memory.mp4"
+                      poster="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=800"
+                      className="h-full w-full object-cover"
+                      playsInline
+                      muted
+                      loop
+                      autoPlay
+                      aria-label="高度记忆演示"
                     />
                   </div>
-                  <h3 className="mt-5 text-lg font-semibold text-foreground">{item.title}</h3>
-                  <p className="mt-2 text-body text-warm-muted">{item.desc}</p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+                <div className="flex flex-col justify-center md:w-[52%]">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+                    Height Memory
+                  </h3>
+                  <p className="mt-3 text-body text-warm-muted">
+                    四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* 语音控制 = 文字左 / 动图右（移动端为动图上、文字下） */}
+          <Reveal delay={1}>
+            <div className="mt-10 flex flex-col gap-8 rounded-xl border border-warm-gray/60 bg-warm-cream/50 p-6 md:mt-14 md:gap-12 md:p-8">
+              <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+                <div className="relative order-1 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/60 md:order-2 md:w-[52%]">
+                  <div className="relative aspect-video">
+                    <video
+                      src="/videos/voice-control.mp4"
+                      poster="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800"
+                      className="h-full w-full object-cover"
+                      playsInline
+                      muted
+                      loop
+                      autoPlay
+                      aria-label="语音控制演示"
+                    />
+                  </div>
+                </div>
+                <div className="order-2 flex flex-col justify-center md:order-1 md:w-[48%]">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+                    Voice Control
+                  </h3>
+                  <p className="mt-3 text-body text-warm-muted">
+                    接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
           <div className="mt-14 flex flex-wrap items-center justify-center gap-10 text-center">
             <div>
               <p className="text-2xl font-semibold text-foreground">4 组</p>
