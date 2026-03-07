@@ -155,87 +155,92 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-gradient-to-b from-warm-cream to-warm-white py-section md:py-section-md">
-        <div className="relative mx-auto max-w-content px-6">
+      <section className="bg-warm-cream py-section md:py-section-md">
+        <div className="mx-auto max-w-content px-6">
           <Reveal>
-            <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-warm-stone">
-              Smart Functions
-            </p>
-            <h2 className="mt-2 text-center text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-              精确到毫米，一键一语即达
+            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
+              智能功能
             </h2>
           </Reveal>
-
-          {/* 高度记忆：极简数字 + 预设指示，左视觉右文案 */}
-          <Reveal delay={0}>
-            <div className="mt-20 flex flex-col items-center gap-12 md:flex-row md:items-stretch md:gap-20">
-              <div className="flex w-full flex-col items-center justify-center md:w-[44%]">
-                <div className="flex flex-col items-center rounded-3xl bg-foreground/[0.02] px-12 py-16 ring-1 ring-warm-gray/50 transition-all duration-500 hover:ring-accent/20 md:px-16 md:py-20">
-                  <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-warm-stone">
-                    Height
-                  </span>
-                  <p className="mt-4 font-mono text-5xl font-light tabular-nums tracking-tight text-foreground md:text-6xl">
-                    72<span className="text-accent">.</span>5
-                  </p>
-                  <p className="mt-1 text-sm text-warm-muted">cm</p>
-                  <div className="mt-8 flex gap-2" aria-hidden>
-                    {[1, 2, 3, 4].map((i) => (
-                      <span
-                        key={i}
-                        className={`h-1.5 w-8 rounded-full transition-colors duration-300 ${
-                          i === 1 ? "bg-accent" : "bg-warm-gray/60"
-                        }`}
-                      />
-                    ))}
+          <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2">
+            {[
+              {
+                title: "Height Memory",
+                desc: "四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松。",
+                visual: (
+                  <div className="flex h-full flex-col items-center justify-center rounded-lg bg-warm-gray/40 px-6 py-8">
+                    <span className="text-[10px] font-medium uppercase tracking-widest text-warm-stone">
+                      Height
+                    </span>
+                    <p className="mt-2 font-mono text-3xl font-light tabular-nums text-foreground">
+                      72<span className="text-accent">.</span>5
+                    </p>
+                    <p className="text-xs text-warm-muted">cm</p>
+                    <div className="mt-4 flex gap-1.5" aria-hidden>
+                      {[1, 2, 3, 4].map((i) => (
+                        <span
+                          key={i}
+                          className={`h-1.5 w-6 rounded-full ${i === 1 ? "bg-accent" : "bg-warm-gray/50"}`}
+                        />
+                      ))}
+                    </div>
                   </div>
+                ),
+              },
+              {
+                title: "Voice Control",
+                desc: "接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节。",
+                visual: (
+                  <div className="flex h-full flex-col items-center justify-center rounded-lg bg-warm-gray/40 px-6 py-8">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-warm-gray/50">
+                      <Mic className="h-7 w-7 text-foreground/60" strokeWidth={1.25} />
+                    </div>
+                    <div className="mt-4 flex items-end gap-1 animate-pulse" aria-hidden>
+                      {[0.4, 0.65, 0.9, 0.55, 0.7].map((h, i) => (
+                        <span
+                          key={i}
+                          className="w-1 rounded-full bg-accent/50"
+                          style={{ height: `${h * 20}px` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ),
+              },
+            ].map((item, i) => (
+              <Reveal key={item.title} delay={i === 0 ? 0 : 1}>
+                <div className="rounded-xl border border-warm-gray/60 bg-warm-cream/50 p-6">
+                  <div className="relative aspect-video overflow-hidden rounded-lg bg-warm-gray/60">
+                    {item.visual}
+                  </div>
+                  <h3 className="mt-5 text-lg font-semibold text-foreground">{item.title}</h3>
+                  <p className="mt-2 text-body text-warm-muted">{item.desc}</p>
                 </div>
-              </div>
-              <div className="flex w-full flex-1 flex-col justify-center md:max-w-[48%]">
-                <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-                  Height Memory
-                </span>
-                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-                  高度记忆，一键到位
-                </h3>
-                <p className="mt-5 text-body leading-relaxed text-warm-muted">
-                  四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松，久坐提醒配合记忆位，让每一天都处在最舒适的高度。
-                </p>
-              </div>
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-10 text-center">
+            <div>
+              <p className="text-2xl font-semibold text-foreground">4 组</p>
+              <p className="mt-1 text-sm text-warm-muted">高度记忆</p>
             </div>
-          </Reveal>
-
-          {/* 语音控制：左文案右极简麦克风与声波 */}
-          <Reveal delay={1}>
-            <div className="mt-24 flex flex-col items-center gap-12 md:flex-row-reverse md:items-stretch md:gap-20">
-              <div className="flex w-full flex-col items-center justify-center md:w-[44%]">
-                <div className="flex flex-col items-center rounded-3xl bg-foreground/[0.02] px-12 py-16 ring-1 ring-warm-gray/50 transition-all duration-500 hover:ring-accent/20 md:px-16 md:py-20">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-warm-gray/50 transition-colors duration-300 hover:bg-accent/10">
-                    <Mic className="h-10 w-10 text-foreground/70" strokeWidth={1.25} />
-                  </div>
-                  <div className="mt-8 flex items-end gap-1 opacity-90 animate-pulse" aria-hidden>
-                    {[0.35, 0.6, 0.9, 0.5, 0.75, 0.45, 0.65].map((h, i) => (
-                      <span
-                        key={i}
-                        className="w-1 rounded-full bg-accent/50 transition-all duration-500"
-                        style={{ height: `${h * 24}px` }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="flex w-full flex-1 flex-col justify-center md:max-w-[48%]">
-                <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-                  Voice Control
-                </span>
-                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-                  语音控制，解放双手
-                </h3>
-                <p className="mt-5 text-body leading-relaxed text-warm-muted">
-                  接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节，智能家居联动，让升降桌真正「听得懂」你。
-                </p>
-              </div>
+            <div>
+              <p className="text-2xl font-semibold text-foreground">语音</p>
+              <p className="mt-1 text-sm text-warm-muted">一键调节</p>
             </div>
-          </Reveal>
+            <div>
+              <p className="text-2xl font-semibold text-foreground">毫米级</p>
+              <p className="mt-1 text-sm text-warm-muted">精确升降</p>
+            </div>
+          </div>
+          <div className="mt-12 text-center">
+            <Link
+              href="/guide"
+              className="inline-block rounded-xl bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+            >
+              了解智能功能 →
+            </Link>
+          </div>
         </div>
       </section>
 
