@@ -2,55 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
-type CartItem = {
-  id: string;
-  name: string;
-  desc: string;
-  price: number;
-  quantity: number;
-  image: string;
-};
-
-/** 购物车商品：默认空，后续可接入 localStorage 或全局状态 */
-const CART_ITEMS: CartItem[] = [];
+import { useCart } from "@/contexts/CartContext";
 
 export default function CartContent() {
-  const items = CART_ITEMS;
-  const isEmpty = items.length === 0;
+  const { items } = useCart();
   const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
   const shipping: number = 0;
   const total = subtotal + shipping;
-
-  if (isEmpty) {
-    return (
-      <main className="min-h-screen bg-warm-cream">
-        <div className="mx-auto max-w-content px-6 py-section">
-          <nav className="text-sm text-warm-muted" aria-label="面包屑">
-            <Link href="/" className="hover:text-foreground">首页</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">购物车</span>
-          </nav>
-          <h1 className="mt-4 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-            购物车
-          </h1>
-          <p className="mt-6 text-body text-warm-muted">您的购物车是空的。</p>
-          <p className="mt-2 text-sm text-warm-muted">前往产品页挑选心仪的升降桌，加入购物车后再来结算。</p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/series" className="btn-primary inline-block px-8 py-3.5">
-              去选购
-            </Link>
-            <Link
-              href="/guide"
-              className="inline-block rounded-xl border border-warm-gray/60 bg-warm-white px-8 py-3.5 text-sm font-medium text-foreground hover:bg-warm-cream/80"
-            >
-              了解产品
-            </Link>
-          </div>
-        </div>
-      </main>
-    );
-  }
 
   return (
     <main className="min-h-screen bg-warm-cream">
@@ -250,32 +208,40 @@ export default function CartContent() {
               </div>
 
               <div className="mt-6 max-h-[280px] space-y-4 overflow-y-auto">
-                {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex gap-4 border-b border-warm-gray/40 pb-4 last:border-0 last:pb-0"
-                  >
-                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-warm-gray/40">
-                      <Image
-                        src={item.image}
-                        alt=""
-                        fill
-                        className="object-cover"
-                        sizes="80px"
-                      />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-foreground">{item.name}</p>
-                      <p className="mt-0.5 text-xs text-warm-muted">{item.desc}</p>
-                      <p className="mt-1 text-sm text-foreground">
-                        ¥{item.price.toLocaleString()} × {item.quantity}
+                {items.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-8 text-center">
+                    <p className="text-sm text-warm-muted">暂无商品</p>
+                    <p className="mt-1 text-xs text-warm-muted">前往产品页添加升降桌后再结算</p>
+                    <Link href="/series" className="mt-3 text-sm font-medium text-accent hover:underline">去选购</Link>
+                  </div>
+                ) : (
+                  items.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex gap-4 border-b border-warm-gray/40 pb-4 last:border-0 last:pb-0"
+                    >
+                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-warm-gray/40">
+                        <Image
+                          src={item.image}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="80px"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium text-foreground">{item.name}</p>
+                        <p className="mt-0.5 text-xs text-warm-muted">{item.desc}</p>
+                        <p className="mt-1 text-sm text-foreground">
+                          ¥{item.price.toLocaleString()} × {item.quantity}
+                        </p>
+                      </div>
+                      <p className="shrink-0 text-sm font-medium text-foreground">
+                        ¥{(item.price * item.quantity).toLocaleString()}
                       </p>
                     </div>
-                    <p className="shrink-0 text-sm font-medium text-foreground">
-                      ¥{(item.price * item.quantity).toLocaleString()}
-                    </p>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
 
               <div className="mt-6 border-t border-warm-gray/40 pt-4">

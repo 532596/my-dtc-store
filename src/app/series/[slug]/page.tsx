@@ -2,11 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "@/components/Reveal";
+import AddToCartButton from "@/components/AddToCartButton";
 
-const PRODUCTS: Record<string, { name: string; desc: string; specs: string[] }> = {
-  "model-a": { name: "Model A", desc: "Compact, quiet lift. Ideal for small spaces.", specs: ["24-43 in", "176 lbs", "Single motor"] },
-  "model-b": { name: "Model B", desc: "Fits 150-190cm. Smart control. Recommended.", specs: ["24-47 in", "220 lbs", "Dual motor", "Smart"] },
-  "model-c": { name: "Model C", desc: "Full-featured. TUV certified.", specs: ["24-50 in", "265 lbs", "Dual motor", "Smart"] },
+const PRODUCTS: Record<string, { name: string; desc: string; specs: string[]; price: number }> = {
+  "model-a": { name: "Model A", desc: "Compact, quiet lift. Ideal for small spaces.", specs: ["24-43 in", "176 lbs", "Single motor"], price: 2999 },
+  "model-b": { name: "Model B", desc: "Fits 150-190cm. Smart control. Recommended.", specs: ["24-47 in", "220 lbs", "Dual motor", "Smart"], price: 3999 },
+  "model-c": { name: "Model C", desc: "Full-featured. TUV certified.", specs: ["24-50 in", "265 lbs", "Dual motor", "Smart"], price: 4999 },
 };
 
 export default function ProductPage(props: { params: { slug: string } }) {
@@ -32,7 +33,13 @@ export default function ProductPage(props: { params: { slug: string } }) {
                 ))}
               </ul>
               <div className="mt-10 flex gap-4">
-                <Link href="/cart" className="btn-primary inline-block px-8 py-3.5">Add to Cart</Link>
+                <AddToCartButton
+                  slug={props.params.slug}
+                  name={product.name}
+                  desc={product.desc}
+                  price={product.price}
+                  image={`/images/${props.params.slug}.jpg`}
+                />
                 <Link href="/series#compare" className="rounded-xl border border-warm-gray px-8 py-3.5 text-sm font-medium text-foreground hover:bg-warm-cream">Compare</Link>
               </div>
             </Reveal>

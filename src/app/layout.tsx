@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import { UserCountryProvider } from "@/contexts/UserCountryContext";
+import { CartProvider } from "@/contexts/CartContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -26,11 +27,13 @@ export default function RootLayout({
     <html lang="zh-CN" className={inter.variable}>
       <body className="min-h-screen bg-warm-white font-sans antialiased text-foreground">
         <UserCountryProvider>
-          <Header />
-          {children}
+          <CartProvider>
+            <Header />
+            {children}
           <NewsletterSection />
           <Footer />
           <FloatingActionButton />
+          </CartProvider>
         </UserCountryProvider>
       </body>
     </html>
