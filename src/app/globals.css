@@ -33,13 +33,13 @@ body {
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 
-/* 主按钮：苹果风科技渐变，符合网站色系略更鲜艳 */
+/* 主按钮：亮一些的灰青渐变，带一点霓虹感，仍贴合网站调性 */
 @layer components {
   .btn-primary {
-    background-image: linear-gradient(135deg, #6b92a3 0%, #5b6b7a 50%, #4a6578 100%);
+    background-image: linear-gradient(135deg, #88b8cc 0%, #72a4b8 50%, #5e94a8 100%);
     @apply rounded-xl text-sm font-medium text-white transition-all duration-200;
   }
   .btn-primary:hover:not(:disabled) {
-    background-image: linear-gradient(135deg, #5a8090 0%, #4a5568 100%);
+    background-image: linear-gradient(135deg, #78b0c4 0%, #6298ac 100%);
   }
 }
