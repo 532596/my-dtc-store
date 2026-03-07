@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 // @ts-ignore: IDE 在解析 @types/react 时误报「not a module」，实际编译通过
 import * as React from "react";
+import { useUserCountry, countryCodeToFlag } from "@/contexts/UserCountryContext";
 
 const NAV = [
   { href: "/", label: "Home" as const },
@@ -15,6 +16,7 @@ const NAV = [
 
 export default function Header() {
   const pathname = usePathname();
+  const { countryCode, isLoading } = useUserCountry();
   const [accountOpen, setAccountOpen] = React.useState<boolean>(false);
   const [productsOpen, setProductsOpen] = React.useState<boolean>(false);
   const [solutionsOpen, setSolutionsOpen] = React.useState<boolean>(false);
@@ -310,6 +312,22 @@ export default function Header() {
             </svg>
             <span className="text-xs">Cart</span>
           </Link>
+
+          {/* 根据 IP 显示所在国家/地区（国旗 + 代码），便于评价按远近排序 */}
+          {!isLoading && countryCode && (
+            <div
+              className="flex flex-col items-center gap-0.5 rounded-lg border border-warm-gray/40 px-2 py-1.5 text-warm-muted"
+              title={`当前地区：${countryCode}`}
+              aria-label={`当前地区 ${countryCode}`}
+            >
+              <span className="text-base leading-none" aria-hidden>
+                {countryCodeToFlag(countryCode)}
+              </span>
+              <span className="text-[11px] font-medium uppercase tracking-wide text-foreground">
+                {countryCode}
+              </span>
+            </div>
+          )}
 
           {/* 移动端：账号入口简化为图标，进入独立页面 */}
           <Link

@@ -4,11 +4,14 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { CheckCircle2, ChevronDown, ChevronUp } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import { useUserCountry } from "@/contexts/UserCountryContext";
 
 export type TestimonialItem = {
   name: string;
   role: string;
   region: string;
+  /** 国家/地区代码，用于按用户所在位置远近排序（同国家优先） */
+  countryCode?: string;
   quote: string;
   image: string;
   imageAlt: string;
@@ -25,19 +28,35 @@ function parseDateKey(purchaseDate: string): number {
 }
 
 export default function TestimonialsSection({ items }: { items: TestimonialItem[] }) {
-  const [timeSort, setTimeSort] = useState<"desc" | "asc" | "">("desc");
+  const { countryCode: userCountryCode } = useUserCountry();
+  const [timeSort, setTimeSort] = useState<"desc" | "asc" | "">("");
   const [lengthSort, setLengthSort] = useState<"desc" | "asc" | "">("");
+  const [distanceSort, setDistanceSort] = useState<boolean>(true);
   const [expanded, setExpanded] = useState(false);
 
   const sorted = useMemo(() => {
     const arr = [...items];
-    if (timeSort === "desc") arr.sort((a, b) => parseDateKey(b.purchaseDate) - parseDateKey(a.purchaseDate));
-    if (timeSort === "asc") arr.sort((a, b) => parseDateKey(a.purchaseDate) - parseDateKey(b.purchaseDate));
-    if (lengthSort === "desc") arr.sort((a, b) => b.quote.length - a.quote.length);
-    if (lengthSort === "asc") arr.sort((a, b) => a.quote.length - b.quote.length);
-    if (!timeSort && !lengthSort) arr.sort((a, b) => parseDateKey(b.purchaseDate) - parseDateKey(a.purchaseDate));
+    // 按距离：同国家/地区优先，再按时间从近到远
+    if (distanceSort && userCountryCode) {
+      arr.sort((a, b) => {
+        const aSame = a.countryCode?.toUpperCase() === userCountryCode ? 1 : 0;
+        const bSame = b.countryCode?.toUpperCase() === userCountryCode ? 1 : 0;
+        if (bSame !== aSame) return bSame - aSame;
+        return parseDateKey(b.purchaseDate) - parseDateKey(a.purchaseDate);
+      });
+    } else if (timeSort === "desc") {
+      arr.sort((a, b) => parseDateKey(b.purchaseDate) - parseDateKey(a.purchaseDate));
+    } else if (timeSort === "asc") {
+      arr.sort((a, b) => parseDateKey(a.purchaseDate) - parseDateKey(b.purchaseDate));
+    } else if (lengthSort === "desc") {
+      arr.sort((a, b) => b.quote.length - a.quote.length);
+    } else if (lengthSort === "asc") {
+      arr.sort((a, b) => a.quote.length - b.quote.length);
+    } else {
+      arr.sort((a, b) => parseDateKey(b.purchaseDate) - parseDateKey(a.purchaseDate));
+    }
     return arr;
-  }, [items, timeSort, lengthSort]);
+  }, [items, timeSort, lengthSort, distanceSort, userCountryCode]);
 
   const initialCount = 4;
   const visible = expanded ? sorted : sorted.slice(0, initialCount);
@@ -54,6 +73,27 @@ export default function TestimonialsSection({ items }: { items: TestimonialItem[
 
         <div className="mx-auto mt-10 max-w-5xl md:mt-14">
           <div className="mb-6 flex flex-wrap items-center justify-center gap-4">
+            {userCountryCode && (
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-warm-muted">按距离：</span>
+                <select
+                  value={distanceSort ? "near" : ""}
+                  onChange={(e) => {
+                    const on = e.target.value === "near";
+                    setDistanceSort(on);
+                    if (on) {
+                      setTimeSort("");
+                      setLengthSort("");
+                    }
+                  }}
+                  className="rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                  aria-label="按距离排序"
+                >
+                  <option value="">—</option>
+                  <option value="near">同国家/地区优先</option>
+                </select>
+              </div>
+            )}
             <div className="flex items-center gap-2">
               <span className="text-sm text-warm-muted">按时间：</span>
               <select
@@ -62,6 +102,7 @@ export default function TestimonialsSection({ items }: { items: TestimonialItem[
                   const v = e.target.value as "desc" | "asc" | "";
                   setTimeSort(v);
                   if (v) setLengthSort("");
+                  if (v) setDistanceSort(false);
                 }}
                 className="rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                 aria-label="按时间排序"
@@ -79,6 +120,7 @@ export default function TestimonialsSection({ items }: { items: TestimonialItem[
                   const v = e.target.value as "desc" | "asc" | "";
                   setLengthSort(v);
                   if (v) setTimeSort("");
+                  if (v) setDistanceSort(false);
                 }}
                 className="rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                 aria-label="按字数排序"

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
+import { UserCountryProvider } from "@/contexts/UserCountryContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,10 +24,12 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={inter.variable}>
       <body className="min-h-screen bg-warm-white font-sans antialiased text-foreground">
-        <Header />
-        {children}
-        <NewsletterSection />
-        <Footer />
+        <UserCountryProvider>
+          <Header />
+          {children}
+          <NewsletterSection />
+          <Footer />
+        </UserCountryProvider>
       </body>
     </html>
   );
