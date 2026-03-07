@@ -36,7 +36,7 @@ export default function NewsletterSection() {
             留下邮箱，第一时间了解新品、专属折扣与健康办公小贴士。
           </p>
           <form onSubmit={handleSubmit} className="mt-8">
-            <div className="mx-auto flex max-w-2xl flex-col gap-3 sm:flex-row sm:items-stretch">
+            <div className="mx-auto flex max-w-3xl flex-col gap-3 sm:flex-row sm:items-stretch">
               <label htmlFor="newsletter-email" className="sr-only">
                 邮箱地址
               </label>
@@ -47,14 +47,14 @@ export default function NewsletterSection() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="请输入您的邮箱"
                 disabled={status === "loading"}
-                className="min-w-0 flex-1 rounded-xl border border-warm-gray/60 bg-warm-white px-4 py-3.5 text-foreground placeholder:text-warm-stone focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:opacity-60"
+                className="min-w-0 flex-1 rounded-xl border border-warm-gray/60 bg-warm-white px-4 py-2.5 text-foreground placeholder:text-warm-stone focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:opacity-60"
                 aria-invalid={status === "error"}
                 aria-describedby={status === "error" ? "newsletter-error" : undefined}
               />
               <button
                 type="submit"
                 disabled={status === "loading" || !email.trim()}
-                className="shrink-0 rounded-xl bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
+                className="btn-primary shrink-0 px-8 py-2.5 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {status === "loading" ? "提交中…" : status === "success" ? "已订阅" : "订阅"}
               </button>

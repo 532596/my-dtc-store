@@ -311,7 +311,7 @@ export default function Home() {
           <div className="mt-12 text-center">
             <Link
               href="/guide"
-              className="inline-block rounded-xl bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+              className="btn-primary inline-block px-8 py-3.5"
             >
               了解智能功能 →
             </Link>
@@ -358,7 +358,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-12 text-center">
-            <Link href="/series#compare" className="inline-block rounded-xl bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover">
+            <Link href="/series#compare" className="btn-primary inline-block px-8 py-3.5">
               Compare Now →
             </Link>
           </div>
@@ -430,7 +430,7 @@ export default function Home() {
             </p>
             <Link
               href="/series"
-              className="mt-10 inline-block rounded-xl bg-accent px-10 py-4 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+              className="btn-primary mt-10 inline-block px-10 py-4"
             >
               前往选购
             </Link>

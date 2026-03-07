@@ -32,7 +32,7 @@ export default function ProductPage(props: { params: { slug: string } }) {
                 ))}
               </ul>
               <div className="mt-10 flex gap-4">
-                <Link href="/cart" className="rounded-xl bg-accent px-8 py-3.5 text-sm font-medium text-white hover:bg-accent-hover">Add to Cart</Link>
+                <Link href="/cart" className="btn-primary inline-block px-8 py-3.5">Add to Cart</Link>
                 <Link href="/series#compare" className="rounded-xl border border-warm-gray px-8 py-3.5 text-sm font-medium text-foreground hover:bg-warm-cream">Compare</Link>
               </div>
             </Reveal>

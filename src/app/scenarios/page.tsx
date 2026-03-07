@@ -26,7 +26,7 @@ export default function ScenariosPage() {
                 <div className="p-8">
                   <h2 className="text-xl font-semibold text-foreground">{s.title}</h2>
                   <p className="mt-3 text-body text-warm-muted">{s.desc}</p>
-                  <Link href={s.href} className="mt-6 inline-block rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover">See products</Link>
+                  <Link href={s.href} className="btn-primary mt-6 inline-block px-5 py-2.5">See products</Link>
                 </div>
               </div>
             </Reveal>

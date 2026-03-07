@@ -98,7 +98,7 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
               href="/series"
-              className="inline-flex items-center justify-center rounded-xl bg-accent px-7 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+              className="btn-primary inline-flex items-center justify-center px-7 py-3"
             >
               Shop Now
             </Link>

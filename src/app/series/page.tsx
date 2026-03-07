@@ -35,7 +35,7 @@ export default function SeriesPage() {
                       <td className="p-4 font-medium text-foreground">{p.name}</td>
                       <td className="p-4 text-warm-muted">{p.desc}</td>
                       <td className="p-4">
-                        <Link href={"/series/" + p.slug} className="rounded-xl bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover">View</Link>
+                        <Link href={"/series/" + p.slug} className="btn-primary inline-block px-4 py-2">View</Link>
                       </td>
                     </tr>
                   ))}

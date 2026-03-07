@@ -81,7 +81,7 @@ export default function AccountPage() {
                 </label>
                 <button
                   type="button"
-                  className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-xl bg-accent text-sm font-medium text-white transition hover:bg-accent-hover"
+                  className="btn-primary mt-2 inline-flex h-10 w-full items-center justify-center"
                 >
                   创建账户
                 </button>

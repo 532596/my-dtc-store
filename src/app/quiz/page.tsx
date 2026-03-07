@@ -45,7 +45,7 @@ export default function QuizPage() {
         ) : (
           <div className="mt-12 rounded-xl border border-warm-gray/60 bg-warm-cream/30 p-8">
             <p className="text-body text-foreground">根据您的选择，推荐 Model B。</p>
-            <Link href="/series/model-b" className="mt-6 inline-block rounded-xl bg-accent px-6 py-3 text-sm font-medium text-white hover:bg-accent-hover">
+            <Link href="/series/model-b" className="btn-primary mt-6 inline-block px-6 py-3">
               查看推荐
             </Link>
           </div>

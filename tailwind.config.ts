@@ -46,6 +46,12 @@ const config: Config = {
         "fade-in": "fadeIn 0.6s ease-out forwards",
         "fade-in-up": "fadeInUp 0.6s ease-out forwards",
       },
+      backgroundImage: {
+        "accent-gradient":
+          "linear-gradient(135deg, #6b92a3 0%, #5b6b7a 50%, #4a6578 100%)",
+        "accent-gradient-hover":
+          "linear-gradient(135deg, #5a8090 0%, #4a5568 100%)",
+      },
       keyframes: {
         fadeIn: {
           "0%": { opacity: "0" },
