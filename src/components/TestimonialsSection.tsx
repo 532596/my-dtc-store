@@ -16,8 +16,6 @@ export type TestimonialItem = {
   purchaseDate: string;
 };
 
-type SortOption = "time-desc" | "time-asc" | "length-desc" | "length-asc";
-
 function parseDateKey(purchaseDate: string): number {
   const m = purchaseDate.match(/(\d+)年(\d+)月/);
   if (!m) return 0;
@@ -27,19 +25,21 @@ function parseDateKey(purchaseDate: string): number {
 }
 
 export default function TestimonialsSection({ items }: { items: TestimonialItem[] }) {
-  const [sortBy, setSortBy] = useState<SortOption>("time-desc");
+  const [timeSort, setTimeSort] = useState<"desc" | "asc" | "">("desc");
+  const [lengthSort, setLengthSort] = useState<"desc" | "asc" | "">("");
   const [expanded, setExpanded] = useState(false);
 
   const sorted = useMemo(() => {
     const arr = [...items];
-    if (sortBy === "time-desc") arr.sort((a, b) => parseDateKey(b.purchaseDate) - parseDateKey(a.purchaseDate));
-    if (sortBy === "time-asc") arr.sort((a, b) => parseDateKey(a.purchaseDate) - parseDateKey(b.purchaseDate));
-    if (sortBy === "length-desc") arr.sort((a, b) => b.quote.length - a.quote.length);
-    if (sortBy === "length-asc") arr.sort((a, b) => a.quote.length - b.quote.length);
+    if (timeSort === "desc") arr.sort((a, b) => parseDateKey(b.purchaseDate) - parseDateKey(a.purchaseDate));
+    if (timeSort === "asc") arr.sort((a, b) => parseDateKey(a.purchaseDate) - parseDateKey(b.purchaseDate));
+    if (lengthSort === "desc") arr.sort((a, b) => b.quote.length - a.quote.length);
+    if (lengthSort === "asc") arr.sort((a, b) => a.quote.length - b.quote.length);
+    if (!timeSort && !lengthSort) arr.sort((a, b) => parseDateKey(b.purchaseDate) - parseDateKey(a.purchaseDate));
     return arr;
-  }, [items, sortBy]);
+  }, [items, timeSort, lengthSort]);
 
-  const initialCount = 2;
+  const initialCount = 4;
   const visible = expanded ? sorted : sorted.slice(0, initialCount);
   const hasMore = sorted.length > initialCount;
 
@@ -53,19 +53,41 @@ export default function TestimonialsSection({ items }: { items: TestimonialItem[
         </Reveal>
 
         <div className="mx-auto mt-10 max-w-5xl md:mt-14">
-          <div className="mb-6 flex flex-wrap items-center justify-center gap-3">
-            <span className="text-sm text-warm-muted">排序：</span>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-              aria-label="评价排序方式"
-            >
-              <option value="time-desc">按时间从近到远</option>
-              <option value="time-asc">按时间从远到近</option>
-              <option value="length-desc">按字数从多到少</option>
-              <option value="length-asc">按字数从少到多</option>
-            </select>
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-warm-muted">按时间：</span>
+              <select
+                value={timeSort}
+                onChange={(e) => {
+                  const v = e.target.value as "desc" | "asc" | "";
+                  setTimeSort(v);
+                  if (v) setLengthSort("");
+                }}
+                className="rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                aria-label="按时间排序"
+              >
+                <option value="">—</option>
+                <option value="desc">从近到远</option>
+                <option value="asc">从远到近</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-warm-muted">按字数：</span>
+              <select
+                value={lengthSort}
+                onChange={(e) => {
+                  const v = e.target.value as "desc" | "asc" | "";
+                  setLengthSort(v);
+                  if (v) setTimeSort("");
+                }}
+                className="rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                aria-label="按字数排序"
+              >
+                <option value="">—</option>
+                <option value="desc">从多到少</option>
+                <option value="asc">从少到多</option>
+              </select>
+            </div>
           </div>
 
           <div className="space-y-0">

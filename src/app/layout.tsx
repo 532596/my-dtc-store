@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import NewsletterSection from "@/components/NewsletterSection";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-warm-white font-sans antialiased text-foreground">
         <Header />
         {children}
+        <NewsletterSection />
         <Footer />
       </body>
     </html>
