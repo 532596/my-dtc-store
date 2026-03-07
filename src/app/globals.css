@@ -37,7 +37,7 @@ body {
 @layer components {
   .btn-primary {
     background-image: linear-gradient(135deg, #88b8cc 0%, #72a4b8 50%, #5e94a8 100%);
-    @apply rounded-xl text-sm font-medium text-white transition-all duration-200;
+    @apply min-w-[11rem] rounded-xl text-sm font-medium text-white transition-all duration-200;
   }
   .btn-primary:hover:not(:disabled) {
     background-image: linear-gradient(135deg, #78b0c4 0%, #6298ac 100%);

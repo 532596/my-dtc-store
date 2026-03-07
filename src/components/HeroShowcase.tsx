@@ -79,9 +79,9 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/10" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
 
-      {/* copy: slightly smaller and pushed to bottom-left */}
-      <div className="relative flex min-h-[85vh] w-full items-end px-5 pb-18 pt-20 md:min-h-[92vh] md:px-8 md:pb-24">
-        <div className="max-w-2xl text-warm-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.6)]">
+      {/* copy: 略向右移，底部偏左 */}
+      <div className="relative flex min-h-[85vh] w-full items-end px-5 pb-18 pt-20 md:min-h-[92vh] md:pl-14 md:pr-8 md:pb-24">
+        <div className="max-w-2xl text-warm-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.6)] md:ml-4">
           <h1 className="text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl lg:leading-[1.06]">
             Work Healthier. Live Smarter.
           </h1>
@@ -95,16 +95,16 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
             </p>
           )}
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-5">
             <Link
               href="/series"
-              className="btn-primary inline-flex items-center justify-center px-7 py-3"
+              className="btn-primary inline-flex min-w-[11rem] items-center justify-center px-10 py-3"
             >
               Shop Now
             </Link>
             <Link
               href="/series#compare"
-              className="inline-flex items-center justify-center rounded-xl border border-white/25 bg-white/10 px-7 py-3 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15"
+              className="inline-flex min-w-[11rem] items-center justify-center rounded-xl border border-white/25 bg-white/10 px-10 py-3 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15"
             >
               Compare
             </Link>
