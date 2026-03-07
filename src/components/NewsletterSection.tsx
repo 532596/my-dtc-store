@@ -28,7 +28,7 @@ export default function NewsletterSection() {
   return (
     <section className="border-t border-warm-gray/50 bg-warm-white py-12 md:py-14">
       <div className="mx-auto max-w-content px-6">
-        <div className="mx-auto max-w-xl text-center">
+        <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
             订阅获取独家优惠与动态
           </h2>
@@ -36,7 +36,7 @@ export default function NewsletterSection() {
             留下邮箱，第一时间了解新品、专属折扣与健康办公小贴士。
           </p>
           <form onSubmit={handleSubmit} className="mt-8">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:justify-center">
+            <div className="mx-auto flex max-w-2xl flex-col gap-3 sm:flex-row sm:items-stretch">
               <label htmlFor="newsletter-email" className="sr-only">
                 邮箱地址
               </label>
@@ -47,7 +47,7 @@ export default function NewsletterSection() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="请输入您的邮箱"
                 disabled={status === "loading"}
-                className="min-w-0 flex-1 rounded-xl border border-warm-gray/60 bg-warm-white px-4 py-3.5 text-foreground placeholder:text-warm-stone focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:opacity-60 sm:max-w-[280px]"
+                className="min-w-0 flex-1 rounded-xl border border-warm-gray/60 bg-warm-white px-4 py-3.5 text-foreground placeholder:text-warm-stone focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:opacity-60"
                 aria-invalid={status === "error"}
                 aria-describedby={status === "error" ? "newsletter-error" : undefined}
               />

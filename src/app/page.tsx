@@ -125,9 +125,21 @@ export default function Home() {
       <HeroShowcase slides={HERO_SLIDES} />
 
       <section className="relative overflow-hidden py-14">
+        {/* 模糊底图：与首屏场景图同风格，颜色做淡 */}
+        <div className="absolute inset-0 -z-20 overflow-hidden" aria-hidden>
+          <Image
+            src="/images/scene-office.jpg"
+            alt=""
+            fill
+            className="object-cover blur-3xl scale-105 opacity-40"
+            sizes="100vw"
+            priority={false}
+          />
+          <div className="absolute inset-0 bg-warm-white/85" aria-hidden />
+        </div>
         {/* 底色渐变：暖色家居感 + 轻微冷色智能感 */}
         <div
-          className="absolute inset-0 bg-gradient-to-br from-warm-cream via-warm-white to-[#ebece8]"
+          className="absolute inset-0 bg-gradient-to-br from-warm-cream/90 via-warm-white/95 to-[#ebebe6]/95"
           aria-hidden
         />
         <div
