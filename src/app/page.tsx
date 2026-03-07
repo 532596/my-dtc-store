@@ -289,7 +289,7 @@ export default function Home() {
               What Our Customers Say
             </h2>
           </Reveal>
-          <div className="mx-auto mt-14 max-w-3xl space-y-0">
+          <div className="mx-auto mt-14 max-w-5xl space-y-0">
             {[
               {
                 name: "Sarah J.",
@@ -322,29 +322,29 @@ export default function Home() {
             ].map((t, i) => (
               <Reveal key={t.name} delay={i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : 3}>
                 <div
-                  className={`flex flex-col gap-5 border-b border-warm-gray/60 py-10 first:pt-10 last:border-b-0 md:flex-row md:items-center md:gap-8 ${
-                    i % 2 === 1 ? "md:flex-row-reverse" : ""
+                  className={`group flex flex-col gap-4 border-b border-warm-gray/60 py-6 transition-all duration-300 first:pt-6 last:border-b-0 hover:bg-warm-cream/50 md:flex-row md:items-center md:gap-10 md:px-6 md:py-5 md:hover:shadow-[inset_4px_0_0_0_rgba(91,107,122,0.35)] ${
+                    i % 2 === 1 ? "md:flex-row-reverse md:hover:shadow-[inset_-4px_0_0_0_rgba(91,107,122,0.35)]" : ""
                   }`}
                 >
-                  <div className="relative h-44 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/30 md:h-40 md:w-48">
+                  <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-lg bg-warm-gray/30 transition-transform duration-300 group-hover:shadow-md md:h-28 md:w-44">
                     <Image
                       src={t.image}
                       alt={t.imageAlt}
                       fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 12rem"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 11rem"
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-lg font-medium text-foreground md:text-xl">
+                    <p className="text-base font-medium text-foreground md:text-lg">
                       &quot;{t.quote}&quot;
                     </p>
-                    <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
                       <span className="font-semibold text-stone-900">{t.name}</span>
                       <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
-                      <span className="text-sm text-warm-muted">Verified Buyer</span>
+                      <span className="text-xs text-warm-muted">Verified Buyer</span>
                     </div>
-                    <p className="mt-0.5 text-sm text-warm-muted">{t.role}</p>
+                    <p className="mt-0.5 text-xs text-warm-muted">{t.role}</p>
                   </div>
                 </div>
               </Reveal>
