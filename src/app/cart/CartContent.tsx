@@ -24,7 +24,7 @@ const PLACEHOLDER_ITEMS = [
 
 export default function CartContent() {
   const subtotal = PLACEHOLDER_ITEMS.reduce((sum, i) => sum + i.price * i.quantity, 0);
-  const shipping = 0;
+  const shipping: number = 0;
   const total = subtotal + shipping;
 
   return (
