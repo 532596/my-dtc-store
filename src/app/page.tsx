@@ -417,6 +417,87 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 健康指南：场景化科普，传递「购买的是健康生活方式」 */}
+      <section className="bg-warm-cream py-section md:py-section-md">
+        <div className="mx-auto max-w-content px-6">
+          <Reveal>
+            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
+              健康指南
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-body text-warm-muted">
+              一张好桌，撑起健康办公。用场景化方式了解坐站交替、人体工学与久坐提醒，让每一天都在最舒适的状态。
+            </p>
+          </Reveal>
+          <Reveal delay={1}>
+            <div className="mx-auto mt-14 max-w-5xl overflow-hidden rounded-2xl border border-warm-gray/40 bg-warm-white shadow-[0_8px_40px_-12px_rgba(0,0,0,0.06)]">
+              <div className="grid grid-cols-1 md:grid-cols-2 md:items-stretch">
+                <div className="flex flex-col justify-center p-8 md:p-10">
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+                    科学设计，为健康加分
+                  </h3>
+                  <p className="mt-3 text-body text-warm-muted">
+                    升降桌专为久坐人群、远程办公与家庭学习设计，注重舒适与可持续使用。
+                  </p>
+                  <ul className="mt-6 space-y-2.5 text-sm text-foreground">
+                    {[
+                      "坐站交替，减少久坐风险",
+                      "人体工学支撑，缓解肩颈腰背压力",
+                      "高度记忆与久坐提醒，养成好习惯",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href="/guide"
+                    className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+                  >
+                    查看健康办公指南
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+                <div className="grid grid-cols-2 gap-4 p-6 md:gap-5 md:p-8">
+                  <div className="flex flex-col">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-warm-gray/40">
+                      <Image
+                        src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600"
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                      />
+                    </div>
+                    <p className="mt-2 text-xs font-medium uppercase tracking-wider text-warm-stone">
+                      站立办公
+                    </p>
+                    <p className="mt-0.5 text-xs text-warm-muted">坐站交替，减轻久坐负担</p>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-warm-gray/40">
+                      <Image
+                        src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600"
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                      />
+                    </div>
+                    <p className="mt-2 text-xs font-medium uppercase tracking-wider text-warm-stone">
+                      坐姿办公
+                    </p>
+                    <p className="mt-0.5 text-xs text-warm-muted">一键记忆，找回舒适高度</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <TestimonialsSection items={TESTIMONIALS} />
 
       <section className="bg-warm-cream py-section md:py-section-md">
