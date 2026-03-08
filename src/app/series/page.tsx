@@ -112,7 +112,7 @@ export default function SeriesPage() {
           {PRODUCTS.map((p, i) => {
             const saving = p.comparePrice && p.comparePrice > p.price ? p.comparePrice - p.price : 0;
             return (
-              <Reveal key={p.slug} delay={i * 0.1}>
+              <Reveal key={p.slug} delay={i === 0 ? 0 : i === 1 ? 1 : 2}>
                 <Link
                   href={`/series/${p.slug}`}
                   className={`group flex flex-col overflow-hidden rounded-2xl border transition hover:shadow-lg ${
