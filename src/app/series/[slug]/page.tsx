@@ -103,18 +103,18 @@ export default function ProductPage(props: { params: { slug: string } }) {
       : 0;
 
   return (
-    <main className="min-h-screen bg-[#1c1c1e]">
-      <div className="grid grid-cols-1 lg:grid-cols-[7fr_3fr]">
-        {/* 左侧：主图区（深色）约 70%，与 P1 一致 */}
-        <div className="flex flex-col bg-gradient-to-b from-[#2c2c2e] to-[#1c1c1e] p-6 md:p-8 lg:p-10">
-          <div className="w-full max-w-4xl">
+    <main className="min-h-screen bg-[#1c1c1e] lg:h-screen lg:overflow-hidden">
+      <div className="grid min-h-screen grid-cols-1 lg:h-full lg:grid-cols-[7fr_3fr] lg:min-h-0">
+        {/* 左侧：主图区填满，无下方空白 */}
+        <div className="flex flex-col bg-gradient-to-b from-[#2c2c2e] to-[#1c1c1e] p-6 md:p-8 lg:h-full lg:min-h-0 lg:p-10">
+          <div className="w-full max-w-4xl lg:flex lg:h-full lg:flex-col lg:min-h-0">
             <ProductImageGallery images={images} alt={product.name} />
           </div>
         </div>
 
-        {/* 右侧：信息侧栏（白色），与整页共用一条滚动条 */}
-        <div className="flex flex-col bg-warm-white">
-          <div className="flex flex-1 flex-col p-6 md:p-8">
+        {/* 右侧：信息侧栏独立上下滑动，横向不超出（抽屉式收齐） */}
+        <div className="flex min-w-0 flex-col overflow-hidden bg-warm-white lg:h-screen">
+          <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden break-words p-6 md:p-8">
             {/* 面包屑 */}
             <nav className="text-sm text-warm-muted">
               <Link href="/series" className="hover:text-foreground">

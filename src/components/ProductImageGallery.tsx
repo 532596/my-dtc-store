@@ -17,9 +17,9 @@ export default function ProductImageGallery({ images, alt }: Props) {
   const goNext = () => setCurrent((i) => (i + 1) % list.length);
 
   return (
-    <div className="relative flex flex-col">
-      {/* 主图区域 - 深色背景 */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#2c2c2e]">
+    <div className="relative flex flex-1 flex-col min-h-0 w-full lg:min-h-0">
+      {/* 主图区域：移动端固定比例，桌面端填满剩余高度 */}
+      <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-xl bg-[#2c2c2e] lg:aspect-auto lg:min-h-0 lg:flex-1">
         <Image
           src={currentImage}
           alt={alt}
@@ -58,7 +58,7 @@ export default function ProductImageGallery({ images, alt }: Props) {
         </div>
       </div>
       {/* 缩略图列表 */}
-      <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+      <div className="mt-4 flex shrink-0 gap-2 overflow-x-auto pb-1">
         {list.map((src, i) => (
           <button
             key={`${src}-${i}`}
