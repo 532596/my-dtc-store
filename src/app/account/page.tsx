@@ -115,7 +115,7 @@ export default function AccountPage() {
               </form>
               <div className="mt-4 border-t border-warm-gray/40 pt-4 text-xs text-warm-muted">
                 已有账户？{" "}
-                <Link href="/account" className="font-medium text-accent hover:underline">
+                <Link href="/account/login" className="font-medium text-accent hover:underline">
                   立即登录
                 </Link>
               </div>
