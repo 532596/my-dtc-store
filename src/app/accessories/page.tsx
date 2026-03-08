@@ -53,7 +53,7 @@ function SpecChip({ label, value }: { label: string; value: string }) {
 export default function AccessoriesPage() {
   return (
     <main className="min-h-screen bg-warm-white">
-      {/* Hero：与系列页统一 */
+      {/* Hero：与系列页统一 */}
       <section className="relative overflow-hidden border-b border-warm-gray/30 bg-gradient-to-b from-warm-gray/5 to-transparent">
         <div className="mx-auto max-w-content px-6 py-10 md:py-14">
           <Reveal>
