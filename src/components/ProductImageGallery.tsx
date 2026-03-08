@@ -18,6 +18,23 @@ export default function ProductImageGallery({ images, alt }: Props) {
 
   return (
     <div className="relative flex flex-1 flex-col min-h-0 w-full lg:min-h-0">
+      {/* 缩略图列表：置于主图上方，降低亮度避免遮挡大图 */}
+      <div className="mb-4 flex shrink-0 gap-2 overflow-x-auto pb-1 [filter:brightness(0.85)] hover:[filter:brightness(0.95)]">
+        {list.map((src, i) => (
+          <button
+            key={`${src}-${i}`}
+            type="button"
+            onClick={() => setCurrent(i)}
+            className={`relative h-16 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition ${
+              i === current
+                ? "border-[#88b8cc] ring-2 ring-[#88b8cc]/30"
+                : "border-transparent opacity-75 hover:opacity-95"
+            }`}
+          >
+            <Image src={src} alt="" fill className="object-cover" sizes="80px" />
+          </button>
+        ))}
+      </div>
       {/* 主图区域：移动端固定比例，桌面端填满剩余高度 */}
       <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-xl bg-[#2c2c2e] lg:aspect-auto lg:min-h-0 lg:flex-1">
         <Image
@@ -56,23 +73,6 @@ export default function ProductImageGallery({ images, alt }: Props) {
             3D
           </span>
         </div>
-      </div>
-      {/* 缩略图列表 */}
-      <div className="mt-4 flex shrink-0 gap-2 overflow-x-auto pb-1">
-        {list.map((src, i) => (
-          <button
-            key={`${src}-${i}`}
-            type="button"
-            onClick={() => setCurrent(i)}
-            className={`relative h-16 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition ${
-              i === current
-                ? "border-[#88b8cc] ring-2 ring-[#88b8cc]/30"
-                : "border-transparent opacity-70 hover:opacity-100"
-            }`}
-          >
-            <Image src={src} alt="" fill className="object-cover" sizes="80px" />
-          </button>
-        ))}
       </div>
     </div>
   );
