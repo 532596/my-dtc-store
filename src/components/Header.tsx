@@ -8,7 +8,7 @@ import { useUserCountry } from "@/contexts/UserCountryContext";
 
 const NAV = [
   { href: "/", label: "Home" as const },
-  { href: "/series", label: "Desks" as const, menu: "products" as const },
+  { href: "/series", label: "Products" as const, menu: "products" as const },
   { href: "/scenarios", label: "Solutions" as const, menu: "solutions" as const },
   { href: "/about", label: "About" as const, menu: "discover" as const },
   { href: "/support", label: "Support" as const, menu: "discover" as const },
@@ -192,41 +192,50 @@ export default function Header() {
                     >
                       {item.href === "/about" ? (
                         <>
-                          <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
-                            发现
-                          </p>
                           <Link
                             href="/about"
                             className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
                           >
-                            品牌介绍
+                            关于我们
                           </Link>
                           <Link
                             href="/about#stories"
                             className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
                           >
-                            客户故事（预留）
-                          </Link>
-                          <Link
-                            href="/support"
-                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            售后服务
+                            客户故事
                           </Link>
                         </>
                       ) : (
                         <>
                           <Link
+                            href="/support#contact"
+                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            联系我们
+                          </Link>
+                          <Link
                             href="/support#faq"
                             className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
                           >
-                            常见问题 FAQ
+                            常见问题解答
                           </Link>
                           <Link
-                            href="/guide"
+                            href="/support#tracking"
                             className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
                           >
-                            健康办公指南
+                            订单跟踪
+                          </Link>
+                          <Link
+                            href="/support#shipping"
+                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            物流
+                          </Link>
+                          <Link
+                            href="/support#warranty"
+                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
+                          >
+                            保修单
                           </Link>
                         </>
                       )}
