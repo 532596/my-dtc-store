@@ -50,8 +50,8 @@ export default function RegionsContent() {
   };
 
   return (
-    <section className="mx-auto max-w-2xl px-6 py-10 md:py-14">
-      <nav className="text-sm text-warm-muted" aria-label="面包屑">
+    <section className="mr-auto max-w-3xl px-6 py-10 md:max-w-4xl md:px-10 md:py-14">
+      <nav className="text-sm text-warm-muted md:text-base" aria-label="面包屑">
         <Link href="/" className="hover:text-foreground">
           Home
         </Link>
@@ -59,33 +59,33 @@ export default function RegionsContent() {
         <span className="text-foreground">Regions</span>
       </nav>
 
-      <h1 className="mt-4 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
         Regions
       </h1>
-      <p className="mt-2 text-sm text-warm-muted">
+      <p className="mt-3 text-base text-warm-muted md:text-lg">
         选择您的国家或地区，用于配送与价格展示。
       </p>
 
-      <div className="mt-10 space-y-8">
+      <div className="mt-12 space-y-10 md:mt-14 md:space-y-12">
         {REGIONS.map((group) => (
           <div key={group.title}>
-            <h2 className="mb-4 text-base font-semibold text-foreground">
+            <h2 className="mb-5 text-lg font-semibold text-foreground md:text-xl">
               {group.title}
             </h2>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {group.items.map((item) => (
                 <li key={item.code}>
                   <button
                     type="button"
                     onClick={() => handleSelect(item.code)}
-                    className="flex w-full items-center gap-3 rounded-xl border border-warm-gray/40 bg-warm-cream/20 px-4 py-3 text-left text-foreground transition hover:border-accent/50 hover:bg-warm-cream/50"
+                    className="flex w-full items-center gap-4 rounded-xl border border-warm-gray/40 bg-warm-cream/20 px-5 py-4 text-left text-foreground transition hover:border-accent/50 hover:bg-warm-cream/50 md:px-6 md:py-4 md:text-lg"
                   >
-                    <span className="relative h-6 w-8 shrink-0 overflow-hidden rounded-sm bg-warm-gray/40">
+                    <span className="relative h-8 w-11 shrink-0 overflow-hidden rounded-sm bg-warm-gray/40 md:h-9 md:w-12">
                       <img
                         src={`https://flagcdn.com/w40/${item.code.toLowerCase()}.png`}
                         alt=""
-                        width={32}
-                        height={24}
+                        width={48}
+                        height={36}
                         className="h-full w-full object-cover"
                       />
                     </span>

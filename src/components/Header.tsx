@@ -31,7 +31,7 @@ export default function Header() {
     setDiscoverOpen(null);
   };
   const closeProducts = () => {
-    closeTimerRef.current = setTimeout(() => setProductsOpen(false), 150);
+    closeTimerRef.current = setTimeout(() => setProductsOpen(false), 80);
   };
   const openSolutions = () => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
@@ -59,8 +59,8 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-warm-gray/50 bg-warm-white/95 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-content items-center justify-between px-6 py-4">
+    <header className="relative sticky top-0 z-50 border-b border-warm-gray/50 bg-warm-white/95 backdrop-blur-md">
+      <nav className="relative mx-auto flex max-w-content items-center justify-between px-6 py-4">
         <Link
           href="/"
           className="text-xl font-medium tracking-tight text-foreground transition-opacity hover:opacity-80"
@@ -75,7 +75,7 @@ export default function Header() {
               "transition-colors " +
               (isActive ? "font-medium text-foreground" : "text-warm-muted hover:text-foreground");
 
-            // 产品下拉：鼠标移入触发区或面板时保持展开，移出后延迟关闭，便于点击子链接
+            // 产品：悬浮展开满屏 mega menu，移出后快速收起
             if (item.menu === "products") {
               return (
                 <div
@@ -87,34 +87,6 @@ export default function Header() {
                   <Link href={item.href} className={baseClass}>
                     {item.label}
                   </Link>
-                  {productsOpen && (
-                    <div
-                      className="absolute left-1/2 top-full z-40 mt-0 w-64 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 pt-3 text-xs text-warm-muted shadow-lg"
-                      onMouseEnter={openProducts}
-                    >
-                      <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-warm-stone">
-                        产品
-                      </p>
-                      <Link
-                        href="/series"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        升降桌系列
-                      </Link>
-                      <Link
-                        href="/accessories"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        配件
-                      </Link>
-                      <Link
-                        href="/series#compare"
-                        className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                      >
-                        产品对比
-                      </Link>
-                    </div>
-                  )}
                 </div>
               );
             }
@@ -360,6 +332,110 @@ export default function Header() {
           </Link>
         </div>
       </nav>
+
+      {/* Products 满屏 mega menu：悬浮展开，移出快速收起 */}
+      {productsOpen && (
+        <div
+          className="absolute left-0 right-0 top-full z-40 min-h-[60vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+          onMouseEnter={openProducts}
+          onMouseLeave={closeProducts}
+        >
+          <div className="mx-auto flex max-w-content px-6 py-8">
+            {/* 左侧分类 */}
+            <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
+              <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">
+                产品
+              </p>
+              <Link
+                href="/series"
+                className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60"
+              >
+                升降桌系列
+              </Link>
+              <Link
+                href="/accessories"
+                className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60"
+              >
+                配件
+              </Link>
+              <Link
+                href="/series#compare"
+                className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60"
+              >
+                产品对比
+              </Link>
+            </aside>
+            {/* 右侧：精选 + 分类 */}
+            <div className="ml-10 flex-1">
+              <div className="border-b border-warm-gray/30 pb-6">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">
+                    精选产品
+                  </h3>
+                  <Link href="/series" className="text-xs font-medium text-accent hover:underline">
+                    查看全部 →
+                  </Link>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                  <Link
+                    href="/series/model-a"
+                    className="group rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-4 transition hover:border-accent/50 hover:bg-warm-cream/40"
+                  >
+                    <p className="text-sm font-medium text-foreground group-hover:text-accent">Model A</p>
+                    <p className="mt-0.5 text-xs text-warm-muted">紧凑静音 · 小空间</p>
+                  </Link>
+                  <Link
+                    href="/series/model-b"
+                    className="group rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-4 transition hover:border-accent/50 hover:bg-warm-cream/40"
+                  >
+                    <p className="text-sm font-medium text-foreground group-hover:text-accent">Model B</p>
+                    <p className="mt-0.5 text-xs text-warm-muted">智能记忆 · 推荐</p>
+                  </Link>
+                  <Link
+                    href="/series/model-c"
+                    className="group rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-4 transition hover:border-accent/50 hover:bg-warm-cream/40"
+                  >
+                    <p className="text-sm font-medium text-foreground group-hover:text-accent">Model C</p>
+                    <p className="mt-0.5 text-xs text-warm-muted">全功能 · TÜV 认证</p>
+                  </Link>
+                  <Link
+                    href="/accessories"
+                    className="group rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-4 transition hover:border-accent/50 hover:bg-warm-cream/40"
+                  >
+                    <p className="text-sm font-medium text-foreground group-hover:text-accent">配件</p>
+                    <p className="mt-0.5 text-xs text-warm-muted">桌垫、线缆等</p>
+                  </Link>
+                </div>
+              </div>
+              <div className="mt-6">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">
+                  浏览分类
+                </h3>
+                <div className="mt-3 flex flex-wrap gap-3">
+                  <Link
+                    href="/series"
+                    className="rounded-lg border border-warm-gray/40 bg-warm-white px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+                  >
+                    全部升降桌
+                  </Link>
+                  <Link
+                    href="/accessories"
+                    className="rounded-lg border border-warm-gray/40 bg-warm-white px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+                  >
+                    配件与周边
+                  </Link>
+                  <Link
+                    href="/series#compare"
+                    className="rounded-lg border border-warm-gray/40 bg-warm-white px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+                  >
+                    产品对比
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
