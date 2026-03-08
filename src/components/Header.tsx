@@ -324,7 +324,7 @@ export default function Header() {
               <>
                 <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">产品</p>
-                  <Link href="/series" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">升降桌系列</Link>
+                  <Link href="/series" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground bg-warm-cream/60 hover:bg-warm-cream/70">升降桌系列</Link>
                   <Link href="/accessories" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">配件</Link>
                   <Link href="/series#compare" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">产品对比</Link>
                 </aside>
@@ -368,7 +368,7 @@ export default function Header() {
               <>
                 <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">解决方案</p>
-                  <Link href="/scenarios" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">场景</Link>
+                  <Link href="/scenarios" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground bg-warm-cream/60 hover:bg-warm-cream/70">场景</Link>
                   <Link href="/guide" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">技术原理</Link>
                 </aside>
                 <div className="ml-10 flex-1">
@@ -398,7 +398,7 @@ export default function Header() {
               <>
                 <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">关于</p>
-                  <Link href="/about" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">关于我们</Link>
+                  <Link href="/about" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground bg-warm-cream/60 hover:bg-warm-cream/70">关于我们</Link>
                   <Link href="/about#stories" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">客户故事</Link>
                 </aside>
                 <div className="ml-10 flex-1">
@@ -415,7 +415,7 @@ export default function Header() {
               <>
                 <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">支持</p>
-                  <Link href="/support#contact" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">联系我们</Link>
+                  <Link href="/support#contact" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground bg-warm-cream/60 hover:bg-warm-cream/70">联系我们</Link>
                   <Link href="/support#faq" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">常见问题解答</Link>
                   <Link href="/support#tracking" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">订单跟踪</Link>
                   <Link href="/support#shipping" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">物流</Link>
