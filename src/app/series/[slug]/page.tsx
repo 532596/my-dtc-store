@@ -112,9 +112,9 @@ export default function ProductPage(props: { params: { slug: string } }) {
           </div>
         </div>
 
-        {/* 右侧：信息侧栏（白色） */}
-        <div className="flex flex-col bg-warm-white lg:min-h-screen">
-          <div className="flex flex-1 flex-col p-6 md:p-8 lg:max-h-screen lg:overflow-y-auto">
+        {/* 右侧：信息侧栏（白色），与整页共用一条滚动条 */}
+        <div className="flex flex-col bg-warm-white">
+          <div className="flex flex-1 flex-col p-6 md:p-8">
             {/* 面包屑 */}
             <nav className="text-sm text-warm-muted">
               <Link href="/series" className="hover:text-foreground">
