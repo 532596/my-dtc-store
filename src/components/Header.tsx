@@ -20,41 +20,82 @@ export default function Header() {
   const [accountOpen, setAccountOpen] = React.useState<boolean>(false);
   const [productsOpen, setProductsOpen] = React.useState<boolean>(false);
   const [solutionsOpen, setSolutionsOpen] = React.useState<boolean>(false);
-  /** 当前展开的「发现」下拉对应的 nav href，避免 About/Support 同时渲染两个下拉 */
   const [discoverOpen, setDiscoverOpen] = React.useState<string | null>(null);
+  /** 收起动画中，仍保持挂载以便播放退出动画 */
+  const [closingProducts, setClosingProducts] = React.useState(false);
+  const [closingSolutions, setClosingSolutions] = React.useState(false);
+  const [closingDiscover, setClosingDiscover] = React.useState<string | null>(null);
   const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const exitTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const MEGA_EXIT_MS = 180;
 
   const openProducts = () => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
+    setClosingProducts(false);
     setProductsOpen(true);
     setSolutionsOpen(false);
     setDiscoverOpen(null);
+    setClosingSolutions(false);
+    setClosingDiscover(null);
   };
   const closeProducts = () => {
-    closeTimerRef.current = setTimeout(() => setProductsOpen(false), 80);
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = setTimeout(() => {
+      setClosingProducts(true);
+      exitTimerRef.current = setTimeout(() => {
+        setProductsOpen(false);
+        setClosingProducts(false);
+      }, MEGA_EXIT_MS);
+    }, 80);
   };
   const openSolutions = () => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
+    setClosingSolutions(false);
     setSolutionsOpen(true);
     setProductsOpen(false);
     setDiscoverOpen(null);
+    setClosingProducts(false);
+    setClosingDiscover(null);
   };
   const closeSolutions = () => {
-    closeTimerRef.current = setTimeout(() => setSolutionsOpen(false), 80);
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = setTimeout(() => {
+      setClosingSolutions(true);
+      exitTimerRef.current = setTimeout(() => {
+        setSolutionsOpen(false);
+        setClosingSolutions(false);
+      }, MEGA_EXIT_MS);
+    }, 80);
   };
   const openDiscover = (itemHref: string) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
+    setClosingDiscover(null);
     setDiscoverOpen(itemHref);
     setProductsOpen(false);
     setSolutionsOpen(false);
+    setClosingProducts(false);
+    setClosingSolutions(false);
   };
   const closeDiscover = () => {
-    closeTimerRef.current = setTimeout(() => setDiscoverOpen(null), 80);
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    const current = discoverOpen;
+    closeTimerRef.current = setTimeout(() => {
+      setClosingDiscover(current);
+      exitTimerRef.current = setTimeout(() => {
+        setDiscoverOpen(null);
+        setClosingDiscover(null);
+      }, MEGA_EXIT_MS);
+    }, 80);
   };
 
   React.useEffect(() => {
     return () => {
       if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+      if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
     };
   }, []);
 
@@ -241,9 +282,9 @@ export default function Header() {
       </nav>
 
       {/* Products 满屏 mega menu：悬浮展开，移出快速收起 */}
-      {productsOpen && (
+      {(productsOpen || closingProducts) && (
         <div
-          className="mega-menu-panel absolute left-0 right-0 top-full z-40 min-h-[60vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+          className={`absolute left-0 right-0 top-full z-40 min-h-[60vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingProducts ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           onMouseEnter={openProducts}
           onMouseLeave={closeProducts}
         >
@@ -345,9 +386,9 @@ export default function Header() {
       )}
 
       {/* Solutions mega menu */}
-      {solutionsOpen && (
+      {(solutionsOpen || closingSolutions) && (
         <div
-          className="mega-menu-panel absolute left-0 right-0 top-full z-40 min-h-[50vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+          className={`absolute left-0 right-0 top-full z-40 min-h-[50vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingSolutions ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           onMouseEnter={openSolutions}
           onMouseLeave={closeSolutions}
         >
@@ -389,9 +430,9 @@ export default function Header() {
       )}
 
       {/* About mega menu */}
-      {discoverOpen === "/about" && (
+      {(discoverOpen === "/about" || closingDiscover === "/about") && (
         <div
-          className="mega-menu-panel absolute left-0 right-0 top-full z-40 min-h-[40vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+          className={`absolute left-0 right-0 top-full z-40 min-h-[40vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingDiscover === "/about" ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           onMouseEnter={() => openDiscover("/about")}
           onMouseLeave={closeDiscover}
         >
@@ -426,9 +467,9 @@ export default function Header() {
       )}
 
       {/* Support mega menu */}
-      {discoverOpen === "/support" && (
+      {(discoverOpen === "/support" || closingDiscover === "/support") && (
         <div
-          className="mega-menu-panel absolute left-0 right-0 top-full z-40 min-h-[40vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+          className={`absolute left-0 right-0 top-full z-40 min-h-[40vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingDiscover === "/support" ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           onMouseEnter={() => openDiscover("/support")}
           onMouseLeave={closeDiscover}
         >
