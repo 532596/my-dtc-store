@@ -104,10 +104,10 @@ export default function ProductPage(props: { params: { slug: string } }) {
 
   return (
     <main className="min-h-screen bg-[#1c1c1e]">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(300px,360px)]">
-        {/* 左侧：主图区（深色），占主要宽度 */}
+      <div className="grid grid-cols-1 lg:grid-cols-[7fr_3fr]">
+        {/* 左侧：主图区（深色）约 70%，与 P1 一致 */}
         <div className="flex flex-col bg-gradient-to-b from-[#2c2c2e] to-[#1c1c1e] p-6 md:p-8 lg:p-10">
-          <div className="w-full max-w-3xl">
+          <div className="w-full max-w-4xl">
             <ProductImageGallery images={images} alt={product.name} />
           </div>
         </div>
