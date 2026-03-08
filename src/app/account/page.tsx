@@ -1,6 +1,21 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function AccountPage() {
+  const router = useRouter();
+  const { setUser } = useAuth();
+
+  const handleCreateAccount = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const name = (form.elements.namedItem("displayName") as HTMLInputElement)?.value?.trim();
+    if (name) setUser(name);
+    router.push("/");
+  };
+
   return (
     <main className="min-h-screen bg-warm-gray/10">
       <section className="relative mx-auto flex min-h-[80vh] max-w-content items-center justify-center px-6 py-section">
@@ -27,7 +42,19 @@ export default function AccountPage() {
               <p className="mt-2 text-xs text-warm-muted">
                 建议使用常用邮箱注册，方便接收订单与质保信息。
               </p>
-              <form className="mt-5 space-y-4">
+              <form className="mt-5 space-y-4" onSubmit={handleCreateAccount}>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-warm-stone" htmlFor="displayName">
+                    账号名称
+                  </label>
+                  <input
+                    id="displayName"
+                    name="displayName"
+                    type="text"
+                    className="h-10 w-full rounded-xl border border-warm-gray/50 bg-warm-white px-3 text-sm text-foreground outline-none transition focus:border-accent focus:ring-1 focus:ring-accent"
+                    placeholder="用于显示在页面顶部的昵称或称呼"
+                  />
+                </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-medium text-warm-stone" htmlFor="email">
                     邮箱
@@ -80,7 +107,7 @@ export default function AccountPage() {
                   </span>
                 </label>
                 <button
-                  type="button"
+                  type="submit"
                   className="btn-primary mt-2 inline-flex h-10 w-full items-center justify-center"
                 >
                   创建账户

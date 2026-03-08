@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 // @ts-ignore: IDE 在解析 @types/react 时误报「not a module」，实际编译通过
 import * as React from "react";
 import { useUserCountry } from "@/contexts/UserCountryContext";
+import { useAuth, getInitials } from "@/contexts/AuthContext";
 
 const NAV = [
   { href: "/", label: "Home" as const },
@@ -17,6 +18,7 @@ const NAV = [
 export default function Header() {
   const pathname = usePathname();
   const { displayCode, isLoading } = useUserCountry();
+  const { displayName, isLoggedIn, logout } = useAuth();
   const [accountOpen, setAccountOpen] = React.useState<boolean>(false);
   const [productsOpen, setProductsOpen] = React.useState<boolean>(false);
   const [solutionsOpen, setSolutionsOpen] = React.useState<boolean>(false);
@@ -241,22 +243,34 @@ export default function Header() {
               <div className="absolute right-0 top-full z-40 mt-3 w-56 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 text-xs text-warm-muted shadow-lg">
                 <Link
                   href="/account"
+                  onClick={() => setAccountOpen(false)}
                   className="block rounded-lg px-2 py-1.5 text-foreground hover:bg-warm-cream/70"
                 >
                   Log in / Create Account
                 </Link>
                 <Link
-                  href="/account"
+                  href="/account/lists"
+                  onClick={() => setAccountOpen(false)}
                   className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70"
                 >
                   My Lists
                 </Link>
                 <Link
                   href="/account/orders"
+                  onClick={() => setAccountOpen(false)}
                   className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70"
                 >
                   Order Status
                 </Link>
+                {isLoggedIn && (
+                  <button
+                    type="button"
+                    onClick={() => { logout(); setAccountOpen(false); }}
+                    className="block w-full rounded-lg px-2 py-1.5 text-left text-warm-muted hover:bg-warm-cream/70"
+                  >
+                    退出登录
+                  </button>
+                )}
               </div>
             )}
           </div>
@@ -298,6 +312,24 @@ export default function Header() {
               </span>
             </Link>
           )}
+
+          {/* 用户头像：未登录默认头像，登录后显示账号名称缩写 */}
+          <Link
+            href="/account"
+            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-warm-gray/40 text-warm-muted transition hover:border-accent hover:text-foreground"
+            aria-label={isLoggedIn ? displayName ?? "账户" : "登录 / 注册"}
+            title={isLoggedIn ? displayName ?? "账户" : "登录 / 注册"}
+          >
+            {isLoggedIn && displayName ? (
+              <span className="text-xs font-semibold text-foreground">
+                {getInitials(displayName)}
+              </span>
+            ) : (
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            )}
+          </Link>
 
           {/* 移动端：账号入口简化为图标，进入独立页面 */}
           <Link
