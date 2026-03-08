@@ -315,7 +315,7 @@ export default function Header() {
       {/* 单一 mega 面板：左右切换只换内容不收回，高度随内容过渡 */}
       {megaVisible && (
         <div
-          className={`absolute left-0 right-0 top-full z-40 overflow-hidden border-t border-white/30 bg-white/70 shadow-[0_12px_40px_rgba(0,0,0,0.06)] backdrop-blur-xl backdrop-saturate-150 transition-[height] duration-200 ease-out ${isMegaClosing ? "mega-menu-panel-out" : "mega-menu-panel"}`}
+          className={`absolute left-0 right-0 top-full z-40 overflow-hidden border-t border-warm-gray/30 bg-stone-50 shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-[height] duration-200 ease-out ${isMegaClosing ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           style={{ height: megaPanelHeight }}
           onMouseEnter={keepMegaOpen}
         >
