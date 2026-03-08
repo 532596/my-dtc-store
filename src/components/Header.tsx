@@ -29,6 +29,7 @@ export default function Header() {
   const [closingDiscover, setClosingDiscover] = React.useState<string | null>(null);
   const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const exitTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const accountCloseTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const megaContentRef = React.useRef<HTMLDivElement>(null);
   const [megaPanelHeight, setMegaPanelHeight] = React.useState(0);
   /** 各 mega 面板左侧当前悬停的子项索引（0=第一项），未悬停左侧时为 0 */
@@ -212,8 +213,19 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          {/* 账号下拉：桌面端 */}
-          <div className="relative hidden md:block">
+          {/* 账号下拉：桌面端，鼠标移出自动收起 */}
+          <div
+            className="relative hidden md:block"
+            onMouseEnter={() => {
+              if (accountCloseTimerRef.current) {
+                clearTimeout(accountCloseTimerRef.current);
+                accountCloseTimerRef.current = null;
+              }
+            }}
+            onMouseLeave={() => {
+              accountCloseTimerRef.current = setTimeout(() => setAccountOpen(false), 120);
+            }}
+          >
             <button
               type="button"
               onClick={() => setAccountOpen((prev: boolean) => !prev)}
