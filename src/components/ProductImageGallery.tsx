@@ -18,16 +18,18 @@ export default function ProductImageGallery({ images, alt }: Props) {
 
   return (
     <div className="relative flex flex-1 flex-col min-h-0 w-full lg:min-h-0">
-      {/* 主图区域：占绝大部分空间，参考图主图约 80–85% */}
-      <div className="product-gallery-main relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-t-xl bg-[#1a1a1a] lg:aspect-auto lg:min-h-0 lg:flex-1">
-        <Image
-          src={currentImage}
-          alt={alt}
-          fill
-          className="object-cover object-center"
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          priority
-        />
+      {/* 主图区域：背景图铺满容器，不露黑边；左右箭头切换其他图片 */}
+      <div
+        className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-t-xl lg:aspect-auto lg:min-h-0 lg:flex-1"
+        style={{
+          backgroundImage: `url(${currentImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        role="img"
+        aria-label={alt}
+      >
         {/* 左右箭头：小号黑底白箭头，贴边 */}
         <button
           type="button"

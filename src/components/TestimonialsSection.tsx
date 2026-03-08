@@ -30,7 +30,7 @@ function parseDateKey(purchaseDate: string): number {
 }
 
 export default function TestimonialsSection({ items }: { items: TestimonialItem[] }) {
-  const { countryCode: userCountryCode } = useUserCountry();
+  const { displayCode: userCountryCode } = useUserCountry();
   const [timeSort, setTimeSort] = useState<"desc" | "asc" | "">("");
   const [lengthSort, setLengthSort] = useState<"desc" | "asc" | "">("");
   const [distanceSort, setDistanceSort] = useState<boolean>(true);

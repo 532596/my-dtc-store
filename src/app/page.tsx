@@ -272,11 +272,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-warm-cream py-section md:py-section-md">
+      <section className="bg-warm-cream pt-12 pb-section md:pt-16 md:pb-section-md">
         <div className="mx-auto max-w-content px-6">
           <hr className="border-0 border-t border-warm-gray/70" aria-hidden />
           <Reveal>
-            <h2 className="mt-12 text-center text-3xl font-semibold tracking-tight text-foreground">
+            <h2 className="mt-8 text-center text-3xl font-semibold tracking-tight text-foreground">
               智能功能
             </h2>
           </Reveal>

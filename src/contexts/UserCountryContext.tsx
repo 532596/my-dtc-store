@@ -2,21 +2,43 @@
 
 import * as React from "react";
 
+const REGION_STORAGE_KEY = "dtc-user-region";
+
 type UserCountryContextValue = {
   countryCode: string | null;
+  userRegion: string | null;
+  displayCode: string | null;
+  setUserRegion: (code: string) => void;
   isLoading: boolean;
 };
 
 const UserCountryContext = React.createContext<UserCountryContextValue>({
   countryCode: null,
+  userRegion: null,
+  displayCode: null,
+  setUserRegion: () => {},
   isLoading: true,
 });
 
 const GEO_API = "https://ipapi.co/json/";
 
+function loadStoredRegion(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return localStorage.getItem(REGION_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
 export function UserCountryProvider({ children }: { children: React.ReactNode }) {
   const [countryCode, setCountryCode] = React.useState<string | null>(null);
+  const [userRegion, setUserRegionState] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    setUserRegionState(loadStoredRegion());
+  }, []);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -34,9 +56,18 @@ export function UserCountryProvider({ children }: { children: React.ReactNode })
     };
   }, []);
 
+  const setUserRegion = React.useCallback((code: string) => {
+    try {
+      localStorage.setItem(REGION_STORAGE_KEY, code);
+    } catch {}
+    setUserRegionState(code);
+  }, []);
+
+  const displayCode = userRegion ?? countryCode;
+
   const value = React.useMemo(
-    () => ({ countryCode, isLoading }),
-    [countryCode, isLoading]
+    () => ({ countryCode, userRegion, displayCode, setUserRegion, isLoading }),
+    [countryCode, userRegion, displayCode, setUserRegion, isLoading]
   );
 
   return (
