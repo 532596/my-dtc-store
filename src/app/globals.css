@@ -44,6 +44,22 @@ body {
   }
 }
 
+/* 导航 mega menu 弹出动画 */
+@keyframes mega-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.mega-menu-panel {
+  animation: mega-menu-in 0.18s ease-out forwards;
+  transform-origin: top;
+}
+
 /* 产品主图：强制填满容器并裁剪，比例不符就裁掉多余部分，不留黑边 */
 .product-gallery-main > span {
   position: absolute !important;

@@ -40,7 +40,7 @@ export default function Header() {
     setDiscoverOpen(null);
   };
   const closeSolutions = () => {
-    closeTimerRef.current = setTimeout(() => setSolutionsOpen(false), 150);
+    closeTimerRef.current = setTimeout(() => setSolutionsOpen(false), 80);
   };
   const openDiscover = (itemHref: string) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
@@ -49,7 +49,7 @@ export default function Header() {
     setSolutionsOpen(false);
   };
   const closeDiscover = () => {
-    closeTimerRef.current = setTimeout(() => setDiscoverOpen(null), 150);
+    closeTimerRef.current = setTimeout(() => setDiscoverOpen(null), 80);
   };
 
   React.useEffect(() => {
@@ -91,7 +91,7 @@ export default function Header() {
               );
             }
 
-            // Solutions 下拉：场景 + 技术原理（语音控制、高度记忆等）
+            // Solutions：悬浮展开 mega menu
             if (item.menu === "solutions") {
               return (
                 <div
@@ -103,50 +103,13 @@ export default function Header() {
                   <Link href={item.href} className={baseClass}>
                     {item.label}
                   </Link>
-                  {solutionsOpen && (
-                    <div
-                      className="absolute left-1/2 top-full z-40 mt-0 w-72 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 text-xs text-warm-muted shadow-lg"
-                      onMouseEnter={openSolutions}
-                    >
-                      <div className="grid grid-cols-[1fr_1fr] gap-x-4 gap-y-1">
-                        <Link
-                          href="/scenarios"
-                          className="col-span-2 block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                        >
-                          场景
-                        </Link>
-
-                        <Link
-                          href="/guide"
-                          className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                        >
-                          技术原理
-                        </Link>
-
-                        <div className="flex flex-col gap-0.5">
-                          <Link
-                            href="/guide#voice-control"
-                            className="block rounded-lg px-2 py-1.5 text-[11px] hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            语音控制
-                          </Link>
-                          <Link
-                            href="/guide#height-memory"
-                            className="block rounded-lg px-2 py-1.5 text-[11px] hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            高度记忆
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </div>
               );
             }
 
-            // 发现下拉：仅当前悬停项（About 或 Support）显示一个下拉，避免重叠
+            // About / Support：悬浮展开 mega menu
             if (item.menu === "discover") {
-              const isThisDiscoverOpen = discoverOpen === item.href;
+              const isAbout = item.href === "/about";
               return (
                 <div
                   key={item.href}
@@ -157,62 +120,6 @@ export default function Header() {
                   <Link href={item.href} className={baseClass}>
                     {item.label}
                   </Link>
-                  {isThisDiscoverOpen && (
-                    <div
-                      className="absolute left-1/2 top-full z-40 mt-0 w-72 -translate-x-1/2 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 pt-3 text-xs text-warm-muted shadow-lg"
-                      onMouseEnter={() => openDiscover(item.href)}
-                    >
-                      {item.href === "/about" ? (
-                        <>
-                          <Link
-                            href="/about"
-                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            关于我们
-                          </Link>
-                          <Link
-                            href="/about#stories"
-                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            客户故事
-                          </Link>
-                        </>
-                      ) : (
-                        <>
-                          <Link
-                            href="/support#contact"
-                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            联系我们
-                          </Link>
-                          <Link
-                            href="/support#faq"
-                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            常见问题解答
-                          </Link>
-                          <Link
-                            href="/support#tracking"
-                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            订单跟踪
-                          </Link>
-                          <Link
-                            href="/support#shipping"
-                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            物流
-                          </Link>
-                          <Link
-                            href="/support#warranty"
-                            className="block rounded-lg px-2 py-1.5 hover:bg-warm-cream/70 hover:text-foreground"
-                          >
-                            保修单
-                          </Link>
-                        </>
-                      )}
-                    </div>
-                  )}
                 </div>
               );
             }
@@ -336,7 +243,7 @@ export default function Header() {
       {/* Products 满屏 mega menu：悬浮展开，移出快速收起 */}
       {productsOpen && (
         <div
-          className="absolute left-0 right-0 top-full z-40 min-h-[60vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+          className="mega-menu-panel absolute left-0 right-0 top-full z-40 min-h-[60vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
           onMouseEnter={openProducts}
           onMouseLeave={closeProducts}
         >
@@ -431,6 +338,136 @@ export default function Header() {
                     产品对比
                   </Link>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Solutions mega menu */}
+      {solutionsOpen && (
+        <div
+          className="mega-menu-panel absolute left-0 right-0 top-full z-40 min-h-[50vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+          onMouseEnter={openSolutions}
+          onMouseLeave={closeSolutions}
+        >
+          <div className="mx-auto flex max-w-content px-6 py-8">
+            <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
+              <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">
+                解决方案
+              </p>
+              <Link href="/scenarios" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">
+                场景
+              </Link>
+              <Link href="/guide" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">
+                技术原理
+              </Link>
+            </aside>
+            <div className="ml-10 flex-1">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">功能概览</h3>
+              <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <Link href="/guide#voice-control" className="rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-4 transition hover:border-accent/50 hover:bg-warm-cream/40">
+                  <p className="text-sm font-medium text-foreground">语音控制</p>
+                  <p className="mt-0.5 text-xs text-warm-muted">声控升降与记忆</p>
+                </Link>
+                <Link href="/guide#height-memory" className="rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-4 transition hover:border-accent/50 hover:bg-warm-cream/40">
+                  <p className="text-sm font-medium text-foreground">高度记忆</p>
+                  <p className="mt-0.5 text-xs text-warm-muted">四档记忆与久坐提醒</p>
+                </Link>
+                <Link href="/scenarios" className="rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-4 transition hover:border-accent/50 hover:bg-warm-cream/40">
+                  <p className="text-sm font-medium text-foreground">办公场景</p>
+                  <p className="mt-0.5 text-xs text-warm-muted">居家与办公室</p>
+                </Link>
+                <Link href="/guide" className="rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-4 transition hover:border-accent/50 hover:bg-warm-cream/40">
+                  <p className="text-sm font-medium text-foreground">健康办公指南</p>
+                  <p className="mt-0.5 text-xs text-warm-muted">了解更多 →</p>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* About mega menu */}
+      {discoverOpen === "/about" && (
+        <div
+          className="mega-menu-panel absolute left-0 right-0 top-full z-40 min-h-[40vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+          onMouseEnter={() => openDiscover("/about")}
+          onMouseLeave={closeDiscover}
+        >
+          <div className="mx-auto flex max-w-content px-6 py-8">
+            <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
+              <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">
+                关于
+              </p>
+              <Link href="/about" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">
+                关于我们
+              </Link>
+              <Link href="/about#stories" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">
+                客户故事
+              </Link>
+            </aside>
+            <div className="ml-10 flex-1">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">关于我们</h3>
+              <p className="mt-3 max-w-xl text-sm text-warm-muted">
+                专注智能升降桌与健康办公，为家庭与办公室提供静音、可靠的解决方案。
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href="/about" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">
+                  品牌介绍
+                </Link>
+                <Link href="/about#stories" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">
+                  客户故事
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Support mega menu */}
+      {discoverOpen === "/support" && (
+        <div
+          className="mega-menu-panel absolute left-0 right-0 top-full z-40 min-h-[40vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+          onMouseEnter={() => openDiscover("/support")}
+          onMouseLeave={closeDiscover}
+        >
+          <div className="mx-auto flex max-w-content px-6 py-8">
+            <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
+              <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">
+                支持
+              </p>
+              <Link href="/support#contact" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">
+                联系我们
+              </Link>
+              <Link href="/support#faq" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">
+                常见问题解答
+              </Link>
+              <Link href="/support#tracking" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">
+                订单跟踪
+              </Link>
+              <Link href="/support#shipping" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">
+                物流
+              </Link>
+              <Link href="/support#warranty" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-warm-cream/60">
+                保修单
+              </Link>
+            </aside>
+            <div className="ml-10 flex-1">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">帮助与支持</h3>
+              <p className="mt-3 max-w-xl text-sm text-warm-muted">
+                安装指导、质保政策、配送与退换，常见问题一网打尽。
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href="/support#contact" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">
+                  联系我们
+                </Link>
+                <Link href="/support#faq" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">
+                  常见问题
+                </Link>
+                <Link href="/support" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">
+                  支持中心 →
+                </Link>
               </div>
             </div>
           </div>
