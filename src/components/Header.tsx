@@ -92,6 +92,32 @@ export default function Header() {
     }, 80);
   };
 
+  /** 仅当鼠标离开整块导航+下拉区域时收起（左右在导航栏滑动不触发，避免闪） */
+  const closeAll = () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
+    if (productsOpen) {
+      setClosingProducts(true);
+      exitTimerRef.current = setTimeout(() => {
+        setProductsOpen(false);
+        setClosingProducts(false);
+      }, MEGA_EXIT_MS);
+    } else if (solutionsOpen) {
+      setClosingSolutions(true);
+      exitTimerRef.current = setTimeout(() => {
+        setSolutionsOpen(false);
+        setClosingSolutions(false);
+      }, MEGA_EXIT_MS);
+    } else if (discoverOpen) {
+      const current = discoverOpen;
+      setClosingDiscover(current);
+      exitTimerRef.current = setTimeout(() => {
+        setDiscoverOpen(null);
+        setClosingDiscover(null);
+      }, MEGA_EXIT_MS);
+    }
+  };
+
   React.useEffect(() => {
     return () => {
       if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
@@ -100,7 +126,10 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="relative sticky top-0 z-50 border-b border-warm-gray/50 bg-warm-white/95 backdrop-blur-md">
+    <header
+      className="relative sticky top-0 z-50 border-b border-warm-gray/50 bg-warm-white/95 backdrop-blur-md"
+      onMouseLeave={closeAll}
+    >
       <nav className="relative mx-auto flex max-w-content items-center justify-between px-6 py-4">
         <Link
           href="/"
@@ -119,45 +148,25 @@ export default function Header() {
             // 产品：悬浮展开满屏 mega menu，移出后快速收起
             if (item.menu === "products") {
               return (
-                <div
-                  key={item.href}
-                  className="relative"
-                  onMouseEnter={openProducts}
-                  onMouseLeave={closeProducts}
-                >
+                <div key={item.href} className="relative" onMouseEnter={openProducts}>
                   <Link href={item.href} className={baseClass}>
                     {item.label}
                   </Link>
                 </div>
               );
             }
-
-            // Solutions：悬浮展开 mega menu
             if (item.menu === "solutions") {
               return (
-                <div
-                  key={item.href}
-                  className="relative"
-                  onMouseEnter={openSolutions}
-                  onMouseLeave={closeSolutions}
-                >
+                <div key={item.href} className="relative" onMouseEnter={openSolutions}>
                   <Link href={item.href} className={baseClass}>
                     {item.label}
                   </Link>
                 </div>
               );
             }
-
-            // About / Support：悬浮展开 mega menu
             if (item.menu === "discover") {
-              const isAbout = item.href === "/about";
               return (
-                <div
-                  key={item.href}
-                  className="relative"
-                  onMouseEnter={() => openDiscover(item.href)}
-                  onMouseLeave={closeDiscover}
-                >
+                <div key={item.href} className="relative" onMouseEnter={() => openDiscover(item.href)}>
                   <Link href={item.href} className={baseClass}>
                     {item.label}
                   </Link>
@@ -284,9 +293,8 @@ export default function Header() {
       {/* Products 满屏 mega menu：悬浮展开，移出快速收起 */}
       {(productsOpen || closingProducts) && (
         <div
-          className={`absolute left-0 right-0 top-full z-40 min-h-[60vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingProducts ? "mega-menu-panel-out" : "mega-menu-panel"}`}
+          className={`absolute left-0 right-0 top-full z-40 border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingProducts ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           onMouseEnter={openProducts}
-          onMouseLeave={closeProducts}
         >
           <div className="mx-auto flex max-w-content px-6 py-8">
             {/* 左侧分类 */}
@@ -388,9 +396,8 @@ export default function Header() {
       {/* Solutions mega menu */}
       {(solutionsOpen || closingSolutions) && (
         <div
-          className={`absolute left-0 right-0 top-full z-40 min-h-[50vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingSolutions ? "mega-menu-panel-out" : "mega-menu-panel"}`}
+          className={`absolute left-0 right-0 top-full z-40 border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingSolutions ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           onMouseEnter={openSolutions}
-          onMouseLeave={closeSolutions}
         >
           <div className="mx-auto flex max-w-content px-6 py-8">
             <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
@@ -432,9 +439,8 @@ export default function Header() {
       {/* About mega menu */}
       {(discoverOpen === "/about" || closingDiscover === "/about") && (
         <div
-          className={`absolute left-0 right-0 top-full z-40 min-h-[40vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingDiscover === "/about" ? "mega-menu-panel-out" : "mega-menu-panel"}`}
+          className={`absolute left-0 right-0 top-full z-40 border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingDiscover === "/about" ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           onMouseEnter={() => openDiscover("/about")}
-          onMouseLeave={closeDiscover}
         >
           <div className="mx-auto flex max-w-content px-6 py-8">
             <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
@@ -469,9 +475,8 @@ export default function Header() {
       {/* Support mega menu */}
       {(discoverOpen === "/support" || closingDiscover === "/support") && (
         <div
-          className={`absolute left-0 right-0 top-full z-40 min-h-[40vh] border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingDiscover === "/support" ? "mega-menu-panel-out" : "mega-menu-panel"}`}
+          className={`absolute left-0 right-0 top-full z-40 border-t border-warm-gray/40 bg-warm-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${closingDiscover === "/support" ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           onMouseEnter={() => openDiscover("/support")}
-          onMouseLeave={closeDiscover}
         >
           <div className="mx-auto flex max-w-content px-6 py-8">
             <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4">
