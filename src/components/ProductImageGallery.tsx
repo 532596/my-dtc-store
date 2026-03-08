@@ -24,8 +24,8 @@ export default function ProductImageGallery({ images, alt }: Props) {
           src={currentImage}
           alt={alt}
           fill
-          className="object-contain"
-          sizes="(max-width: 1024px) 100vw, 65vw"
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 50vw"
           priority
         />
         {/* 左右箭头 */}

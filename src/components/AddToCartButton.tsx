@@ -24,7 +24,7 @@ export default function AddToCartButton({ slug, name, desc, price, image }: Prop
         router.push("/cart");
       }}
     >
-      Add to Cart
+      加入购物车
     </button>
   );
 }
