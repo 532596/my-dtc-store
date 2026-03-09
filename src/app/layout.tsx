@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
 import FloatingActionButton from "@/components/FloatingActionButton";
+import ProductIntroDeepDive from "@/components/ProductIntroDeepDive";
 import { UserCountryProvider } from "@/contexts/UserCountryContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -32,6 +33,7 @@ export default function RootLayout({
             <CartProvider>
               <Header />
               {children}
+              <ProductIntroDeepDive />
               <NewsletterSection />
               <Footer />
               <FloatingActionButton />
