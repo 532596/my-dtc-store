@@ -17,9 +17,9 @@ export default function ProductImageGallery({ images, alt }: Props) {
   const goNext = () => setCurrent((i) => (i + 1) % list.length);
 
   return (
-    <div className="relative flex flex-1 flex-col min-h-0 w-full lg:min-h-0">
+    <div className="relative flex min-h-[280px] w-full flex-1 flex-col">
       {/* 单张大图：用 Image 组件保证显示，多图时用左右箭头切换 */}
-      <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-xl bg-warm-gray/20 lg:aspect-auto lg:min-h-0 lg:flex-1">
+      <div className="relative aspect-[4/3] w-full min-h-[280px] flex-1 overflow-hidden rounded-xl bg-warm-gray/20">
         <Image
           src={currentImage}
           alt={alt}

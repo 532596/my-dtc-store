@@ -106,8 +106,8 @@ export default function ProductPage(props: { params: { slug: string } }) {
     <main className="min-h-screen bg-warm-white lg:min-h-screen">
       <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[7fr_3fr] lg:min-h-0">
         {/* 左侧：大图区，无黑边，与右侧信息并列 */}
-        <div className="flex flex-col bg-warm-gray/5 p-4 md:p-6 lg:h-full lg:min-h-0 lg:justify-center lg:p-8">
-          <div className="w-full max-w-4xl lg:mx-auto lg:flex lg:w-full lg:max-w-none lg:flex-col lg:min-h-0">
+        <div className="flex min-h-[320px] flex-col bg-warm-gray/5 p-4 md:p-6 lg:min-h-full lg:h-full lg:min-h-0 lg:p-8">
+          <div className="flex w-full max-w-4xl flex-1 flex-col min-h-0 lg:mx-auto lg:max-w-none">
             <ProductImageGallery images={images} alt={product.name} />
           </div>
         </div>
