@@ -221,7 +221,7 @@ export default function CartContent() {
                       className="group/row relative overflow-hidden border-b border-warm-gray/40 pb-4 last:border-0 last:pb-0"
                     >
                       {/* 订单信息：悬停时向左滑动，让出右侧 */}
-                      <div className="flex gap-4 transition-transform duration-200 ease-out group-hover/row:translate-x-[-5.5rem]">
+                      <div className="flex gap-4 transition-transform duration-200 ease-out group-hover/row:translate-x-[-8rem]">
                         <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-warm-gray/40">
                           <Image
                             src={item.image}
@@ -243,7 +243,7 @@ export default function CartContent() {
                         </p>
                       </div>
                       {/* 右侧浮层：仅悬停时出现，浮在订单上方 */}
-                      <div className="absolute right-0 top-0 flex h-20 items-center gap-1.5 opacity-0 transition-opacity duration-200 group-hover/row:pointer-events-auto group-hover/row:opacity-100 pointer-events-none">
+                      <div className="absolute right-2 top-0 flex h-20 items-center gap-2 opacity-0 transition-opacity duration-200 group-hover/row:pointer-events-auto group-hover/row:opacity-100 pointer-events-none">
                         <Link
                           href={`/series/${item.id}`}
                           className="flex h-8 min-w-[2.25rem] items-center justify-center rounded-lg border border-warm-gray/50 bg-warm-white/95 px-2.5 text-xs font-medium text-foreground shadow-sm transition hover:border-accent hover:bg-warm-cream/80"

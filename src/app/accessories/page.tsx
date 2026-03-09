@@ -13,7 +13,7 @@ const ITEMS = [
     price: 129,
     comparePrice: 159,
     highlight: true,
-    img: "/images/acc-cable.jpg",
+    img: "/images/acc-cable.png",
   },
   {
     id: "charger",
@@ -25,7 +25,7 @@ const ITEMS = [
     price: 199,
     comparePrice: 249,
     highlight: false,
-    img: "/images/acc-charger.jpg",
+    img: "/images/acc-charger.png",
   },
   {
     id: "mat",
@@ -37,7 +37,7 @@ const ITEMS = [
     price: 89,
     comparePrice: 119,
     highlight: false,
-    img: "/images/acc-drawer.jpg",
+    img: "/images/acc-mat.png",
   },
 ];
 
