@@ -15,15 +15,18 @@ export default function OrderSuccessPage() {
           订单提交成功
         </h1>
         <p className="mt-3 text-sm text-warm-muted">
-          感谢您的购买。我们已收到您的订单，将尽快安排发货；您可在「订单跟踪」中查看物流状态。
+          感谢您的购买。我们已收到您的订单，将尽快安排发货。点击「查看订单」可查看订单详情，发货后可在「订单跟踪」中查询物流。
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <Link href="/order-tracking" className="btn-primary inline-flex px-6 py-3">
+          <Link
+            href="/cart/order-details"
+            className="btn-primary inline-flex min-w-[8rem] items-center justify-center px-6 py-3 text-center"
+          >
             查看订单
           </Link>
           <Link
             href="/series"
-            className="inline-flex rounded-xl border border-warm-gray/40 bg-warm-white px-6 py-3 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+            className="inline-flex min-w-[8rem] items-center justify-center rounded-xl border border-warm-gray/40 bg-warm-white px-6 py-3 text-center text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
           >
             继续选购
           </Link>

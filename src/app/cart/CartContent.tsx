@@ -46,6 +46,19 @@ export default function CartContent() {
                   e.preventDefault();
                   if (items.length === 0) return;
                   setIsSubmitting(true);
+                  const orderId = `SSD-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
+                  try {
+                    sessionStorage.setItem(
+                      "dtc-last-order",
+                      JSON.stringify({
+                        orderId,
+                        items: items.map((i) => ({ id: i.id, name: i.name, desc: i.desc, price: i.price, quantity: i.quantity, image: i.image })),
+                        subtotal,
+                        total: subtotal + shipping,
+                        createdAt: new Date().toISOString(),
+                      })
+                    );
+                  } catch {}
                   clearCart();
                   router.push("/cart/order-success");
                 }}
@@ -197,14 +210,9 @@ export default function CartContent() {
 
           <div className="lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-xl border border-warm-gray/50 bg-warm-white p-6 shadow-sm md:p-8">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground">
-                  订单摘要
-                </h2>
-                <Link href="/cart" className="text-xs font-medium text-accent hover:underline">
-                  编辑购物车
-                </Link>
-              </div>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground">
+                订单摘要
+              </h2>
 
               <div className="mt-4 flex items-center gap-2 rounded-lg bg-warm-cream/80 px-3 py-2 text-xs text-warm-muted">
                 <input
