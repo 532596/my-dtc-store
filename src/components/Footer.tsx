@@ -33,7 +33,7 @@ const FOOTER_ABOUT = [
 const FOOTER_SUPPORT = [
   { href: "/support#contact", label: "联系我们" },
   { href: "/support#faq", label: "常见问题解答" },
-  { href: "/support#tracking", label: "订单跟踪" },
+  { href: "/order-tracking", label: "订单跟踪" },
   { href: "/support#shipping", label: "物流" },
   { href: "/support#warranty", label: "保修单" },
 ];

@@ -521,7 +521,7 @@ export default function Header() {
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">支持</p>
                   <Link href="/support#contact" onMouseEnter={() => setMegaSupportSub(0)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 0 ? "bg-warm-cream/60" : ""}`}>联系我们</Link>
                   <Link href="/support#faq" onMouseEnter={() => setMegaSupportSub(1)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 1 ? "bg-warm-cream/60" : ""}`}>常见问题解答</Link>
-                  <Link href="/support#tracking" onMouseEnter={() => setMegaSupportSub(2)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 2 ? "bg-warm-cream/60" : ""}`}>订单跟踪</Link>
+                  <Link href="/order-tracking" onMouseEnter={() => setMegaSupportSub(2)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 2 ? "bg-warm-cream/60" : ""}`}>订单跟踪</Link>
                   <Link href="/support#shipping" onMouseEnter={() => setMegaSupportSub(3)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 3 ? "bg-warm-cream/60" : ""}`}>物流</Link>
                   <Link href="/support#warranty" onMouseEnter={() => setMegaSupportSub(4)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 4 ? "bg-warm-cream/60" : ""}`}>保修单</Link>
                 </aside>
@@ -550,7 +550,7 @@ export default function Header() {
                       <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">订单跟踪</h3>
                       <p className="mt-3 max-w-xl text-sm text-warm-muted">输入订单号或手机号，实时查询配送状态。</p>
                       <div className="mt-6 flex flex-wrap gap-3">
-                        <Link href="/support#tracking" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">查询订单 →</Link>
+                        <Link href="/order-tracking" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">查询订单 →</Link>
                       </div>
                     </>
                   )}
