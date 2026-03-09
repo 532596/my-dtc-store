@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 import { useUserCountry } from "@/contexts/UserCountryContext";
 import { useAuth, getInitials } from "@/contexts/AuthContext";
+import { useCart } from "@/contexts/CartContext";
 
 const NAV = [
   { href: "/", label: "Home" as const },
@@ -19,6 +20,8 @@ export default function Header() {
   const pathname = usePathname();
   const { displayCode, isLoading } = useUserCountry();
   const { displayName, isLoggedIn, logout } = useAuth();
+  const { items: cartItems } = useCart();
+  const cartCount = cartItems.reduce((s, i) => s + i.quantity, 0);
   const [accountOpen, setAccountOpen] = React.useState<boolean>(false);
   const [productsOpen, setProductsOpen] = React.useState<boolean>(false);
   const [solutionsOpen, setSolutionsOpen] = React.useState<boolean>(false);
@@ -287,11 +290,11 @@ export default function Header() {
             )}
           </div>
 
-          {/* 购物车图标（全端） */}
+          {/* 购物车图标（全端）+ 红标数量 */}
           <Link
             href="/cart"
-            className="flex items-center gap-1 rounded-full border border-warm-gray/40 px-3 py-1.5 text-xs text-warm-muted transition hover:border-accent hover:text-foreground"
-            aria-label="Cart"
+            className="relative flex items-center gap-1 rounded-full border border-warm-gray/40 px-3 py-1.5 text-xs text-warm-muted transition hover:border-accent hover:text-foreground"
+            aria-label={cartCount > 0 ? `Cart (${cartCount} items)` : "Cart"}
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -302,6 +305,11 @@ export default function Header() {
               />
             </svg>
             <span className="text-xs">Cart</span>
+            {cartCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
+                {cartCount > 99 ? "99+" : cartCount}
+              </span>
+            )}
           </Link>
 
           {/* 点击进入地区选择页，修改配送/地址偏好 */}
