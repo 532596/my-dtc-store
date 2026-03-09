@@ -47,6 +47,16 @@ export default function CartContent() {
                   if (items.length === 0) return;
                   setIsSubmitting(true);
                   const orderId = `SSD-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
+                  const form = e.currentTarget;
+                  const get = (name: string) => (form.querySelector(`[name="${name}"]`) as HTMLInputElement | HTMLSelectElement)?.value?.trim() ?? "";
+                  const firstName = get("firstName");
+                  const lastName = get("lastName");
+                  const city = get("city");
+                  const address = get("address");
+                  const address2 = get("address2");
+                  const phone = get("phone");
+                  const region = [get("country"), city].filter(Boolean).join(" ");
+                  const fullAddress = [address, address2].filter(Boolean).join(" ");
                   try {
                     sessionStorage.setItem(
                       "dtc-last-order",
@@ -56,6 +66,14 @@ export default function CartContent() {
                         subtotal,
                         total: subtotal + shipping,
                         createdAt: new Date().toISOString(),
+                        shipping: {
+                          name: `${lastName} ${firstName}`.trim() || "—",
+                          phone: phone || "—",
+                          region: region || "—",
+                          address: fullAddress || "—",
+                        },
+                        paymentMethod: "待支付",
+                        paidAt: "—",
                       })
                     );
                   } catch {}
