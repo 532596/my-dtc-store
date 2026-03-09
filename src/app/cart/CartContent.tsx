@@ -3,13 +3,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 
 export default function CartContent() {
   const router = useRouter();
   const { items, removeFromCart, clearCart } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [deliveryValid, setDeliveryValid] = useState(false);
+  const [formEl, setFormEl] = useState<HTMLFormElement | null>(null);
+
+  useEffect(() => {
+    if (!formEl) return;
+    const check = () => setDeliveryValid(formEl.checkValidity());
+    check();
+    formEl.addEventListener("input", check);
+    formEl.addEventListener("change", check);
+    return () => {
+      formEl.removeEventListener("input", check);
+      formEl.removeEventListener("change", check);
+    };
+  }, [formEl]);
   const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
   const shipping: number = 0;
   const total = subtotal + shipping;
@@ -41,6 +55,7 @@ export default function CartContent() {
 
               <form
                 id="checkout-form"
+                ref={setFormEl}
                 className="mt-6 space-y-4"
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -88,6 +103,7 @@ export default function CartContent() {
                     <input
                       type="text"
                       name="lastName"
+                      required
                       className="mt-1.5 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                       placeholder="请输入"
                     />
@@ -98,6 +114,7 @@ export default function CartContent() {
                     <input
                       type="text"
                       name="firstName"
+                      required
                       className="mt-1.5 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                       placeholder="请输入"
                     />
@@ -134,6 +151,7 @@ export default function CartContent() {
                   <input
                     type="text"
                     name="address"
+                    required
                     className="mt-1.5 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                     placeholder="街道、门牌号等"
                   />
@@ -156,6 +174,7 @@ export default function CartContent() {
                     <input
                       type="text"
                       name="postalCode"
+                      required
                       className="mt-1.5 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                       placeholder="请输入"
                     />
@@ -166,6 +185,7 @@ export default function CartContent() {
                     <input
                       type="text"
                       name="city"
+                      required
                       className="mt-1.5 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                       placeholder="请输入"
                     />
@@ -178,6 +198,7 @@ export default function CartContent() {
                   <input
                     type="tel"
                     name="phone"
+                    required
                     className="mt-1.5 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                     placeholder="例如 +86 138 0000 0000"
                   />
@@ -326,10 +347,10 @@ export default function CartContent() {
               <button
                 type="submit"
                 form="checkout-form"
-                disabled={isSubmitting || items.length === 0}
+                disabled={isSubmitting || items.length === 0 || !deliveryValid}
                 className="btn-primary mt-6 w-full py-3.5 disabled:pointer-events-none disabled:opacity-70"
               >
-                {isSubmitting ? "提交中…" : "提交订单"}
+                {isSubmitting ? "提交中…" : deliveryValid ? "提交订单" : "请先填写左侧配送信息"}
               </button>
 
               <p className="mt-4 text-center text-xs text-warm-muted">
