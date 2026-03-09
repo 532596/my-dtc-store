@@ -2,10 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 
 export default function CartContent() {
-  const { items, removeFromCart } = useCart();
+  const router = useRouter();
+  const { items, removeFromCart, clearCart } = useCart();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
   const shipping: number = 0;
   const total = subtotal + shipping;
@@ -38,7 +42,13 @@ export default function CartContent() {
               <form
                 id="checkout-form"
                 className="mt-6 space-y-4"
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (items.length === 0) return;
+                  setIsSubmitting(true);
+                  clearCart();
+                  router.push("/cart/order-success");
+                }}
               >
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label className="block">
@@ -290,9 +300,10 @@ export default function CartContent() {
               <button
                 type="submit"
                 form="checkout-form"
-                className="btn-primary mt-6 w-full py-3.5"
+                disabled={isSubmitting || items.length === 0}
+                className="btn-primary mt-6 w-full py-3.5 disabled:pointer-events-none disabled:opacity-70"
               >
-                提交订单
+                {isSubmitting ? "提交中…" : "提交订单"}
               </button>
 
               <p className="mt-4 text-center text-xs text-warm-muted">
