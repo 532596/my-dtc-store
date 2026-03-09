@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import * as React from "react";
@@ -10,6 +11,7 @@ import {
   Waves,
   BadgeCheck,
   Layers,
+  type LucideIcon,
 } from "lucide-react";
 
 type DeepDive = {
@@ -21,7 +23,7 @@ type DeepDive = {
   structureImage: string;
   materialTitle: string;
   materialSubtitle: string;
-  materialBadges: { title: string; desc: string; icon: React.ElementType }[];
+  materialBadges: { title: string; desc: string; icon: LucideIcon }[];
   swatches: { name: string; className: string }[];
   endorsements: string[];
 };
