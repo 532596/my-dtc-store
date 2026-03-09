@@ -112,19 +112,21 @@ export default function AboutPage() {
         <Reveal>
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1.5fr)]">
             {/* 左侧：标题 + 三大承诺 */}
-            <div>
-              <h2 className="text-xl font-semibold text-foreground md:text-2xl">信任与保障</h2>
-              <p className="mt-2 max-w-xl text-sm text-warm-muted">
-                从国际认证到质保年限，再到售后响应，我们希望所有关键信息都能被一眼看懂、随时查证。
-              </p>
-              <div className="mt-6 grid gap-3 text-sm text-warm-muted sm:grid-cols-3">
+            <div className="space-y-5">
+              <div>
+                <h2 className="text-xl font-semibold text-foreground md:text-2xl">信任与保障</h2>
+                <p className="mt-2 max-w-md text-sm leading-relaxed text-warm-muted">
+                  专门为「能否放心买」这一件事做的说明。从国际认证、质保年限到售后响应，用尽量少的字，把最重要的信息说清楚。
+                </p>
+              </div>
+              <div className="grid gap-3 text-sm text-warm-muted sm:grid-cols-2 lg:grid-cols-3">
                 <div className="rounded-2xl border border-warm-gray/40 bg-warm-white px-4 py-3">
                   <p className="text-xs font-medium uppercase tracking-[0.16em] text-accent">
                     Certification
                   </p>
                   <p className="mt-1 text-sm font-semibold text-foreground">权威机构认证</p>
-                  <p className="mt-1 text-xs">
-                    包含 TÜV、安全与人体工学多重认证，关键参数公开可查。
+                  <p className="mt-1 text-[11px] leading-relaxed">
+                    含 TÜV、安全与人体工学多重认证，关键参数公开可查。
                   </p>
                 </div>
                 <div className="rounded-2xl border border-warm-gray/40 bg-warm-white px-4 py-3">
@@ -132,7 +134,7 @@ export default function AboutPage() {
                     Warranty
                   </p>
                   <p className="mt-1 text-sm font-semibold text-foreground">长周期质保</p>
-                  <p className="mt-1 text-xs">
+                  <p className="mt-1 text-[11px] leading-relaxed">
                     电机最长 5 年，结构 3–5 年，主要部件质保范围清晰标注。
                   </p>
                 </div>
@@ -141,7 +143,7 @@ export default function AboutPage() {
                     Service
                   </p>
                   <p className="mt-1 text-sm font-semibold text-foreground">可视化服务</p>
-                  <p className="mt-1 text-xs">
+                  <p className="mt-1 text-[11px] leading-relaxed">
                     3D 安装指南与配送时效跟踪，让收货、安装与售后都有据可循。
                   </p>
                 </div>
