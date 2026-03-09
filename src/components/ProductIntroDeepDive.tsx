@@ -131,61 +131,61 @@ export default function ProductIntroDeepDive() {
 
   return (
     <div>
-      {/* 功能结构：深色图文块（参考图二） */}
-      <section className="bg-[#0f1115] py-14 md:py-16">
+      {/* 功能结构：浅色图文块，与全站暖色统一 */}
+      <section className="bg-warm-cream/40 py-14 md:py-16">
         <div className="mx-auto max-w-content px-6">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/60">
+              <p className="text-xs font-semibold uppercase tracking-widest text-warm-muted">
                 {data.structureKicker}
               </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
                 {data.structureTitle}
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-white/70">
+              <p className="mt-4 text-sm leading-relaxed text-warm-muted">
                 {data.structureDesc}
               </p>
               <ul className="mt-7 space-y-4">
                 {data.structureBullets.map((b) => (
                   <li key={b.title} className="flex gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/70" />
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                     <div>
-                      <p className="text-sm font-semibold text-white">{b.title}</p>
-                      <p className="mt-1 text-sm text-white/65">{b.desc}</p>
+                      <p className="text-sm font-semibold text-foreground">{b.title}</p>
+                      <p className="mt-1 text-sm text-warm-muted">{b.desc}</p>
                     </div>
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 flex flex-wrap items-center gap-3 text-xs text-white/60">
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
-                  <Cable className="h-3.5 w-3.5" />
+              <div className="mt-8 flex flex-wrap items-center gap-3 text-xs text-warm-muted">
+                <span className="inline-flex items-center gap-2 rounded-full border border-warm-gray/40 bg-white px-3 py-1.5">
+                  <Cable className="h-3.5 w-3.5 text-foreground" />
                   理线更整洁
                 </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
-                  <ShieldCheck className="h-3.5 w-3.5" />
+                <span className="inline-flex items-center gap-2 rounded-full border border-warm-gray/40 bg-white px-3 py-1.5">
+                  <ShieldCheck className="h-3.5 w-3.5 text-foreground" />
                   更稳更安心
                 </span>
               </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+            <div className="relative overflow-hidden rounded-2xl border border-warm-gray/40 bg-white shadow-sm">
               <div className="relative aspect-[16/9] w-full">
                 <Image
                   src={imgSrc}
                   alt={`${data.name} 功能结构示意`}
                   fill
-                  className="object-cover opacity-95"
+                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   onError={() => setImgSrc("/images/scene-office.jpg")}
                   priority={false}
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-black/35 via-transparent to-black/10" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/30 via-transparent to-transparent" />
               </div>
               <div className="p-5">
-                <p className="text-sm font-semibold text-white">
+                <p className="text-sm font-semibold text-foreground">
                   {data.name} 结构亮点
                 </p>
-                <p className="mt-1 text-xs text-white/60">
+                <p className="mt-1 text-xs text-warm-muted">
                   理线、稳固与升降体验，三者一次到位。
                 </p>
               </div>
