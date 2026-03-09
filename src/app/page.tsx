@@ -45,7 +45,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     countryCode: "CN",
     scene: "办公场景",
     quote: "Finally no more lower back pain after long workdays.",
-    image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600",
+    image: "/images/scene-office.jpg",
     imageAlt: "升降桌办公场景",
     productModel: "Model B",
     purchaseDate: "2024年3月",
@@ -57,7 +57,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     countryCode: "CN",
     scene: "开发场景",
     quote: "Quiet enough for late-night coding.",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600",
+    image: "/images/scene-office.jpg",
     imageAlt: "桌面与显示器使用",
     productModel: "Model B",
     purchaseDate: "2024年1月",
@@ -69,7 +69,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     countryCode: "CN",
     scene: "亲子学习",
     quote: "One desk for homework and my meetings.",
-    image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=600",
+    image: "/images/scene-learning.jpg",
     imageAlt: "家用办公桌场景",
     productModel: "Desk Pro",
     purchaseDate: "2024年5月",
@@ -81,7 +81,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     countryCode: "CN",
     scene: "会议/办公",
     quote: "TÜV and 5-year motor warranty sold me.",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600",
+    image: "/images/scene-office.jpg",
     imageAlt: "桌面产品使用",
     productModel: "Model C",
     purchaseDate: "2024年2月",
@@ -93,7 +93,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     countryCode: "CN",
     scene: "办公场景",
     quote: "Height memory is a game-changer. I switch between standing for meetings and sitting for deep work without thinking about it.",
-    image: "https://images.unsplash.com/photo-1593062096033-9a26f09a8d7e?q=80&w=600",
+    image: "/images/height-memory.png",
     imageAlt: "办公场景",
     productModel: "Model B",
     purchaseDate: "2024年4月",
@@ -105,7 +105,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     countryCode: "CN",
     scene: "书房",
     quote: "学生和老师都能用，高度范围够大。",
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600",
+    image: "/images/scene-learning.jpg",
     imageAlt: "书房场景",
     productModel: "Desk Pro",
     purchaseDate: "2023年11月",
@@ -117,7 +117,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     countryCode: "CN",
     scene: "居家办公",
     quote: "静音升降太重要了，夜里写稿不会吵到家人。语音调高度也很方便。",
-    image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=600",
+    image: "/images/scene-relax.jpg",
     imageAlt: "居家办公",
     productModel: "Model B",
     purchaseDate: "2024年6月",
@@ -129,7 +129,7 @@ const TESTIMONIALS: TestimonialItem[] = [
     countryCode: "CN",
     scene: "开发场景",
     quote: "Sturdy and quiet. The cable tray keeps my desk clean.",
-    image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600",
+    image: "/images/scene-office.jpg",
     imageAlt: "开发桌面",
     productModel: "Model C",
     purchaseDate: "2023年9月",
@@ -550,8 +550,8 @@ export default function Home() {
                   <div className="flex flex-col">
                     <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-warm-gray/40">
                       <Image
-                        src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=600"
-                        alt=""
+                        src="/images/height-memory.png"
+                        alt="站立办公"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 25vw"
@@ -565,8 +565,8 @@ export default function Home() {
                   <div className="flex flex-col">
                     <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-warm-gray/40">
                       <Image
-                        src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=600"
-                        alt=""
+                        src="/images/voice-control.png"
+                        alt="坐姿办公"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 25vw"
