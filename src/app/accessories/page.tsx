@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import AddToCartButton from "@/components/AddToCartButton";
 
 const ITEMS = [
   {
@@ -148,6 +149,15 @@ export default function AccessoriesPage() {
                         搭配选购
                       </Link>
                     </div>
+                    <AddToCartButton
+                      slug={`acc-${item.id}`}
+                      name={item.name}
+                      desc={item.desc}
+                      price={item.price}
+                      image={item.img}
+                      redirectToCart={false}
+                      className="mt-4 min-w-0 w-full px-4 py-2.5"
+                    />
                   </div>
                 </div>
               </Reveal>

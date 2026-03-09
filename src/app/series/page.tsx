@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import AddToCartButton from "@/components/AddToCartButton";
 
 const PRODUCTS = [
   {
@@ -113,15 +114,14 @@ export default function SeriesPage() {
             const saving = p.comparePrice && p.comparePrice > p.price ? p.comparePrice - p.price : 0;
             return (
               <Reveal key={p.slug} delay={i === 0 ? 0 : i === 1 ? 1 : 2}>
-                <Link
-                  href={`/series/${p.slug}`}
+                <div
                   className={`group flex flex-col overflow-hidden rounded-2xl border transition hover:shadow-lg ${
                     p.highlight
                       ? "border-accent/40 bg-gradient-to-b from-accent-light/20 to-transparent"
                       : "border-warm-gray/40 bg-warm-white hover:border-warm-gray/60"
                   }`}
                 >
-                  <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-warm-gray/30">
+                  <Link href={`/series/${p.slug}`} className="relative aspect-[4/3] shrink-0 overflow-hidden bg-warm-gray/30">
                     <Image
                       src={p.img}
                       alt={p.name}
@@ -139,11 +139,13 @@ export default function SeriesPage() {
                         省 ¥{saving}
                       </span>
                     )}
-                  </div>
+                  </Link>
                   <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-lg font-semibold text-foreground group-hover:text-accent">
-                      {p.name}
-                    </h3>
+                    <Link href={`/series/${p.slug}`} className="w-fit">
+                      <h3 className="text-lg font-semibold text-foreground group-hover:text-accent">
+                        {p.name}
+                      </h3>
+                    </Link>
                     <p className="mt-0.5 text-xs font-medium text-accent">{p.tagline}</p>
                     <p className="mt-2 line-clamp-2 text-sm text-warm-muted">{p.desc}</p>
                     <div className="mt-4 flex flex-wrap gap-2">
@@ -161,12 +163,24 @@ export default function SeriesPage() {
                           </span>
                         )}
                       </div>
-                      <span className="rounded-lg bg-warm-gray/20 px-3 py-1.5 text-sm font-medium text-foreground transition group-hover:bg-accent/20 group-hover:text-accent">
+                      <Link
+                        href={`/series/${p.slug}`}
+                        className="rounded-lg bg-warm-gray/20 px-3 py-1.5 text-sm font-medium text-foreground transition hover:bg-accent/20 hover:text-accent"
+                      >
                         查看详情
-                      </span>
+                      </Link>
                     </div>
+                    <AddToCartButton
+                      slug={p.slug}
+                      name={p.name}
+                      desc={p.desc}
+                      price={p.price}
+                      image={p.img}
+                      redirectToCart={false}
+                      className="mt-4 min-w-0 w-full px-4 py-2.5"
+                    />
                   </div>
-                </Link>
+                </div>
               </Reveal>
             );
           })}

@@ -250,6 +250,7 @@ export default function ProductPage(props: { params: { slug: string } }) {
                   desc={product.descZh}
                   price={product.price}
                   image={mainImage}
+                  redirectToCart
                 />
               </div>
             </div>
