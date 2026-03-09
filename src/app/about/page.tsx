@@ -107,50 +107,120 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 信任与保障：高密度标签网格 */}
+      {/* 信任与保障：左右分栏信息卡 */}
       <section className="mx-auto max-w-content px-6 py-10 md:py-14">
         <Reveal>
-          <h2 className="text-xl font-semibold text-foreground md:text-2xl">信任与保障</h2>
-          <p className="mt-1 max-w-xl text-sm text-warm-muted">
-            认证、质保与售后服务透明可查，让选购与使用更安心。
-          </p>
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {TRUST_ITEMS.map((item) => (
-              <div
-                key={item.label}
-                className="flex items-start gap-4 rounded-xl border border-warm-gray/40 bg-warm-white p-4"
-              >
-                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-warm-cream/50 text-accent">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </span>
-                <div>
-                  <div className="font-medium text-foreground">{item.label}</div>
-                  <div className="mt-0.5 text-xs text-warm-muted">{item.sub}</div>
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1.5fr)]">
+            {/* 左侧：标题 + 三大承诺 */}
+            <div>
+              <h2 className="text-xl font-semibold text-foreground md:text-2xl">信任与保障</h2>
+              <p className="mt-2 max-w-xl text-sm text-warm-muted">
+                从国际认证到质保年限，再到售后响应，我们希望所有关键信息都能被一眼看懂、随时查证。
+              </p>
+              <div className="mt-6 grid gap-3 text-sm text-warm-muted sm:grid-cols-3">
+                <div className="rounded-2xl border border-warm-gray/40 bg-warm-white px-4 py-3">
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-accent">
+                    Certification
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-foreground">权威机构认证</p>
+                  <p className="mt-1 text-xs">
+                    包含 TÜV、安全与人体工学多重认证，关键参数公开可查。
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-warm-gray/40 bg-warm-white px-4 py-3">
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-accent">
+                    Warranty
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-foreground">长周期质保</p>
+                  <p className="mt-1 text-xs">
+                    电机最长 5 年，结构 3–5 年，主要部件质保范围清晰标注。
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-warm-gray/40 bg-warm-white px-4 py-3">
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-accent">
+                    Service
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-foreground">可视化服务</p>
+                  <p className="mt-1 text-xs">
+                    3D 安装指南与配送时效跟踪，让收货、安装与售后都有据可循。
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/support#warranty"
-              className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
-            >
-              质保政策
-            </Link>
-            <Link
-              href="/support#shipping"
-              className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
-            >
-              配送与退换
-            </Link>
-            <Link
-              href="/support#contact"
-              className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
-            >
-              联系我们
-            </Link>
+              <p className="mt-4 text-xs text-warm-muted">
+                所有保障条款均可在
+                <span className="mx-1 font-medium text-foreground">「支持中心」</span>
+                中查看详细说明。
+              </p>
+            </div>
+
+            {/* 右侧：明细网格 + 支持入口 */}
+            <div className="rounded-3xl border border-warm-gray/40 bg-warm-white/90 p-5 shadow-sm shadow-warm-gray/10 md:p-6">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-warm-muted">
+                    Transparency
+                  </p>
+                  <p className="mt-1 text-base font-semibold text-foreground">
+                    认证与服务一览
+                  </p>
+                </div>
+                <span className="inline-flex items-center rounded-full bg-warm-cream/60 px-3 py-1 text-[11px] font-medium text-warm-muted">
+                  实际保障以随箱说明书与官网支持页为准
+                </span>
+              </div>
+
+              <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {TRUST_ITEMS.map((item) => (
+                  <div
+                    key={item.label}
+                    className="flex items-start gap-3 rounded-2xl border border-warm-gray/40 bg-warm-cream/10 px-3.5 py-3"
+                  >
+                    <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                      <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </span>
+                    <div>
+                      <div className="text-xs font-semibold text-foreground md:text-sm">
+                        {item.label}
+                      </div>
+                      <div className="mt-0.5 text-[11px] text-warm-muted md:text-xs">
+                        {item.sub}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-3 text-xs md:text-sm">
+                <Link
+                  href="/support#warranty"
+                  className="inline-flex items-center gap-2 rounded-full border border-warm-gray/50 bg-warm-cream/40 px-4 py-2 font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/70"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  质保政策
+                </Link>
+                <Link
+                  href="/support#shipping"
+                  className="inline-flex items-center gap-2 rounded-full border border-warm-gray/50 bg-warm-cream/40 px-4 py-2 font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/70"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  配送与退换
+                </Link>
+                <Link
+                  href="/support#contact"
+                  className="inline-flex items-center gap-2 rounded-full border border-warm-gray/50 bg-warm-cream/40 px-4 py-2 font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/70"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  联系我们
+                </Link>
+              </div>
+            </div>
           </div>
         </Reveal>
       </section>
