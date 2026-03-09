@@ -4,9 +4,12 @@ import Link from "next/link";
 import { useState } from "react";
 
 const STEPS = [
-  { q: "主要使用人群？", options: ["个人办公", "家庭多人", "儿童学习"] },
+  { q: "主要使用人群？", options: ["个人办公", "家庭多人", "儿童学习", "出租房 / 临时使用"] },
   { q: "空间大小？", options: ["小户型", "标准空间", "大户型 / 独立房间"] },
   { q: "预算区间？", options: ["入门体验", "主流配置", "高端旗舰"] },
+  { q: "使用时长和频率？", options: ["偶尔使用", "工作日 3–5 小时", "高频 6 小时以上"] },
+  { q: "你更在意哪一项？", options: ["性价比", "稳定性和承重", "颜值与做工"] },
+  { q: "桌面与收纳需求？", options: ["只放电脑与键盘", "还需显示器 / 支架", "需要较多收纳与配件"] },
 ];
 
 export default function QuizPage() {
@@ -33,7 +36,7 @@ export default function QuizPage() {
               Find Your Fit
             </h1>
             <p className="mt-3 max-w-xl text-sm md:text-base text-warm-muted">
-              3 个简单问题，结合使用人群、空间和预算，帮你在众多升降桌中快速筛选合适型号。
+              多维度问题，结合使用人群、空间、预算与使用习惯，帮你在众多升降桌中快速筛选合适型号。
             </p>
 
             {/* 进度与步骤提示 */}
