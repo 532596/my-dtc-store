@@ -289,20 +289,11 @@ export default function Home() {
                   <div className="relative w-full overflow-hidden rounded-lg bg-warm-gray/60">
                     <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
                       <Image
-                        src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=800"
+                        src="/images/height-memory.png"
                         alt="高度记忆办公场景"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 42vw"
-                      />
-                      <video
-                        src="/videos/height-memory.mp4"
-                        className="absolute inset-0 h-full w-full object-cover"
-                        playsInline
-                        muted
-                        loop
-                        autoPlay
-                        aria-label="高度记忆演示"
                       />
                     </div>
                   </div>
@@ -346,20 +337,11 @@ export default function Home() {
                   <div className="relative w-full overflow-hidden rounded-lg bg-warm-gray/60">
                     <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
                       <Image
-                        src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800"
+                        src="/images/voice-control.png"
                         alt="语音控制场景"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 42vw"
-                      />
-                      <video
-                        src="/videos/voice-control.mp4"
-                        className="absolute inset-0 h-full w-full object-cover"
-                        playsInline
-                        muted
-                        loop
-                        autoPlay
-                        aria-label="语音控制演示"
                       />
                     </div>
                   </div>

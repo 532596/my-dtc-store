@@ -10,28 +10,32 @@ import {
   Youtube,
 } from "lucide-react";
 
+/** 与顶部导航 Products 下拉左侧一致 */
 const FOOTER_PRODUCTS = [
   { href: "/series", label: "升降桌系列" },
   { href: "/accessories", label: "配件" },
   { href: "/series#compare", label: "产品对比" },
 ];
 
+/** 与顶部导航 Solutions 下拉左侧一致 */
 const FOOTER_SOLUTIONS = [
   { href: "/scenarios", label: "场景" },
   { href: "/guide", label: "技术原理" },
-  { href: "/guide#voice-control", label: "语音控制" },
-  { href: "/guide#height-memory", label: "高度记忆" },
 ];
 
+/** 与顶部导航 About 下拉左侧一致 */
 const FOOTER_ABOUT = [
-  { href: "/about", label: "品牌介绍" },
+  { href: "/about", label: "关于我们" },
   { href: "/about#stories", label: "客户故事" },
-  { href: "/support", label: "售后服务" },
 ];
 
+/** 与顶部导航 Support 下拉左侧一致 */
 const FOOTER_SUPPORT = [
-  { href: "/support#faq", label: "常见问题 FAQ" },
-  { href: "/guide", label: "健康办公指南" },
+  { href: "/support#contact", label: "联系我们" },
+  { href: "/support#faq", label: "常见问题解答" },
+  { href: "/support#tracking", label: "订单跟踪" },
+  { href: "/support#shipping", label: "物流" },
+  { href: "/support#warranty", label: "保修单" },
 ];
 
 const CONTACT_ITEMS = [
@@ -100,7 +104,7 @@ export default function Footer() {
             </div>
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
-                发现
+                关于
               </h3>
               <ul className="mt-4 space-y-2.5">
                 {FOOTER_ABOUT.map((item) => (
