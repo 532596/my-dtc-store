@@ -494,19 +494,19 @@ export default function Home() {
                 title: "北欧原木",
                 subtitle: "客厅 / 书房",
                 desc: "浅木色桌面配黑色桌架，与原木家具、绿植和织物地毯自然过渡，适合作为客厅办公角或通透书房。",
-                img: "/images/adjust-1.jpg",
+                img: "/images/furniture-nordic.png",
               },
               {
                 title: "现代简约",
                 subtitle: "办公室 / 独立书房",
                 desc: "深色桌面与极简桌脚，搭配隐藏理线与显示器支架，保持桌面干净利落，适合现代公寓与办公空间。",
-                img: "/images/adjust-2.jpg",
+                img: "/images/furniture-modern.png",
               },
               {
                 title: "温暖居家",
                 subtitle: "卧室 / 多功能房",
                 desc: "柔和木纹与暖色灯光相呼应，可作为梳妆台、阅读角或儿童学习桌，在有限空间中兼顾功能与氛围感。",
-                img: "/images/adjust-3.jpg",
+                img: "/images/furniture-warm.png",
               },
             ].map((item, i) => (
               <Reveal key={item.title} delay={i === 0 ? 0 : i === 1 ? 1 : 2}>
