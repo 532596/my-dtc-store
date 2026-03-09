@@ -377,6 +377,79 @@ export default function Home() {
             </div>
           </Reveal>
 
+          {/* 安全防撞 = 图片左 / 文字右 */}
+          <Reveal delay={2}>
+            <div className="mt-12 md:mt-14">
+              <SmartFeatureBlock
+                href="/guide#safety"
+                label="了解"
+                leftContent={
+                  <div className="relative w-full overflow-hidden rounded-lg bg-warm-gray/60">
+                    <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
+                      <Image
+                        src="/images/scene-office.jpg"
+                        alt="安全防撞与家庭场景"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 42vw"
+                      />
+                    </div>
+                  </div>
+                }
+                rightContent={
+                  <div className="flex flex-col justify-center md:w-[58%]">
+                    <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
+                      <span
+                        className="text-xs font-medium uppercase tracking-widest text-accent"
+                        aria-hidden
+                      >
+                        03
+                      </span>
+                      <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+                        Safety & Anti-collision
+                      </h3>
+                      <p className="mt-3 text-body text-warm-muted">
+                        内置防撞检测与障碍感应，桌面下降或上升遇到阻力会立即回弹，减少误触和对家人、桌面物品的冲撞风险。
+                      </p>
+                      <ul className="mt-3 space-y-2 text-sm text-warm-muted">
+                        <li className="flex items-start gap-2.5">
+                          <span
+                            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80"
+                            aria-hidden
+                          />
+                          <span>
+                            <strong className="text-foreground">智能防撞</strong>
+                            ：检测到异常阻力时立即停止并回弹，保护桌面与物品。
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-2.5">
+                          <span
+                            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80"
+                            aria-hidden
+                          />
+                          <span>
+                            <strong className="text-foreground">儿童/宠物友好</strong>
+                            ：桌面移动更可控，减少对儿童和宠物的意外夹碰。
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-2.5">
+                          <span
+                            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80"
+                            aria-hidden
+                          />
+                          <span>
+                            <strong className="text-foreground">多场景适配</strong>
+                            ：放抽屉柜、脚踏或储物盒时也能保持安全间隙。
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                }
+              />
+            </div>
+          </Reveal>
+
           <div className="mt-10 flex flex-wrap items-center justify-center gap-10 text-center md:mt-12">
             <div>
               <p className="text-2xl font-semibold text-foreground">4 组</p>
@@ -407,29 +480,62 @@ export default function Home() {
         <div className="mx-auto max-w-content px-6">
           <Reveal>
             <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
-              Adjust to Your Life
+              家具适配
             </h2>
           </Reveal>
-          <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-3">
+          <Reveal delay={1}>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-warm-muted">
+              不同家居风格下，智能升降桌既要好用，也要好看。我们围绕三种典型空间，展示桌架、桌面与配色如何融入你的日常环境。
+            </p>
+          </Reveal>
+          <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
             {[
-              { title: "Dual Motor", desc: "双电机稳定升降，线缆管理系统。", img: "/images/adjust-1.jpg" },
-              { title: "Cable Management", desc: "理线架、无线充电模块可选。", img: "/images/adjust-2.jpg" },
-              { title: "Solid Tabletop", desc: "柔和木色桌面，耐用易清洁。", img: "/images/adjust-3.jpg" },
+              {
+                title: "北欧原木",
+                subtitle: "客厅 / 书房",
+                desc: "浅木色桌面配黑色桌架，与原木家具、绿植和织物地毯自然过渡，适合作为客厅办公角或通透书房。",
+                img: "/images/adjust-1.jpg",
+              },
+              {
+                title: "现代简约",
+                subtitle: "办公室 / 独立书房",
+                desc: "深色桌面与极简桌脚，搭配隐藏理线与显示器支架，保持桌面干净利落，适合现代公寓与办公空间。",
+                img: "/images/adjust-2.jpg",
+              },
+              {
+                title: "温暖居家",
+                subtitle: "卧室 / 多功能房",
+                desc: "柔和木纹与暖色灯光相呼应，可作为梳妆台、阅读角或儿童学习桌，在有限空间中兼顾功能与氛围感。",
+                img: "/images/adjust-3.jpg",
+              },
             ].map((item, i) => (
               <Reveal key={item.title} delay={i === 0 ? 0 : i === 1 ? 1 : 2}>
-                <div className="rounded-xl border border-warm-gray/60 bg-warm-cream/50 p-6">
-                  <div className="relative aspect-video overflow-hidden rounded-lg bg-warm-gray/60">
-                    <Image src={item.img} alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                <div className="flex h-full flex-col rounded-2xl border border-warm-gray/50 bg-warm-cream/40 p-5 md:p-6">
+                  <div className="relative aspect-video overflow-hidden rounded-xl bg-warm-gray/60">
+                    <Image
+                      src={item.img}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
                   </div>
-                  <h3 className="mt-5 text-lg font-semibold text-foreground">{item.title}</h3>
-                  <p className="mt-2 text-body text-warm-muted">{item.desc}</p>
+                  <div className="mt-4 flex flex-1 flex-col">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+                      <span className="text-xs font-medium uppercase tracking-[0.16em] text-warm-muted">
+                        {item.subtitle}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm leading-relaxed text-warm-muted">{item.desc}</p>
+                  </div>
                 </div>
               </Reveal>
             ))}
           </div>
-          <div className="mt-12 text-center">
+          <div className="mt-10 text-center md:mt-12">
             <Link href="/series#compare" className="btn-primary inline-block px-8 py-3.5">
-              Compare Now →
+              对比各型号桌架 →
             </Link>
           </div>
         </div>

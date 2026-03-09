@@ -531,6 +531,7 @@ export default function Header() {
                   <Link href="/support" onMouseEnter={() => setMegaSupportSub(1)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 1 ? "bg-warm-cream/60" : ""}`}>常见问题解答</Link>
                   <Link href="/order-tracking" onMouseEnter={() => setMegaSupportSub(2)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 2 ? "bg-warm-cream/60" : ""}`}>订单跟踪</Link>
                   <Link href="/support#shipping" onMouseEnter={() => setMegaSupportSub(3)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 3 ? "bg-warm-cream/60" : ""}`}>物流</Link>
+                  <Link href="/support#shipping" onMouseEnter={() => setMegaSupportSub(5)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 5 ? "bg-warm-cream/60" : ""}`}>退换货</Link>
                   <Link href="/support#warranty" onMouseEnter={() => setMegaSupportSub(4)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 4 ? "bg-warm-cream/60" : ""}`}>保修单</Link>
                 </aside>
                 <div className="ml-10 flex-1">
@@ -577,6 +578,15 @@ export default function Header() {
                       <p className="mt-3 max-w-xl text-sm text-warm-muted">电机与框架质保政策，以及保修申请方式。</p>
                       <div className="mt-6 flex flex-wrap gap-3">
                         <Link href="/support#warranty" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">保修政策 →</Link>
+                      </div>
+                    </>
+                  )}
+                  {megaSupportSub === 5 && (
+                    <>
+                      <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">退换货</h3>
+                      <p className="mt-3 max-w-xl text-sm text-warm-muted">退货与换货条件、流程说明，以及处理时间与运费规则。</p>
+                      <div className="mt-6 flex flex-wrap gap-3">
+                        <Link href="/support#shipping" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">查看退换政策 →</Link>
                       </div>
                     </>
                   )}
