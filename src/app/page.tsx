@@ -484,11 +484,11 @@ export default function Home() {
             </h2>
           </Reveal>
           <Reveal delay={1}>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-warm-muted">
+            <p className="mx-auto mt-5 max-w-2xl text-center text-sm leading-relaxed text-warm-muted">
               不同家居风格下，智能升降桌既要好用，也要好看。我们围绕三种典型空间，展示桌架、桌面与配色如何融入你的日常环境。
             </p>
           </Reveal>
-          <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="mt-16 grid grid-cols-1 gap-10 sm:gap-12 md:grid-cols-3 md:gap-8 lg:gap-12">
             {[
               {
                 title: "北欧原木",
@@ -510,7 +510,7 @@ export default function Home() {
               },
             ].map((item, i) => (
               <Reveal key={item.title} delay={i === 0 ? 0 : i === 1 ? 1 : 2}>
-                <div className="flex h-full flex-col rounded-2xl border border-warm-gray/50 bg-warm-cream/40 p-5 md:p-6">
+                <div className="flex h-full flex-col rounded-2xl border border-warm-gray/50 bg-warm-cream/40 p-6 md:p-8">
                   <div className="relative aspect-video overflow-hidden rounded-xl bg-warm-gray/60">
                     <Image
                       src={item.img}
@@ -520,20 +520,20 @@ export default function Home() {
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>
-                  <div className="mt-4 flex flex-1 flex-col">
-                    <div className="flex items-baseline justify-between gap-3">
+                  <div className="mt-6 flex flex-1 flex-col">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
                       <span className="text-xs font-medium uppercase tracking-[0.16em] text-warm-muted">
                         {item.subtitle}
                       </span>
                     </div>
-                    <p className="mt-2 text-sm leading-relaxed text-warm-muted">{item.desc}</p>
+                    <p className="mt-3 text-sm leading-loose text-warm-muted">{item.desc}</p>
                   </div>
                 </div>
               </Reveal>
             ))}
           </div>
-          <div className="mt-10 text-center md:mt-12">
+          <div className="mt-14 text-center md:mt-16">
             <Link href="/series#compare" className="btn-primary inline-block px-8 py-3.5">
               对比各型号桌架 →
             </Link>
