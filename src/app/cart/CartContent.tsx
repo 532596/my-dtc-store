@@ -29,6 +29,50 @@ export default function CartContent() {
           </Link>
         </div>
 
+        {/* 配送与保修说明卡片：便于用户了解详细要求 */}
+        <div className="mb-8 space-y-4">
+          <Link
+            href="/support#shipping"
+            className="flex flex-wrap items-center gap-4 rounded-xl border border-warm-gray/40 bg-warm-gray/10 p-4 transition hover:border-warm-gray/60 hover:bg-warm-gray/20 sm:flex-nowrap"
+          >
+            <span className="relative shrink-0">
+              <svg className="h-10 w-10 text-warm-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8 4-8-4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-white" aria-hidden>
+                <svg className="h-2.5 w-2.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              </span>
+            </span>
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-foreground">配送详情</h3>
+              <p className="mt-0.5 text-sm text-warm-muted">配送范围、时效与运费说明，以及退换货流程与政策。</p>
+            </div>
+            <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-accent sm:ml-auto">
+              阅读更多
+            </span>
+          </Link>
+          <Link
+            href="/support#warranty"
+            className="flex flex-wrap items-center gap-4 rounded-xl border border-warm-gray/40 bg-warm-gray/10 p-4 transition hover:border-warm-gray/60 hover:bg-warm-gray/20 sm:flex-nowrap"
+          >
+            <span className="relative shrink-0">
+              <svg className="h-10 w-10 text-warm-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-white" aria-hidden>
+                <svg className="h-2.5 w-2.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              </span>
+            </span>
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-foreground">质保与保修</h3>
+              <p className="mt-0.5 text-sm text-warm-muted">电机与框架质保政策、保修年限及申请方式，购物更安心。</p>
+            </div>
+            <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-accent sm:ml-auto">
+              阅读更多
+            </span>
+          </Link>
+        </div>
+
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr,400px]">
           <div className="space-y-6">
             <div className="rounded-xl border border-warm-gray/50 bg-warm-white p-6 shadow-sm md:p-8">
