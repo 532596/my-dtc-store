@@ -220,45 +220,43 @@ export default function CartContent() {
                       key={item.id}
                       className="group/row relative overflow-hidden border-b border-warm-gray/40 pb-4 last:border-0 last:pb-0"
                     >
-                      <div className="flex transition-transform duration-200 ease-out group-hover/row:translate-x-[-5.5rem]">
-                        {/* 左侧抽屉：编辑、删除，悬停时滑入 */}
-                        <div className="flex w-[5.5rem] shrink-0 items-center gap-1.5 pr-2">
-                          <Link
-                            href={`/series/${item.id}`}
-                            className="flex h-8 min-w-[2.25rem] items-center justify-center rounded-lg border border-warm-gray/50 bg-warm-white px-2.5 text-xs font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/60"
-                          >
-                            编辑
-                          </Link>
-                          <button
-                            type="button"
-                            onClick={() => removeFromCart(item.id)}
-                            className="flex h-8 min-w-[2.25rem] items-center justify-center rounded-lg border border-warm-gray/50 bg-warm-white px-2.5 text-xs font-medium text-foreground transition hover:border-red-400 hover:bg-red-50 hover:text-red-600"
-                          >
-                            删除
-                          </button>
+                      {/* 订单信息：悬停时向左滑动，让出右侧 */}
+                      <div className="flex gap-4 transition-transform duration-200 ease-out group-hover/row:translate-x-[-5.5rem]">
+                        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-warm-gray/40">
+                          <Image
+                            src={item.image}
+                            alt=""
+                            fill
+                            className="object-cover"
+                            sizes="80px"
+                          />
                         </div>
-                        {/* 商品内容区 */}
-                        <div className="flex min-w-0 flex-1 gap-4">
-                          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-warm-gray/40">
-                            <Image
-                              src={item.image}
-                              alt=""
-                              fill
-                              className="object-cover"
-                              sizes="80px"
-                            />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-foreground">{item.name}</p>
-                            <p className="mt-0.5 text-xs text-warm-muted">{item.desc}</p>
-                            <p className="mt-1 text-sm text-foreground">
-                              ¥{item.price.toLocaleString()} × {item.quantity}
-                            </p>
-                          </div>
-                          <p className="shrink-0 text-sm font-medium text-foreground">
-                            ¥{(item.price * item.quantity).toLocaleString()}
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-medium text-foreground">{item.name}</p>
+                          <p className="mt-0.5 text-xs text-warm-muted">{item.desc}</p>
+                          <p className="mt-1 text-sm text-foreground">
+                            ¥{item.price.toLocaleString()} × {item.quantity}
                           </p>
                         </div>
+                        <p className="shrink-0 text-sm font-medium text-foreground">
+                          ¥{(item.price * item.quantity).toLocaleString()}
+                        </p>
+                      </div>
+                      {/* 右侧浮层：仅悬停时出现，浮在订单上方 */}
+                      <div className="absolute right-0 top-0 flex h-20 items-center gap-1.5 opacity-0 transition-opacity duration-200 group-hover/row:pointer-events-auto group-hover/row:opacity-100 pointer-events-none">
+                        <Link
+                          href={`/series/${item.id}`}
+                          className="flex h-8 min-w-[2.25rem] items-center justify-center rounded-lg border border-warm-gray/50 bg-warm-white/95 px-2.5 text-xs font-medium text-foreground shadow-sm transition hover:border-accent hover:bg-warm-cream/80"
+                        >
+                          编辑
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => removeFromCart(item.id)}
+                          className="flex h-8 min-w-[2.25rem] items-center justify-center rounded-lg border border-warm-gray/50 bg-warm-white/95 px-2.5 text-xs font-medium text-foreground shadow-sm transition hover:border-red-400 hover:bg-red-50 hover:text-red-600"
+                        >
+                          删除
+                        </button>
                       </div>
                     </div>
                   ))
