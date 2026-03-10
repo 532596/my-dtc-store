@@ -6,6 +6,12 @@ import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "dtc-last-order";
 
+const PAYMENT_CHANNELS = [
+  { id: "alipay", label: "支付宝", desc: "使用支付宝扫码或账户余额支付" },
+  { id: "wechat", label: "微信支付", desc: "使用微信扫码支付" },
+  { id: "card", label: "信用卡 / 借记卡", desc: "支持 Visa、Mastercard、银联等" },
+] as const;
+
 type StoredItem = {
   id: string;
   name: string;
@@ -29,6 +35,9 @@ type StoredOrder = {
 export default function OrderDetailsPage() {
   const [order, setOrder] = useState<StoredOrder | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [paymentChannel, setPaymentChannel] = useState<"alipay" | "wechat" | "card">("alipay");
+  const [isPaying, setIsPaying] = useState(false);
+  const [payDone, setPayDone] = useState(false);
 
   useEffect(() => {
     try {
@@ -73,8 +82,26 @@ export default function OrderDetailsPage() {
   });
 
   const shipping = order.shipping ?? { name: "—", phone: "—", region: "—", address: "—" };
+  const isPaid = order.paymentMethod !== undefined && order.paymentMethod !== "待支付";
   const paymentMethod = order.paymentMethod ?? "待支付";
   const paidAt = order.paidAt ?? "—";
+
+  const handlePay = () => {
+    setIsPaying(true);
+    setTimeout(() => {
+      try {
+        const updated = {
+          ...order,
+          paymentMethod: paymentChannel === "alipay" ? "支付宝" : paymentChannel === "wechat" ? "微信支付" : "信用卡",
+          paidAt: new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }),
+        };
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        setOrder(updated);
+        setPayDone(true);
+      } catch {}
+      setIsPaying(false);
+    }, 800);
+  };
 
   return (
     <main className="min-h-screen bg-warm-cream">
@@ -192,6 +219,109 @@ export default function OrderDetailsPage() {
             退换货：<Link href="/support#shipping" className="text-accent hover:underline">退换货政策</Link>
           </div>
         </div>
+
+        {/* 支付方式选择与支付按钮（未支付时展示） */}
+        {!isPaid && !payDone && (
+          <div className="mt-8 rounded-xl border border-warm-gray/50 bg-warm-white p-6 shadow-sm md:p-8">
+            <h2 className="text-lg font-semibold text-foreground">支付</h2>
+            <p className="mt-1 text-xs text-warm-muted">所有交易均经安全加密处理。</p>
+
+            <div className="mt-6 space-y-3">
+              <p className="text-sm font-medium text-foreground">支付方式</p>
+              {PAYMENT_CHANNELS.map((ch) => (
+                <label
+                  key={ch.id}
+                  className={`flex cursor-pointer items-start gap-4 rounded-xl border-2 p-4 transition ${
+                    paymentChannel === ch.id
+                      ? "border-accent bg-accent-light/10"
+                      : "border-warm-gray/200 bg-warm-gray/5 hover:border-warm-gray/300"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value={ch.id}
+                    checked={paymentChannel === ch.id}
+                    onChange={() => setPaymentChannel(ch.id)}
+                    className="mt-1 h-4 w-4 border-warm-gray/60 text-accent focus:ring-accent"
+                  />
+                  <div>
+                    <p className="font-medium text-foreground">{ch.label}</p>
+                    <p className="mt-0.5 text-xs text-warm-muted">{ch.desc}</p>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            {paymentChannel === "card" && (
+              <div className="mt-6 rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4">
+                <p className="text-sm font-medium text-foreground">银行卡信息</p>
+                <div className="mt-3 space-y-3">
+                  <label className="block">
+                    <span className="text-xs text-warm-muted">卡号</span>
+                    <input
+                      type="text"
+                      placeholder="请输入卡号"
+                      className="mt-1 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-sm text-foreground placeholder:text-warm-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                    />
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <label className="block">
+                      <span className="text-xs text-warm-muted">有效期 (MM/YY)</span>
+                      <input
+                        type="text"
+                        placeholder="MM/YY"
+                        className="mt-1 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-sm text-foreground placeholder:text-warm-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                      />
+                    </label>
+                    <label className="block">
+                      <span className="text-xs text-warm-muted">安全码</span>
+                      <input
+                        type="text"
+                        placeholder="CVV"
+                        className="mt-1 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-sm text-foreground placeholder:text-warm-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                      />
+                    </label>
+                  </div>
+                  <label className="block">
+                    <span className="text-xs text-warm-muted">持卡人姓名</span>
+                    <input
+                      type="text"
+                      placeholder="与卡面一致"
+                      className="mt-1 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-sm text-foreground placeholder:text-warm-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                    />
+                  </label>
+                </div>
+              </div>
+            )}
+
+            <label className="mt-4 flex cursor-pointer items-center gap-2 text-sm text-warm-muted">
+              <input type="checkbox" defaultChecked className="h-4 w-4 rounded border-warm-gray/60 text-accent focus:ring-accent" />
+              <span>使用收货地址作为账单地址</span>
+            </label>
+
+            <div className="mt-6 flex items-center justify-between gap-4">
+              <p className="text-sm text-warm-muted">
+                应付金额：<span className="font-semibold text-foreground">¥{order.total.toLocaleString()}</span>
+              </p>
+              <button
+                type="button"
+                onClick={handlePay}
+                disabled={isPaying}
+                className="btn-primary inline-flex min-w-[10rem] items-center justify-center px-6 py-3.5 disabled:pointer-events-none disabled:opacity-70"
+              >
+                {isPaying ? "支付处理中…" : "立即支付"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {payDone && (
+          <div className="mt-8 rounded-xl border border-green-200 bg-green-50 p-6 text-center">
+            <p className="font-medium text-green-800">支付成功</p>
+            <p className="mt-1 text-sm text-green-700">订单将尽快安排发货，您可在下方查询物流。</p>
+          </div>
+        )}
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link
