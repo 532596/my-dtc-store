@@ -25,14 +25,19 @@ export default function OrderTrackingPage() {
   const [orderNumber, setOrderNumber] = useState("");
   const [email, setEmail] = useState("");
   const [searched, setSearched] = useState(false);
+  const [isQuerying, setIsQuerying] = useState(false);
   const [mockStatus, setMockStatus] = useState<StepKey>("transit");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!orderNumber.trim() || !email.trim()) return;
+    setIsQuerying(true);
     setSearched(true);
-    // 演示用：固定为「配送中」
     setMockStatus("transit");
+    setTimeout(() => {
+      setIsQuerying(false);
+      document.getElementById("tracking-result")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 400);
   };
 
   const currentStepIndex = getStepIndex(mockStatus);
@@ -97,9 +102,10 @@ export default function OrderTrackingPage() {
               </div>
               <button
                 type="submit"
-                className="w-full rounded-lg bg-accent px-4 py-3 text-sm font-medium text-white hover:opacity-90"
+                disabled={isQuerying}
+                className="w-full rounded-lg bg-accent px-4 py-3 text-sm font-medium text-white hover:opacity-90 disabled:pointer-events-none disabled:opacity-70"
               >
-                查询
+                {isQuerying ? "查询中…" : "查询"}
               </button>
             </form>
           </Reveal>
@@ -108,7 +114,7 @@ export default function OrderTrackingPage() {
 
       {/* 查询结果：仅在有查询后展示 */}
       {searched && (
-        <section className="mx-auto max-w-content px-6 pb-12 md:pb-16">
+        <section id="tracking-result" className="mx-auto max-w-content scroll-mt-6 px-6 pb-12 md:pb-16">
           <div className="mx-auto max-w-xl">
             <Reveal>
               <div className="rounded-xl border border-warm-gray/60 bg-white p-6 shadow-sm">

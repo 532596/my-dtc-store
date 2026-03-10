@@ -12,6 +12,7 @@ export default function CartContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [deliveryValid, setDeliveryValid] = useState(false);
   const [formEl, setFormEl] = useState<HTMLFormElement | null>(null);
+  const [paymentChannel, setPaymentChannel] = useState<"alipay" | "wechat" | "card">("alipay");
 
   useEffect(() => {
     if (!formEl) return;
@@ -59,7 +60,7 @@ export default function CartContent() {
                 className="mt-6 space-y-4"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  if (items.length === 0) return;
+                  if (items.length === 0 || !deliveryValid) return;
                   setIsSubmitting(true);
                   const orderId = `SSD-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
                   const form = e.currentTarget;
@@ -72,28 +73,32 @@ export default function CartContent() {
                   const phone = get("phone");
                   const region = [get("country"), city].filter(Boolean).join(" ");
                   const fullAddress = [address, address2].filter(Boolean).join(" ");
-                  try {
-                    sessionStorage.setItem(
-                      "dtc-last-order",
-                      JSON.stringify({
-                        orderId,
-                        items: items.map((i) => ({ id: i.id, name: i.name, desc: i.desc, price: i.price, quantity: i.quantity, image: i.image })),
-                        subtotal,
-                        total: subtotal + shipping,
-                        createdAt: new Date().toISOString(),
-                        shipping: {
-                          name: `${lastName} ${firstName}`.trim() || "—",
-                          phone: phone || "—",
-                          region: region || "—",
-                          address: fullAddress || "—",
-                        },
-                        paymentMethod: "待支付",
-                        paidAt: "—",
-                      })
-                    );
-                  } catch {}
-                  clearCart();
-                  router.push("/cart/order-success");
+                  const paymentLabel = paymentChannel === "alipay" ? "支付宝" : paymentChannel === "wechat" ? "微信支付" : "信用卡";
+                  const saveAndRedirect = () => {
+                    try {
+                      sessionStorage.setItem(
+                        "dtc-last-order",
+                        JSON.stringify({
+                          orderId,
+                          items: items.map((i) => ({ id: i.id, name: i.name, desc: i.desc, price: i.price, quantity: i.quantity, image: i.image })),
+                          subtotal,
+                          total: subtotal + shipping,
+                          createdAt: new Date().toISOString(),
+                          shipping: {
+                            name: `${lastName} ${firstName}`.trim() || "—",
+                            phone: phone || "—",
+                            region: region || "—",
+                            address: fullAddress || "—",
+                          },
+                          paymentMethod: paymentLabel,
+                          paidAt: new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }),
+                        })
+                      );
+                    } catch {}
+                    clearCart();
+                    router.push("/cart/order-success");
+                  };
+                  setTimeout(saveAndRedirect, 800);
                 }}
               >
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -219,6 +224,7 @@ export default function CartContent() {
                   <input
                     type="email"
                     name="email"
+                    required
                     className="mt-1.5 w-full rounded-lg border border-warm-gray/60 bg-warm-white px-3 py-2.5 text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                     placeholder="用于接收订单确认与物流"
                   />
@@ -243,6 +249,45 @@ export default function CartContent() {
                     placeholder="留言给商家，如安装需求、发票抬头等"
                   />
                 </label>
+
+                <div className="border-t border-warm-gray/200 pt-6">
+                  <p className="text-sm font-medium text-foreground">支付方式</p>
+                  <p className="mt-0.5 text-xs text-warm-muted">选择支付渠道，点击下方按钮完成支付并提交订单。</p>
+                  <div className="mt-4 space-y-2">
+                    {[
+                      { id: "alipay" as const, label: "支付宝", desc: "使用支付宝扫码或账户余额支付" },
+                      { id: "wechat" as const, label: "微信支付", desc: "使用微信扫码支付" },
+                      { id: "card" as const, label: "信用卡 / 借记卡", desc: "支持 Visa、Mastercard、银联等" },
+                    ].map((ch) => (
+                      <label
+                        key={ch.id}
+                        className={`flex cursor-pointer items-start gap-3 rounded-lg border-2 p-3 transition ${
+                          paymentChannel === ch.id ? "border-accent bg-accent-light/10" : "border-warm-gray/200 bg-warm-gray/5 hover:border-warm-gray/300"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="paymentChannel"
+                          value={ch.id}
+                          checked={paymentChannel === ch.id}
+                          onChange={() => setPaymentChannel(ch.id)}
+                          className="mt-1 h-4 w-4 border-warm-gray/60 text-accent focus:ring-accent"
+                        />
+                        <div>
+                          <p className="text-sm font-medium text-foreground">{ch.label}</p>
+                          <p className="mt-0.5 text-xs text-warm-muted">{ch.desc}</p>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || items.length === 0 || !deliveryValid}
+                    className="btn-primary mt-6 w-full py-3.5 disabled:pointer-events-none disabled:opacity-70"
+                  >
+                    {isSubmitting ? "支付处理中…" : "立即支付并提交订单"}
+                  </button>
+                </div>
               </form>
             </div>
           </div>
@@ -343,15 +388,6 @@ export default function CartContent() {
               <p className="mt-4 text-center text-xs text-warm-muted">
                 电机 5 年质保 · 结构 3 年质保 · TÜV 安全认证
               </p>
-
-              <button
-                type="submit"
-                form="checkout-form"
-                disabled={isSubmitting || items.length === 0 || !deliveryValid}
-                className="btn-primary mt-6 w-full py-3.5 disabled:pointer-events-none disabled:opacity-70"
-              >
-                {isSubmitting ? "提交中…" : deliveryValid ? "提交订单" : "请先填写左侧配送信息"}
-              </button>
 
               <p className="mt-4 text-center text-xs text-warm-muted">
                 提交即表示同意
