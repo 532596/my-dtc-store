@@ -78,7 +78,7 @@ export default function AccountListsPage() {
 
   return (
     <main className="min-h-screen bg-warm-gray/10">
-      <section className="relative mx-auto max-w-2xl px-6 py-section">
+      <section className="relative mx-auto max-w-xl px-6 py-section">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(186,199,213,0.22),transparent_55%)]" />
         <div className="relative z-10">
           <h1 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
@@ -110,7 +110,7 @@ export default function AccountListsPage() {
               </div>
             </div>
           ) : (
-            <div className="mt-8 space-y-6">
+            <div className="mt-8 space-y-5 max-w-xl">
               {orders.map((order) => {
                 const dateStr = new Date(order.createdAt).toLocaleString("zh-CN", {
                   year: "numeric",
@@ -119,6 +119,21 @@ export default function AccountListsPage() {
                   hour: "2-digit",
                   minute: "2-digit",
                 });
+                const paidAtStr =
+                  order.paidAt &&
+                  (() => {
+                    try {
+                      return new Date(order.paidAt).toLocaleString("zh-CN", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      });
+                    } catch {
+                      return order.paidAt;
+                    }
+                  })();
                 const statusLabel = orderStatusLabel(order.status);
                 const statusClass =
                   order.status === "received"
@@ -135,61 +150,71 @@ export default function AccountListsPage() {
                     key={order.orderId}
                     className="overflow-hidden rounded-xl border border-warm-gray/50 bg-warm-white shadow-sm"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-warm-gray/200 bg-warm-gray/5 px-4 py-3">
+                    {/* 头部：订单号 + 状态 */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-warm-gray/200 bg-warm-gray/5 px-5 py-3">
                       <p className="font-mono text-sm font-medium text-foreground">{order.orderId}</p>
                       <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${statusClass}`}>
                         {statusLabel}
                       </span>
                     </div>
-                    <div className="flex flex-col sm:flex-row sm:gap-6">
-                      {/* 左侧：时间、合计、商品列表 */}
-                      <div className="min-w-0 flex-1 px-4 py-3 sm:px-5 sm:py-4">
-                        <p className="text-sm text-warm-muted">
-                          下单时间：{dateStr} · 合计 ¥{order.total.toLocaleString()}
+                    {/* 主体：纵向排列，先时间与合计，再商品，再摘要与按钮 */}
+                    <div className="px-5 py-4 space-y-5">
+                      <p className="text-sm text-warm-muted">
+                        下单时间：{dateStr} · 合计 ¥{order.total.toLocaleString()}
+                      </p>
+                      <ul className="space-y-3">
+                        {order.items.slice(0, 3).map((item) => (
+                          <li key={item.id} className="flex gap-3">
+                            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-warm-gray/100">
+                              <Image
+                                src={item.image || "/images/hero.jpg"}
+                                alt=""
+                                fill
+                                className="object-cover"
+                                sizes="56px"
+                              />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-sm font-medium text-foreground">{item.name}</p>
+                              <p className="text-xs text-warm-muted mt-0.5">
+                                ¥{item.price.toLocaleString()} × {item.quantity}
+                              </p>
+                            </div>
+                          </li>
+                        ))}
+                        {order.items.length > 3 && (
+                          <li className="text-xs text-warm-muted pt-0.5">等共 {order.items.length} 件商品</li>
+                        )}
+                      </ul>
+                      {/* 订单摘要：加大行距，避免拥挤 */}
+                      <div className="border-t border-warm-gray/200 pt-5">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted mb-4">
+                          订单摘要
                         </p>
-                        <ul className="mt-3 space-y-2">
-                          {order.items.slice(0, 3).map((item) => (
-                            <li key={item.id} className="flex gap-3">
-                              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md bg-warm-gray/100">
-                                <Image
-                                  src={item.image || "/images/hero.jpg"}
-                                  alt=""
-                                  fill
-                                  className="object-cover"
-                                  sizes="48px"
-                                />
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <p className="text-sm font-medium text-foreground">{item.name}</p>
-                                <p className="text-xs text-warm-muted">
-                                  ¥{item.price.toLocaleString()} × {item.quantity}
-                                </p>
-                              </div>
-                            </li>
-                          ))}
-                          {order.items.length > 3 && (
-                            <li className="text-xs text-warm-muted">等共 {order.items.length} 件商品</li>
-                          )}
-                        </ul>
-                      </div>
-                      {/* 右侧：订单摘要 + 快捷操作 */}
-                      <div className="border-t border-warm-gray/100 bg-warm-gray/30 px-4 py-4 sm:w-56 sm:shrink-0 sm:border-t-0 sm:border-l border-warm-gray/100 sm:px-5">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted">订单摘要</p>
-                        <ul className="mt-2 space-y-1 text-sm text-foreground">
-                          <li>共 {itemCount} 件商品</li>
-                          <li className="text-warm-muted">支付方式：{order.paymentMethod ?? "—"}</li>
-                          <li className="text-warm-muted">支付时间：{order.paidAt ?? "—"}</li>
-                        </ul>
-                        <div className="mt-4 flex flex-col gap-2">
+                        <dl className="space-y-3 text-sm">
+                          <div>
+                            <dt className="sr-only">商品件数</dt>
+                            <dd className="text-foreground">共 {itemCount} 件商品</dd>
+                          </div>
+                          <div>
+                            <dt className="text-warm-muted font-normal">支付方式</dt>
+                            <dd className="mt-0.5 text-foreground">{order.paymentMethod ?? "—"}</dd>
+                          </div>
+                          <div>
+                            <dt className="text-warm-muted font-normal">支付时间</dt>
+                            <dd className="mt-0.5 text-foreground">{paidAtStr ?? "—"}</dd>
+                          </div>
+                        </dl>
+                        <div className="mt-6 flex flex-col gap-3">
                           <Link
                             href={`/cart/order-details?orderId=${encodeURIComponent(order.orderId)}`}
-                            className="inline-flex items-center justify-center rounded-lg border border-warm-gray/40 bg-warm-white px-3 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+                            className="inline-flex items-center justify-center rounded-lg border border-warm-gray/40 bg-warm-white px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
                           >
                             查看订单详情
                           </Link>
                           <Link
                             href={trackingHref}
-                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-medium text-white hover:opacity-90"
+                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-white hover:opacity-90"
                           >
                             一键查询物流
                           </Link>
