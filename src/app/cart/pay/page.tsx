@@ -164,37 +164,61 @@ function PayPageContent() {
                 请使用{channel === "alipay" ? "支付宝" : "微信"}扫码支付或向以下账号转账，金额 <span className="font-semibold text-foreground">¥{order.total.toLocaleString()}</span>
               </p>
 
-              {/* 收款码二维码：支付宝 / 微信 */}
-              <div className="mt-4 flex flex-col items-center rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4 sm:flex-row sm:justify-center sm:gap-8">
-                {channel === "alipay" && !alipayQrError && (
-                  <div className="flex flex-col items-center">
-                    <p className="mb-2 text-xs font-medium text-warm-muted">支付宝扫码付款</p>
-                    <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={ALIPAY_QR}
-                        alt="支付宝收款码"
-                        className="h-full w-full object-contain"
-                        onError={() => setAlipayQrError(true)}
-                      />
-                    </div>
+              {/* 收款码：始终显示含账号/金额/订单号的二维码；若有自定义收款码图片则在上方显示 */}
+              {(() => {
+                const isAlipay = channel === "alipay";
+                const isWechat = channel === "wechat";
+                const qrText = isAlipay
+                  ? `支付宝 账号${RECEIVER_ACCOUNT} 金额¥${order.total} 订单${order.orderId}`
+                  : `微信 账号${RECEIVER_ACCOUNT} 金额¥${order.total} 订单${order.orderId}`;
+                const fallbackQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrText)}`;
+                return (
+                  <div className="mt-4 flex flex-col items-center rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4 sm:flex-row sm:justify-center sm:gap-8">
+                    {isAlipay && (
+                      <div className="flex flex-col items-center">
+                        <p className="mb-2 text-xs font-medium text-warm-muted">支付宝扫码付款</p>
+                        {!alipayQrError && (
+                          <div className="mb-2 h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={ALIPAY_QR}
+                              alt="支付宝收款码"
+                              className="h-full w-full object-contain"
+                              onError={() => setAlipayQrError(true)}
+                            />
+                          </div>
+                        )}
+                        <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={fallbackQrUrl} alt="支付宝转账信息" className="h-full w-full object-contain" />
+                        </div>
+                        <p className="mt-1.5 text-xs text-warm-muted">扫码可见账号与订单号，便于转账备注</p>
+                      </div>
+                    )}
+                    {isWechat && (
+                      <div className="flex flex-col items-center">
+                        <p className="mb-2 text-xs font-medium text-warm-muted">微信扫码付款</p>
+                        {!wechatQrError && (
+                          <div className="mb-2 h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={WECHAT_QR}
+                              alt="微信收款码"
+                              className="h-full w-full object-contain"
+                              onError={() => setWechatQrError(true)}
+                            />
+                          </div>
+                        )}
+                        <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={fallbackQrUrl} alt="微信转账信息" className="h-full w-full object-contain" />
+                        </div>
+                        <p className="mt-1.5 text-xs text-warm-muted">扫码可见账号与订单号，便于转账备注</p>
+                      </div>
+                    )}
                   </div>
-                )}
-                {channel === "wechat" && !wechatQrError && (
-                  <div className="flex flex-col items-center">
-                    <p className="mb-2 text-xs font-medium text-warm-muted">微信扫码付款</p>
-                    <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={WECHAT_QR}
-                        alt="微信收款码"
-                        className="h-full w-full object-contain"
-                        onError={() => setWechatQrError(true)}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
+                );
+              })()}
 
               <div className="mt-4 rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4">
                 <p className="text-xs text-warm-muted">或向以下账号转账（{channel === "alipay" ? "支付宝" : "微信"}）</p>
