@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Reveal from "@/components/Reveal";
 import { Package, Truck, MapPin, CheckCircle2 } from "lucide-react";
 
@@ -21,23 +22,63 @@ function getStepIndex(status: string): number {
   return i >= 0 ? i : 0;
 }
 
+/** 订单状态映射到物流步骤 */
+function orderStatusToStep(status: string | undefined): StepKey {
+  if (status === "received") return "delivered";
+  if (status === "in_transit") return "transit";
+  if (status === "shipped") return "shipped";
+  return "placed";
+}
+
 export default function OrderTrackingPage() {
+  const searchParams = useSearchParams();
   const [orderNumber, setOrderNumber] = useState("");
   const [email, setEmail] = useState("");
   const [searched, setSearched] = useState(false);
   const [isQuerying, setIsQuerying] = useState(false);
   const [mockStatus, setMockStatus] = useState<StepKey>("transit");
+  const [urlApplied, setUrlApplied] = useState(false);
+
+  useEffect(() => {
+    const orderId = searchParams.get("orderId")?.trim();
+    const emailFromUrl = searchParams.get("email")?.trim();
+    if (urlApplied || !orderId) return;
+    setOrderNumber(orderId);
+    if (emailFromUrl) setEmail(emailFromUrl);
+    setUrlApplied(true);
+    if (!emailFromUrl) return;
+    setIsQuerying(true);
+    setSearched(true);
+    fetch(`/api/orders/${encodeURIComponent(orderId)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const step = orderStatusToStep(data?.status);
+        setMockStatus(step);
+      })
+      .catch(() => setMockStatus("transit"))
+      .finally(() => {
+        setIsQuerying(false);
+        setTimeout(() => {
+          document.getElementById("tracking-result")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      });
+  }, [searchParams, urlApplied]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!orderNumber.trim() || !email.trim()) return;
     setIsQuerying(true);
     setSearched(true);
-    setMockStatus("transit");
-    setTimeout(() => {
-      setIsQuerying(false);
-      document.getElementById("tracking-result")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 400);
+    fetch(`/api/orders/${encodeURIComponent(orderNumber.trim())}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => setMockStatus(orderStatusToStep(data?.status)))
+      .catch(() => setMockStatus("transit"))
+      .finally(() => {
+        setIsQuerying(false);
+        setTimeout(() => {
+          document.getElementById("tracking-result")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      });
   };
 
   const currentStepIndex = getStepIndex(mockStatus);

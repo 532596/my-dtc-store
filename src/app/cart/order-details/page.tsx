@@ -96,6 +96,7 @@ function OrderDetailsContent() {
   const isPaid = order.status === "paid" || (order.paymentMethod && order.paymentMethod !== "待支付");
   const paymentMethod = order.paymentMethod ?? "待支付";
   const paidAt = order.paidAt ?? "—";
+  const trackingHref = `/order-tracking?orderId=${encodeURIComponent(order.orderId)}${order.email ? `&email=${encodeURIComponent(order.email)}` : ""}`;
 
   return (
     <main className="min-h-screen bg-warm-cream">
@@ -112,45 +113,59 @@ function OrderDetailsContent() {
           订单详情
         </h1>
 
-        {/* 单张收据式卡片：所有信息整合为一张票据 */}
-        <div className="mt-6 overflow-hidden rounded-xl border border-warm-gray/50 bg-warm-white shadow-sm">
-          <div className="border-b border-warm-gray/200 bg-warm-gray/5 px-5 py-4 text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-foreground">
-              订单收据
-            </p>
-            <p className="mt-1 font-mono text-xs text-warm-muted">{order.orderId}</p>
+        {/* 订单收据：信息完整 + 分区排版 + 一键查询物流 */}
+        <div className="mt-6 overflow-hidden rounded-2xl border border-warm-gray/200 bg-warm-white shadow-md">
+          {/* 收据头部：订单号 + 状态 + 一键查询 */}
+          <div className="border-b border-warm-gray/200 bg-warm-gray/30 px-5 py-5 sm:px-6 sm:py-6">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted">订单编号</p>
+                <p className="mt-1 font-mono text-lg font-semibold text-foreground">{order.orderId}</p>
+                <p className="mt-2 text-sm text-warm-muted">下单时间：{dateStr}</p>
+              </div>
+              <span className={`rounded-full px-3 py-1.5 text-xs font-medium ${isPaid ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}>
+                {isPaid ? "已支付" : "待支付"}
+              </span>
+            </div>
+            {isPaid && (
+              <Link
+                href={trackingHref}
+                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-medium text-white hover:opacity-90"
+              >
+                <span>一键查询物流</span>
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              </Link>
+            )}
           </div>
 
-          <div className="px-5 py-4 text-sm">
-            <div className="flex flex-wrap justify-between gap-x-4 gap-y-1">
-              <span className="text-warm-muted">下单时间</span>
-              <span className="text-foreground">{dateStr}</span>
+          {/* 收货与联系 */}
+          <div className="grid gap-0 border-b border-warm-gray/200 sm:grid-cols-2">
+            <div className="border-b border-warm-gray/200 px-5 py-4 sm:border-b-0 sm:border-r border-warm-gray/200">
+              <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted">收货信息</p>
+              <ul className="mt-3 space-y-1.5 text-sm text-foreground">
+                <li>收件人：{shipping.name}</li>
+                <li>电话：{shipping.phone}</li>
+                <li>地址：{shipping.region} {shipping.address}</li>
+              </ul>
             </div>
-            <div className="mt-1 flex flex-wrap justify-between gap-x-4 gap-y-1">
-              <span className="text-warm-muted">订单状态</span>
-              <span className="text-foreground">{isPaid ? "已支付，将尽快安排发货" : "已提交，待付款后安排发货"}</span>
+            <div className="px-5 py-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted">联系与支付</p>
+              <ul className="mt-3 space-y-1.5 text-sm text-foreground">
+                <li>下单邮箱：{order.email || "—"}</li>
+                <li>支付方式：{paymentMethod}</li>
+                <li>支付时间：{paidAt}</li>
+                <li>实付金额：¥{order.total.toLocaleString()}</li>
+              </ul>
             </div>
           </div>
 
-          <div className="border-t border-warm-gray/200 px-5 py-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-warm-muted">
-              收货信息（来自结算页配送信息）
-            </p>
-            <div className="mt-2 space-y-1 text-sm text-foreground">
-              <p>收件人：{shipping.name}</p>
-              <p>联系电话：{shipping.phone}</p>
-              <p>收货地址：{shipping.region} {shipping.address}</p>
-            </div>
-          </div>
-
-          <div className="border-t border-warm-gray/200 px-5 py-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-warm-muted">
-              商品明细
-            </p>
-            <ul className="mt-3 space-y-3">
+          {/* 商品明细 */}
+          <div className="border-b border-warm-gray/200 px-5 py-4 sm:px-6">
+            <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted">商品明细</p>
+            <ul className="mt-3 space-y-4">
               {order.items.map((item) => (
                 <li key={item.id} className="flex gap-3">
-                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md bg-warm-gray/60">
+                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-warm-gray/100">
                     <Image
                       src={item.image || "/images/hero.jpg"}
                       alt={item.name}
@@ -172,45 +187,24 @@ function OrderDetailsContent() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div className="border-t border-warm-gray/200 px-5 py-4">
-            <div className="flex justify-between text-sm text-warm-muted">
-              <span>小计（商品）</span>
-              <span>¥{order.subtotal.toLocaleString()}</span>
+            <div className="mt-4 flex justify-between border-t border-warm-gray/100 pt-4 text-sm">
+              <span className="text-warm-muted">小计（商品）</span>
+              <span className="text-foreground">¥{order.subtotal.toLocaleString()}</span>
             </div>
-            <div className="mt-2 flex justify-between text-sm font-semibold text-foreground">
+            <div className="mt-1 flex justify-between text-sm font-semibold text-foreground">
               <span>订单合计</span>
               <span>¥{order.total.toLocaleString()}</span>
             </div>
           </div>
 
-          <div className="border-t border-warm-gray/200 px-5 py-4">
-            <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 text-sm">
-              <span className="text-warm-muted">支付方式</span>
-              <span className="text-foreground">{paymentMethod}</span>
-            </div>
-            <div className="mt-1 flex flex-wrap justify-between gap-x-4 gap-y-1 text-sm">
-              <span className="text-warm-muted">支付时间</span>
-              <span className="text-foreground">{paidAt}</span>
-            </div>
-            <div className="mt-1 flex flex-wrap justify-between gap-x-4 gap-y-1 text-sm">
-              <span className="text-warm-muted">实付金额</span>
-              <span className="font-medium text-foreground">¥{order.total.toLocaleString()}</span>
-            </div>
+          {/* 商家与须知 */}
+          <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-6">
+            <span className="text-sm text-warm-muted">商家：官方自营</span>
+            <Link href="/support#contact" className="text-sm font-medium text-accent hover:underline">联系客服</Link>
           </div>
-
-          <div className="border-t border-warm-gray/200 px-5 py-4">
-            <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-              <span className="text-warm-muted">商家</span>
-              <span className="text-foreground">官方自营</span>
-              <Link href="/support#contact" className="text-accent hover:underline">联系客服</Link>
-            </div>
-          </div>
-
-          <div className="border-t border-warm-gray/200 px-5 py-3 text-xs text-warm-muted">
-            发票：电子普通发票（个人），支付后可于订单跟踪页申请。
-            退换货：<Link href="/support#shipping" className="text-accent hover:underline">退换货政策</Link>
+          <div className="border-t border-warm-gray/100 bg-warm-gray/20 px-5 py-3 text-xs text-warm-muted sm:px-6">
+            发票：电子普通发票（个人），支付后可申请。退换货详见
+            <Link href="/support#shipping" className="text-accent hover:underline">退换货政策</Link>。
           </div>
         </div>
 
@@ -229,12 +223,14 @@ function OrderDetailsContent() {
         )}
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <Link
-            href="/order-tracking"
-            className="btn-primary inline-flex min-w-[8rem] items-center justify-center px-6 py-3 text-center"
-          >
-            查询物流
-          </Link>
+          {isPaid && (
+            <Link
+              href={trackingHref}
+              className="btn-primary inline-flex min-w-[8rem] items-center justify-center px-6 py-3 text-center"
+            >
+              查询物流
+            </Link>
+          )}
           <Link
             href="/series"
             className="inline-flex min-w-[8rem] items-center justify-center rounded-xl border border-warm-gray/40 bg-warm-white px-6 py-3 text-center text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
