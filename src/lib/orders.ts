@@ -18,12 +18,15 @@ export type OrderShipping = {
   email?: string;
 };
 
+/** 订单状态：已支付、已发货、运送中、已收货 */
+export type OrderStatus = "pending_payment" | "paid" | "shipped" | "in_transit" | "received";
+
 export type Order = {
   orderId: string;
   items: OrderItem[];
   subtotal: number;
   total: number;
-  status: "pending_payment" | "paid";
+  status: OrderStatus;
   paymentMethod?: string;
   paidAt?: string;
   createdAt: string;
@@ -103,6 +106,19 @@ export async function markOrderPaid(
     paymentMethod,
     paidAt: new Date().toISOString(),
   };
+  await writeOrders(orders);
+  return orders[idx];
+}
+
+/** 更新订单状态（已发货 / 运送中 / 已收货），供后台使用 */
+export async function updateOrderStatus(
+  orderId: string,
+  status: "shipped" | "in_transit" | "received"
+): Promise<Order | null> {
+  const orders = await readOrders();
+  const idx = orders.findIndex((o) => o.orderId === orderId);
+  if (idx < 0) return null;
+  orders[idx] = { ...orders[idx], status };
   await writeOrders(orders);
   return orders[idx];
 }

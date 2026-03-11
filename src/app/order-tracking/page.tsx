@@ -112,63 +112,103 @@ export default function OrderTrackingPage() {
         </div>
       </section>
 
-      {/* 查询结果：仅在有查询后展示 */}
+      {/* 查询结果：时间线式物流状态 */}
       {searched && (
         <section id="tracking-result" className="mx-auto max-w-content scroll-mt-6 px-6 pb-12 md:pb-16">
-          <div className="mx-auto max-w-xl">
+          <div className="mx-auto max-w-2xl">
             <Reveal>
-              <div className="rounded-xl border border-warm-gray/60 bg-white p-6 shadow-sm">
-                <h2 className="text-lg font-semibold text-foreground">
-                  订单 {orderNumber || "—"} 物流状态
-                </h2>
-                <p className="mt-1 text-sm text-warm-muted">
-                  当前状态：{STATUS_STEPS.find((s) => s.key === mockStatus)?.label}
-                </p>
+              <div className="overflow-hidden rounded-2xl border border-warm-gray/200 bg-white shadow-lg">
+                {/* 头部：订单号 + 当前状态徽章 */}
+                <div className="border-b border-warm-gray/100 bg-warm-gray/30 px-6 py-5 sm:px-8 sm:py-6">
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted">订单号</p>
+                      <p className="mt-1 font-mono text-lg font-semibold text-foreground">{orderNumber || "—"}</p>
+                    </div>
+                    <span className="inline-flex items-center gap-2 rounded-full bg-accent/12 px-4 py-2 text-sm font-semibold text-accent">
+                      <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+                      {STATUS_STEPS.find((s) => s.key === mockStatus)?.label}
+                    </span>
+                  </div>
+                </div>
 
-                <ul className="mt-8 space-y-4 sm:flex sm:space-y-0 sm:gap-2" aria-label="配送进度">
-                  {STATUS_STEPS.map((step, index) => {
-                    const StepIcon = step.icon;
-                    const isActive = index <= currentStepIndex;
-                    const isCurrent = index === currentStepIndex;
-                    return (
-                      <li
-                        key={step.key}
-                        className="flex items-center gap-3 sm:flex-1"
-                      >
-                        <span
-                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 ${
-                            isActive
-                              ? "border-accent bg-accent/10 text-accent"
-                              : "border-warm-gray/40 bg-warm-gray/20 text-warm-muted"
-                          }`}
+                {/* 时间线进度 */}
+                <div className="relative px-6 py-8 sm:px-8 sm:py-10">
+                  <p className="mb-6 text-sm font-medium text-warm-muted">配送进度</p>
+                  <span
+                    className="absolute left-[2.25rem] top-14 bottom-14 w-0.5 bg-warm-gray/40 sm:left-12"
+                    aria-hidden
+                  />
+                  <ul className="relative space-y-0" aria-label="配送进度">
+                    {STATUS_STEPS.map((step, index) => {
+                      const StepIcon = step.icon;
+                      const isDone = index < currentStepIndex;
+                      const isCurrent = index === currentStepIndex;
+                      const isPending = index > currentStepIndex;
+                      const mockDate =
+                        index <= currentStepIndex
+                          ? ["2026-03-08 14:20", "2026-03-09 09:00", "2026-03-10 16:30", "2026-03-11 预计送达"][index]
+                          : null;
+                      return (
+                        <li
+                          key={step.key}
+                          className="relative flex gap-4 pb-8 last:pb-0 sm:gap-5"
                         >
-                          <StepIcon className="h-5 w-5" />
-                        </span>
-                        <div className="min-w-0">
                           <span
-                            className={`font-medium ${
-                              isCurrent ? "text-accent" : isActive ? "text-foreground" : "text-warm-muted"
+                            className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 bg-white sm:h-12 sm:w-12 ${
+                              isDone
+                                ? "border-accent bg-accent text-white"
+                                : isCurrent
+                                  ? "border-accent bg-accent/15 text-accent shadow-md"
+                                  : "border-warm-gray/30 bg-warm-gray/50 text-warm-muted"
                             }`}
                           >
-                            {step.label}
+                            {isDone ? (
+                              <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6" />
+                            ) : (
+                              <StepIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+                            )}
                           </span>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+                          <div className="min-w-0 flex-1 pt-0.5">
+                            <p
+                              className={`font-semibold ${
+                                isCurrent ? "text-foreground" : isDone ? "text-foreground" : "text-warm-muted"
+                              }`}
+                            >
+                              {step.label}
+                            </p>
+                            {mockDate && (
+                              <p className="mt-0.5 text-xs text-warm-muted">{mockDate}</p>
+                            )}
+                            {isCurrent && (
+                              <p className="mt-2 text-sm text-warm-muted">
+                                {step.key === "placed" && "订单已确认，等待仓库拣货发货。"}
+                                {step.key === "shipped" && "商品已发出，正在等待揽收或运输。"}
+                                {step.key === "transit" && "商品正在配送中，请保持收货电话畅通。"}
+                                {step.key === "delivered" && "您已签收，感谢购买。"}
+                              </p>
+                            )}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
 
-                <p className="mt-6 text-sm text-warm-muted">
-                  如有疑问，请查看
-                  <Link href="/support#shipping" className="ml-1 text-accent hover:underline">
-                    配送说明
-                  </Link>
-                  或
-                  <Link href="/support#contact" className="ml-1 text-accent hover:underline">
-                    联系我们
-                  </Link>
-                  。
-                </p>
+                {/* 底部说明与链接 */}
+                <div className="border-t border-warm-gray/100 bg-warm-gray/20 px-6 py-4 sm:px-8">
+                  <p className="text-sm text-warm-muted">
+                    如有疑问，请查看
+                    <Link href="/support#shipping" className="ml-1 font-medium text-accent hover:underline">
+                      配送说明
+                    </Link>
+                    或
+                    <Link href="/support#contact" className="ml-1 font-medium text-accent hover:underline">
+                      联系我们
+                    </Link>
+                    。
+                  </p>
+                </div>
               </div>
             </Reveal>
           </div>
