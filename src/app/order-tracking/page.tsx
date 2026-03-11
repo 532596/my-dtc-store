@@ -201,13 +201,13 @@ export default function OrderTrackingPage() {
                                 ? "border-accent bg-accent text-white"
                                 : isCurrent
                                   ? "border-accent bg-accent/15 text-accent shadow-md"
-                                  : "border-warm-gray/30 bg-warm-gray/50 text-warm-muted"
+                                  : "border-warm-gray/40 bg-warm-gray/30 text-foreground/60"
                             }`}
                           >
                             {isDone ? (
-                              <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6" />
+                              <CheckCircle2 className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" strokeWidth={2.5} />
                             ) : (
-                              <StepIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+                              <StepIcon className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" strokeWidth={2.5} />
                             )}
                           </span>
                           <div className="min-w-0 flex-1 pt-0.5">

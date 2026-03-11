@@ -128,6 +128,8 @@ export default function AccountListsPage() {
                       : order.status === "shipped"
                         ? "bg-amber-100 text-amber-800"
                         : "bg-emerald-100 text-emerald-800";
+                const trackingHref = `/order-tracking?orderId=${encodeURIComponent(order.orderId)}${order.email ? `&email=${encodeURIComponent(order.email)}` : ""}`;
+                const itemCount = order.items.reduce((s, i) => s + i.quantity, 0);
                 return (
                   <div
                     key={order.orderId}
@@ -139,42 +141,60 @@ export default function AccountListsPage() {
                         {statusLabel}
                       </span>
                     </div>
-                    <div className="px-4 py-3 text-sm text-warm-muted">
-                      下单时间：{dateStr} · 合计 ¥{order.total.toLocaleString()}
-                    </div>
-                    <div className="border-t border-warm-gray/100 px-4 py-3">
-                      <ul className="space-y-2">
-                        {order.items.slice(0, 3).map((item) => (
-                          <li key={item.id} className="flex gap-3">
-                            <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md bg-warm-gray/100">
-                              <Image
-                                src={item.image || "/images/hero.jpg"}
-                                alt=""
-                                fill
-                                className="object-cover"
-                                sizes="48px"
-                              />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="text-sm font-medium text-foreground">{item.name}</p>
-                              <p className="text-xs text-warm-muted">
-                                ¥{item.price.toLocaleString()} × {item.quantity}
-                              </p>
-                            </div>
-                          </li>
-                        ))}
-                        {order.items.length > 3 && (
-                          <li className="text-xs text-warm-muted">等共 {order.items.length} 件商品</li>
-                        )}
-                      </ul>
-                    </div>
-                    <div className="border-t border-warm-gray/200 px-4 py-3">
-                      <Link
-                        href={`/cart/order-details?orderId=${encodeURIComponent(order.orderId)}`}
-                        className="text-sm font-medium text-accent hover:underline"
-                      >
-                        查看订单详情 →
-                      </Link>
+                    <div className="flex flex-col sm:flex-row sm:gap-6">
+                      {/* 左侧：时间、合计、商品列表 */}
+                      <div className="min-w-0 flex-1 px-4 py-3 sm:px-5 sm:py-4">
+                        <p className="text-sm text-warm-muted">
+                          下单时间：{dateStr} · 合计 ¥{order.total.toLocaleString()}
+                        </p>
+                        <ul className="mt-3 space-y-2">
+                          {order.items.slice(0, 3).map((item) => (
+                            <li key={item.id} className="flex gap-3">
+                              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md bg-warm-gray/100">
+                                <Image
+                                  src={item.image || "/images/hero.jpg"}
+                                  alt=""
+                                  fill
+                                  className="object-cover"
+                                  sizes="48px"
+                                />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium text-foreground">{item.name}</p>
+                                <p className="text-xs text-warm-muted">
+                                  ¥{item.price.toLocaleString()} × {item.quantity}
+                                </p>
+                              </div>
+                            </li>
+                          ))}
+                          {order.items.length > 3 && (
+                            <li className="text-xs text-warm-muted">等共 {order.items.length} 件商品</li>
+                          )}
+                        </ul>
+                      </div>
+                      {/* 右侧：订单摘要 + 快捷操作 */}
+                      <div className="border-t border-warm-gray/100 bg-warm-gray/30 px-4 py-4 sm:w-56 sm:shrink-0 sm:border-t-0 sm:border-l border-warm-gray/100 sm:px-5">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted">订单摘要</p>
+                        <ul className="mt-2 space-y-1 text-sm text-foreground">
+                          <li>共 {itemCount} 件商品</li>
+                          <li className="text-warm-muted">支付方式：{order.paymentMethod ?? "—"}</li>
+                          <li className="text-warm-muted">支付时间：{order.paidAt ?? "—"}</li>
+                        </ul>
+                        <div className="mt-4 flex flex-col gap-2">
+                          <Link
+                            href={`/cart/order-details?orderId=${encodeURIComponent(order.orderId)}`}
+                            className="inline-flex items-center justify-center rounded-lg border border-warm-gray/40 bg-warm-white px-3 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+                          >
+                            查看订单详情
+                          </Link>
+                          <Link
+                            href={trackingHref}
+                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-medium text-white hover:opacity-90"
+                          >
+                            一键查询物流
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
