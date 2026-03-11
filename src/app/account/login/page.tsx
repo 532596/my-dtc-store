@@ -12,7 +12,8 @@ export default function LoginPage() {
     e.preventDefault();
     const form = e.currentTarget;
     const name = (form.elements.namedItem("displayName") as HTMLInputElement)?.value?.trim();
-    if (name) setUser(name);
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value?.trim();
+    if (name) setUser(name, email || undefined);
     router.push("/");
   };
 
@@ -52,6 +53,18 @@ export default function LoginPage() {
                     type="text"
                     className="h-10 w-full rounded-xl border border-warm-gray/50 bg-warm-white px-3 text-sm text-foreground outline-none transition focus:border-accent focus:ring-1 focus:ring-accent"
                     placeholder="昵称或注册时填写的名称"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-warm-stone" htmlFor="email">
+                    邮箱
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    className="h-10 w-full rounded-xl border border-warm-gray/50 bg-warm-white px-3 text-sm text-foreground outline-none transition focus:border-accent focus:ring-1 focus:ring-accent"
+                    placeholder="注册时使用的邮箱"
                   />
                 </div>
                 <div className="space-y-1.5">
