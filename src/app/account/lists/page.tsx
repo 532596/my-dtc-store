@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const PAID_ORDER_IDS_KEY = "dtc-paid-order-ids";
+const LIST_EMAIL_KEY = "dtc-list-email";
 
 const STATUS_LABELS: Record<string, string> = {
   pending_payment: "待支付",
@@ -44,28 +44,46 @@ function orderStatusLabel(status: string | undefined): string {
 export default function AccountListsPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [savedEmail, setSavedEmail] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const fetchByEmail = (email: string) => {
+    const trimmed = email.trim().toLowerCase();
+    if (!trimmed) return;
+    setLoading(true);
+    setEmailError("");
+    fetch(`/api/orders?email=${encodeURIComponent(trimmed)}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("获取失败"))))
+      .then((list: Order[]) => {
+        setOrders(Array.isArray(list) ? list : []);
+        try {
+          localStorage.setItem(LIST_EMAIL_KEY, trimmed);
+          setSavedEmail(trimmed);
+        } catch {}
+      })
+      .catch(() => {
+        setOrders([]);
+        setEmailError("无法加载订单，请检查邮箱是否正确或稍后重试。");
+      })
+      .finally(() => setLoading(false));
+  };
 
   useEffect(() => {
     let cancelled = false;
     try {
-      const raw = typeof window !== "undefined" ? localStorage.getItem(PAID_ORDER_IDS_KEY) : null;
-      const ids: string[] = raw ? JSON.parse(raw) : [];
-      if (ids.length === 0) {
+      const raw = typeof window !== "undefined" ? localStorage.getItem(LIST_EMAIL_KEY) : null;
+      const email = (raw && raw.trim()) || "";
+      if (!email) {
         setOrders([]);
         setLoading(false);
         return;
       }
-      Promise.all(
-        ids.map((id) =>
-          fetch(`/api/orders/${encodeURIComponent(id)}`).then((r) => (r.ok ? r.json() : null))
-        )
-      )
-        .then((list) => {
-          if (cancelled) return;
-          const paid = (list.filter(Boolean) as Order[]).filter(
-            (o) => o.status === "paid" || o.status === "shipped" || o.status === "in_transit" || o.status === "received"
-          );
-          setOrders(paid);
+      setSavedEmail(email);
+      fetch(`/api/orders?email=${encodeURIComponent(email)}`)
+        .then((r) => (r.ok ? r.json() : []))
+        .then((list: Order[]) => {
+          if (!cancelled) setOrders(Array.isArray(list) ? list : []);
         })
         .catch(() => { if (!cancelled) setOrders([]); })
         .finally(() => { if (!cancelled) setLoading(false); });
@@ -90,27 +108,79 @@ export default function AccountListsPage() {
 
           {loading ? (
             <div className="mt-8 py-16 text-center text-warm-muted">加载中…</div>
+          ) : !savedEmail ? (
+            <div className="mt-8 rounded-2xl border border-warm-gray/40 bg-warm-white/95 p-8">
+              <p className="text-sm text-foreground">使用下单时填写的邮箱查看您的订单，订单会长期保留。</p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  fetchByEmail(emailInput);
+                }}
+                className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end"
+              >
+                <label className="flex-1 min-w-0">
+                  <span className="sr-only">邮箱</span>
+                  <input
+                    type="email"
+                    value={emailInput}
+                    onChange={(e) => { setEmailInput(e.target.value); setEmailError(""); }}
+                    placeholder="请输入下单时使用的邮箱"
+                    className="w-full rounded-lg border border-warm-gray/60 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-warm-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                  />
+                </label>
+                <button
+                  type="submit"
+                  disabled={loading || !emailInput.trim()}
+                  className="rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-white hover:opacity-90 disabled:opacity-60"
+                >
+                  查看订单
+                </button>
+              </form>
+              {emailError && <p className="mt-2 text-sm text-red-600">{emailError}</p>}
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href="/series" className="text-sm font-medium text-accent hover:underline">去逛逛</Link>
+                <Link href="/account" className="text-sm font-medium text-accent hover:underline">返回账户</Link>
+              </div>
+            </div>
           ) : orders.length === 0 ? (
             <div className="mt-8 rounded-2xl border border-warm-gray/40 bg-warm-white/95 p-8 text-center">
-              <p className="text-sm text-warm-muted">暂无支付成功的订单。</p>
-              <p className="mt-1 text-xs text-warm-muted">完成支付后，订单会显示在本页。</p>
+              <p className="text-sm text-warm-muted">该邮箱下暂无支付成功的订单。</p>
+              <p className="mt-1 text-xs text-warm-muted">完成支付后，订单会显示在本页并长期保留。</p>
+              <button
+                type="button"
+                onClick={() => {
+                  try { localStorage.removeItem(LIST_EMAIL_KEY); } catch {}
+                  setSavedEmail("");
+                  setOrders([]);
+                  setEmailInput("");
+                }}
+                className="mt-4 text-sm font-medium text-accent hover:underline"
+              >
+                使用其他邮箱
+              </button>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <Link
-                  href="/series"
-                  className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
-                >
-                  去逛逛
-                </Link>
-                <Link
-                  href="/account"
-                  className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
-                >
-                  返回账户
-                </Link>
+                <Link href="/series" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">去逛逛</Link>
+                <Link href="/account" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">返回账户</Link>
               </div>
             </div>
           ) : (
-            <div className="mt-8 space-y-5 max-w-xl">
+            <>
+              <p className="mt-6 text-sm text-warm-muted">
+                当前邮箱：{savedEmail}
+                <button
+                  type="button"
+                  onClick={() => {
+                    try { localStorage.removeItem(LIST_EMAIL_KEY); } catch {}
+                    setSavedEmail("");
+                    setOrders([]);
+                    setEmailInput("");
+                  }}
+                  className="ml-2 font-medium text-accent hover:underline"
+                >
+                  使用其他邮箱
+                </button>
+              </p>
+              <div className="mt-4 space-y-5 max-w-xl">
               {orders.map((order) => {
                 const dateStr = new Date(order.createdAt).toLocaleString("zh-CN", {
                   year: "numeric",
@@ -224,7 +294,8 @@ export default function AccountListsPage() {
                   </div>
                 );
               })}
-            </div>
+              </div>
+            </>
           )}
 
           <p className="mt-8">

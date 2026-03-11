@@ -15,6 +15,15 @@ function OrderSuccessContent() {
       setValid(false);
       return;
     }
+    const saveListEmail = (email: string | undefined) => {
+      if (email && typeof window !== "undefined") {
+        try {
+          const listKey = "dtc-list-email";
+          const trimmed = String(email).trim().toLowerCase();
+          if (trimmed) localStorage.setItem(listKey, trimmed);
+        } catch {}
+      }
+    };
     if (fromPayConfirmed) {
       setValid(true);
       try {
@@ -25,6 +34,10 @@ function OrderSuccessContent() {
           localStorage.setItem(key, JSON.stringify([orderId, ...ids]));
         }
       } catch {}
+      fetch(`/api/orders/${encodeURIComponent(orderId)}`)
+        .then((r) => r.ok ? r.json() : null)
+        .then((data) => { if (data?.email) saveListEmail(data.email); })
+        .catch(() => {});
       return;
     }
     let cancelled = false;
@@ -42,6 +55,7 @@ function OrderSuccessContent() {
                 localStorage.setItem(key, JSON.stringify([orderId, ...ids]));
               }
             } catch {}
+            saveListEmail(data?.email);
           }
         }
       })

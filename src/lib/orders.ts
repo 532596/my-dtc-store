@@ -93,6 +93,24 @@ export async function listOrders(): Promise<Order[]> {
   return readOrders();
 }
 
+const PAID_STATUSES: OrderStatus[] = ["paid", "shipped", "in_transit", "received"];
+
+/** 按邮箱查询该用户所有已支付/已发货等订单（用于「我的清单」持久化展示） */
+export async function listOrdersByEmail(email: string): Promise<Order[]> {
+  if (!email || typeof email !== "string") return [];
+  const normalized = email.trim().toLowerCase();
+  if (!normalized) return [];
+  const orders = await readOrders();
+  return orders
+    .filter(
+      (o) =>
+        (o.email?.trim().toLowerCase() === normalized ||
+          (o.shipping as OrderShipping & { email?: string })?.email?.trim().toLowerCase() === normalized) &&
+        PAID_STATUSES.includes(o.status)
+    )
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+}
+
 export async function markOrderPaid(
   orderId: string,
   paymentMethod: string

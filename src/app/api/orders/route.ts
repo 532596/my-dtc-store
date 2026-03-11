@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createOrder, listOrders } from "@/lib/orders";
+import { createOrder, listOrders, listOrdersByEmail } from "@/lib/orders";
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,6 +47,16 @@ function isAdminAuth(request: NextRequest): boolean {
 }
 
 export async function GET(request: NextRequest) {
+  const email = request.nextUrl.searchParams.get("email")?.trim();
+  if (email) {
+    try {
+      const orders = await listOrdersByEmail(email);
+      return NextResponse.json(orders);
+    } catch (e) {
+      console.error(e);
+      return NextResponse.json({ error: "获取订单列表失败" }, { status: 500 });
+    }
+  }
   if (!isAdminAuth(request)) {
     return NextResponse.json({ error: "未授权" }, { status: 401 });
   }
