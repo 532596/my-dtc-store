@@ -18,7 +18,19 @@ function OrderSuccessContent() {
     fetch(`/api/orders/${encodeURIComponent(orderId)}`)
       .then((r) => r.json())
       .then((data) => {
-        if (!cancelled) setValid(data?.status === "paid");
+        if (!cancelled) {
+          setValid(data?.status === "paid");
+          if (data?.status === "paid") {
+            try {
+              const key = "dtc-paid-order-ids";
+              const raw = typeof window !== "undefined" ? localStorage.getItem(key) : null;
+              const ids: string[] = raw ? JSON.parse(raw) : [];
+              if (!ids.includes(orderId)) {
+                localStorage.setItem(key, JSON.stringify([orderId, ...ids]));
+              }
+            } catch {}
+          }
+        }
       })
       .catch(() => { if (!cancelled) setValid(false); });
     return () => { cancelled = true; };
@@ -56,7 +68,7 @@ function OrderSuccessContent() {
           订单提交成功
         </h1>
         <p className="mt-3 text-sm text-warm-muted">
-          感谢您的购买。我们已收到您的订单与支付，将尽快安排发货。点击「查看订单」可查看订单详情，发货后可在「订单跟踪」中查询物流。
+          感谢您的购买。我们已收到您的订单与支付，将尽快安排发货。点击「查看订单」可查看订单详情，发货后可在「订单跟踪」中查询物流。离开本页后，可随时在账户的「订单状态」中再次查看支付成功的订单。
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
@@ -64,6 +76,12 @@ function OrderSuccessContent() {
             className="btn-primary inline-flex min-w-[8rem] items-center justify-center px-6 py-3 text-center"
           >
             查看订单
+          </Link>
+          <Link
+            href="/account/orders"
+            className="inline-flex min-w-[8rem] items-center justify-center rounded-xl border border-warm-gray/40 bg-warm-white px-6 py-3 text-center text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+          >
+            订单状态
           </Link>
           <Link
             href="/series"

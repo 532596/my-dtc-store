@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 // @ts-ignore: IDE 在解析 @types/react 时误报「not a module」，实际编译通过
 import * as React from "react";
@@ -40,8 +41,11 @@ export default function Header() {
   const [megaSolutionsSub, setMegaSolutionsSub] = React.useState(0);
   const [megaAboutSub, setMegaAboutSub] = React.useState(0);
   const [megaSupportSub, setMegaSupportSub] = React.useState(0);
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const cartCloseTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const MEGA_EXIT_MS = 180;
+  const cartSubtotal = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
 
   /** 当前展示的面板类型（收起时展示正在收起的；否则展示当前打开的） */
   const activePanel =
@@ -155,6 +159,7 @@ export default function Header() {
     return () => {
       if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
       if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
+      if (cartCloseTimerRef.current) clearTimeout(cartCloseTimerRef.current);
     };
   }, []);
 
@@ -290,19 +295,103 @@ export default function Header() {
             )}
           </div>
 
-          {/* 购物车图标（全端）+ 红标数量 */}
+          {/* 购物车：悬停显示下拉卡片，展示当前商品简要信息 */}
+          <div
+            className="relative hidden md:block"
+            onMouseEnter={() => {
+              if (cartCloseTimerRef.current) {
+                clearTimeout(cartCloseTimerRef.current);
+                cartCloseTimerRef.current = null;
+              }
+              setCartOpen(true);
+            }}
+            onMouseLeave={() => {
+              cartCloseTimerRef.current = setTimeout(() => setCartOpen(false), 120);
+            }}
+          >
+            <Link
+              href="/cart"
+              className="relative flex items-center gap-1 rounded-full border border-warm-gray/40 px-3 py-1.5 text-xs text-warm-muted transition hover:border-accent hover:text-foreground"
+              aria-label={cartCount > 0 ? `Cart (${cartCount} items)` : "Cart"}
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+              <span className="text-xs">Cart</span>
+              {cartCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
+                  {cartCount > 99 ? "99+" : cartCount}
+                </span>
+              )}
+            </Link>
+            {cartOpen && (
+              <div className="absolute right-0 top-full z-40 mt-2 w-80 rounded-xl border border-warm-gray/40 bg-warm-white/98 shadow-lg backdrop-blur-sm">
+                <div className="max-h-[min(70vh,320px)] overflow-y-auto p-3">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">
+                    购物车 {cartCount > 0 ? `（${cartCount} 件）` : ""}
+                  </p>
+                  {cartItems.length === 0 ? (
+                    <p className="py-6 text-center text-sm text-warm-muted">购物车为空</p>
+                  ) : (
+                    <>
+                      <ul className="space-y-3">
+                        {cartItems.map((item) => (
+                          <li key={item.id} className="flex gap-3 rounded-lg border border-warm-gray/100 p-2">
+                            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-warm-gray/100">
+                              <Image
+                                src={item.image || "/images/hero.jpg"}
+                                alt=""
+                                fill
+                                className="object-cover"
+                                sizes="56px"
+                              />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-sm font-medium text-foreground line-clamp-1">{item.name}</p>
+                              <p className="mt-0.5 line-clamp-1 text-xs text-warm-muted">{item.desc}</p>
+                              <p className="mt-1 text-xs text-foreground">
+                                ¥{item.price.toLocaleString()} × {item.quantity}
+                              </p>
+                            </div>
+                            <p className="shrink-0 text-sm font-medium text-foreground">
+                              ¥{(item.price * item.quantity).toLocaleString()}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-3 border-t border-warm-gray/200 pt-3">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-warm-muted">小计</span>
+                          <span className="font-semibold text-foreground">¥{cartSubtotal.toLocaleString()}</span>
+                        </div>
+                        <Link
+                          href="/cart"
+                          className="btn-primary mt-3 block w-full py-2.5 text-center text-sm"
+                          onClick={() => setCartOpen(false)}
+                        >
+                          查看购物车 / 去结算
+                        </Link>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 移动端：购物车仍为简单链接 */}
           <Link
             href="/cart"
-            className="relative flex items-center gap-1 rounded-full border border-warm-gray/40 px-3 py-1.5 text-xs text-warm-muted transition hover:border-accent hover:text-foreground"
+            className="relative flex items-center gap-1 rounded-full border border-warm-gray/40 px-3 py-1.5 text-xs text-warm-muted transition hover:border-accent hover:text-foreground md:hidden"
             aria-label={cartCount > 0 ? `Cart (${cartCount} items)` : "Cart"}
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
             <span className="text-xs">Cart</span>
             {cartCount > 0 && (
