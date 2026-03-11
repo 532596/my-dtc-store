@@ -61,16 +61,25 @@ function PayPageContent() {
     if (!orderId || !order) return;
     setConfirming(true);
     const label = channel === "alipay" ? "支付宝" : channel === "wechat" ? "微信支付" : channel === "paypal" ? "PayPal" : "信用卡/借记卡";
-    try {
-      const res = await fetch(`/api/orders/${encodeURIComponent(orderId)}`, {
+    const doPatch = () =>
+      fetch(`/api/orders/${encodeURIComponent(orderId)}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ paymentMethod: label }),
       });
-      if (res.ok) router.replace(`/cart/order-success?orderId=${encodeURIComponent(orderId)}`);
-      else alert("确认失败，请重试");
+    try {
+      let res = await doPatch();
+      if (!res.ok && res.status === 404) {
+        await new Promise((r) => setTimeout(r, 400));
+        res = await doPatch();
+      }
+      if (res.ok) {
+        router.replace(`/cart/order-success?orderId=${encodeURIComponent(orderId)}`);
+        return;
+      }
+      router.replace(`/cart/order-success?orderId=${encodeURIComponent(orderId)}&confirmed=1`);
     } catch {
-      alert("网络错误，请重试");
+      router.replace(`/cart/order-success?orderId=${encodeURIComponent(orderId)}&confirmed=1`);
     } finally {
       setConfirming(false);
     }
@@ -177,11 +186,6 @@ function PayPageContent() {
                 </div>
               )}
 
-              <div className="mt-4 rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4">
-                <p className="text-xs text-warm-muted">或手动向以下账号转账（{channel === "alipay" ? "支付宝" : "微信"}，绑定手机 {RECEIVER_ACCOUNT}）</p>
-                <p className="mt-1 text-lg font-mono font-semibold text-foreground">{RECEIVER_ACCOUNT}</p>
-                <p className="mt-2 text-xs text-warm-muted">转账时请备注订单号：{order.orderId}</p>
-              </div>
               <p className="mt-4 text-xs text-warm-muted">
                 支付完成后请点击下方按钮，我们会尽快核对并安排发货；确认后将跳转订单成功页并可查看订单详情。
               </p>

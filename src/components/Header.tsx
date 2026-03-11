@@ -330,7 +330,7 @@ export default function Header() {
               )}
             </Link>
             {cartOpen && (
-              <div className="absolute right-0 top-full z-40 mt-2 w-80 rounded-xl border border-warm-gray/40 bg-warm-white/98 shadow-lg backdrop-blur-sm">
+              <div className="absolute right-0 top-full z-40 mt-2 w-80 rounded-xl border border-warm-gray/200 bg-white shadow-xl">
                 <div className="max-h-[min(70vh,320px)] overflow-y-auto p-3">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">
                     购物车 {cartCount > 0 ? `（${cartCount} 件）` : ""}

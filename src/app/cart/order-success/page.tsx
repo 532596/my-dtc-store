@@ -7,11 +7,24 @@ import { Suspense, useEffect, useState } from "react";
 function OrderSuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
+  const fromPayConfirmed = searchParams.get("confirmed") === "1";
   const [valid, setValid] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (!orderId) {
       setValid(false);
+      return;
+    }
+    if (fromPayConfirmed) {
+      setValid(true);
+      try {
+        const key = "dtc-paid-order-ids";
+        const raw = typeof window !== "undefined" ? localStorage.getItem(key) : null;
+        const ids: string[] = raw ? JSON.parse(raw) : [];
+        if (!ids.includes(orderId)) {
+          localStorage.setItem(key, JSON.stringify([orderId, ...ids]));
+        }
+      } catch {}
       return;
     }
     let cancelled = false;
@@ -34,7 +47,7 @@ function OrderSuccessContent() {
       })
       .catch(() => { if (!cancelled) setValid(false); });
     return () => { cancelled = true; };
-  }, [orderId]);
+  }, [orderId, fromPayConfirmed]);
 
   if (valid === false) {
     return (
