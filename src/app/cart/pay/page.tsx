@@ -6,6 +6,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useState } from "react";
 
 const RECEIVER_ACCOUNT = "18056429318";
+// 收款码图片：可放在 public/images/ 或通过环境变量指定完整 URL
+const ALIPAY_QR = typeof process.env.NEXT_PUBLIC_ALIPAY_QR === "string" && process.env.NEXT_PUBLIC_ALIPAY_QR
+  ? process.env.NEXT_PUBLIC_ALIPAY_QR
+  : "/images/alipay-qr.png";
+const WECHAT_QR = typeof process.env.NEXT_PUBLIC_WECHAT_QR === "string" && process.env.NEXT_PUBLIC_WECHAT_QR
+  ? process.env.NEXT_PUBLIC_WECHAT_QR
+  : "/images/wechat-qr.png";
 
 type Order = {
   orderId: string;
@@ -27,6 +34,8 @@ function PayPageContent() {
   const [channel, setChannel] = useState<Channel>("alipay");
   const [loading, setLoading] = useState(true);
   const [confirming, setConfirming] = useState(false);
+  const [alipayQrError, setAlipayQrError] = useState(false);
+  const [wechatQrError, setWechatQrError] = useState(false);
 
   useEffect(() => {
     const c = (typeof window !== "undefined" && sessionStorage.getItem("dtc-pay-channel")) as Channel | null;
@@ -152,15 +161,48 @@ function PayPageContent() {
                 {channel === "alipay" ? "支付宝付款" : "微信支付"}
               </p>
               <p className="mt-1 text-sm text-warm-muted">
-                请使用{channel === "alipay" ? "支付宝" : "微信"}向以下账号转账，金额 <span className="font-semibold text-foreground">¥{order.total.toLocaleString()}</span>
+                请使用{channel === "alipay" ? "支付宝" : "微信"}扫码支付或向以下账号转账，金额 <span className="font-semibold text-foreground">¥{order.total.toLocaleString()}</span>
               </p>
+
+              {/* 收款码二维码：支付宝 / 微信 */}
+              <div className="mt-4 flex flex-col items-center rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4 sm:flex-row sm:justify-center sm:gap-8">
+                {channel === "alipay" && !alipayQrError && (
+                  <div className="flex flex-col items-center">
+                    <p className="mb-2 text-xs font-medium text-warm-muted">支付宝扫码付款</p>
+                    <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={ALIPAY_QR}
+                        alt="支付宝收款码"
+                        className="h-full w-full object-contain"
+                        onError={() => setAlipayQrError(true)}
+                      />
+                    </div>
+                  </div>
+                )}
+                {channel === "wechat" && !wechatQrError && (
+                  <div className="flex flex-col items-center">
+                    <p className="mb-2 text-xs font-medium text-warm-muted">微信扫码付款</p>
+                    <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={WECHAT_QR}
+                        alt="微信收款码"
+                        className="h-full w-full object-contain"
+                        onError={() => setWechatQrError(true)}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <div className="mt-4 rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4">
-                <p className="text-xs text-warm-muted">收款账号（{channel === "alipay" ? "支付宝" : "微信"}）</p>
+                <p className="text-xs text-warm-muted">或向以下账号转账（{channel === "alipay" ? "支付宝" : "微信"}）</p>
                 <p className="mt-1 text-lg font-mono font-semibold text-foreground">{RECEIVER_ACCOUNT}</p>
                 <p className="mt-2 text-xs text-warm-muted">转账时请备注订单号：{order.orderId}</p>
               </div>
               <p className="mt-4 text-xs text-warm-muted">
-                转账完成后请点击下方按钮，我们会尽快核对并安排发货。
+                支付完成后请点击下方按钮，我们会尽快核对并安排发货；确认后将跳转订单成功页并可查看订单详情。
               </p>
               <button
                 type="button"
