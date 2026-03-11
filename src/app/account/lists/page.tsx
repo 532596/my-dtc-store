@@ -199,16 +199,16 @@ export default function AccountListsPage() {
                           <p className="text-sm text-foreground">共 {itemCount} 件 · {order.paymentMethod ?? "—"}</p>
                           <p className="mt-0.5 text-xs text-warm-muted">支付时间：{paidAtStr ?? "—"}</p>
                         </div>
-                        <div className="flex flex-col gap-2 pt-1">
+                        <div className="flex flex-col gap-1.5 pt-1">
                           <Link
                             href={`/cart/order-details?orderId=${encodeURIComponent(order.orderId)}`}
-                            className="inline-flex items-center justify-center rounded-lg border border-warm-gray/40 bg-warm-white px-3 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+                            className="inline-flex items-center justify-center rounded-md border border-warm-gray/40 bg-warm-white px-2.5 py-1.5 text-xs font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
                           >
                             查看订单详情
                           </Link>
                           <Link
                             href={trackingHref}
-                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-medium text-white hover:opacity-90"
+                            className="inline-flex items-center justify-center gap-1 rounded-md bg-accent px-2.5 py-1.5 text-xs font-medium text-white hover:opacity-90"
                           >
                             一键查询物流
                           </Link>
