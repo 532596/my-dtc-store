@@ -161,10 +161,10 @@ function PayPageContent() {
                 {channel === "alipay" ? "支付宝付款" : "微信支付"}
               </p>
               <p className="mt-1 text-sm text-warm-muted">
-                请使用{channel === "alipay" ? "支付宝" : "微信"}扫码支付或向以下账号转账，金额 <span className="font-semibold text-foreground">¥{order.total.toLocaleString()}</span>
+                应付金额 <span className="font-semibold text-foreground">¥{order.total.toLocaleString()}</span>，扫码后将直接向绑定手机 <span className="font-semibold text-foreground">{RECEIVER_ACCOUNT}</span> 的{channel === "alipay" ? "支付宝" : "微信"}账户付款。
               </p>
 
-              {/* 收款码：始终显示含账号/金额/订单号的二维码；若有自定义收款码图片则在上方显示 */}
+              {/* 您的微信/支付宝收款码：扫码即向 18056429318 对应账户付款 */}
               {(() => {
                 const isAlipay = channel === "alipay";
                 const isWechat = channel === "wechat";
@@ -176,44 +176,44 @@ function PayPageContent() {
                   <div className="mt-4 flex flex-col items-center rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4 sm:flex-row sm:justify-center sm:gap-8">
                     {isAlipay && (
                       <div className="flex flex-col items-center">
-                        <p className="mb-2 text-xs font-medium text-warm-muted">支付宝扫码付款</p>
-                        {!alipayQrError && (
-                          <div className="mb-2 h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                        <p className="mb-2 text-xs font-medium text-warm-muted">支付宝收款码（绑定手机 {RECEIVER_ACCOUNT}）</p>
+                        {!alipayQrError ? (
+                          <div className="h-52 w-52 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center p-1">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={ALIPAY_QR}
-                              alt="支付宝收款码"
+                              alt="支付宝收款码，扫码向绑定手机18056429318的账户付款"
                               className="h-full w-full object-contain"
                               onError={() => setAlipayQrError(true)}
                             />
                           </div>
+                        ) : (
+                          <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={fallbackQrUrl} alt="支付宝转账信息" className="h-full w-full object-contain" />
+                          </div>
                         )}
-                        <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={fallbackQrUrl} alt="支付宝转账信息" className="h-full w-full object-contain" />
-                        </div>
-                        <p className="mt-1.5 text-xs text-warm-muted">扫码可见账号与订单号，便于转账备注</p>
                       </div>
                     )}
                     {isWechat && (
                       <div className="flex flex-col items-center">
-                        <p className="mb-2 text-xs font-medium text-warm-muted">微信扫码付款</p>
-                        {!wechatQrError && (
-                          <div className="mb-2 h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                        <p className="mb-2 text-xs font-medium text-warm-muted">微信收款码（绑定手机 {RECEIVER_ACCOUNT}）</p>
+                        {!wechatQrError ? (
+                          <div className="h-52 w-52 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center p-1">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={WECHAT_QR}
-                              alt="微信收款码"
+                              alt="微信收款码，扫码向绑定手机18056429318的账户付款"
                               className="h-full w-full object-contain"
                               onError={() => setWechatQrError(true)}
                             />
                           </div>
+                        ) : (
+                          <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={fallbackQrUrl} alt="微信转账信息" className="h-full w-full object-contain" />
+                          </div>
                         )}
-                        <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={fallbackQrUrl} alt="微信转账信息" className="h-full w-full object-contain" />
-                        </div>
-                        <p className="mt-1.5 text-xs text-warm-muted">扫码可见账号与订单号，便于转账备注</p>
                       </div>
                     )}
                   </div>
@@ -221,7 +221,7 @@ function PayPageContent() {
               })()}
 
               <div className="mt-4 rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4">
-                <p className="text-xs text-warm-muted">或向以下账号转账（{channel === "alipay" ? "支付宝" : "微信"}）</p>
+                <p className="text-xs text-warm-muted">或手动向以下账号转账（{channel === "alipay" ? "支付宝" : "微信"}，绑定手机 {RECEIVER_ACCOUNT}）</p>
                 <p className="mt-1 text-lg font-mono font-semibold text-foreground">{RECEIVER_ACCOUNT}</p>
                 <p className="mt-2 text-xs text-warm-muted">转账时请备注订单号：{order.orderId}</p>
               </div>
