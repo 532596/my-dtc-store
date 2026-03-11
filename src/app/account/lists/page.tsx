@@ -142,71 +142,57 @@ export default function AccountListsPage() {
                     key={order.orderId}
                     className="overflow-hidden rounded-xl border border-warm-gray/50 bg-warm-white shadow-sm"
                   >
-                    {/* 头部：订单号 + 状态 */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-warm-gray/200 bg-warm-gray/5 px-5 py-3">
+                    {/* 长扁布局：头部一行，主体左右分栏 */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-warm-gray/200 bg-warm-gray/5 px-4 py-2.5">
                       <p className="font-mono text-sm font-medium text-foreground">{order.orderId}</p>
                       <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${statusClass}`}>
                         {statusLabel}
                       </span>
                     </div>
-                    {/* 主体：纵向排列，先时间与合计，再商品，再摘要与按钮 */}
-                    <div className="px-5 py-4 space-y-5">
-                      <p className="text-sm text-warm-muted">
-                        下单时间：{dateStr} · 合计 ¥{order.total.toLocaleString()}
-                      </p>
-                      <ul className="space-y-3">
-                        {order.items.slice(0, 3).map((item) => (
-                          <li key={item.id} className="flex gap-3">
-                            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-warm-gray/100">
-                              <Image
-                                src={item.image || "/images/hero.jpg"}
-                                alt=""
-                                fill
-                                className="object-cover"
-                                sizes="56px"
-                              />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="text-sm font-medium text-foreground">{item.name}</p>
-                              <p className="text-xs text-warm-muted mt-0.5">
-                                ¥{item.price.toLocaleString()} × {item.quantity}
-                              </p>
-                            </div>
-                          </li>
-                        ))}
-                        {order.items.length > 3 && (
-                          <li className="text-xs text-warm-muted pt-0.5">等共 {order.items.length} 件商品</li>
-                        )}
-                      </ul>
-                      {/* 订单摘要：加大行距，避免拥挤 */}
-                      <div className="border-t border-warm-gray/200 pt-5">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted mb-4">
-                          订单摘要
+                    <div className="flex flex-col sm:flex-row sm:items-stretch">
+                      {/* 左侧：时间、合计、商品横排紧凑 */}
+                      <div className="min-w-0 flex-1 border-b border-warm-gray/100 sm:border-b-0 sm:border-r border-warm-gray/100 px-4 py-3 sm:py-3">
+                        <p className="text-xs text-warm-muted">
+                          下单时间：{dateStr} · 合计 ¥{order.total.toLocaleString()}
                         </p>
-                        <dl className="space-y-3 text-sm">
-                          <div>
-                            <dt className="sr-only">商品件数</dt>
-                            <dd className="text-foreground">共 {itemCount} 件商品</dd>
-                          </div>
-                          <div>
-                            <dt className="text-warm-muted font-normal">支付方式</dt>
-                            <dd className="mt-0.5 text-foreground">{order.paymentMethod ?? "—"}</dd>
-                          </div>
-                          <div>
-                            <dt className="text-warm-muted font-normal">支付时间</dt>
-                            <dd className="mt-0.5 text-foreground">{paidAtStr ?? "—"}</dd>
-                          </div>
-                        </dl>
-                        <div className="mt-6 flex flex-col gap-3">
+                        <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
+                          {order.items.slice(0, 3).map((item) => (
+                            <li key={item.id} className="flex items-center gap-2">
+                              <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded bg-warm-gray/100">
+                                <Image
+                                  src={item.image || "/images/hero.jpg"}
+                                  alt=""
+                                  fill
+                                  className="object-cover"
+                                  sizes="40px"
+                                />
+                              </div>
+                              <span className="text-sm font-medium text-foreground">{item.name}</span>
+                              <span className="text-xs text-warm-muted">¥{item.price.toLocaleString()} × {item.quantity}</span>
+                            </li>
+                          ))}
+                          {order.items.length > 3 && (
+                            <li className="text-xs text-warm-muted">等共 {order.items.length} 件</li>
+                          )}
+                        </ul>
+                      </div>
+                      {/* 右侧：订单摘要 + 按钮 */}
+                      <div className="flex flex-col justify-between gap-3 bg-warm-gray/30 px-4 py-3 sm:w-52 sm:shrink-0 sm:py-3">
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted mb-2">订单摘要</p>
+                          <p className="text-sm text-foreground">共 {itemCount} 件 · {order.paymentMethod ?? "—"}</p>
+                          <p className="mt-0.5 text-xs text-warm-muted">支付时间：{paidAtStr ?? "—"}</p>
+                        </div>
+                        <div className="flex flex-col gap-2 pt-1">
                           <Link
                             href={`/cart/order-details?orderId=${encodeURIComponent(order.orderId)}`}
-                            className="inline-flex items-center justify-center rounded-lg border border-warm-gray/40 bg-warm-white px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+                            className="inline-flex items-center justify-center rounded-lg border border-warm-gray/40 bg-warm-white px-3 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
                           >
                             查看订单详情
                           </Link>
                           <Link
                             href={trackingHref}
-                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-white hover:opacity-90"
+                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-medium text-white hover:opacity-90"
                           >
                             一键查询物流
                           </Link>
