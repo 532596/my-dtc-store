@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Reveal from "@/components/Reveal";
 import { Package, Truck, MapPin, CheckCircle2 } from "lucide-react";
 
@@ -30,7 +30,7 @@ function orderStatusToStep(status: string | undefined): StepKey {
   return "placed";
 }
 
-export default function OrderTrackingPage() {
+function OrderTrackingContent() {
   const searchParams = useSearchParams();
   const [orderNumber, setOrderNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -303,5 +303,17 @@ export default function OrderTrackingPage() {
         </Reveal>
       </section>
     </main>
+  );
+}
+
+export default function OrderTrackingPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-warm-white">
+        <div className="mx-auto max-w-2xl px-4 py-16 text-center text-warm-muted">加载中…</div>
+      </main>
+    }>
+      <OrderTrackingContent />
+    </Suspense>
   );
 }
