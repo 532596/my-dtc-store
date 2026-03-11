@@ -216,9 +216,9 @@ export default function ProductPage(props: { params: { slug: string } }) {
             {/* 服务与保障 */}
             <div className="mt-6 space-y-2 border-t border-warm-gray/40 pt-6 text-xs text-warm-muted">
               <p>
-                <Link href="/support#shipping" className="text-accent hover:underline">配送与退换</Link>
+                <Link href="/support/returns" className="text-accent hover:underline">配送与退换</Link>
                 <span className="mx-1.5">·</span>
-                <Link href="/support#warranty" className="text-accent hover:underline">保修说明</Link>
+                <Link href="/support/warranty" className="text-accent hover:underline">保修说明</Link>
               </p>
               <p>
                 <Link href="/series#reviews" className="text-accent hover:underline">用户评价</Link>

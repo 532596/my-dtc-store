@@ -409,7 +409,7 @@ export default function CartContent() {
             </div>
 
             <div className="mt-4 rounded-xl border border-warm-gray/50 bg-warm-white p-4 text-center text-xs text-warm-muted">
-              <Link href="/support#shipping" className="text-accent hover:underline">配送与退换</Link>
+              <Link href="/support/returns" className="text-accent hover:underline">配送与退换</Link>
               <span className="mx-2">·</span>
               <Link href="/support" className="text-accent hover:underline">隐私政策</Link>
               <span className="mx-2">·</span>
@@ -421,7 +421,7 @@ export default function CartContent() {
         {/* 配送与保修说明卡片：放在配送信息、订单摘要下方 */}
         <div className="mt-8 space-y-4">
           <Link
-            href="/support#shipping"
+            href="/support/returns"
             className="flex flex-wrap items-center gap-4 rounded-xl border border-warm-gray/40 bg-warm-gray/10 p-4 transition hover:border-warm-gray/60 hover:bg-warm-gray/20 sm:flex-nowrap"
           >
             <span className="relative shrink-0">
@@ -441,7 +441,7 @@ export default function CartContent() {
             </span>
           </Link>
           <Link
-            href="/support#warranty"
+            href="/support/warranty"
             className="flex flex-wrap items-center gap-4 rounded-xl border border-warm-gray/40 bg-warm-gray/10 p-4 transition hover:border-warm-gray/60 hover:bg-warm-gray/20 sm:flex-nowrap"
           >
             <span className="relative shrink-0">

@@ -204,7 +204,7 @@ function OrderDetailsContent() {
           </div>
           <div className="border-t border-warm-gray/100 bg-warm-gray/20 px-5 py-3 text-xs text-warm-muted sm:px-6">
             发票：电子普通发票（个人），支付后可申请。退换货详见
-            <Link href="/support#shipping" className="text-accent hover:underline">退换货政策</Link>。
+            <Link href="/support/returns" className="text-accent hover:underline">退换货政策</Link>。
           </div>
         </div>
 

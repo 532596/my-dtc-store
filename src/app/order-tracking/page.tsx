@@ -240,7 +240,7 @@ function OrderTrackingContent() {
                 <div className="border-t border-warm-gray/100 bg-warm-gray/20 px-6 py-4 sm:px-8">
                   <p className="text-sm text-warm-muted">
                     如有疑问，请查看
-                    <Link href="/support#shipping" className="ml-1 font-medium text-accent hover:underline">
+                    <Link href="/support/returns" className="ml-1 font-medium text-accent hover:underline">
                       配送说明
                     </Link>
                     或
@@ -280,14 +280,14 @@ function OrderTrackingContent() {
         <Reveal>
           <div className="flex flex-wrap items-center gap-4 text-sm">
             <Link
-              href="/support#shipping"
+              href="/support/returns"
               className="text-foreground hover:text-accent hover:underline"
             >
               配送说明
             </Link>
             <span className="text-warm-muted">|</span>
             <Link
-              href="/support#warranty"
+              href="/support/warranty"
               className="text-foreground hover:text-accent hover:underline"
             >
               质保政策

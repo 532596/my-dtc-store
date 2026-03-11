@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
+const LIST_EMAIL_FALLBACK_KEY = "dtc-list-email";
+
 const STATUS_LABELS: Record<string, string> = {
   pending_payment: "待支付",
   paid: "已支付",
@@ -44,17 +46,29 @@ export default function AccountListsPage() {
   const { email: accountEmail, isLoggedIn } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallbackEmail, setFallbackEmail] = useState("");
 
   useEffect(() => {
-    const email = (accountEmail && accountEmail.trim()) || "";
-    if (!email) {
+    try {
+      const raw = typeof window !== "undefined" ? localStorage.getItem(LIST_EMAIL_FALLBACK_KEY) : null;
+      const value = (raw && String(raw).trim()) || "";
+      setFallbackEmail(value);
+    } catch {
+      setFallbackEmail("");
+    }
+  }, []);
+
+  const effectiveEmail = (accountEmail && accountEmail.trim()) || fallbackEmail;
+
+  useEffect(() => {
+    if (!effectiveEmail) {
       setOrders([]);
       setLoading(false);
       return;
     }
     let cancelled = false;
     setLoading(true);
-    fetch(`/api/orders?email=${encodeURIComponent(email.trim().toLowerCase())}`)
+    fetch(`/api/orders?email=${encodeURIComponent(effectiveEmail.trim().toLowerCase())}`)
       .then((r) => (r.ok ? r.json() : []))
       .then((list: Order[]) => {
         if (!cancelled) setOrders(Array.isArray(list) ? list : []);
@@ -62,7 +76,7 @@ export default function AccountListsPage() {
       .catch(() => { if (!cancelled) setOrders([]); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, [accountEmail]);
+  }, [effectiveEmail]);
 
   return (
     <main className="min-h-screen bg-warm-gray/10">
@@ -86,9 +100,9 @@ export default function AccountListsPage() {
                 <Link href="/account" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">返回账户</Link>
               </div>
             </div>
-          ) : !accountEmail?.trim() ? (
+          ) : !effectiveEmail ? (
             <div className="mt-8 rounded-2xl border border-warm-gray/40 bg-warm-white/95 p-8 text-center">
-              <p className="text-sm text-warm-muted">请先在账户页绑定邮箱，以便查看订单。</p>
+              <p className="text-sm text-warm-muted">暂无可用于查询订单的邮箱。请到账户页补充邮箱，或完成一笔订单后即可在此查看。</p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <Link href="/account" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">去设置</Link>
                 <Link href="/account" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">返回账户</Link>
