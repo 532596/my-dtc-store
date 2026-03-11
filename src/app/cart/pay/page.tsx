@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 
 const RECEIVER_ACCOUNT = "18056429318";
 
@@ -19,7 +19,7 @@ type Order = {
 
 type Channel = "alipay" | "wechat" | "card" | "paypal";
 
-export default function PayPage() {
+function PayPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
@@ -209,5 +209,17 @@ export default function PayPage() {
         </p>
       </div>
     </main>
+  );
+}
+
+export default function PayPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-warm-cream">
+        <div className="mx-auto max-w-xl px-4 py-16 text-center text-warm-muted">加载中…</div>
+      </main>
+    }>
+      <PayPageContent />
+    </Suspense>
   );
 }

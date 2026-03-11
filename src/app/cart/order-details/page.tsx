@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const STORAGE_KEY = "dtc-last-order";
 
@@ -29,7 +29,7 @@ type Order = {
   email?: string;
 };
 
-export default function OrderDetailsPage() {
+function OrderDetailsContent() {
   const searchParams = useSearchParams();
   const orderIdFromQuery = searchParams.get("orderId");
   const [order, setOrder] = useState<Order | null>(null);
@@ -244,5 +244,17 @@ export default function OrderDetailsPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function OrderDetailsPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-warm-cream">
+        <div className="mx-auto max-w-2xl px-4 py-16 text-center text-warm-muted">加载中…</div>
+      </main>
+    }>
+      <OrderDetailsContent />
+    </Suspense>
   );
 }

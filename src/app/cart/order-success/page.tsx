@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
-export default function OrderSuccessPage() {
+function OrderSuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
   const [valid, setValid] = useState<boolean | null>(null);
@@ -74,5 +74,17 @@ export default function OrderSuccessPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function OrderSuccessPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-warm-cream">
+        <div className="mx-auto max-w-xl px-4 py-16 text-center text-warm-muted">加载中…</div>
+      </main>
+    }>
+      <OrderSuccessContent />
+    </Suspense>
   );
 }
