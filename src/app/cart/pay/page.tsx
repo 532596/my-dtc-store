@@ -6,13 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useState } from "react";
 
 const RECEIVER_ACCOUNT = "18056429318";
-// 收款码图片：可放在 public/images/ 或通过环境变量指定完整 URL
-const ALIPAY_QR = typeof process.env.NEXT_PUBLIC_ALIPAY_QR === "string" && process.env.NEXT_PUBLIC_ALIPAY_QR
-  ? process.env.NEXT_PUBLIC_ALIPAY_QR
-  : "/images/alipay-qr.png";
-const WECHAT_QR = typeof process.env.NEXT_PUBLIC_WECHAT_QR === "string" && process.env.NEXT_PUBLIC_WECHAT_QR
-  ? process.env.NEXT_PUBLIC_WECHAT_QR
-  : "/images/wechat-qr.png";
 
 type Order = {
   orderId: string;
@@ -34,8 +27,6 @@ function PayPageContent() {
   const [channel, setChannel] = useState<Channel>("alipay");
   const [loading, setLoading] = useState(true);
   const [confirming, setConfirming] = useState(false);
-  const [alipayQrError, setAlipayQrError] = useState(false);
-  const [wechatQrError, setWechatQrError] = useState(false);
   const [origin, setOrigin] = useState("");
   useEffect(() => {
     if (typeof window !== "undefined") setOrigin(window.location.origin);
@@ -185,24 +176,6 @@ function PayPageContent() {
                   <p className="mt-1.5 text-xs text-warm-muted">手机扫码后可见金额与账号，并可直接点击打开{channel === "alipay" ? "支付宝" : "微信"}支付</p>
                 </div>
               )}
-
-              {/* 或使用您的收款码（扫码即打开微信/支付宝） */}
-              <div className="mt-4 flex flex-col items-center rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4">
-                <p className="mb-2 text-xs font-medium text-warm-muted">或使用收款码（绑定手机 {RECEIVER_ACCOUNT}，扫码即打开{channel === "alipay" ? "支付宝" : "微信"}）</p>
-                {(channel === "alipay" && !alipayQrError) || (channel === "wechat" && !wechatQrError) ? (
-                  <div className="h-44 w-44 shrink-0 overflow-hidden rounded-lg border border-warm-gray/200 bg-white flex items-center justify-center p-1">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={channel === "alipay" ? ALIPAY_QR : WECHAT_QR}
-                      alt={channel === "alipay" ? "支付宝收款码" : "微信收款码"}
-                      className="h-full w-full object-contain"
-                      onError={() => channel === "alipay" ? setAlipayQrError(true) : setWechatQrError(true)}
-                    />
-                  </div>
-                ) : (
-                  <p className="text-xs text-warm-muted">收款码图片加载失败，请使用上方动态码或下方账号转账</p>
-                )}
-              </div>
 
               <div className="mt-4 rounded-xl border border-warm-gray/200 bg-warm-gray/5 p-4">
                 <p className="text-xs text-warm-muted">或手动向以下账号转账（{channel === "alipay" ? "支付宝" : "微信"}，绑定手机 {RECEIVER_ACCOUNT}）</p>
