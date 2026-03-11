@@ -41,8 +41,10 @@ function orderStatusLabel(status: string | undefined): string {
 }
 
 export default function AccountListsPage() {
+  const { email: accountEmail, isLoggedIn } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const email = (accountEmail && accountEmail.trim()) || "";
     if (!email) {
