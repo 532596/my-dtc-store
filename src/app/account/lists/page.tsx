@@ -192,23 +192,23 @@ export default function AccountListsPage() {
                           )}
                         </ul>
                       </div>
-                      {/* 右侧：订单摘要 + 按钮 */}
-                      <div className="flex flex-col justify-between gap-3 bg-warm-gray/30 px-4 py-3 sm:w-52 sm:shrink-0 sm:py-3">
-                        <div>
+                      {/* 右侧：订单摘要 | 按钮 分两列 */}
+                      <div className="flex flex-col sm:flex-row sm:items-stretch bg-warm-gray/30">
+                        <div className="px-4 py-3 sm:w-36 sm:shrink-0 sm:border-r border-warm-gray/200">
                           <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted mb-2">订单摘要</p>
                           <p className="text-sm text-foreground">共 {itemCount} 件 · {order.paymentMethod ?? "—"}</p>
                           <p className="mt-0.5 text-xs text-warm-muted">支付时间：{paidAtStr ?? "—"}</p>
                         </div>
-                        <div className="flex flex-col gap-1.5 pt-1">
+                        <div className="flex flex-row gap-2 px-4 py-3 sm:w-auto sm:shrink-0 sm:items-center sm:gap-2">
                           <Link
                             href={`/cart/order-details?orderId=${encodeURIComponent(order.orderId)}`}
-                            className="inline-flex items-center justify-center rounded-md border border-warm-gray/40 bg-warm-white px-2.5 py-1.5 text-xs font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
+                            className="inline-flex flex-1 sm:flex-none items-center justify-center rounded-md border border-warm-gray/40 bg-warm-white px-2.5 py-1.5 text-xs font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
                           >
                             查看订单详情
                           </Link>
                           <Link
                             href={trackingHref}
-                            className="inline-flex items-center justify-center gap-1 rounded-md bg-accent px-2.5 py-1.5 text-xs font-medium text-white hover:opacity-90"
+                            className="inline-flex flex-1 sm:flex-none items-center justify-center gap-1 rounded-md bg-accent px-2.5 py-1.5 text-xs font-medium text-white hover:opacity-90"
                           >
                             一键查询物流
                           </Link>
