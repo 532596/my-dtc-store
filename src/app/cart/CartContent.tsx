@@ -12,7 +12,7 @@ export default function CartContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [deliveryValid, setDeliveryValid] = useState(false);
   const [formEl, setFormEl] = useState<HTMLFormElement | null>(null);
-  const [paymentChannel, setPaymentChannel] = useState<"alipay" | "wechat" | "card">("alipay");
+  const [paymentChannel, setPaymentChannel] = useState<"alipay" | "wechat" | "card" | "paypal">("alipay");
 
   useEffect(() => {
     if (!formEl) return;
@@ -58,7 +58,7 @@ export default function CartContent() {
                 id="checkout-form"
                 ref={setFormEl}
                 className="mt-6 space-y-4"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   if (items.length === 0 || !deliveryValid) return;
                   setIsSubmitting(true);
@@ -71,34 +71,36 @@ export default function CartContent() {
                   const address = get("address");
                   const address2 = get("address2");
                   const phone = get("phone");
+                  const email = get("email");
                   const region = [get("country"), city].filter(Boolean).join(" ");
                   const fullAddress = [address, address2].filter(Boolean).join(" ");
-                  const paymentLabel = paymentChannel === "alipay" ? "支付宝" : paymentChannel === "wechat" ? "微信支付" : "信用卡";
-                  const saveAndRedirect = () => {
-                    try {
-                      sessionStorage.setItem(
-                        "dtc-last-order",
-                        JSON.stringify({
-                          orderId,
-                          items: items.map((i) => ({ id: i.id, name: i.name, desc: i.desc, price: i.price, quantity: i.quantity, image: i.image })),
-                          subtotal,
-                          total: subtotal + shipping,
-                          createdAt: new Date().toISOString(),
-                          shipping: {
-                            name: `${lastName} ${firstName}`.trim() || "—",
-                            phone: phone || "—",
-                            region: region || "—",
-                            address: fullAddress || "—",
-                          },
-                          paymentMethod: paymentLabel,
-                          paidAt: new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }),
-                        })
-                      );
-                    } catch {}
-                    clearCart();
-                    router.push("/cart/order-success");
+                  const shippingPayload = {
+                    name: `${lastName} ${firstName}`.trim() || "—",
+                    phone: phone || "—",
+                    region: region || "—",
+                    address: fullAddress || "—",
                   };
-                  setTimeout(saveAndRedirect, 800);
+                  try {
+                    const res = await fetch("/api/orders", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        orderId,
+                        items: items.map((i) => ({ id: i.id, name: i.name, desc: i.desc, price: i.price, quantity: i.quantity, image: i.image })),
+                        subtotal,
+                        total: subtotal + shipping,
+                        shipping: shippingPayload,
+                        email,
+                      }),
+                    });
+                    if (!res.ok) throw new Error("创建订单失败");
+                    sessionStorage.setItem("dtc-pay-channel", paymentChannel);
+                    clearCart();
+                    router.push(`/cart/pay?orderId=${encodeURIComponent(orderId)}`);
+                  } catch {
+                    setIsSubmitting(false);
+                    alert("提交失败，请重试");
+                  }
                 }}
               >
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -258,6 +260,7 @@ export default function CartContent() {
                       { id: "alipay" as const, label: "支付宝", desc: "使用支付宝扫码或账户余额支付" },
                       { id: "wechat" as const, label: "微信支付", desc: "使用微信扫码支付" },
                       { id: "card" as const, label: "信用卡 / 借记卡", desc: "支持 Visa、Mastercard、银联等" },
+                      { id: "paypal" as const, label: "PayPal", desc: "跳转至 PayPal 登录并完成支付" },
                     ].map((ch) => (
                       <label
                         key={ch.id}

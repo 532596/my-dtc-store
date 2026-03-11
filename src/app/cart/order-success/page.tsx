@@ -1,8 +1,49 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function OrderSuccessPage() {
+  const searchParams = useSearchParams();
+  const orderId = searchParams.get("orderId");
+  const [valid, setValid] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (!orderId) {
+      setValid(false);
+      return;
+    }
+    let cancelled = false;
+    fetch(`/api/orders/${encodeURIComponent(orderId)}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (!cancelled) setValid(data?.status === "paid");
+      })
+      .catch(() => { if (!cancelled) setValid(false); });
+    return () => { cancelled = true; };
+  }, [orderId]);
+
+  if (valid === false) {
+    return (
+      <main className="min-h-screen bg-warm-cream">
+        <div className="mx-auto max-w-xl px-4 py-16 text-center">
+          <p className="text-foreground">订单不存在或尚未支付完成</p>
+          <p className="mt-2 text-sm text-warm-muted">请先完成支付，或从订单详情页继续支付。</p>
+          <Link href="/cart" className="btn-primary mt-6 inline-block px-6 py-3">返回购物车</Link>
+        </div>
+      </main>
+    );
+  }
+
+  if (valid !== true) {
+    return (
+      <main className="min-h-screen bg-warm-cream">
+        <div className="mx-auto max-w-xl px-4 py-16 text-center text-warm-muted">加载中…</div>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-warm-cream">
       <div className="mx-auto max-w-xl px-4 py-16 text-center md:py-24">
@@ -15,11 +56,11 @@ export default function OrderSuccessPage() {
           订单提交成功
         </h1>
         <p className="mt-3 text-sm text-warm-muted">
-          感谢您的购买。我们已收到您的订单，将尽快安排发货。点击「查看订单」可查看订单详情，发货后可在「订单跟踪」中查询物流。
+          感谢您的购买。我们已收到您的订单与支付，将尽快安排发货。点击「查看订单」可查看订单详情，发货后可在「订单跟踪」中查询物流。
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
-            href="/cart/order-details"
+            href={orderId ? `/cart/order-details?orderId=${encodeURIComponent(orderId)}` : "/cart/order-details"}
             className="btn-primary inline-flex min-w-[8rem] items-center justify-center px-6 py-3 text-center"
           >
             查看订单
