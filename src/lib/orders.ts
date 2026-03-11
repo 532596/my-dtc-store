@@ -31,29 +31,43 @@ export type Order = {
   email?: string;
 };
 
-const DATA_DIR = path.join(process.cwd(), "data");
+// Vercel 上项目目录只读，使用 /tmp 才能写入；同实例内用内存缓存保证读写一致
+const isVercel = process.env.VERCEL === "1";
+const DATA_DIR = isVercel ? "/tmp" : path.join(process.cwd(), "data");
 const ORDERS_FILE = path.join(DATA_DIR, "orders.json");
 
+let memoryCache: Order[] | null = null;
+
 async function ensureDataDir() {
+  if (isVercel) return; // /tmp 一定存在
   try {
     await mkdir(DATA_DIR, { recursive: true });
   } catch {}
 }
 
 async function readOrders(): Promise<Order[]> {
+  if (memoryCache) return memoryCache;
   await ensureDataDir();
   try {
     const raw = await readFile(ORDERS_FILE, "utf-8");
     const data = JSON.parse(raw);
-    return Array.isArray(data) ? data : [];
+    const list = Array.isArray(data) ? data : [];
+    memoryCache = list;
+    return list;
   } catch {
+    memoryCache = [];
     return [];
   }
 }
 
 async function writeOrders(orders: Order[]) {
+  memoryCache = orders;
   await ensureDataDir();
-  await writeFile(ORDERS_FILE, JSON.stringify(orders, null, 2), "utf-8");
+  try {
+    await writeFile(ORDERS_FILE, JSON.stringify(orders, null, 2), "utf-8");
+  } catch (e) {
+    // Vercel 非 /tmp 写入会失败，已用 memoryCache，忽略
+  }
 }
 
 export async function createOrder(order: Omit<Order, "status">): Promise<Order> {
