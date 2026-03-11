@@ -64,7 +64,7 @@ export default function AccountListsPage() {
 
   return (
     <main className="min-h-screen bg-warm-gray/10">
-      <section className="relative mx-auto max-w-xl px-6 py-section">
+      <section className="relative mx-auto max-w-2xl px-6 py-section">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(186,199,213,0.22),transparent_55%)]" />
         <div className="relative z-10">
           <h1 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
@@ -217,7 +217,6 @@ export default function AccountListsPage() {
                 );
               })}
               </div>
-            </>
           )}
 
           <p className="mt-8">
