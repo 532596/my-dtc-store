@@ -14,6 +14,13 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+/** 按部位列出的材质与背书：每个部位明确材质 + 背书说明 */
+type MaterialEndorsement = {
+  part: string;       // 部位名称，如「支架」「桌面」
+  material: string;  // 该部位使用的材质
+  endorsement: string; // 该材质的背书说明或认证
+};
+
 type DeepDive = {
   name: string;
   structureTitle: string;
@@ -25,7 +32,8 @@ type DeepDive = {
   materialSubtitle: string;
   materialBadges: { title: string; desc: string; icon: LucideIcon }[];
   swatches: { name: string; className: string }[];
-  endorsements: string[];
+  /** 用料与认证：按部位列出材质，每项都有背书 */
+  materialParts: MaterialEndorsement[];
 };
 
 const DEEP_DIVE_BY_SLUG: Record<string, DeepDive> = {
@@ -53,7 +61,11 @@ const DEEP_DIVE_BY_SLUG: Record<string, DeepDive> = {
       { name: "浅灰织纹", className: "bg-gradient-to-br from-[#d7d5d2] to-[#b9b5af]" },
       { name: "深黑岩纹", className: "bg-gradient-to-br from-[#2d2d2f] to-[#151517]" },
     ],
-    endorsements: ["冷轧钢支架", "环保板材桌面", "TÜV 认证"],
+    materialParts: [
+      { part: "支架", material: "冷轧钢", endorsement: "结构稳固、承重可靠，日常敲击不易变形。" },
+      { part: "桌面", material: "环保板材", endorsement: "耐用易清洁、触感温润，符合家居环保要求。" },
+      { part: "整品认证", material: "TÜV", endorsement: "通过 TÜV 安全与可靠性认证。" },
+    ],
   },
   "model-b": {
     name: "Model B",
@@ -79,7 +91,11 @@ const DEEP_DIVE_BY_SLUG: Record<string, DeepDive> = {
       { name: "烟熏深灰", className: "bg-gradient-to-br from-[#6a6a6a] to-[#3b3b3b]" },
       { name: "经典雅黑", className: "bg-gradient-to-br from-[#1f1f22] to-[#0f0f10]" },
     ],
-    endorsements: ["冷轧钢支架", "实木贴皮/环保板", "TÜV、BIFMA"],
+    materialParts: [
+      { part: "支架", material: "冷轧钢", endorsement: "加厚框架与立柱，升降更稳、承重更强。" },
+      { part: "桌面", material: "实木贴皮/环保板", endorsement: "耐磨饰面、易打理，减少指纹与水渍。" },
+      { part: "整品认证", material: "TÜV、BIFMA", endorsement: "通过 TÜV 与 BIFMA 安全及耐久标准。" },
+    ],
   },
   "model-c": {
     name: "Model C",
@@ -105,7 +121,11 @@ const DEEP_DIVE_BY_SLUG: Record<string, DeepDive> = {
       { name: "冷灰石纹", className: "bg-gradient-to-br from-[#cfcfcf] to-[#9a9a9a]" },
       { name: "深空黑", className: "bg-gradient-to-br from-[#242428] to-[#0f0f12]" },
     ],
-    endorsements: ["冷轧钢支架", "实木贴皮/环保板", "TÜV、BIFMA"],
+    materialParts: [
+      { part: "支架", material: "冷轧钢", endorsement: "关键结构件加固，长时间升降稳定可靠。" },
+      { part: "桌面", material: "实木贴皮/环保板", endorsement: "耐刮擦、防污易清洁，适配重度使用。" },
+      { part: "整品认证", material: "TÜV、BIFMA", endorsement: "满足更高安全与可靠性标准。" },
+    ],
   },
 };
 
@@ -239,15 +259,25 @@ export default function ProductIntroDeepDive() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted">
                   用料与认证
                 </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {data.endorsements.map((t) => (
-                    <span
-                      key={t}
-                      className="inline-flex items-center gap-2 rounded-full border border-warm-gray/40 bg-warm-white px-3 py-1.5 text-xs font-medium text-foreground"
+                <p className="mt-1 text-sm text-warm-muted">
+                  不同部位使用不同材质，每项均有明确背书与认证。
+                </p>
+                <div className="mt-4 space-y-4">
+                  {data.materialParts.map((item) => (
+                    <div
+                      key={`${item.part}-${item.material}`}
+                      className="flex flex-col gap-1 rounded-xl border border-warm-gray/40 bg-warm-cream/20 px-4 py-3 sm:flex-row sm:items-center sm:gap-4"
                     >
-                      <BadgeCheck className="h-3.5 w-3.5 text-accent" />
-                      {t}
-                    </span>
+                      <div className="flex min-w-0 flex-1 items-center gap-2">
+                        <BadgeCheck className="h-4 w-4 shrink-0 text-accent" />
+                        <span className="text-sm font-semibold text-foreground">
+                          {item.part}：{item.material}
+                        </span>
+                      </div>
+                      <p className="text-sm text-warm-muted sm:max-w-md">
+                        {item.endorsement}
+                      </p>
+                    </div>
                   ))}
                 </div>
               </div>
