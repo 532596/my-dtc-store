@@ -50,7 +50,7 @@ export default function SupportReturnsPage() {
           </Reveal>
         </div>
 
-        <Reveal delay={4}>
+        <Reveal delay={3}>
           <div className="mt-12 flex flex-wrap gap-4 text-sm">
             <Link href="/support" className="font-medium text-accent hover:underline">
               ← 返回支持中心
