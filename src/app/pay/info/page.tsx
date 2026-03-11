@@ -4,8 +4,6 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-const RECEIVER_ACCOUNT = "18056429318";
-
 function PayInfoContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId") ?? "";
@@ -25,7 +23,7 @@ function PayInfoContent() {
           ¥{amount ? Number(amount).toLocaleString() : "—"}
         </p>
         <p className="mt-1 text-center text-sm text-warm-muted">
-          向绑定手机 <span className="font-medium text-foreground">{RECEIVER_ACCOUNT}</span> 的{isWechat ? "微信" : "支付宝"}账户付款
+          向收款{isWechat ? "微信" : "支付宝"}账户付款
         </p>
         {orderId && (
           <p className="mt-2 text-center text-xs text-warm-muted">订单号 {orderId}，转账时请备注</p>
@@ -53,7 +51,7 @@ function PayInfoContent() {
         </div>
 
         <p className="mt-4 text-center text-xs text-warm-muted">
-          若未自动跳转，请手动打开{isWechat ? "微信" : "支付宝"}，向 <strong>{RECEIVER_ACCOUNT}</strong> 转账 ¥{amount ? Number(amount).toLocaleString() : ""}
+          若未自动跳转，请手动打开{isWechat ? "微信" : "支付宝"}，按页面金额 ¥{amount ? Number(amount).toLocaleString() : ""} 向收款账户转账
         </p>
 
         <p className="mt-6 text-center">

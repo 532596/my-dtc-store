@@ -165,7 +165,7 @@ function PayPageContent() {
                 {channel === "alipay" ? "支付宝付款" : "微信支付"}
               </p>
               <p className="mt-1 text-sm text-warm-muted">
-                应付金额 <span className="font-semibold text-foreground">¥{order.total.toLocaleString()}</span>，扫码后打开支付页，向绑定手机 <span className="font-semibold text-foreground">{RECEIVER_ACCOUNT}</span> 的{channel === "alipay" ? "支付宝" : "微信"}账户付款。
+                应付金额 <span className="font-semibold text-foreground">¥{order.total.toLocaleString()}</span>，扫码后打开支付页，向收款{channel === "alipay" ? "支付宝" : "微信"}账户付款。
               </p>
 
               {/* 在线生成的动态二维码：本订单专属，扫码后打开支付说明页并可跳转微信/支付宝 */}
