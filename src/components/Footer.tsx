@@ -144,18 +144,18 @@ export default function Footer() {
               需要帮助？
             </h3>
             <p className="mt-1.5 text-xs text-warm-muted">工作日 9:00–18:00</p>
-            <div className="mt-2.5 grid grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-2">
+            <div className="mt-3 grid grid-cols-1 gap-y-2.5 md:grid-cols-2 md:gap-x-8">
               {CONTACT_ITEMS.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
-                    className="flex items-center gap-2 py-1.5 text-sm text-warm-muted transition-colors hover:text-foreground"
+                    className="flex items-center gap-2.5 py-1.5 text-sm text-warm-muted transition-colors hover:text-foreground"
                   >
-                    <Icon className="h-3.5 w-3.5 shrink-0 text-accent" strokeWidth={1.5} />
-                    <div className="min-w-0 flex-1">
-                      <div className="leading-none">{item.label}</div>
+                    <Icon className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.5} />
+                    <div className="min-w-0 flex-1 leading-tight">
+                      <div className="font-medium text-foreground">{item.label}</div>
                       {item.desc && (
                         <div className="mt-0.5 text-xs text-warm-muted">{item.desc}</div>
                       )}
