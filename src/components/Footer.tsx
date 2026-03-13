@@ -144,7 +144,8 @@ export default function Footer() {
               需要帮助？
             </h3>
             <p className="mt-1.5 text-xs text-warm-muted">工作日 9:00–18:00</p>
-            <div className="mt-3 grid grid-cols-1 gap-y-2.5 md:grid-cols-2 md:gap-x-8">
+            {/* 单列排版，保证文字不拥挤、不换行叠在一起 */}
+            <div className="mt-3 space-y-2.5">
               {CONTACT_ITEMS.map((item) => {
                 const Icon = item.icon;
                 return (
