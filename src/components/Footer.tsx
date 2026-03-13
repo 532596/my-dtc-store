@@ -144,7 +144,7 @@ export default function Footer() {
               需要帮助？
             </h3>
             <p className="mt-1.5 text-xs text-warm-muted">工作日 9:00–18:00</p>
-            <div className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-0.5">
+            <div className="mt-2.5 grid grid-cols-1 gap-x-4 gap-y-1 sm:grid-cols-2">
               {CONTACT_ITEMS.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -154,7 +154,7 @@ export default function Footer() {
                     className="flex items-center gap-1.5 py-1 text-sm text-warm-muted transition-colors hover:text-foreground"
                   >
                     <Icon className="h-3.5 w-3.5 shrink-0 text-accent" strokeWidth={1.5} />
-                    <span className="min-w-0 truncate">
+                    <span className="min-w-0">
                       {item.label}
                       {item.desc && (
                         <span className="ml-0.5 text-accent hover:underline">{item.desc}</span>
