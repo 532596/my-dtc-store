@@ -303,7 +303,7 @@ export default function ProductIntroDeepDive() {
                 常见问题
               </Link>{" "}
               或{" "}
-              <Link href="/support#contact" className="text-accent hover:underline">
+              <Link href="/support/contact" className="text-accent hover:underline">
                 联系我们
               </Link>
               。

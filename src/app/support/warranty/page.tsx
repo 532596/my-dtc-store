@@ -14,7 +14,7 @@ export default function SupportWarrantyPage() {
           </h1>
           <p className="mt-4 max-w-2xl text-body text-warm-muted">
             电机与框架质保政策，以及保修申请方式。具体以随箱说明书与购买页为准；如有疑问请
-            <Link href="/support#contact" className="ml-1 font-medium text-accent hover:underline">
+            <Link href="/support/contact" className="ml-1 font-medium text-accent hover:underline">
               联系我们
             </Link>
             。
@@ -55,7 +55,7 @@ export default function SupportWarrantyPage() {
             <Link href="/support" className="font-medium text-accent hover:underline">
               ← 返回支持中心
             </Link>
-            <Link href="/support#contact" className="font-medium text-accent hover:underline">
+            <Link href="/support/contact" className="font-medium text-accent hover:underline">
               联系我们
             </Link>
           </div>

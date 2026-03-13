@@ -149,7 +149,7 @@ export default function AboutPage() {
               配送与退换
             </Link>
             <Link
-              href="/support#contact"
+              href="/support/contact"
               className="inline-flex items-center gap-2 rounded-full border border-warm-gray/40 bg-warm-white px-5 py-2.5 font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40"
             >
               联系我们

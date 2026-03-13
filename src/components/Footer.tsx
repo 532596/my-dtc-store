@@ -31,7 +31,7 @@ const FOOTER_ABOUT = [
 
 /** 与顶部导航 Support 下拉左侧一致 */
 const FOOTER_SUPPORT = [
-  { href: "/support#contact", label: "联系我们" },
+  { href: "/support/contact", label: "联系我们" },
   { href: "/support", label: "常见问题解答" },
   { href: "/order-tracking", label: "订单跟踪" },
   { href: "/support/returns", label: "物流" },
@@ -40,10 +40,10 @@ const FOOTER_SUPPORT = [
 ];
 
 const CONTACT_ITEMS = [
-  { icon: MessageCircle, label: "在线聊天", href: "/support", desc: "" },
+  { icon: MessageCircle, label: "在线聊天", href: "/support/contact", desc: "" },
   { icon: Phone, label: "电话咨询", href: "tel:400-000-0000", desc: "400-000-0000" },
   { icon: Mail, label: "邮件", href: "mailto:support@example.com", desc: "support@example.com" },
-  { icon: FileText, label: "填写表单", href: "/support#contact", desc: "联系我们" },
+  { icon: FileText, label: "填写表单", href: "/support/contact", desc: "联系我们" },
 ];
 
 const SOCIAL_LINKS = [

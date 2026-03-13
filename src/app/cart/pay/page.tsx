@@ -232,7 +232,7 @@ function PayPageContent() {
         </div>
 
         <p className="mt-6 text-center text-sm text-warm-muted">
-          <Link href="/support#contact" className="text-accent hover:underline">联系客服</Link>
+          <Link href="/support/contact" className="text-accent hover:underline">联系客服</Link>
         </p>
       </div>
     </main>

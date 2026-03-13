@@ -616,7 +616,7 @@ export default function Header() {
               <>
                 <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4" onMouseLeave={() => setMegaSupportSub(0)}>
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">支持</p>
-                  <Link href="/support#contact" onMouseEnter={() => setMegaSupportSub(0)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 0 ? "bg-warm-cream/60" : ""}`}>联系我们</Link>
+                  <Link href="/support/contact" onMouseEnter={() => setMegaSupportSub(0)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 0 ? "bg-warm-cream/60" : ""}`}>联系我们</Link>
                   <Link href="/support" onMouseEnter={() => setMegaSupportSub(1)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 1 ? "bg-warm-cream/60" : ""}`}>常见问题解答</Link>
                   <Link href="/order-tracking" onMouseEnter={() => setMegaSupportSub(2)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 2 ? "bg-warm-cream/60" : ""}`}>订单跟踪</Link>
                   <Link href="/support/returns" onMouseEnter={() => setMegaSupportSub(3)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 3 ? "bg-warm-cream/60" : ""}`}>物流</Link>
@@ -629,7 +629,7 @@ export default function Header() {
                       <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">联系我们</h3>
                       <p className="mt-3 max-w-xl text-sm text-warm-muted">售前咨询、售后与商务合作，我们随时为你解答。</p>
                       <div className="mt-6 flex flex-wrap gap-3">
-                        <Link href="/support#contact" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">联系表单</Link>
+                        <Link href="/support/contact" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">联系表单</Link>
                         <Link href="/support" className="rounded-lg border border-warm-gray/40 bg-warm-cream/20 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-accent hover:bg-warm-cream/40">支持中心 →</Link>
                       </div>
                     </>

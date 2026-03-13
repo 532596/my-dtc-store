@@ -244,7 +244,7 @@ function OrderTrackingContent() {
                       配送说明
                     </Link>
                     或
-                    <Link href="/support#contact" className="ml-1 font-medium text-accent hover:underline">
+                    <Link href="/support/contact" className="ml-1 font-medium text-accent hover:underline">
                       联系我们
                     </Link>
                     。

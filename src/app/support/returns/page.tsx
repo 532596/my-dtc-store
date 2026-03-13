@@ -14,7 +14,7 @@ export default function SupportReturnsPage() {
           </h1>
           <p className="mt-4 max-w-2xl text-body text-warm-muted">
             退货与换货条件、流程说明，以及处理时间与运费规则。如有疑问请
-            <Link href="/support#contact" className="ml-1 font-medium text-accent hover:underline">
+            <Link href="/support/contact" className="ml-1 font-medium text-accent hover:underline">
               联系我们
             </Link>
             。
@@ -55,7 +55,7 @@ export default function SupportReturnsPage() {
             <Link href="/support" className="font-medium text-accent hover:underline">
               ← 返回支持中心
             </Link>
-            <Link href="/support#contact" className="font-medium text-accent hover:underline">
+            <Link href="/support/contact" className="font-medium text-accent hover:underline">
               联系我们
             </Link>
           </div>

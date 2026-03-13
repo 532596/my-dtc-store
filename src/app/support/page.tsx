@@ -196,7 +196,7 @@ export default function SupportPage() {
           {filteredFaq.length === 0 ? (
             <li className="rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-6 text-center text-warm-muted">
               未找到与「{keyword}」相关的问题，请尝试其他关键词或{" "}
-              <Link href="/support#contact" className="text-accent hover:underline">
+              <Link href="/support/contact" className="text-accent hover:underline">
                 联系我们
               </Link>
               。
