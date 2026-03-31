@@ -19,6 +19,7 @@ function createId() {
 export default function FloatingActionButton() {
   const [open, setOpen] = React.useState(false);
   const [input, setInput] = React.useState("");
+  const [sending, setSending] = React.useState(false);
   const [messages, setMessages] = React.useState<ChatMessage[]>([
     {
       id: "welcome",
@@ -55,23 +56,53 @@ export default function FloatingActionButton() {
   React.useEffect(() => {
     if (!open || !listRef.current) return;
     listRef.current.scrollTop = listRef.current.scrollHeight;
-  }, [messages, open]);
+  }, [messages, open, sending]);
 
-  const send = () => {
+  const send = async () => {
     const text = input.trim();
-    if (!text) return;
+    if (!text || sending) return;
+    const userMsg: ChatMessage = { id: createId(), role: "user", text };
+    const nextThread = [...messages, userMsg];
     setInput("");
-    setMessages((prev) => [...prev, { id: createId(), role: "user", text }]);
-    window.setTimeout(() => {
+    setMessages(nextThread);
+    setSending(true);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: nextThread.map((m) => ({
+            role: m.role,
+            content: m.text,
+          })),
+        }),
+      });
+      const data = (await res.json()) as { reply?: string; error?: string };
+      if (!res.ok) {
+        throw new Error(data.error || "请求失败");
+      }
+      const reply = data.reply?.trim();
+      if (!reply) throw new Error("未收到回复");
+      setMessages((prev) => [
+        ...prev,
+        { id: createId(), role: "assistant", text: reply },
+      ]);
+    } catch (e) {
+      const msg =
+        e instanceof Error ? e.message : "暂时无法连接智能客服，请稍后再试。";
       setMessages((prev) => [
         ...prev,
         {
           id: createId(),
           role: "assistant",
-          text: "感谢您的留言。当前为演示环境，消息不会发往真实客服；正式接入后可在此对接工单或在线人工。",
+          text: msg.includes("fetch")
+            ? "网络异常，请检查是否已启动本机 Ollama 与网站服务。"
+            : msg,
         },
       ]);
-    }, 600);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -168,6 +199,11 @@ export default function FloatingActionButton() {
                 </div>
               )
             )}
+            {sending && (
+              <div className="flex gap-2.5 pl-9">
+                <p className="text-[12px] text-zinc-400">正在生成回复…</p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -185,16 +221,17 @@ export default function FloatingActionButton() {
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
-                  send();
+                  void send();
                 }
               }}
+              disabled={sending}
               placeholder="输入您的问题…"
-              className="max-h-24 min-h-[44px] flex-1 resize-none rounded-2xl border-0 bg-white/95 px-4 py-3 text-[13px] text-zinc-900 shadow-inner shadow-zinc-900/[0.03] ring-1 ring-inset ring-zinc-200/70 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5b6b7a]/25"
+              className="max-h-24 min-h-[44px] flex-1 resize-none rounded-2xl border-0 bg-white/95 px-4 py-3 text-[13px] text-zinc-900 shadow-inner shadow-zinc-900/[0.03] ring-1 ring-inset ring-zinc-200/70 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5b6b7a]/25 disabled:opacity-60"
             />
             <button
               type="button"
-              onClick={send}
-              disabled={!input.trim()}
+              onClick={() => void send()}
+              disabled={!input.trim() || sending}
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-25"
               aria-label="发送"
             >
@@ -202,7 +239,7 @@ export default function FloatingActionButton() {
             </button>
           </div>
           <p className="mt-3 text-center text-[10px] font-normal tracking-wide text-zinc-400">
-            演示环境 · 消息仅供界面预览
+            回复由本机 Ollama 模型生成 · 请勿输入隐私信息
           </p>
         </div>
       </div>
