@@ -4,7 +4,6 @@ import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
 import HeroShowcase, { type HeroSlide } from "@/components/HeroShowcase";
 import TestimonialsSection, { type TestimonialItem } from "@/components/TestimonialsSection";
-import SmartFeatureBlock from "@/components/SmartFeatureBlock";
 
 const HERO_SLIDES: HeroSlide[] = [
   {
@@ -141,470 +140,737 @@ export default function Home() {
     <main>
       <HeroShowcase slides={HERO_SLIDES} />
 
-      <section className="relative overflow-hidden py-14">
-        {/* 模糊底图：与首屏场景图同风格，颜色做淡 */}
-        <div className="absolute inset-0 -z-20 overflow-hidden" aria-hidden>
+      <section className="relative overflow-hidden bg-[#050608] py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden>
           <Image
             src="/images/scene-office.jpg"
             alt=""
             fill
-            className="object-cover blur-3xl scale-105 opacity-40"
+            className="object-cover opacity-15 grayscale"
             sizes="100vw"
-            priority={false}
           />
-          <div className="absolute inset-0 bg-warm-white/85" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/95" />
+          <div className="absolute -left-16 top-10 h-72 w-72 rounded-full bg-white/5 blur-[110px]" />
+          <div className="absolute -right-16 bottom-8 h-80 w-80 rounded-full bg-sky-300/10 blur-[130px]" />
         </div>
-        {/* 底色渐变：暖色家居感 + 轻微冷色智能感 */}
-        <div
-          className="absolute inset-0 bg-gradient-to-br from-warm-cream/90 via-warm-white/95 to-[#ebebe6]/95"
-          aria-hidden
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-tl from-accent/[0.04] via-transparent to-transparent"
-          aria-hidden
-        />
 
-        {/* Grid 父容器：相对定位 + 底层巨大光晕（玻璃才有东西可折射） */}
-        <div className="relative mx-auto max-w-content overflow-hidden px-6">
-          <div className="absolute -z-10 -left-24 top-0 h-96 w-96 rounded-full bg-stone-300/40 blur-[100px]" aria-hidden />
-          <div
-            className="absolute -z-10 -right-32 bottom-0 h-[30rem] w-[30rem] rounded-full bg-orange-100/30 blur-[120px]"
-            aria-hidden
-          />
-          <div
-            className="absolute -z-10 left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-50/25 blur-[100px]"
-            aria-hidden
-          />
+        <div className="relative mx-auto max-w-content px-6 text-white">
+          <Reveal>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Problem</p>
+            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
+              The &quot;Smart&quot; Desk Dilemma: It Forces You to Choose Between Health and Focus.
+            </h2>
+            <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
+              “智能”桌的困境：它迫使你在健康与专注之间做出妥协。
+            </p>
+          </Reveal>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                title: "Dual Motor Lift",
-                desc: "稳定顺滑，静音升降，支持长时间高频调节。",
-                icon: (
-                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 20h10M9 20V8m6 12V8M6 8h12M8 8V5a2 2 0 012-2h4a2 2 0 012 2v3" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Height Memory",
-                desc: "四组高度记忆，一键切换办公/学习/站立模式。",
-                icon: (
-                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Voice Control",
-                desc: "支持语音助手，解放双手完成高度调整。",
-                icon: (
-                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3a3 3 0 00-3 3v6a3 3 0 006 0V6a3 3 0 00-3-3z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 10v2a7 7 0 01-14 0v-2" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19v2" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Cable Management",
-                desc: "隐藏式理线槽与走线孔，让桌面始终干净利落。",
-                icon: (
-                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 8h10M7 12h6M7 16h10" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 6a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H8a2 2 0 01-2-2V6z" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Anti-collision",
-                desc: "智能防撞检测，遇到障碍立即回弹，保护桌面与家人。",
-                icon: (
-                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4" />
-                  </svg>
-                ),
-              },
-              {
-                title: "TÜV Safety",
-                desc: "关键结构通过 TÜV 等级测试，经久耐用更放心。",
-                icon: (
-                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2l3 6 6 .9-4.5 4.4 1.1 6.2L12 16.9 6.4 19.5l1.1-6.2L3 8.9 9 8l3-6z" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Wide Height Range",
-                desc: "覆盖 60–125cm，高个与儿童都能找到舒适区间。",
-                icon: (
-                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 4h8M8 20h8M12 4v16" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Low Noise",
-                desc: "运行噪音低于 50dB，深夜升降也不打扰家人。",
-                icon: (
-                  <svg className="h-5 w-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 8v8m4-11v14m4-9v4m4-6a4 4 0 010 6" />
-                  </svg>
-                ),
-              },
-            ].map((f) => (
-              <div
-                key={f.title}
-                className="group relative flex flex-col gap-3 rounded-3xl border border-white/60 border-t-white/80 bg-white/25 p-7 text-left shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-[40px] transition-all duration-500 ease-out hover:-translate-y-1 hover:border-white/80 hover:bg-white/35"
-              >
-                <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm">
-                  {f.icon}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-stone-900">{f.title}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-stone-500">{f.desc}</p>
+          <Reveal delay={1}>
+            <div className="mt-10 max-w-4xl rounded-2xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur md:p-8">
+              <p className="text-sm leading-relaxed text-white/85 md:text-base">
+                Let&apos;s be real. Nobody uses loud alarms to stand up. The real problem with traditional standing desks is much quieter, but far more frustrating: They rely on your active effort.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-white/65 md:text-base">
+                坦白说，没人会定个吵闹的闹钟来提醒自己站立。传统升降桌真正的问题在于它极其安静，却更令人沮丧：它们完全依赖你的主动行为。
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="mt-7 grid gap-5 md:mt-8 md:grid-cols-2">
+            <Reveal delay={2}>
+              <article className="rounded-2xl border border-white/15 bg-black/35 p-6">
+                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Ignored Nudges</p>
+                <p className="mt-3 text-sm leading-relaxed text-white/85 md:text-base">
+                  Your smartwatch taps your wrist. Your desk gives a faint beep. But you&apos;re deep in the code. You think, &quot;Just one more minute, let me finish this function.&quot; Two hours later, you&apos;re still sitting.
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-white/65 md:text-base">
+                  被无视的提醒：手表轻敲你的手腕，桌子发出微弱的滴滴声。但你正深陷代码之中。你想：“再等一分钟，让我写完这个函数。” 两个小时后，你依然坐着。
+                </p>
+              </article>
+            </Reveal>
+
+            <Reveal delay={3}>
+              <article className="rounded-2xl border border-white/15 bg-black/35 p-6">
+                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Context Switch</p>
+                <p className="mt-3 text-sm leading-relaxed text-white/85 md:text-base">
+                  When you finally decide to stand, you have to break your visual focus, reach for the panel, hold a button, and wait for the motors to whine. By the time you&apos;re standing, the complex logic you were holding in your working memory is gone. The context switch is brutal.
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-white/65 md:text-base">
+                  毁灭性的上下文切换：当你终于决定站起来时，你必须打破视觉焦点，伸手去按控制面板，死死按住按钮，听着电机的嗡嗡声等待。当你终于站直时，大脑工作记忆中那些复杂的逻辑树已经烟消云散了。这种上下文切换是极其残酷的。
+                </p>
+              </article>
+            </Reveal>
+          </div>
+
+          <Reveal delay={3}>
+            <div className="mt-8 border-l-2 border-white/45 pl-4 md:pl-5">
+              <p className="text-xl font-medium text-white md:text-2xl">
+                You shouldn&apos;t have to interrupt your workflow to save your spine.
+              </p>
+              <p className="mt-2 text-sm text-white/70 md:text-base">
+                你不该为了拯救脊椎，而牺牲你的工作流。
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#07090c] py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-24 top-8 h-80 w-80 rounded-full bg-white/5 blur-[130px]" />
+          <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-300/10 blur-[140px]" />
+        </div>
+        <div className="relative mx-auto max-w-content px-6 text-white">
+          <Reveal>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Magic</p>
+            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
+              Meet the &quot;Subtle Shift&quot;: Gentle Technology at Work.
+            </h2>
+            <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
+              认识“无感升降”：温柔科技的实践。
+            </p>
+            <p className="mt-6 max-w-4xl text-sm leading-relaxed text-white/80 md:text-base">
+              FlowShift 采用环境式智能（Ambient Intelligence）设计：最好的科技，不是频繁打断你，而是在你几乎感觉不到它存在的情况下，悄悄把环境调到最适合深度工作的状态。
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+            <Reveal delay={1}>
+              <div className="overflow-hidden rounded-2xl border border-white/15 bg-black/40">
+                <div className="relative aspect-video">
+                  <Image
+                    src="/images/scene-office.jpg"
+                    alt="一杯满水放在桌角，桌面缓慢升降且水面保持稳定的演示画面"
+                    fill
+                    className="object-cover brightness-[0.75]"
+                    sizes="(max-width: 1024px) 100vw, 65vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent" />
+                  <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
+                    Timelapse Demo GIF (Placeholder)
+                  </div>
+                  <div className="absolute inset-x-4 bottom-4 flex flex-wrap gap-2">
+                    <span className="rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
+                      Rises at micro-millimeters per second
+                    </span>
+                    <span className="rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
+                      Water surface stays steady
+                    </span>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </Reveal>
 
-      <section className="bg-warm-cream pt-12 pb-section md:pt-16 md:pb-section-md">
-        <div className="mx-auto max-w-content px-6">
-          <hr className="border-0 border-t border-warm-gray/70" aria-hidden />
-          <Reveal>
-            <h2 className="mt-8 text-center text-3xl font-semibold tracking-tight text-foreground">
-              智能功能
-            </h2>
-          </Reveal>
-
-          {/* 非卡片、上下排列；高度记忆 = 图片/动图左 / 文字右，悬停时内容左滑、竖条与左侧图片同高 */}
-          <Reveal delay={0}>
-            <div className="mt-10 md:mt-12">
-              <SmartFeatureBlock href="/guide#height-memory" label="了解"
-                leftContent={
-                  <div className="relative w-full overflow-hidden rounded-lg bg-warm-gray/60">
-                    <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
-                      <Image
-                        src="/images/height-memory.png"
-                        alt="高度记忆办公场景"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 42vw"
-                      />
-                    </div>
+            <Reveal delay={2}>
+              <div className="rounded-2xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur">
+                <p className="text-xs uppercase tracking-[0.16em] text-white/60">Dynamic Metrics</p>
+                <div className="mt-4 space-y-4">
+                  <div className="rounded-xl border border-white/10 bg-black/35 p-4">
+                    <p className="text-2xl font-semibold text-white">micro-mm/s</p>
+                    <p className="mt-1 text-sm text-white/65">Ultra-slow adaptive lift speed</p>
                   </div>
-                }
-                rightContent={
-                  <div className="flex flex-col justify-center md:w-[58%]">
-                    <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
-                      <span className="text-xs font-medium uppercase tracking-widest text-accent" aria-hidden>01</span>
-                      <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-                        Height Memory
-                      </h3>
-                      <p className="mt-3 text-body text-warm-muted">
-                        四组高度记忆，办公、站立、学习、放松一键切换。精确到毫米的升降，坐站交替更轻松。
-                      </p>
-                      <ul className="mt-3 space-y-2 text-sm text-warm-muted">
-                        <li className="flex items-start gap-2.5">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                          <span><strong className="text-foreground">4 组记忆位</strong>：办公 / 站立 / 学习 / 放松，一键切换当前场景。</span>
-                        </li>
-                        <li className="flex items-start gap-2.5">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                          <span><strong className="text-foreground">毫米级精度</strong>：升降稳定可调，坐站交替更轻松。</span>
-                        </li>
-                        <li className="flex items-start gap-2.5">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                          <span><strong className="text-foreground">久坐提醒</strong>：到点提醒站立，养成健康习惯。</span>
-                        </li>
-                      </ul>
-                    </div>
+                  <div className="rounded-xl border border-white/10 bg-black/35 p-4">
+                    <p className="text-2xl font-semibold text-white">&lt; 45 dB</p>
+                    <p className="mt-1 text-sm text-white/65">Quiet motor profile for deep focus</p>
                   </div>
-                }
-              />
-            </div>
-          </Reveal>
-
-          {/* 语音控制 = 文字左 / 动图右，悬停时内容左滑、竖条与图片同高 */}
-          <Reveal delay={1}>
-            <div className="mt-12 md:mt-14">
-              <SmartFeatureBlock href="/guide#voice-control" label="了解" reverse
-                leftContent={
-                  <div className="relative w-full overflow-hidden rounded-lg bg-warm-gray/60">
-                    <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
-                      <Image
-                        src="/images/voice-control.png"
-                        alt="语音控制场景"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 42vw"
-                      />
-                    </div>
-                  </div>
-                }
-                rightContent={
-                  <div className="flex flex-col justify-center md:w-[58%]">
-                    <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
-                      <span className="text-xs font-medium uppercase tracking-widest text-accent" aria-hidden>02</span>
-                      <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-                        Voice Control
-                      </h3>
-                      <p className="mt-3 text-body text-warm-muted">
-                        接入主流语音助手，说一句即可升高、降低或切换到记忆高度。开会、手脏、抱娃时都能轻松调节。
-                      </p>
-                      <ul className="mt-3 space-y-2 text-sm text-warm-muted">
-                        <li className="flex items-start gap-2.5">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                          <span><strong className="text-foreground">语音指令</strong>：如「升高桌面」「切换到站立高度」等，免动手调节。</span>
-                        </li>
-                        <li className="flex items-start gap-2.5">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                          <span><strong className="text-foreground">多场景适用</strong>：会议中、手脏、抱娃或双手占用时尤其方便。</span>
-                        </li>
-                        <li className="flex items-start gap-2.5">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80" aria-hidden />
-                          <span><strong className="text-foreground">兼容主流助手</strong>：支持常见智能音箱与语音助手，无缝联动。</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                }
-              />
-            </div>
-          </Reveal>
-
-          {/* 安全防撞 = 图片左 / 文字右 */}
-          <Reveal delay={2}>
-            <div className="mt-12 md:mt-14">
-              <SmartFeatureBlock
-                href="/guide#safety"
-                label="了解"
-                leftContent={
-                  <div className="relative w-full overflow-hidden rounded-lg bg-warm-gray/60">
-                    <div className="relative aspect-video min-h-[200px] md:min-h-[240px]">
-                      <Image
-                        src="/images/scene-office.jpg"
-                        alt="安全防撞与家庭场景"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 42vw"
-                      />
-                    </div>
-                  </div>
-                }
-                rightContent={
-                  <div className="flex flex-col justify-center md:w-[58%]">
-                    <div className="px-0 py-4 md:py-6 md:pl-10 md:pr-8">
-                      <span
-                        className="text-xs font-medium uppercase tracking-widest text-accent"
-                        aria-hidden
-                      >
-                        03
-                      </span>
-                      <h3 className="mt-1 border-l-2 border-accent pl-3 text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-                        Safety & Anti-collision
-                      </h3>
-                      <p className="mt-3 text-body text-warm-muted">
-                        内置防撞检测与障碍感应，桌面下降或上升遇到阻力会立即回弹，减少误触和对家人、桌面物品的冲撞风险。
-                      </p>
-                      <ul className="mt-3 space-y-2 text-sm text-warm-muted">
-                        <li className="flex items-start gap-2.5">
-                          <span
-                            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80"
-                            aria-hidden
-                          />
-                          <span>
-                            <strong className="text-foreground">智能防撞</strong>
-                            ：检测到异常阻力时立即停止并回弹，保护桌面与物品。
-                          </span>
-                        </li>
-                        <li className="flex items-start gap-2.5">
-                          <span
-                            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80"
-                            aria-hidden
-                          />
-                          <span>
-                            <strong className="text-foreground">儿童/宠物友好</strong>
-                            ：桌面移动更可控，减少对儿童和宠物的意外夹碰。
-                          </span>
-                        </li>
-                        <li className="flex items-start gap-2.5">
-                          <span
-                            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/80"
-                            aria-hidden
-                          />
-                          <span>
-                            <strong className="text-foreground">多场景适配</strong>
-                            ：放抽屉柜、脚踏或储物盒时也能保持安全间隙。
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                }
-              />
-            </div>
-          </Reveal>
-
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-10 text-center md:mt-12">
-            <div>
-              <p className="text-2xl font-semibold text-foreground">4 组</p>
-              <p className="mt-1 text-sm text-warm-muted">高度记忆</p>
-            </div>
-            <div>
-              <p className="text-2xl font-semibold text-foreground">语音</p>
-              <p className="mt-1 text-sm text-warm-muted">一键调节</p>
-            </div>
-            <div>
-              <p className="text-2xl font-semibold text-foreground">毫米级</p>
-              <p className="mt-1 text-sm text-warm-muted">精确升降</p>
-            </div>
-          </div>
-          <div className="mt-8 text-center">
-            <Link
-              href="/guide"
-              className="btn-primary inline-block px-8 py-3.5"
-            >
-              了解智能功能 →
-            </Link>
-          </div>
-          <hr className="mt-14 border-0 border-t border-warm-gray/70" aria-hidden />
-        </div>
-      </section>
-
-      <section className="bg-warm-white py-section md:py-section-md">
-        <div className="mx-auto max-w-content px-6">
-          <Reveal>
-            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
-              家具适配
-            </h2>
-          </Reveal>
-          <Reveal delay={1}>
-            <p className="mx-auto mt-5 max-w-2xl text-center text-sm leading-relaxed text-warm-muted">
-              不同家居风格下，智能升降桌既要好用，也要好看。我们围绕三种典型空间，展示桌架、桌面与配色如何融入你的日常环境。
-            </p>
-          </Reveal>
-          <div className="mt-16 grid grid-cols-1 gap-10 sm:gap-12 md:grid-cols-3 md:gap-8 lg:gap-12">
-            {[
-              {
-                title: "北欧原木",
-                subtitle: "客厅 / 书房",
-                desc: "浅木色桌面配黑色桌架，与原木家具、绿植和织物地毯自然过渡，适合作为客厅办公角或通透书房。",
-                img: "/images/furniture-nordic.png",
-              },
-              {
-                title: "现代简约",
-                subtitle: "办公室 / 独立书房",
-                desc: "深色桌面与极简桌脚，搭配隐藏理线与显示器支架，保持桌面干净利落，适合现代公寓与办公空间。",
-                img: "/images/furniture-modern.png",
-              },
-              {
-                title: "温暖居家",
-                subtitle: "卧室 / 多功能房",
-                desc: "柔和木纹与暖色灯光相呼应，可作为梳妆台、阅读角或儿童学习桌，在有限空间中兼顾功能与氛围感。",
-                img: "/images/furniture-warm.png",
-              },
-            ].map((item, i) => (
-              <Reveal key={item.title} delay={i === 0 ? 0 : i === 1 ? 1 : 2}>
-                <div className="flex h-full flex-col rounded-2xl border border-warm-gray/50 bg-warm-cream/40 p-6 md:p-8">
-                  <div className="relative aspect-video overflow-hidden rounded-xl bg-warm-gray/60">
-                    <Image
-                      src={item.img}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                  <div className="mt-6 flex flex-1 flex-col">
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-                      <span className="text-xs font-medium uppercase tracking-[0.16em] text-warm-muted">
-                        {item.subtitle}
-                      </span>
-                    </div>
-                    <p className="mt-3 text-sm leading-loose text-warm-muted">{item.desc}</p>
+                  <div className="rounded-xl border border-white/10 bg-black/35 p-4">
+                    <p className="text-2xl font-semibold text-white">0 abrupt cues</p>
+                    <p className="mt-1 text-sm text-white/65">No harsh alarms, no forced context switch</p>
                   </div>
                 </div>
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-14 text-center md:mt-16">
-            <Link href="/series#compare" className="btn-primary inline-block px-8 py-3.5">
-              对比各型号桌架 →
-            </Link>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="bg-warm-cream py-section md:py-section-md">
-        <div className="mx-auto max-w-content px-6">
+      <section className="relative overflow-hidden bg-[#06080c] py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-20 top-6 h-72 w-72 rounded-full bg-indigo-300/10 blur-[120px]" />
+          <div className="absolute -right-20 bottom-4 h-72 w-72 rounded-full bg-cyan-300/10 blur-[130px]" />
+        </div>
+        <div className="relative mx-auto max-w-content px-6 text-white">
           <Reveal>
-            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
-              Trusted by Thousands
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The AI Copilot</p>
+            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
+              Syncs with Your Brain, Not Just Your Room.
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-center text-body text-warm-muted">
-              参数透明，一目了然。
+            <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
+              与你的大脑同步，而不仅仅是你的房间。
+            </p>
+            <p className="mt-5 max-w-4xl text-sm leading-relaxed text-white/80 md:text-base">
+              FlowShift 不只是升降桌，更是软硬一体的 AI 工作站：它理解你的专注状态、工具链与疲劳节奏，让环境围绕你的认知流自动调参。
             </p>
           </Reveal>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <Reveal delay={0}>
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35">
+                <div className="relative aspect-video">
+                  <Image
+                    src="/images/scene-office.jpg"
+                    alt="IDE Focus Mode：代码编辑器全屏时，桌面自动静音通知"
+                    fill
+                    className="object-cover brightness-[0.7]"
+                    sizes="(max-width: 1280px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/85">
+                    IDE Focus Mode UI (Placeholder)
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">01</p>
+                  <h3 className="mt-2 text-xl font-semibold text-white">IDE Focus Mode</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/80">
+                    当编辑器进入全屏深度编码，桌面系统自动静音非关键通知，减少视觉与听觉干扰，让你不被环境打断。
+                  </p>
+                  <p className="mt-2 text-xs text-white/60">
+                    IDE 专注联动：代码进入冲刺态，桌面进入静默态。
+                  </p>
+                </div>
+              </article>
+            </Reveal>
+
+            <Reveal delay={1}>
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35">
+                <div className="relative aspect-video">
+                  <Image
+                    src="/images/hero.jpg"
+                    alt="LLM Integration：触控面板 AI 呼吸灯与 API Key 极简输入界面"
+                    fill
+                    className="object-cover brightness-[0.68]"
+                    sizes="(max-width: 1280px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/85">
+                    API Key Minimal Panel (Placeholder)
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">02</p>
+                  <h3 className="mt-2 text-xl font-semibold text-white">LLM Integration</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/80">
+                    触控面板提供极简 API Key 接入流程，状态灯以“呼吸光”反馈模型在线状态，帮助你在本地或云端快速接入 AI 能力。
+                  </p>
+                  <p className="mt-2 text-xs text-white/60">
+                    大模型接入：从硬件面板到开发工作流，一次配置，持续可用。
+                  </p>
+                </div>
+              </article>
+            </Reveal>
+
+            <Reveal delay={2}>
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35 md:col-span-2 xl:col-span-1">
+                <div className="relative aspect-video">
+                  <Image
+                    src="/images/scene-learning.jpg"
+                    alt="Smart Fatigue Tracking：系统自动计算久坐阈值并触发无感干预"
+                    fill
+                    className="object-cover brightness-[0.72]"
+                    sizes="(max-width: 1280px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/85">
+                    Passive Fatigue Model (Placeholder)
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">03</p>
+                  <h3 className="mt-2 text-xl font-semibold text-white">Smart Fatigue Tracking</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/80">
+                    不需要你主动去按，系统会综合你的久坐时长与工作节奏，自动计算疲劳阈值并触发轻量、无感的姿态干预。
+                  </p>
+                  <p className="mt-2 text-xs text-white/60">
+                    智能疲劳追踪：少一点意志力消耗，多一点身体与认知的长期稳定性。
+                  </p>
+                </div>
+              </article>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#05070a] py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-20 top-8 h-80 w-80 rounded-full bg-white/5 blur-[120px]" />
+          <div className="absolute -right-20 bottom-8 h-80 w-80 rounded-full bg-blue-300/10 blur-[140px]" />
+        </div>
+        <div className="relative mx-auto max-w-content px-6 text-white">
           <Reveal>
-            <div className="mt-14 overflow-x-auto overflow-hidden rounded-xl border border-warm-gray/60 bg-warm-white">
-              <table className="w-full min-w-[640px] text-left text-sm">
-                <thead>
-                  <tr className="border-b border-warm-gray bg-warm-cream/50">
-                    <th className="p-3 font-semibold text-foreground">Model</th>
-                    <th className="p-3 font-semibold text-foreground">Height Range</th>
-                    <th className="p-3 font-semibold text-foreground">Load Capacity</th>
-                    <th className="p-3 font-semibold text-foreground">Noise Level</th>
-                    <th className="p-3 font-semibold text-foreground">Smart Controls</th>
-                    <th className="p-3 font-semibold text-foreground">Motor Warranty</th>
-                    <th className="p-3 font-semibold text-foreground">Structure</th>
-                    <th className="p-3 font-semibold text-foreground">Certification</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-warm-gray/50">
-                    <td className="p-3 font-medium text-foreground">Model A</td>
-                    <td className="p-3 text-warm-muted">24&quot; - 43&quot;</td>
-                    <td className="p-3 text-warm-muted">176 lbs</td>
-                    <td className="p-3 text-warm-muted">&lt; 50 dB</td>
-                    <td className="p-3 text-warm-muted">—</td>
-                    <td className="p-3 text-warm-muted">3 年</td>
-                    <td className="p-3 text-warm-muted">3 年</td>
-                    <td className="p-3 text-warm-muted">—</td>
-                  </tr>
-                  <tr className="border-b border-warm-gray/50 bg-accent-light/50">
-                    <td className="p-3 font-medium text-foreground">Model B</td>
-                    <td className="p-3 text-warm-muted">24&quot; - 47&quot;</td>
-                    <td className="p-3 text-warm-muted">220 lbs</td>
-                    <td className="p-3 text-warm-muted">&lt; 45 dB</td>
-                    <td className="p-3 text-foreground">✓</td>
-                    <td className="p-3 text-warm-muted">5 年</td>
-                    <td className="p-3 text-warm-muted">3 年</td>
-                    <td className="p-3 text-warm-muted">TÜV</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3 font-medium text-foreground">Model C</td>
-                    <td className="p-3 text-warm-muted">24&quot; - 50&quot;</td>
-                    <td className="p-3 text-warm-muted">265 lbs</td>
-                    <td className="p-3 text-warm-muted">&lt; 45 dB</td>
-                    <td className="p-3 text-foreground">✓</td>
-                    <td className="p-3 text-warm-muted">5 年</td>
-                    <td className="p-3 text-warm-muted">3 年</td>
-                    <td className="p-3 text-warm-muted">TÜV</td>
-                  </tr>
-                </tbody>
-              </table>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Hardware</p>
+            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
+              Over-Engineered for the Ultimate Setup.
+            </h2>
+            <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
+              为终极桌面生态而过度设计。
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+            <Reveal delay={1}>
+              <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/40">
+                <div className="relative aspect-[16/10]">
+                  <Image
+                    src="/images/scene-office.jpg"
+                    alt="FlowShift 硬件爆炸图：展示材质、尺寸、理线系统与三节双电机底盘"
+                    fill
+                    className="object-cover brightness-[0.72]"
+                    sizes="(max-width: 1024px) 100vw, 62vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/50 px-3 py-1 text-xs text-white/85">
+                    Exploded View (Placeholder)
+                  </span>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={2}>
+              <div className="space-y-3 rounded-2xl border border-white/15 bg-white/[0.03] p-5 backdrop-blur">
+                {[
+                  "矩阵黑 / 量子白：静电喷粉哑光工艺，ENF 级环保无醛",
+                  "1600x800mm 画布：可容纳超宽带鱼屏 + 双竖屏 + 主机",
+                  "极致暗黑理线系统：桌底走线槽吞噬所有乱线",
+                  "三节双电机底盘：跑车级稳定性 + 10 年质保",
+                ].map((item) => (
+                  <div key={item} className="rounded-xl border border-white/10 bg-black/35 px-4 py-3 text-sm text-white/85">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal delay={3}>
+            <div className="mt-8 overflow-hidden rounded-2xl border border-white/15 bg-black/45">
+              <div className="relative aspect-[21/9]">
+                <Image
+                  src="/images/hero.jpg"
+                  alt="矩阵黑桌面边缘微距：圆润倒角、无缝质感、细腻哑光表面"
+                  fill
+                  className="object-cover brightness-[0.7]"
+                  sizes="100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-transparent" />
+                <div className="absolute inset-x-6 bottom-6 text-center">
+                  <p className="text-2xl font-semibold text-white md:text-4xl">
+                    Powder Coated MDF. Engineering the perfect surface.
+                  </p>
+                  <p className="mt-3 text-sm text-white/75 md:text-lg">
+                    We didn&apos;t just build a desk. We reinvented the canvas.
+                  </p>
+                </div>
+              </div>
             </div>
           </Reveal>
-          <div className="mt-10 text-center">
-            <Link href="/series#compare" className="text-sm font-medium text-accent hover:underline">
-              Compare Now →
-            </Link>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            <Reveal delay={0}>
+              <article className="rounded-2xl border border-white/15 bg-black/35 p-5">
+                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Seamless Edge</p>
+                <h3 className="mt-2 text-xl font-semibold text-white">Zero Seams. Zero Swelling.</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/80">
+                  传统桌板封边条会剥落并渗入湿气。FlowShift 通过 360 度全方位包裹彻底消灭接缝，让水分无隙可乘，长期使用依然稳定。
+                </p>
+              </article>
+            </Reveal>
+            <Reveal delay={1}>
+              <article className="rounded-2xl border border-white/15 bg-black/35 p-5">
+                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Pure Air</p>
+                <h3 className="mt-2 text-xl font-semibold text-white">0 Glue. True 0 VOC.</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/80">
+                  告别含有机溶剂的贴面胶水。采用物理静电吸附与高温固化工艺，无毒害、无异味，为深度思考保留纯净呼吸空间。
+                </p>
+              </article>
+            </Reveal>
+            <Reveal delay={2}>
+              <article className="rounded-2xl border border-white/15 bg-black/35 p-5">
+                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Armor</p>
+                <h3 className="mt-2 text-xl font-semibold text-white">Feels like silk. Resists like armor.</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/80">
+                  细腻微磨砂触感带来高级手感，同时具备远超普通贴皮的耐刮抗磨能力，机械键盘、金属主机与重型支架都能稳定承载。
+                </p>
+              </article>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#06080b] py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-20 top-8 h-72 w-72 rounded-full bg-red-300/10 blur-[120px]" />
+          <div className="absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-amber-300/10 blur-[130px]" />
+        </div>
+        <div className="relative mx-auto max-w-content px-6 text-white">
+          <Reveal>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">Rewards & Pricing</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+              Choose Your Flow.
+            </h2>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            {[
+              {
+                name: "Super Early Bird",
+                price: "$699",
+                limit: "Limited to 50",
+                sold: 44,
+                total: 50,
+                accent: "from-red-500/90 to-red-400/90",
+              },
+              {
+                name: "Early Bird",
+                price: "$899",
+                limit: "Limited to 150",
+                sold: 98,
+                total: 150,
+                accent: "from-amber-500/90 to-yellow-400/90",
+              },
+              {
+                name: "Kickstarter Special",
+                price: "$999",
+                limit: "Limited to 300",
+                sold: 126,
+                total: 300,
+                accent: "from-sky-500/90 to-cyan-400/90",
+              },
+            ].map((tier, index) => {
+              const pct = Math.min(100, Math.round((tier.sold / tier.total) * 100));
+              return (
+                <Reveal key={tier.name} delay={index as 0 | 1 | 2}>
+                  <article className="flex h-full flex-col rounded-2xl border border-white/15 bg-black/40 p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-medium text-white/75">{tier.name}</p>
+                        <p className="mt-2 text-4xl font-semibold tracking-tight text-white">{tier.price}</p>
+                      </div>
+                      <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85">
+                        {tier.limit}
+                      </span>
+                    </div>
+
+                    <div className="mt-5">
+                      <div className="flex items-center justify-between text-xs text-white/70">
+                        <span>{tier.sold} claimed</span>
+                        <span>{tier.total - tier.sold} left</span>
+                      </div>
+                      <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-white/10">
+                        <div
+                          className={`h-full rounded-full bg-gradient-to-r ${tier.accent}`}
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <ul className="mt-6 space-y-2.5 text-sm text-white/85">
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
+                        FlowShift 桌子主体（1600x800mm）
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
+                        极致暗黑理线系统（线槽 + 走线管理）
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
+                        矩阵黑 / 量子白 自选配色
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
+                        三节双电机底盘 + 10 年质保
+                      </li>
+                    </ul>
+
+                    <Link
+                      href="/series"
+                      className="mt-7 inline-flex items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-white/90"
+                    >
+                      立即锁定席位
+                    </Link>
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#05070b] py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-16 top-12 h-72 w-72 rounded-full bg-violet-300/10 blur-[120px]" />
+          <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-white/5 blur-[120px]" />
+        </div>
+        <div className="relative mx-auto max-w-content px-6 text-white">
+          <Reveal>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Team & Philosophy</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+              From ZJU Labs to Your Workspace.
+            </h2>
+            <p className="mt-4 text-base text-white/75 md:text-lg">
+              Who We Are: Engineering the Flow State
+            </p>
+            <p className="mt-2 text-sm text-white/60 md:text-base">
+              我们是谁：为心流状态而生的缔造者
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+            <Reveal delay={1}>
+              <div className="overflow-hidden rounded-2xl border border-white/15 bg-black/40">
+                <div className="relative aspect-[16/10]">
+                  <Image
+                    src="/images/scene-office.jpg"
+                    alt="FlowShift 团队在实验室和工厂测试原型的真实场景"
+                    fill
+                    className="object-cover brightness-[0.72]"
+                    sizes="(max-width: 1024px) 100vw, 62vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/85">
+                    Team Lab / Factory Test (Placeholder)
+                  </span>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={2}>
+              <article className="rounded-2xl border border-white/15 bg-white/[0.03] p-6 backdrop-blur">
+                <p className="text-sm leading-relaxed text-white/85">
+                  我们来自浙大实验室，用 CS + HCI + 工业设计把“心流理论”做成了实体 AI 工作站。下面是完整品牌故事。
+                </p>
+                <details className="group mt-5 rounded-xl border border-white/10 bg-black/25 p-4">
+                  <summary className="cursor-pointer list-none text-sm font-medium text-white">
+                    展开完整故事 / Collapse story
+                    <span className="ml-2 text-white/60 group-open:hidden">[点击展开]</span>
+                    <span className="ml-2 hidden text-white/60 group-open:inline">[已展开]</span>
+                  </summary>
+
+                  <div className="mt-4 space-y-4">
+                    <p className="text-sm leading-relaxed text-white/85">
+                      We are a collective of PhD and Master&apos;s researchers from Zhejiang University (ZJU), specializing in Computer Science, Human-Computer Interaction (HCI), and Industrial Design. For years, our daily lives involved writing endless lines of code, drafting complex research papers, and endlessly rendering 3D models. We lived in our chairs. We experienced firsthand the physical toll of deep work, and the extreme frustration of having our &quot;flow state&quot; shattered by the jarring alarms of traditional smart devices.
+                    </p>
+                    <p className="text-sm leading-relaxed text-white/70">
+                      我们是一群来自浙江大学的博士和硕士研究人员，深耕于计算机科学、人机交互（HCI）和工业设计领域。多年来，我们的日常就是编写无尽的代码、撰写复杂的学术论文以及无休止地渲染 3D 模型。我们几乎“长”在了椅子上。我们亲身体验了深度工作对身体的消耗，以及“心流状态”被传统智能设备刺耳的警报声生硬打断时的极度挫败感。
+                    </p>
+                    <p className="text-sm leading-relaxed text-white/85">
+                      In our HCI research, we explore concepts like &quot;Gentle Technology&quot; and &quot;Ethical Friction&quot;—the philosophy that technology shouldn&apos;t always scream for our instant attention. Sometimes, deliberately slowing down an interaction is the best way to protect our cognitive and physical well-being. We looked at traditional standing desks and realized they were designed completely backward: they were passive machines that forced humans to adapt to their disruptive mechanical rhythms.
+                    </p>
+                    <p className="text-sm leading-relaxed text-white/70">
+                      在人机交互研究中，我们一直在探索“温柔科技”和“伦理摩擦”的概念——即技术不应总是尖叫着争夺我们的注意力。有时候，刻意放缓交互节奏，才是保护我们认知和身体健康的最佳方式。我们审视了传统的升降桌，意识到它们的设计逻辑完全反了：它们是被动的机器，强迫人类去适应它们那充满干扰的机械节奏。
+                    </p>
+                    <p className="text-sm leading-relaxed text-white/85">
+                      We decided to change that. FlowShift is the culmination of our three disciplines. Our CS team engineered the local LLM integrations to sync directly with your workflow. Our HCI researchers designed the micro-millimeter &quot;Subtle Shift&quot; engine-a physiological intervention completely invisible to your conscious mind. And our Industrial Design team obsessively crafted the physical form, insisting on zero-emission, seamless Powder Coated MDF and an absolute cable management system to eliminate visual clutter.
+                    </p>
+                    <p className="text-sm leading-relaxed text-white/70">
+                      我们决定改变这一切。FlowShift 是我们三个学科领域的结晶。我们的计算机团队开发了本地大模型集成，使其与你的工作流直接同步。我们的 HCI 研究员设计了微毫米级的“无感升降”引擎——一种对你的意识完全隐形的生理干预。而我们的工业设计团队则对物理形态进行了近乎偏执的雕琢，坚持采用零甲醛、无缝接的静电喷粉 MDF 板材和极致的暗黑理线系统，彻底抹除视觉上的杂乱。
+                    </p>
+                    <p className="border-l-2 border-white/35 pl-4 text-sm leading-relaxed text-white/85">
+                      It&apos;s not just a desk. It&apos;s an academic theory engineered into a physical AI Workstation. We are bringing the intelligence of the lab directly to your workspace. Join us, and let&apos;s redefine how the world works.
+                    </p>
+                    <p className="pl-4 text-sm leading-relaxed text-white/70">
+                      它不仅仅是一张桌子。它是一个被转化为实体 AI 工作站的学术理论。我们正将实验室里的智能直接带到你的工作空间。加入我们，一起重新定义世界的工作方式。
+                    </p>
+                  </div>
+                </details>
+              </article>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#06080c] py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-sky-300/10 blur-[120px]" />
+          <div className="absolute -right-20 bottom-8 h-72 w-72 rounded-full bg-emerald-300/10 blur-[130px]" />
+        </div>
+        <div className="relative mx-auto max-w-content px-6 text-white">
+          <Reveal>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">Timeline & Shipping</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+              Build Plan You Can Track.
+            </h2>
+          </Reveal>
+
+          <Reveal delay={1}>
+            <div className="mt-10 overflow-x-auto">
+              <div className="min-w-[980px] rounded-2xl border border-white/15 bg-black/35 p-6">
+                <div className="grid grid-cols-6 gap-4">
+                  {[
+                    { name: "Concept", done: true },
+                    { name: "Prototyping", done: true },
+                    { name: "Kickstarter Launch", done: false },
+                    { name: "Tooling & Production", done: false },
+                    { name: "Ocean Freight", done: false },
+                    { name: "Local Delivery", done: false },
+                  ].map((item, idx, arr) => (
+                    <div key={item.name} className="relative">
+                      <div className="flex flex-col items-start">
+                        <span
+                          className={
+                            "inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium " +
+                            (item.done
+                              ? "border-emerald-300/60 bg-emerald-300/15 text-emerald-200"
+                              : "border-white/25 bg-white/5 text-white/75")
+                          }
+                        >
+                          {item.done ? "✓" : idx + 1}
+                        </span>
+                        <p className="mt-3 text-sm text-white/85">{item.name}</p>
+                        <p className="mt-1 text-xs text-white/55">{item.done ? "Completed" : "Planned"}</p>
+                      </div>
+                      {idx < arr.length - 1 && (
+                        <span className="absolute left-10 top-4 h-px w-[calc(100%-1rem)] bg-white/20" aria-hidden />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={2}>
+            <div className="mt-8 rounded-2xl border border-amber-300/40 bg-amber-400/10 p-6">
+              <p className="text-base font-semibold text-amber-100">
+                Shipping is NOT included. Collected via Pledge Manager later.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-amber-50/85">
+                运费不包含在本次 pledge 金额中，后续会通过 Pledge Manager 单独收取并确认地址。
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-amber-50/90">
+                <li>美国：西海岸入仓 + 本地尾程配送，降低末端延误风险。</li>
+                <li>欧洲：EU 区域中转仓分发，优先保障主要国家清关与派送稳定。</li>
+                <li>亚太：混合仓储与分批履约策略，按地区波次发货并同步追踪号。</li>
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#05070a] py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-16 top-12 h-72 w-72 rounded-full bg-cyan-300/10 blur-[120px]" />
+          <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-indigo-300/10 blur-[130px]" />
+        </div>
+        <div className="relative mx-auto max-w-content px-6 text-white">
+          <Reveal>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">FAQ</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+              常见问题解答
+            </h2>
+          </Reveal>
+
+          <div className="mt-10 space-y-8">
+            <Reveal delay={1}>
+              <div className="rounded-2xl border border-white/15 bg-black/35 p-6">
+                <p className="text-sm font-medium uppercase tracking-[0.14em] text-white/70">
+                  一、关于核心黑科技 (The Technology &amp; &quot;Subtle Shift&quot;)
+                </p>
+                <div className="mt-5 space-y-5">
+                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-sm font-semibold text-white">
+                      Q1: How slow is the &quot;Subtle Shift&quot; exactly? Will it distract me?
+                      (无感升降到底有多慢？会打扰我吗？)
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                      A: Not at all. We designed FlowShift based on the principles of gentle technology and ambient intelligence. Instead of a sudden, jarring mechanical movement, the desk rises at a micro-millimeter per second pace. The transition from sitting to standing takes several minutes, acting as a subtle physical intervention that your conscious mind barely registers. Your flow state remains completely unbroken.
+                    </p>
+                  </article>
+                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-sm font-semibold text-white">
+                      Q2: Which LLM APIs does the desk support, and how do I connect them?
+                      (桌子支持哪些大模型 API，我该如何连接？)
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                      A: FlowShift supports major LLM APIs (like OpenAI, Anthropic, etc.) via our companion desktop app. You simply input your API key into the app, and the desk&apos;s integrated control module syncs seamlessly. It operates locally to trigger your IDE focus modes, mute notifications, and manage your &quot;Flow&quot; sessions.
+                    </p>
+                  </article>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={2}>
+              <div className="rounded-2xl border border-white/15 bg-black/35 p-6">
+                <p className="text-sm font-medium uppercase tracking-[0.14em] text-white/70">
+                  二、关于材质与硬核参数 (Materials &amp; Specifications)
+                </p>
+                <div className="mt-5 space-y-5">
+                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-sm font-semibold text-white">
+                      Q3: Is the 1600x800mm desktop one solid piece, or spliced together?
+                      (1600x800mm 的桌面是一整块实木还是拼接的？)
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                      A: It is a single, massive, uninterrupted 1600x800mm solid piece. We use top-tier ENF-grade material, ensuring zero formaldehyde emissions. It&apos;s finished with an industrial-grade Powder Coating that provides a premium matte texture (Matrix Black or Quantum White), making it highly scratch-resistant and visually stunning without any glare.
+                    </p>
+                  </article>
+                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-sm font-semibold text-white">
+                      Q4: How stable is the desk at its maximum height?
+                      (桌子在最高处有多稳？)
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                      A: Rock solid. FlowShift is built on a heavy-duty, commercial-grade 3-stage dual-motor frame. Even fully extended, you can type aggressively without your monitors shaking or your coffee spilling.
+                    </p>
+                  </article>
+                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-sm font-semibold text-white">
+                      Q5: Will my specific dual/triple monitor arm fit?
+                      (我的双屏/三屏显示器支架能装上吗？)
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                      A: Yes. The edge profile of the desktop is specifically designed to accommodate all standard C-clamp monitor arms perfectly, without interfering with the absolute cable management system underneath.
+                    </p>
+                  </article>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={3}>
+              <div className="rounded-2xl border border-white/15 bg-black/35 p-6">
+                <p className="text-sm font-medium uppercase tracking-[0.14em] text-white/70">
+                  三、关于发货与全球物流 (Shipping &amp; Logistics)
+                </p>
+                <div className="mt-5 space-y-5">
+                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-sm font-semibold text-white">
+                      Q6: Why is shipping not included in the pledge price?
+                      (为什么众筹价格里不包含运费？)
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                      A: FlowShift is a premium, heavy-duty piece of hardware (weighing roughly 45-50kg packaged). Shipping costs fluctuate greatly depending on your exact location. To offer you the lowest possible pledge price today, we will calculate and collect the exact shipping fees via a Pledge Manager after the campaign ends, ensuring transparent and fair pricing.
+                    </p>
+                  </article>
+                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-sm font-semibold text-white">
+                      Q7: How will you handle global shipping for such a heavy item?
+                      (对于这么重的物品，你们如何处理全球物流？)
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                      A: We use a highly optimized hybrid fulfillment strategy. For our core backers in the US, EU, UK, and AU, we ship via ocean freight to local 3PL warehouses first, and then use local couriers (like UPS/FedEx/DPD) for final delivery. For our backers in the Asia-Pacific region (like Japan, Korea, Singapore), we ship directly from our world-class manufacturing facilities in Malaysia and China. This minimizes transit times and dramatically reduces the risk of shipping damage.
+                    </p>
+                  </article>
+                </div>
+              </div>
+            </Reveal>
+
+            <div className="rounded-2xl border border-white/15 bg-black/35 p-6">
+              <p className="text-sm font-medium uppercase tracking-[0.14em] text-white/70">
+                四、关于售后保障 (Warranty &amp; Support)
+              </p>
+              <div className="mt-5">
+                <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                  <p className="text-sm font-semibold text-white">
+                    Q8: What exactly does the 10-Year Ironclad Warranty cover?
+                    (10年硬核质保具体包含什么？)
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/80">
+                    A: We stand by our engineering. The 10-year warranty covers all mechanical and structural components, including the dual motors, the steel frame, and the lifting mechanisms. The electronic components (control panel, built-in AI module) are covered by a comprehensive 3-year warranty.
+                  </p>
+                </article>
+              </div>
+            </div>
           </div>
         </div>
       </section>

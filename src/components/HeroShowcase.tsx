@@ -76,39 +76,102 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
       </div>
 
       {/* overlays for readability */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/10" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/80 via-black/65 to-black/45" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.1),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(147,197,253,0.12),transparent_35%)]" />
 
-      {/* copy: 略向右移，底部偏左 */}
-      <div className="relative flex min-h-[85vh] w-full items-end px-5 pb-18 pt-20 md:min-h-[92vh] md:pl-14 md:pr-8 md:pb-24">
-        <div className="max-w-2xl text-warm-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.6)] md:ml-4">
-          <h1 className="text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl lg:leading-[1.06]">
-            Work Healthier. Live Smarter.
+      <div className="relative mx-auto flex min-h-[85vh] w-full max-w-content items-end px-5 pb-14 pt-20 md:min-h-[92vh] md:px-8 md:pb-20">
+        <div className="w-full text-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.6)]">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/75">
+            Where deep work meets gentle technology
+          </p>
+          <h1 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl lg:text-6xl lg:leading-[1.06]">
+            FlowShift: The World&apos;s First AI-Native Flow Workstation
           </h1>
-          <p className="mt-5 max-w-xl text-sm text-white/85 md:text-base">
-            The smart standing desk for any space and any pace. 一张桌子，满足全家办公学习。
+          <p className="mt-5 max-w-3xl text-sm text-white/90 md:text-base">
+            Code Deeper. Stand Healthier. Zero Distractions. A desk powered by LLM and ambient ergonomics.
+          </p>
+          <p className="mt-2 max-w-3xl text-sm text-white/70 md:text-base">
+            构建你的终极 AI 工作站。深度工作与温和科技的交汇。零打扰，全同步。
+          </p>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/75">
+            作为你在物理世界的认知副驾（Cognitive Copilot），FlowShift 通过对健康与环境的隐形管理，持续降低认知负荷，让你把脑力完全投入代码与逻辑。
           </p>
 
+          <div className="mt-8 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
+            <div className="overflow-hidden rounded-2xl border border-white/15 bg-black/45 backdrop-blur">
+              <div className="relative aspect-video">
+                <Image
+                  src={activeSlide?.imageSrc || "/images/hero.jpg"}
+                  alt="程序员在昏暗灯光下专注工作的 FlowShift 官方视频封面"
+                  fill
+                  className="object-cover brightness-[0.85]"
+                  sizes="(max-width: 1024px) 100vw, 66vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
+                <div className="absolute inset-x-4 bottom-4 flex items-center justify-between">
+                  <span className="rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
+                    2-Min Official Film
+                  </span>
+                  <span className="rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-between rounded-2xl border border-white/15 bg-black/40 p-5">
+              <p className="text-xs uppercase tracking-[0.16em] text-white/60">FlowShift Slogan</p>
+              <p className="mt-3 text-lg font-medium leading-snug text-white/95">
+                Build Your Ultimate AI Workstation.
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-white/70">
+                Zero distractions, total alignment.
+              </p>
+              <div className="mt-6 flex gap-3">
+                <Link
+                  href="/series"
+                  className="inline-flex flex-1 items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-white/90"
+                >
+                  立即了解
+                </Link>
+                <Link
+                  href="/guide"
+                  className="inline-flex flex-1 items-center justify-center rounded-xl border border-white/25 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white/10"
+                >
+                  查看理念
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Subtle Shift Engine", desc: "无感升降引擎", icon: "⇅" },
+              { title: "LLM API Integrated", desc: "内置大模型", icon: "◎" },
+              { title: "1600x800mm Canvas", desc: "极客终极画布", icon: "▭" },
+              { title: "Absolute Cable Control", desc: "极致暗黑理线", icon: "⌁" },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="flex items-center gap-3 rounded-xl border border-white/15 bg-black/35 px-4 py-3 backdrop-blur"
+              >
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/5 text-sm text-white/90">
+                  {item.icon}
+                </span>
+                <div>
+                  <p className="text-sm font-medium text-white">{item.title}</p>
+                  <p className="text-xs text-white/65">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
           {activeSlide && (
-            <p className="mt-6 text-xs font-medium uppercase tracking-wide text-white/75">
+            <p className="mt-5 text-xs font-medium uppercase tracking-wide text-white/55">
               {activeSlide.name} · {activeSlide.tagline}
             </p>
           )}
-
-          <div className="mt-8 flex flex-wrap items-center gap-5">
-            <Link
-              href="/series"
-              className="btn-primary inline-flex min-w-[11rem] items-center justify-center px-10 py-3"
-            >
-              Shop Now
-            </Link>
-            <Link
-              href="/series#compare"
-              className="inline-flex min-w-[11rem] items-center justify-center rounded-xl border border-white/25 bg-white/10 px-10 py-3 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15"
-            >
-              Compare
-            </Link>
-          </div>
         </div>
       </div>
 
