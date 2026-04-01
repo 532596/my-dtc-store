@@ -85,16 +85,16 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/75">
             Where deep work meets gentle technology
           </p>
-          <h1 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl lg:text-6xl lg:leading-[1.06]">
+          <h1 className="mt-3 max-w-4xl text-2xl font-semibold tracking-tight md:text-4xl lg:text-5xl lg:leading-[1.1]">
             FlowShift: The World&apos;s First AI-Native Flow Workstation
           </h1>
-          <p className="mt-5 max-w-3xl text-sm text-white/90 md:text-base">
+          <p className="mt-4 max-w-3xl text-xs text-white/88 md:text-sm">
             Code Deeper. Stand Healthier. Zero Distractions. A desk powered by LLM and ambient ergonomics.
           </p>
-          <p className="mt-2 max-w-3xl text-sm text-white/70 md:text-base">
+          <p className="mt-1.5 max-w-3xl text-xs text-white/68 md:text-sm">
             构建你的终极 AI 工作站。深度工作与温和科技的交汇。零打扰，全同步。
           </p>
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/75">
+          <p className="mt-3 max-w-3xl text-xs leading-relaxed text-white/72 md:text-sm">
             作为你在物理世界的认知副驾（Cognitive Copilot），FlowShift 通过对健康与环境的隐形管理，持续降低认知负荷，让你把脑力完全投入代码与逻辑。
           </p>
 
@@ -120,24 +120,24 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
               </div>
             </div>
 
-            <div className="flex flex-col justify-between rounded-2xl border border-white/15 bg-black/40 p-5">
+            <div className="flex h-fit flex-col rounded-2xl border border-white/15 bg-black/40 p-4 md:p-5">
               <p className="text-xs uppercase tracking-[0.16em] text-white/60">FlowShift Slogan</p>
-              <p className="mt-3 text-lg font-medium leading-snug text-white/95">
+              <p className="mt-2 text-base font-medium leading-snug text-white/95 md:text-lg">
                 Build Your Ultimate AI Workstation.
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
+              <p className="mt-1.5 text-sm leading-relaxed text-white/70">
                 Zero distractions, total alignment.
               </p>
-              <div className="mt-6 flex gap-3">
+              <div className="mt-4 flex gap-2.5">
                 <Link
                   href="/series"
-                  className="inline-flex flex-1 items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-white/90"
+                  className="inline-flex flex-1 items-center justify-center rounded-xl bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-white/90"
                 >
                   立即了解
                 </Link>
                 <Link
                   href="/guide"
-                  className="inline-flex flex-1 items-center justify-center rounded-xl border border-white/25 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white/10"
+                  className="inline-flex flex-1 items-center justify-center rounded-xl border border-white/25 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10"
                 >
                   查看理念
                 </Link>

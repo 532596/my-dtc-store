@@ -140,7 +140,7 @@ export default function Home() {
     <main>
       <HeroShowcase slides={HERO_SLIDES} />
 
-      <section className="relative overflow-hidden bg-[#050608] py-16 md:py-20">
+      <section className="relative overflow-hidden bg-[#050608] py-20 md:py-24">
         <div className="absolute inset-0" aria-hidden>
           <Image
             src="/images/scene-office.jpg"
@@ -156,58 +156,68 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-content px-6 text-white">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Problem</p>
-            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/55">The Problem</p>
+            <h2 className="mt-5 max-w-3xl text-3xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
               The &quot;Smart&quot; Desk Dilemma: It Forces You to Choose Between Health and Focus.
             </h2>
-            <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
+            <p className="mt-4 max-w-2xl text-sm text-white/70 md:text-base">
               “智能”桌的困境：它迫使你在健康与专注之间做出妥协。
             </p>
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="mt-10 max-w-4xl rounded-2xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur md:p-8">
-              <p className="text-sm leading-relaxed text-white/85 md:text-base">
-                Let&apos;s be real. Nobody uses loud alarms to stand up. The real problem with traditional standing desks is much quieter, but far more frustrating: They rely on your active effort.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-white/65 md:text-base">
-                坦白说，没人会定个吵闹的闹钟来提醒自己站立。传统升降桌真正的问题在于它极其安静，却更令人沮丧：它们完全依赖你的主动行为。
-              </p>
+            <div className="mt-12 grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
+              <article className="rounded-2xl border border-white/12 bg-white/[0.03] p-6 md:p-7">
+                <p className="text-sm leading-relaxed text-white/90 md:text-base">
+                  Nobody ignores health on purpose. Traditional standing desks fail because they require your active attention at the exact moment you are most focused.
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-white/65 md:text-base">
+                  不是你不重视健康，而是传统升降桌偏偏在你最专注时，要求你主动分心去操作。
+                </p>
+              </article>
+              <article className="rounded-2xl border border-white/10 bg-black/30 p-6 md:p-7">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">Core Conflict</p>
+                <p className="mt-3 text-xl font-medium leading-snug text-white md:text-2xl">
+                  You keep your flow,
+                  <br />
+                  or you protect your body.
+                </p>
+              </article>
             </div>
           </Reveal>
 
-          <div className="mt-7 grid gap-5 md:mt-8 md:grid-cols-2">
+          <div className="mt-6 grid gap-4 md:mt-6 md:grid-cols-2">
             <Reveal delay={2}>
-              <article className="rounded-2xl border border-white/15 bg-black/35 p-6">
+              <article className="rounded-2xl border border-white/12 bg-black/30 p-5 md:p-6">
                 <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Ignored Nudges</p>
-                <p className="mt-3 text-sm leading-relaxed text-white/85 md:text-base">
-                  Your smartwatch taps your wrist. Your desk gives a faint beep. But you&apos;re deep in the code. You think, &quot;Just one more minute, let me finish this function.&quot; Two hours later, you&apos;re still sitting.
+                <p className="mt-2.5 text-sm leading-relaxed text-white/85 md:text-base">
+                  &quot;One more minute.&quot; Then two hours pass. Alerts are soft, but cognitive lock-in is strong.
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-white/65 md:text-base">
-                  被无视的提醒：手表轻敲你的手腕，桌子发出微弱的滴滴声。但你正深陷代码之中。你想：“再等一分钟，让我写完这个函数。” 两个小时后，你依然坐着。
+                <p className="mt-2 text-sm leading-relaxed text-white/60 md:text-base">
+                  轻提醒经常被“再写一分钟”覆盖，结果一坐就是几个小时。
                 </p>
               </article>
             </Reveal>
 
             <Reveal delay={3}>
-              <article className="rounded-2xl border border-white/15 bg-black/35 p-6">
+              <article className="rounded-2xl border border-white/12 bg-black/30 p-5 md:p-6">
                 <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Context Switch</p>
-                <p className="mt-3 text-sm leading-relaxed text-white/85 md:text-base">
-                  When you finally decide to stand, you have to break your visual focus, reach for the panel, hold a button, and wait for the motors to whine. By the time you&apos;re standing, the complex logic you were holding in your working memory is gone. The context switch is brutal.
+                <p className="mt-2.5 text-sm leading-relaxed text-white/85 md:text-base">
+                  Reaching for controls breaks visual focus; by the time the desk moves, your mental stack is already gone.
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-white/65 md:text-base">
-                  毁灭性的上下文切换：当你终于决定站起来时，你必须打破视觉焦点，伸手去按控制面板，死死按住按钮，听着电机的嗡嗡声等待。当你终于站直时，大脑工作记忆中那些复杂的逻辑树已经烟消云散了。这种上下文切换是极其残酷的。
+                <p className="mt-2 text-sm leading-relaxed text-white/60 md:text-base">
+                  一次手动升降，往往就是一次残酷的上下文切换。
                 </p>
               </article>
             </Reveal>
           </div>
 
           <Reveal delay={3}>
-            <div className="mt-8 border-l-2 border-white/45 pl-4 md:pl-5">
-              <p className="text-xl font-medium text-white md:text-2xl">
+            <div className="mt-10 border-l border-white/35 pl-4 md:pl-5">
+              <p className="text-lg font-medium text-white md:text-2xl">
                 You shouldn&apos;t have to interrupt your workflow to save your spine.
               </p>
-              <p className="mt-2 text-sm text-white/70 md:text-base">
+              <p className="mt-1.5 text-sm text-white/65 md:text-base">
                 你不该为了拯救脊椎，而牺牲你的工作流。
               </p>
             </div>

@@ -6,65 +6,123 @@ import Reveal from "@/components/Reveal";
 import { Search } from "lucide-react";
 
 const POPULAR_QUESTIONS = [
-  { label: "各型号（Model A / B / C）有什么区别？", id: "faq-q1" },
-  { label: "桌面承重上限是多少？", id: "faq-q2" },
-  { label: "SKINS 是什么？", id: "faq-q3" },
-  { label: "配件是否与所有型号通用？", id: "faq-q4" },
-  { label: "桌子如何调节高度？", id: "faq-q5" },
-  { label: "配送需要多久？", id: "faq-q6" },
+  { label: "无感升降到底有多慢？会打扰我吗？", id: "faq-q1" },
+  { label: "支持哪些大模型 API，如何连接？", id: "faq-q2" },
+  { label: "1600x800mm 桌面是一整块还是拼接？", id: "faq-q3" },
+  { label: "桌子在最高处稳定性怎么样？", id: "faq-q4" },
+  { label: "双屏/三屏显示器支架能装吗？", id: "faq-q5" },
+  { label: "为什么众筹价格不包含运费？", id: "faq-q6" },
 ] as const;
 
-const FAQ_ITEMS: { id: string; question: string; answer: string }[] = [
+type FaqItem = { id: string; question: string; answer: string };
+type FaqGroup = { id: string; title: string; items: FaqItem[] };
+
+const FAQ_GROUPS: FaqGroup[] = [
   {
-    id: "faq-q1",
-    question: "各型号（Model A / B / C）有什么区别？",
-    answer:
-      "Model A 为紧凑型，适合小空间；Model B 功能均衡，带记忆与常用高度预设；Model C 为旗舰款，承重与升降范围更大，适合双屏与多设备。详细规格可在产品页对比。",
+    id: "faq-tech",
+    title: "一、关于核心黑科技 (The Technology & \"Subtle Shift\")",
+    items: [
+      {
+        id: "faq-q1",
+        question:
+          "Q1: How slow is the \"Subtle Shift\" (无感升降) exactly? Will it distract me?(无感升降到底有多慢？会打扰我吗？)",
+        answer:
+          "A: Not at all. We designed FlowShift based on the principles of gentle technology and ambient intelligence. Instead of a sudden, jarring mechanical movement, the desk rises at a micro-millimeter per second pace. The transition from sitting to standing takes several minutes, acting as a subtle physical intervention that your conscious mind barely registers. Your flow state remains completely unbroken.",
+      },
+      {
+        id: "faq-q2",
+        question:
+          "Q2: Which LLM APIs does the desk support, and how do I connect them?(桌子支持哪些大模型 API，我该如何连接？)",
+        answer:
+          "A: FlowShift supports major LLM APIs (like OpenAI, Anthropic, etc.) via our companion desktop app. You simply input your API key into the app, and the desk's integrated control module syncs seamlessly. It operates locally to trigger your IDE focus modes, mute notifications, and manage your \"Flow\" sessions.",
+      },
+    ],
   },
   {
-    id: "faq-q2",
-    question: "桌面承重上限是多少？",
-    answer:
-      "Model A 桌面承重约 80kg，Model B 约 100kg，Model C 约 120kg。建议在承重范围内放置显示器、主机与常用办公用品，避免长期超载。",
+    id: "faq-material",
+    title: "二、关于材质与硬核参数 (Materials & Specifications)",
+    items: [
+      {
+        id: "faq-q3",
+        question:
+          "Q3: Is the 1600x800mm desktop one solid piece, or spliced together?(1600x800mm 的桌面是一整块实木还是拼接的？)",
+        answer:
+          "A: It is a single, massive, uninterrupted 1600x800mm solid piece. We use top-tier ENF-grade material, ensuring zero formaldehyde emissions. It's finished with an industrial-grade Powder Coating that provides a premium matte texture (Matrix Black or Quantum White), making it highly scratch-resistant and visually stunning without any glare.",
+      },
+      {
+        id: "faq-q4",
+        question:
+          "Q4: How stable is the desk at its maximum height?(桌子在最高处有多稳？)",
+        answer:
+          "A: Rock solid. FlowShift is built on a heavy-duty, commercial-grade 3-stage dual-motor frame. Even fully extended, you can type aggressively without your monitors shaking or your coffee spilling.",
+      },
+      {
+        id: "faq-q5",
+        question:
+          "Q5: Will my specific dual/triple monitor arm fit?(我的双屏/三屏显示器支架能装上吗？)",
+        answer:
+          "A: Yes. The edge profile of the desktop is specifically designed to accommodate all standard C-clamp monitor arms perfectly, without interfering with the absolute cable management system underneath.",
+      },
+    ],
   },
   {
-    id: "faq-q3",
-    question: "SKINS 是什么？",
-    answer:
-      "SKINS 为桌面贴面/饰面系列，可更换桌面外观与材质感，便于与家居风格统一。部分型号支持选配 SKINS，具体以产品页说明为准。",
+    id: "faq-shipping",
+    title: "三、关于发货与全球物流 (Shipping & Logistics)",
+    items: [
+      {
+        id: "faq-q6",
+        question:
+          "Q6: Why is shipping not included in the pledge price?(为什么众筹价格里不包含运费？)",
+        answer:
+          "A: FlowShift is a premium, heavy-duty piece of hardware (weighing roughly 45-50kg packaged). Shipping costs fluctuate greatly depending on your exact location. To offer you the lowest possible pledge price today, we will calculate and collect the exact shipping fees via a Pledge Manager after the campaign ends, ensuring transparent and fair pricing.",
+      },
+      {
+        id: "faq-q7",
+        question:
+          "Q7: How will you handle global shipping for such a heavy item?(对于这么重的物品，你们如何处理全球物流？)",
+        answer:
+          "A: We use a highly optimized hybrid fulfillment strategy. For our core backers in the US, EU, UK, and AU, we ship via ocean freight to local 3PL warehouses first, and then use local couriers (like UPS/FedEx/DPD) for final delivery. For our backers in the Asia-Pacific region (like Japan, Korea, Singapore), we ship directly from our world-class manufacturing facilities in Malaysia and China. This minimizes transit times and dramatically reduces the risk of shipping damage.",
+      },
+    ],
   },
   {
-    id: "faq-q4",
-    question: "配件是否与所有型号通用？",
-    answer:
-      "线缆收纳、显示器支架等通用配件适用于全系列；桌板尺寸与孔位因型号而异，选购时请确认兼容的型号与尺寸。",
-  },
-  {
-    id: "faq-q5",
-    question: "桌子如何调节高度？",
-    answer:
-      "通过桌面侧边或底部的控制面板可一键升降；部分型号支持记忆高度、语音控制。具体操作见随箱说明书或官网「使用指南」视频。",
-  },
-  {
-    id: "faq-q6",
-    question: "配送需要多久？",
-    answer:
-      "国内主要城市通常 3–7 个工作日送达，偏远地区略长。下单后可在「订单跟踪」中查看物流状态与预计送达时间。",
+    id: "faq-warranty",
+    title: "四、关于售后保障 (Warranty & Support)",
+    items: [
+      {
+        id: "faq-q8",
+        question:
+          "Q8: What exactly does the 10-Year Ironclad Warranty cover?(10年硬核质保具体包含什么？)",
+        answer:
+          "A: We stand by our engineering. The 10-year warranty covers all mechanical and structural components, including the dual motors, the steel frame, and the lifting mechanisms. The electronic components (control panel, built-in AI module) are covered by a comprehensive 3-year warranty.",
+      },
+    ],
   },
 ];
 
 export default function SupportPage() {
   const [keyword, setKeyword] = useState("");
 
+  const flatFaqItems = useMemo(() => FAQ_GROUPS.flatMap((group) => group.items), []);
+
   const filteredFaq = useMemo(() => {
-    if (!keyword.trim()) return FAQ_ITEMS;
+    if (!keyword.trim()) return flatFaqItems;
     const k = keyword.trim().toLowerCase();
-    return FAQ_ITEMS.filter(
+    return flatFaqItems.filter(
       (item) =>
         item.question.toLowerCase().includes(k) ||
         item.answer.toLowerCase().includes(k)
     );
-  }, [keyword]);
+  }, [keyword, flatFaqItems]);
+
+  const filteredFaqGroups = useMemo(() => {
+    if (!keyword.trim()) return FAQ_GROUPS;
+    const idSet = new Set(filteredFaq.map((item) => item.id));
+    return FAQ_GROUPS.map((group) => ({
+      ...group,
+      items: group.items.filter((item) => idSet.has(item.id)),
+    })).filter((group) => group.items.length > 0);
+  }, [keyword, filteredFaq]);
 
   const onSearchSubmit = useCallback(
     (e: React.FormEvent) => {
@@ -181,7 +239,7 @@ export default function SupportPage() {
         </div>
       </section>
 
-      {/* 常见问题解答 */}
+      {/* 常见问题解答：与首页 FAQ 保持一致 */}
       <section
         id="faq"
         className="scroll-mt-24 mx-auto max-w-content px-6 pb-12 md:pb-16"
@@ -192,31 +250,39 @@ export default function SupportPage() {
             常见问题解答
           </h2>
         </Reveal>
-        <ul className="mt-8 space-y-6">
+        <div className="mt-8 space-y-8">
           {filteredFaq.length === 0 ? (
-            <li className="rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-6 text-center text-warm-muted">
+            <div className="rounded-xl border border-warm-gray/40 bg-warm-cream/20 p-6 text-center text-warm-muted">
               未找到与「{keyword}」相关的问题，请尝试其他关键词或{" "}
               <Link href="/support/contact" className="text-accent hover:underline">
                 联系我们
               </Link>
               。
-            </li>
+            </div>
           ) : (
-            filteredFaq.map((item, i) => (
-              <Reveal key={item.id} delay={(i % 3) as 0 | 1 | 2 | 3}>
-                <li
-                  id={item.id}
-                  className="scroll-mt-24 rounded-xl border border-warm-gray/40 bg-white p-6 shadow-sm"
-                >
-                  <h3 className="font-semibold text-foreground">
-                    {item.question}
+            filteredFaqGroups.map((group, groupIndex) => (
+              <Reveal key={group.id} delay={(groupIndex % 4) as 0 | 1 | 2 | 3}>
+                <div className="rounded-2xl border border-warm-gray/50 bg-white p-6 shadow-sm">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/80">
+                    {group.title}
                   </h3>
-                  <p className="mt-2 text-body text-warm-muted">{item.answer}</p>
-                </li>
+                  <ul className="mt-4 space-y-4">
+                    {group.items.map((item) => (
+                      <li
+                        key={item.id}
+                        id={item.id}
+                        className="scroll-mt-24 rounded-xl border border-warm-gray/30 bg-warm-cream/10 p-4"
+                      >
+                        <p className="font-semibold text-foreground">{item.question}</p>
+                        <p className="mt-2 text-body text-warm-muted">{item.answer}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </Reveal>
             ))
           )}
-        </ul>
+        </div>
       </section>
 
       {/* 健康办公指南 + 联系我们 */}
