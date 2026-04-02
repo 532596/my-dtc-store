@@ -80,7 +80,7 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.1),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(147,197,253,0.12),transparent_35%)]" />
 
-      <div className="relative mx-auto flex min-h-[85vh] w-full max-w-content items-end px-4 pb-14 pt-20 md:min-h-[92vh] md:px-8 md:pb-20">
+      <div className="relative mx-auto flex min-h-[85vh] w-full max-w-content items-start px-3 pb-14 pt-14 md:min-h-[92vh] md:px-6 md:pt-16">
         <div className="w-full text-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.6)]">
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/75">
             Where deep work meets gentle technology
@@ -91,7 +91,7 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
           <h2 className="mt-1 max-w-4xl text-xl font-semibold tracking-tight md:text-3xl lg:text-4xl lg:leading-[1.1]">
             The World&apos;s First AI-Native Flow Workstation
           </h2>
-          <p className="mt-4 max-w-3xl text-xs text-white/88 md:text-sm">
+          <p className="mt-6 max-w-3xl text-xs text-white/88 md:text-sm">
             Code Deeper. Stand Healthier.
           </p>
           <p className="mt-1 max-w-3xl text-xs text-white/88 md:text-sm">
