@@ -1,8 +1,8 @@
 import type { Config } from "tailwindcss";
 
 /**
- * project-strategy.md：浅灰、米白、柔和木色、低饱和科技色点缀；
- * 参考苹果官网：层级清晰、留白充足、克制动效。
+ * 全站深色基调：纯黑/深灰 + 低饱和冷色微光点缀。
+ * 参考苹果官网的克制层级与留白节奏。
  */
 const config: Config = {
   content: [
@@ -14,18 +14,18 @@ const config: Config = {
     extend: {
       colors: {
         warm: {
-          white: "#faf9f7",
-          cream: "#f5f3ef",
-          gray: "#e8e6e2",
-          stone: "#9c9892",
-          muted: "#6b6560",
-          wood: "#c4b8a8",
+          white: "#080b10",
+          cream: "#0d1219",
+          gray: "#1b2430",
+          stone: "#7e8a9a",
+          muted: "#aab4c2",
+          wood: "#2a3342",
         },
-        foreground: "#2c2926",
+        foreground: "#f3f6fb",
         accent: {
-          DEFAULT: "#5b6b7a",
-          hover: "#4a5568",
-          light: "#e8ebee",
+          DEFAULT: "#8fa8c0",
+          hover: "#a8bdd0",
+          light: "#182331",
         },
       },
       fontFamily: {

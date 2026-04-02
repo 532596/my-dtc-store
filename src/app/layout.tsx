@@ -17,9 +17,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Smart Standing Desk — 健康办公 · 空间优化 · 智能便捷",
+  title: "FlowShift — AI-Native Flow Workstation",
   description:
-    "智能升降桌：减少久坐风险、提升专注效率。家庭办公、亲子学习与多功能空间，Warm Home + Precise Tech。",
+    "FlowShift 智能工作站：深色沉浸、无感升降、AI 工作流协同。减少认知负荷，守护深度专注。",
 };
 
 export default function RootLayout({

@@ -165,7 +165,7 @@ export default function Header() {
 
   return (
     <header
-      className="relative sticky top-0 z-50 border-b border-warm-gray/50 bg-warm-white/95 backdrop-blur-md"
+      className="relative sticky top-0 z-50 border-b border-warm-gray/50 bg-warm-white/85 backdrop-blur-md"
       onMouseLeave={closeAll}
     >
       <nav className="relative mx-auto flex max-w-content items-center justify-between px-6 py-4">
@@ -260,7 +260,7 @@ export default function Header() {
               </svg>
             </button>
             {accountOpen && (
-              <div className="absolute right-0 top-full z-40 mt-3 w-56 rounded-xl border border-warm-gray/40 bg-warm-white/95 p-3 text-xs text-warm-muted shadow-lg">
+              <div className="absolute right-0 top-full z-40 mt-3 w-56 rounded-xl border border-warm-gray/50 bg-warm-cream/95 p-3 text-xs text-warm-muted shadow-xl">
                 <Link
                   href="/account"
                   onClick={() => setAccountOpen(false)}
@@ -330,7 +330,7 @@ export default function Header() {
               )}
             </Link>
             {cartOpen && (
-              <div className="absolute right-0 top-full z-40 mt-2 w-80 rounded-xl border border-warm-gray/200 bg-white shadow-xl">
+              <div className="absolute right-0 top-full z-40 mt-2 w-80 rounded-xl border border-warm-gray/50 bg-warm-cream/95 shadow-xl">
                 <div className="max-h-[min(70vh,320px)] overflow-y-auto p-3">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">
                     购物车 {cartCount > 0 ? `（${cartCount} 件）` : ""}
@@ -461,7 +461,7 @@ export default function Header() {
       {/* 单一 mega 面板：左右切换只换内容不收回，高度随内容过渡 */}
       {megaVisible && (
         <div
-          className={`absolute left-0 right-0 top-full z-40 overflow-hidden border-t border-warm-gray/30 bg-stone-50 shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-[height] duration-200 ease-out ${isMegaClosing ? "mega-menu-panel-out" : "mega-menu-panel"}`}
+          className={`absolute left-0 right-0 top-full z-40 overflow-hidden border-t border-warm-gray/40 bg-warm-cream/95 shadow-[0_18px_46px_rgba(0,0,0,0.35)] transition-[height] duration-200 ease-out ${isMegaClosing ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           style={{ height: megaPanelHeight }}
           onMouseEnter={keepMegaOpen}
         >

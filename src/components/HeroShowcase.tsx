@@ -85,10 +85,10 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/75">
             Where deep work meets gentle technology
           </p>
-          <h1 className="mt-3 max-w-4xl text-2xl font-semibold tracking-tight md:text-4xl lg:text-5xl lg:leading-[1.08]">
+          <h1 className="mt-3 max-w-4xl text-xl font-semibold tracking-tight md:text-3xl lg:text-4xl lg:leading-[1.1]">
             FlowShift
           </h1>
-          <h2 className="mt-1 max-w-4xl text-2xl font-semibold tracking-tight md:text-4xl lg:text-5xl lg:leading-[1.08]">
+          <h2 className="mt-1 max-w-4xl text-xl font-semibold tracking-tight md:text-3xl lg:text-4xl lg:leading-[1.1]">
             The World&apos;s First AI-Native Flow Workstation
           </h2>
           <p className="mt-4 max-w-3xl text-xs text-white/88 md:text-sm">
@@ -106,7 +106,7 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
             作为你在物理世界的认知副驾（Cognitive Copilot），FlowShift 通过对健康与环境的隐形管理，持续降低认知负荷，让你把脑力完全投入代码与逻辑。
           </p>
 
-          <div className="mt-8 grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 -mx-2 grid w-[calc(100%+1rem)] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 md:-mx-3 md:w-[calc(100%+1.5rem)]">
             {[
               { title: "Subtle Shift Engine", desc: "无感升降引擎", icon: "⇅" },
               { title: "LLM API Integrated", desc: "内置大模型", icon: "◎" },
@@ -129,7 +129,7 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
           </div>
 
           {activeSlide && (
-            <p className="mt-5 text-xs font-medium uppercase tracking-wide text-white/55">
+            <p className="mt-5 -mx-2 text-xs font-medium uppercase tracking-wide text-white/55 md:-mx-3">
               {activeSlide.name} · {activeSlide.tagline}
             </p>
           )}

@@ -53,7 +53,7 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-warm-gray/50 bg-warm-cream">
+    <footer className="border-t border-warm-gray/50 bg-warm-white">
       <div className="mx-auto max-w-content px-6 py-12 lg:py-14">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
           {/* 品牌 */}

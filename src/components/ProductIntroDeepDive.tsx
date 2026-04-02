@@ -151,7 +151,7 @@ export default function ProductIntroDeepDive() {
 
   return (
     <div>
-      {/* 功能结构：浅色图文块，与全站暖色统一 */}
+      {/* 功能结构：暗色图文块，与全站深色风格统一 */}
       <section className="bg-warm-cream/40 py-14 md:py-16">
         <div className="mx-auto max-w-content px-6">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
@@ -177,18 +177,18 @@ export default function ProductIntroDeepDive() {
                 ))}
               </ul>
               <div className="mt-8 flex flex-wrap items-center gap-3 text-xs text-warm-muted">
-                <span className="inline-flex items-center gap-2 rounded-full border border-warm-gray/40 bg-white px-3 py-1.5">
+                <span className="inline-flex items-center gap-2 rounded-full border border-warm-gray/40 bg-warm-white/70 px-3 py-1.5">
                   <Cable className="h-3.5 w-3.5 text-foreground" />
                   理线更整洁
                 </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-warm-gray/40 bg-white px-3 py-1.5">
+                <span className="inline-flex items-center gap-2 rounded-full border border-warm-gray/40 bg-warm-white/70 px-3 py-1.5">
                   <ShieldCheck className="h-3.5 w-3.5 text-foreground" />
                   更稳更安心
                 </span>
               </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-2xl border border-warm-gray/40 bg-white shadow-sm">
+            <div className="relative overflow-hidden rounded-2xl border border-warm-gray/40 bg-warm-white/70 shadow-sm">
               <div className="relative aspect-[16/9] w-full">
                 <Image
                   src={imgSrc}
@@ -199,7 +199,7 @@ export default function ProductIntroDeepDive() {
                   onError={() => setImgSrc("/images/scene-office.jpg")}
                   priority={false}
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/30 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-transparent" />
               </div>
               <div className="p-5">
                 <p className="text-sm font-semibold text-foreground">
@@ -214,7 +214,7 @@ export default function ProductIntroDeepDive() {
         </div>
       </section>
 
-      {/* 材质背书：浅色性能+材质展示（参考图三） */}
+      {/* 材质背书：暗色性能+材质展示（参考图三） */}
       <section className="bg-warm-white py-14 md:py-16">
         <div className="mx-auto max-w-content px-6">
           <div className="mx-auto max-w-5xl">
@@ -239,7 +239,7 @@ export default function ProductIntroDeepDive() {
                     className="rounded-2xl border border-warm-gray/40 bg-warm-cream/20 p-6"
                   >
                     <div className="flex items-center justify-center">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-warm-white/75 shadow-sm">
                         <Icon className="h-5 w-5 text-foreground" />
                       </span>
                     </div>
@@ -254,7 +254,7 @@ export default function ProductIntroDeepDive() {
               })}
             </div>
 
-            <div className="mt-10 overflow-hidden rounded-2xl border border-warm-gray/40 bg-white">
+            <div className="mt-10 overflow-hidden rounded-2xl border border-warm-gray/40 bg-warm-white/70">
               <div className="px-6 pt-7 pb-6 md:px-8">
                 <p className="text-xs font-semibold uppercase tracking-wider text-warm-muted">
                   用料与认证
