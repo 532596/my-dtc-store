@@ -91,7 +91,7 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
           <h2 className="mt-1 max-w-4xl text-xl font-semibold tracking-tight md:text-3xl lg:text-4xl lg:leading-[1.1]">
             The World&apos;s First AI-Native Flow Workstation
           </h2>
-          <p className="mt-10 max-w-3xl text-xs text-white/88 md:text-sm">
+          <p className="mt-20 max-w-3xl text-xs text-white/88 md:text-sm">
             Code Deeper. Stand Healthier.
           </p>
           <p className="mt-1 max-w-3xl text-xs text-white/88 md:text-sm">
