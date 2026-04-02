@@ -161,19 +161,29 @@ export default function Home() {
               The &quot;Smart&quot; Desk Dilemma: It Forces You to Choose Between Health and Focus.
             </h2>
             <p className="mt-4 max-w-2xl text-sm text-white/70 md:text-base">
-              “智能”桌的困境：它迫使你在健康与专注之间做出妥协。
+              You should never need to choose between cognitive flow and physical wellbeing.
             </p>
           </Reveal>
 
           <Reveal delay={1}>
             <div className="mt-12 grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
               <article className="rounded-2xl border border-white/12 bg-white/[0.03] p-6 md:p-7">
-                <p className="text-sm leading-relaxed text-white/90 md:text-base">
-                  Nobody ignores health on purpose. Traditional standing desks fail because they require your active attention at the exact moment you are most focused.
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-white/65 md:text-base">
-                  不是你不重视健康，而是传统升降桌偏偏在你最专注时，要求你主动分心去操作。
-                </p>
+                <div className="flex items-start gap-4">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm leading-relaxed text-white/90 md:text-base">
+                      Nobody ignores health on purpose. Traditional standing desks fail because they require your active attention at the exact moment you are most focused.
+                    </p>
+                  </div>
+                  <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-lg border border-white/10">
+                    <Image
+                      src="/images/scene-office.jpg"
+                      alt="Focused coding scene"
+                      fill
+                      className="object-cover brightness-75"
+                      sizes="112px"
+                    />
+                  </div>
+                </div>
               </article>
               <article className="rounded-2xl border border-white/10 bg-black/30 p-6 md:p-7">
                 <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">Core Conflict</p>
@@ -182,6 +192,15 @@ export default function Home() {
                   <br />
                   or you protect your body.
                 </p>
+                <div className="mt-4 relative h-16 w-full overflow-hidden rounded-lg border border-white/10">
+                  <Image
+                    src="/images/hero.jpg"
+                    alt="Desk environment detail"
+                    fill
+                    className="object-cover opacity-60"
+                    sizes="(max-width: 768px) 100vw, 30vw"
+                  />
+                </div>
               </article>
             </div>
           </Reveal>
@@ -193,9 +212,15 @@ export default function Home() {
                 <p className="mt-2.5 text-sm leading-relaxed text-white/85 md:text-base">
                   &quot;One more minute.&quot; Then two hours pass. Alerts are soft, but cognitive lock-in is strong.
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-white/60 md:text-base">
-                  轻提醒经常被“再写一分钟”覆盖，结果一坐就是几个小时。
-                </p>
+                <div className="mt-4 relative h-16 w-full overflow-hidden rounded-lg border border-white/10">
+                  <Image
+                    src="/images/scene-learning.jpg"
+                    alt="Long sitting work session"
+                    fill
+                    className="object-cover opacity-60"
+                    sizes="(max-width: 768px) 100vw, 45vw"
+                  />
+                </div>
               </article>
             </Reveal>
 
@@ -205,9 +230,15 @@ export default function Home() {
                 <p className="mt-2.5 text-sm leading-relaxed text-white/85 md:text-base">
                   Reaching for controls breaks visual focus; by the time the desk moves, your mental stack is already gone.
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-white/60 md:text-base">
-                  一次手动升降，往往就是一次残酷的上下文切换。
-                </p>
+                <div className="mt-4 relative h-16 w-full overflow-hidden rounded-lg border border-white/10">
+                  <Image
+                    src="/images/height-memory.png"
+                    alt="Control panel interaction"
+                    fill
+                    className="object-cover opacity-60"
+                    sizes="(max-width: 768px) 100vw, 45vw"
+                  />
+                </div>
               </article>
             </Reveal>
           </div>
@@ -216,9 +247,6 @@ export default function Home() {
             <div className="mt-10 border-l border-white/35 pl-4 md:pl-5">
               <p className="text-lg font-medium text-white md:text-2xl">
                 You shouldn&apos;t have to interrupt your workflow to save your spine.
-              </p>
-              <p className="mt-1.5 text-sm text-white/65 md:text-base">
-                你不该为了拯救脊椎，而牺牲你的工作流。
               </p>
             </div>
           </Reveal>
