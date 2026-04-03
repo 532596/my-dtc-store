@@ -17,6 +17,10 @@
 - **Review Before Writing:** Before outputting code, mentally simulate potential edge cases (race conditions, null pointers, overflow).
 - **Refactoring Mindset:** If the existing code is suboptimal, suggest a refactor *before* adding new features.
 
+## Project Workflow & Architecture Docs
+- **Read This File First:** Before writing or changing code in this repository, read `.cursor/rules/coding-rules.mdc` (this file) and follow it.
+- **Keep `development.md` Accurate:** The canonical architecture overview lives at `src/development.md`. Whenever the project architecture changes (new services, routes, data flow, deployment model, major folder responsibilities, etc.), update that file in the same change set so diagrams and descriptions stay truthful.
+
 ## Math & Algorithms
 - When implementing logic involving data processing or physics, use LaTeX for any underlying formulas to ensure clarity:
   - e.g., "The scoring algorithm follows a weighted Gaussian distribution: $f(x) = a \cdot e^{-\frac{(x-b)^2}{2c^2}}$"
