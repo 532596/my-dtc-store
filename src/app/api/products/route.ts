@@ -8,10 +8,14 @@ export const dynamic = "force-dynamic";
 /** GET：访客仅返回上架商品；带管理员鉴权时返回全部（含下架） */
 export async function GET(request: NextRequest) {
   try {
-    const all = isAdminRequest(request);
+    const isAdmin = isAdminRequest(request);
+    const adminOnly = request.nextUrl.searchParams.get("admin") === "1";
+    if (adminOnly && !isAdmin) {
+      return NextResponse.json({ error: "未授权" }, { status: 401 });
+    }
     const kind = request.nextUrl.searchParams.get("kind") as "series" | "accessory" | null;
     const products = await listProducts({
-      publishedOnly: !all,
+      publishedOnly: !isAdmin,
       kind: kind ?? undefined,
     });
     return NextResponse.json(products);

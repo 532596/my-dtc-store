@@ -63,7 +63,7 @@ export default function AdminProductsPage() {
 
   const load = useCallback(() => {
     setLoading(true);
-    fetch("/api/products", { credentials: "include" })
+    fetch("/api/products?admin=1", { credentials: "include" })
       .then((r) => {
         if (r.status === 401) setAuthFail(true);
         return r.ok ? r.json() : [];
@@ -108,7 +108,12 @@ export default function AdminProductsPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setMsg(data?.error || "保存失败");
+        if (res.status === 401) {
+          setAuthFail(true);
+          setMsg("登录已失效，请重新登录后台");
+        } else {
+          setMsg(data?.error || "保存失败");
+        }
         return;
       }
       setEdit(null);
@@ -151,7 +156,12 @@ export default function AdminProductsPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setMsg(data?.error || "新增失败");
+        if (res.status === 401) {
+          setAuthFail(true);
+          setMsg("登录已失效，请重新登录后台");
+        } else {
+          setMsg(data?.error || "新增失败");
+        }
         return;
       }
       setShowCreate(false);
