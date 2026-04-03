@@ -1,5 +1,6 @@
 import { readFile, writeFile, mkdir } from "fs/promises";
 import path from "path";
+import { kv } from "@vercel/kv";
 
 /** 全站商品目录：系列桌 + 配件，后台可改价、上下架、促销文案 */
 export type CatalogProduct = {
@@ -38,8 +39,14 @@ export type CatalogProduct = {
 };
 
 const isVercel = process.env.VERCEL === "1";
+const hasKv =
+  typeof process.env.KV_REST_API_URL === "string" &&
+  process.env.KV_REST_API_URL.length > 0 &&
+  typeof process.env.KV_REST_API_TOKEN === "string" &&
+  process.env.KV_REST_API_TOKEN.length > 0;
 const DATA_DIR = isVercel ? "/tmp" : path.join(process.cwd(), "data");
 const PRODUCTS_FILE = path.join(DATA_DIR, "products.json");
+const KV_PRODUCTS_KEY = "dtc:products:v1";
 
 let memoryCache: CatalogProduct[] | null = null;
 
@@ -187,6 +194,17 @@ function sortCatalog(list: CatalogProduct[]): CatalogProduct[] {
 }
 
 async function readProductsRaw(): Promise<CatalogProduct[]> {
+  if (hasKv) {
+    try {
+      const data = await kv.get<CatalogProduct[]>(KV_PRODUCTS_KEY);
+      if (Array.isArray(data) && data.length > 0) return sortCatalog(data);
+      await kv.set(KV_PRODUCTS_KEY, DEFAULT_CATALOG);
+      return sortCatalog([...DEFAULT_CATALOG]);
+    } catch {
+      // KV 不可用时退回文件方案
+    }
+  }
+
   await ensureDataDir();
   try {
     const raw = await readFile(PRODUCTS_FILE, "utf-8");
@@ -221,13 +239,7 @@ export async function getProduct(id: string): Promise<CatalogProduct | null> {
 }
 
 export async function replaceAllProducts(products: CatalogProduct[]): Promise<void> {
-  memoryCache = sortCatalog(products);
-  await ensureDataDir();
-  try {
-    await writeFile(PRODUCTS_FILE, JSON.stringify(memoryCache, null, 2), "utf-8");
-  } catch {
-    /* ignore on read-only fs */
-  }
+  await persistProducts(products);
 }
 
 
@@ -243,13 +255,7 @@ export async function createProduct(input: CatalogProduct): Promise<CatalogProdu
     descZh: input.descZh.trim(),
   };
   list.push(next);
-  memoryCache = sortCatalog(list);
-  await ensureDataDir();
-  try {
-    await writeFile(PRODUCTS_FILE, JSON.stringify(memoryCache, null, 2), "utf-8");
-  } catch {
-    /* ignore */
-  }
+  await persistProducts(list);
   return next;
 }
 
@@ -268,14 +274,26 @@ export async function updateProduct(
     kind: prev.kind,
   };
   list[idx] = next;
-  memoryCache = sortCatalog(list);
+  await persistProducts(list);
+  return next;
+}
+
+async function persistProducts(products: CatalogProduct[]) {
+  memoryCache = sortCatalog(products);
+  if (hasKv) {
+    try {
+      await kv.set(KV_PRODUCTS_KEY, memoryCache);
+      return;
+    } catch {
+      // KV 写入失败时继续尝试文件写入
+    }
+  }
   await ensureDataDir();
   try {
     await writeFile(PRODUCTS_FILE, JSON.stringify(memoryCache, null, 2), "utf-8");
   } catch {
-    /* ignore */
+    /* ignore on read-only fs */
   }
-  return next;
 }
 
 /** 系列详情页：合并默认图片路径 */
