@@ -13,7 +13,7 @@
       "176 lbs",
       "Single motor"
     ],
-    "price": 2999,
+    "price": 2970,
     "comparePrice": 3499,
     "dimensions": "1200mm(L) × 600mm(W)",
     "colours": [
@@ -35,7 +35,8 @@
     "certification": "TÜV",
     "material": "冷轧钢支架 + 环保板材桌面",
     "highlight": false,
-    "listImage": "/images/series-model-a.jpg"
+    "listImage": "/images/series-model-a.jpg",
+    "promotionEndsAt": null
   },
   {
     "id": "model-b",

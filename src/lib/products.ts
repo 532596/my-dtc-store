@@ -230,6 +230,29 @@ export async function replaceAllProducts(products: CatalogProduct[]): Promise<vo
   }
 }
 
+
+export async function createProduct(input: CatalogProduct): Promise<CatalogProduct> {
+  const list = await readProducts();
+  const exists = list.some((p) => p.id === input.id);
+  if (exists) throw new Error("PRODUCT_ID_EXISTS");
+  const next: CatalogProduct = {
+    ...input,
+    id: input.id.trim(),
+    name: input.name.trim(),
+    desc: input.desc.trim(),
+    descZh: input.descZh.trim(),
+  };
+  list.push(next);
+  memoryCache = sortCatalog(list);
+  await ensureDataDir();
+  try {
+    await writeFile(PRODUCTS_FILE, JSON.stringify(memoryCache, null, 2), "utf-8");
+  } catch {
+    /* ignore */
+  }
+  return next;
+}
+
 export async function updateProduct(
   id: string,
   patch: Partial<CatalogProduct>
