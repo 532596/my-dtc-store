@@ -494,31 +494,37 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8">
             <Reveal delay={0}>
-              <article className="rounded-2xl border border-white/15 bg-black/35 p-5">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Seamless Edge</p>
-                <h3 className="mt-2 text-xl font-semibold text-white">Zero Seams. Zero Swelling.</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  传统桌板封边条会剥落并渗入湿气。FlowShift 通过 360 度全方位包裹彻底消灭接缝，让水分无隙可乘，长期使用依然稳定。
+              <article className="flex h-full flex-col rounded-3xl border border-white/10 bg-black/25 p-6 md:p-8">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">The Seamless Edge</p>
+                <h3 className="mt-4 text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl md:leading-tight">
+                  Zero Seams. Zero Swelling.
+                </h3>
+                <p className="mt-5 text-pretty text-[0.9375rem] leading-relaxed text-white/55 md:text-[15px]">
+                  无传统封边条，360° 包裹型材；接缝消失，潮气难入，久用仍稳。
                 </p>
               </article>
             </Reveal>
             <Reveal delay={1}>
-              <article className="rounded-2xl border border-white/15 bg-black/35 p-5">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Pure Air</p>
-                <h3 className="mt-2 text-xl font-semibold text-white">0 Glue. True 0 VOC.</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  告别含有机溶剂的贴面胶水。采用物理静电吸附与高温固化工艺，无毒害、无异味，为深度思考保留纯净呼吸空间。
+              <article className="flex h-full flex-col rounded-3xl border border-white/10 bg-black/25 p-6 md:p-8">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">The Pure Air</p>
+                <h3 className="mt-4 text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl md:leading-tight">
+                  0 Glue. True 0 VOC.
+                </h3>
+                <p className="mt-5 text-pretty text-[0.9375rem] leading-relaxed text-white/55 md:text-[15px]">
+                  零溶剂贴面胶，静电吸附与高温固化；低 VOC，无刺鼻异味。
                 </p>
               </article>
             </Reveal>
             <Reveal delay={2}>
-              <article className="rounded-2xl border border-white/15 bg-black/35 p-5">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Armor</p>
-                <h3 className="mt-2 text-xl font-semibold text-white">Feels like silk. Resists like armor.</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  细腻微磨砂触感带来高级手感，同时具备远超普通贴皮的耐刮抗磨能力，机械键盘、金属主机与重型支架都能稳定承载。
+              <article className="flex h-full flex-col rounded-3xl border border-white/10 bg-black/25 p-6 md:p-8">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">The Armor</p>
+                <h3 className="mt-4 text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl md:leading-tight">
+                  Feels like silk. Resists like armor.
+                </h3>
+                <p className="mt-5 text-pretty text-[0.9375rem] leading-relaxed text-white/55 md:text-[15px]">
+                  微磨砂高级手感，耐刮耐磨；键盘、主机与重型支架均可稳载。
                 </p>
               </article>
             </Reveal>
