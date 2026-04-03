@@ -2,8 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
+import FaqAccordion from "@/components/FaqAccordion";
 import HeroShowcase, { type HeroSlide } from "@/components/HeroShowcase";
 import TestimonialsSection, { type TestimonialItem } from "@/components/TestimonialsSection";
+import { FAQ_GROUPS } from "@/data/faq";
 
 const HERO_SLIDES: HeroSlide[] = [
   {
@@ -140,7 +142,7 @@ export default function Home() {
     <main>
       <HeroShowcase slides={HERO_SLIDES} />
 
-      <section className="relative overflow-hidden bg-[#050608] py-20 md:py-24">
+      <section className="relative overflow-hidden bg-[#050608] py-24 md:py-32">
         <div className="absolute inset-0" aria-hidden>
           <Image
             src="/images/scene-office.jpg"
@@ -154,58 +156,67 @@ export default function Home() {
           <div className="absolute -right-16 bottom-8 h-80 w-80 rounded-full bg-sky-300/10 blur-[130px]" />
         </div>
 
-        <div className="relative mx-auto max-w-content px-6 text-white">
+        <div className="relative mx-auto max-w-content px-5 text-white md:px-8">
+          {/* 苹果式：眉题 + 大标题 + 副文案，居中窄行宽 */}
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.2em] text-white/55">The Problem</p>
-            <h2 className="mt-5 max-w-3xl text-3xl font-semibold tracking-tight md:text-5xl md:leading-[1.08]">
-              The &quot;Smart&quot; Desk Dilemma: It Forces You to Choose Between Health and Focus.
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm text-white/70 md:text-base">
-              You should never need to choose between cognitive flow and physical wellbeing.
-            </p>
+            <header className="mx-auto max-w-4xl text-center">
+              <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">The Problem</p>
+              <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-tight text-white md:mt-7 md:text-5xl md:leading-[1.05] lg:text-[3.25rem]">
+                The &quot;Smart&quot; Desk Dilemma: It Forces You to Choose Between Health and Focus.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-white/65 md:mt-6 md:text-xl md:leading-relaxed">
+                You should never need to choose between cognitive flow and physical wellbeing.
+              </p>
+            </header>
           </Reveal>
 
+          {/* 大图 + 分层说明（上图下文、文居中；首句加粗大字、次句略小） */}
           <Reveal delay={1}>
-            <div className="mt-14 md:mt-16">
-              <div className="relative aspect-[21/9] w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-black/50">
+            <figure className="mx-auto mt-16 max-w-[1068px] md:mt-20">
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[22px] bg-neutral-900 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.85)] md:aspect-[2/1] md:rounded-[28px]">
                 <Image
                   src="/images/scene-office.jpg"
                   alt="Home office with a standing desk"
                   fill
-                  className="object-cover brightness-[0.88]"
-                  sizes="(max-width: 768px) 100vw, 56rem"
+                  className="object-cover brightness-[0.92]"
+                  sizes="(max-width: 768px) 100vw, 1068px"
                 />
                 <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-black/15"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10"
                   aria-hidden
                 />
               </div>
+              <figcaption className="mx-auto mt-12 max-w-[40rem] text-center md:mt-14">
+                <p className="text-[1.375rem] font-semibold leading-snug tracking-tight text-white md:text-[1.75rem] md:leading-[1.15]">
+                  Nobody ignores health on purpose.
+                </p>
+                <p className="mt-4 text-[1.0625rem] leading-[1.5] text-white/72 md:mt-5 md:text-[1.1875rem] md:leading-[1.47]">
+                  Traditional standing desks fail because they require your active attention at the exact moment you are most
+                  focused.
+                </p>
+              </figcaption>
+            </figure>
+          </Reveal>
 
-              <p className="mt-10 max-w-3xl text-base leading-relaxed text-white/88 md:mt-12 md:text-lg md:leading-relaxed">
-                Nobody ignores health on purpose. Traditional standing desks fail because they require your active attention
-                at the exact moment you are most focused.
-              </p>
-
-              <div className="mt-12 border-t border-white/10 md:mt-14">
-                <div className="grid gap-5 border-b border-white/10 py-8 md:grid-cols-[11rem_1fr] md:gap-12 md:py-10">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-amber-200/75">Core conflict</p>
-                  <p className="text-xl font-medium leading-snug tracking-tight text-white md:text-2xl md:leading-snug">
+          {/* 三列要点：等宽、居中、少装饰线，接近产品页 feature 三栏 */}
+          <Reveal delay={2}>
+            <div className="mx-auto mt-20 max-w-5xl border-t border-white/[0.08] pt-16 md:mt-24 md:pt-20">
+              <div className="grid gap-14 md:grid-cols-3 md:gap-10 lg:gap-12">
+                <div className="text-center">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-amber-200/75">Core conflict</p>
+                  <p className="mx-auto mt-4 max-w-[18rem] text-lg font-semibold leading-snug tracking-tight text-white md:text-xl">
                     You keep your flow, or you protect your body.
                   </p>
                 </div>
-                <div className="grid gap-5 border-b border-white/10 py-8 md:grid-cols-[11rem_1fr] md:gap-12 md:py-10">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-white/45">
-                    The ignored nudges
-                  </p>
-                  <p className="text-base leading-relaxed text-white/82 md:text-[17px]">
+                <div className="text-center">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/40">The ignored nudges</p>
+                  <p className="mx-auto mt-4 max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 md:text-[17px] md:leading-relaxed">
                     &quot;One more minute.&quot; Then two hours pass. Alerts are soft, but cognitive lock-in is strong.
                   </p>
                 </div>
-                <div className="grid gap-5 py-8 md:grid-cols-[11rem_1fr] md:gap-12 md:py-10">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-white/45">
-                    The context switch
-                  </p>
-                  <p className="text-base leading-relaxed text-white/82 md:text-[17px]">
+                <div className="text-center">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/40">The context switch</p>
+                  <p className="mx-auto mt-4 max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 md:text-[17px] md:leading-relaxed">
                     Reaching for controls breaks visual focus; by the time the desk moves, your mental stack is already gone.
                   </p>
                 </div>
@@ -213,12 +224,10 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <Reveal delay={2}>
-            <div className="mt-12 border-l border-white/35 pl-4 md:mt-14 md:pl-5">
-              <p className="text-lg font-medium text-white md:text-2xl">
-                You shouldn&apos;t have to interrupt your workflow to save your spine.
-              </p>
-            </div>
+          <Reveal delay={3}>
+            <p className="mx-auto mt-16 max-w-[36rem] text-center text-[1.3125rem] font-medium leading-snug text-white md:mt-20 md:text-2xl md:leading-snug">
+              You shouldn&apos;t have to interrupt your workflow to save your spine.
+            </p>
           </Reveal>
         </div>
       </section>
@@ -399,59 +408,71 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#05070a] py-16 md:py-20">
+      <section className="relative overflow-hidden bg-[#05070a] py-24 md:py-28">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-20 top-8 h-80 w-80 rounded-full bg-white/5 blur-[120px]" />
           <div className="absolute -right-20 bottom-8 h-80 w-80 rounded-full bg-blue-300/10 blur-[140px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-6 text-white">
+        <div className="relative mx-auto max-w-content px-5 text-white md:px-8">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Hardware</p>
-            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
-              Over-Engineered for the Ultimate Setup.
-            </h2>
-            <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
-              为终极桌面生态而过度设计。
-            </p>
+            <header className="mx-auto max-w-4xl text-center">
+              <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">The Hardware</p>
+              <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-tight md:mt-6 md:text-5xl md:leading-[1.05] lg:text-[3.25rem]">
+                Over-Engineered for the Ultimate Setup.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-white/65 md:mt-6 md:text-xl md:leading-relaxed">
+                为终极桌面生态而过度设计。
+              </p>
+            </header>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-            <Reveal delay={1}>
-              <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/40">
-                <div className="relative aspect-[16/10]">
+          <Reveal delay={1}>
+            <div className="mx-auto mt-14 max-w-[1068px] md:mt-16">
+              <figure className="m-0">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] bg-neutral-900 shadow-[0_28px_90px_-28px_rgba(0,0,0,0.92)] md:rounded-[28px]">
                   <Image
                     src="/images/scene-office.jpg"
                     alt="FlowShift 硬件爆炸图：展示材质、尺寸、理线系统与三节双电机底盘"
                     fill
-                    className="object-cover brightness-[0.72]"
-                    sizes="(max-width: 1024px) 100vw, 62vw"
+                    className="object-cover brightness-[0.9]"
+                    sizes="(max-width: 1024px) 100vw, 1068px"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/50 px-3 py-1 text-xs text-white/85">
+                  <div
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10"
+                    aria-hidden
+                  />
+                  <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/40 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white/80 backdrop-blur-sm md:left-5 md:top-5">
                     Exploded View (Placeholder)
                   </span>
                 </div>
-              </div>
-            </Reveal>
+                <figcaption className="sr-only">硬件场景与结构示意</figcaption>
+              </figure>
 
-            <Reveal delay={2}>
-              <div className="space-y-3 rounded-2xl border border-white/15 bg-white/[0.03] p-5 backdrop-blur">
+              <ul className="mx-auto mt-12 grid max-w-4xl list-none gap-10 pl-0 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 md:mt-16">
                 {[
-                  "矩阵黑 / 量子白：静电喷粉哑光工艺，ENF 级环保无醛",
-                  "1600x800mm 画布：可容纳超宽带鱼屏 + 双竖屏 + 主机",
-                  "极致暗黑理线系统：桌底走线槽吞噬所有乱线",
-                  "三节双电机底盘：跑车级稳定性 + 10 年质保",
-                ].map((item) => (
-                  <div key={item} className="rounded-xl border border-white/10 bg-black/35 px-4 py-3 text-sm text-white/85">
-                    {item}
-                  </div>
+                  { title: "矩阵黑 / 量子白", desc: "静电喷粉哑光工艺，ENF 级环保无醛" },
+                  { title: "1600×800mm 画布", desc: "可容纳超宽带鱼屏 + 双竖屏 + 主机" },
+                  { title: "极致暗黑理线系统", desc: "桌底走线槽吞噬所有乱线" },
+                  { title: "三节双电机底盘", desc: "跑车级稳定性 + 10 年质保" },
+                ].map((item, i) => (
+                  <li key={item.title} className="flex gap-5">
+                    <span className="mt-0.5 shrink-0 tabular-nums text-[13px] font-medium text-white/30">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-white md:text-[1.125rem]">
+                        {item.title}
+                      </p>
+                      <p className="mt-2 text-[0.9375rem] leading-relaxed text-white/62 md:text-[15px]">{item.desc}</p>
+                    </div>
+                  </li>
                 ))}
-              </div>
-            </Reveal>
-          </div>
+              </ul>
+            </div>
+          </Reveal>
 
-          <Reveal delay={3}>
-            <div className="mt-8 overflow-hidden rounded-2xl border border-white/15 bg-black/45">
+          <Reveal delay={2}>
+            <div className="mt-12 overflow-hidden rounded-2xl border border-white/15 bg-black/45 md:mt-16">
               <div className="relative aspect-[21/9]">
                 <Image
                   src="/images/hero.jpg"
@@ -756,130 +777,27 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#05070a] py-16 md:py-20">
+      <section className="relative overflow-hidden bg-[#05070a] py-24 md:py-32">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-16 top-12 h-72 w-72 rounded-full bg-cyan-300/10 blur-[120px]" />
           <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-indigo-300/10 blur-[130px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-6 text-white">
+        <div className="relative mx-auto max-w-content px-5 text-white md:px-8">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">FAQ</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
-              常见问题解答
-            </h2>
+            <header className="mx-auto max-w-2xl text-center">
+              <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">FAQ</p>
+              <h2 className="mt-4 text-[2rem] font-semibold leading-[1.08] tracking-tight md:text-5xl md:leading-[1.05]">
+                常见问题
+              </h2>
+              <p className="mx-auto mt-4 max-w-lg text-[1.0625rem] text-white/55 md:text-lg">
+                点击展开答案。更多细节可在帮助中心搜索。
+              </p>
+            </header>
           </Reveal>
 
-          <div className="mt-10 space-y-8">
-            <Reveal delay={1}>
-              <div className="rounded-2xl border border-white/15 bg-black/35 p-6">
-                <p className="text-sm font-medium uppercase tracking-[0.14em] text-white/70">
-                  一、关于核心黑科技 (The Technology &amp; &quot;Subtle Shift&quot;)
-                </p>
-                <div className="mt-5 space-y-5">
-                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-sm font-semibold text-white">
-                      Q1: How slow is the &quot;Subtle Shift&quot; exactly? Will it distract me?
-                      (无感升降到底有多慢？会打扰我吗？)
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80">
-                      A: Not at all. We designed FlowShift based on the principles of gentle technology and ambient intelligence. Instead of a sudden, jarring mechanical movement, the desk rises at a micro-millimeter per second pace. The transition from sitting to standing takes several minutes, acting as a subtle physical intervention that your conscious mind barely registers. Your flow state remains completely unbroken.
-                    </p>
-                  </article>
-                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-sm font-semibold text-white">
-                      Q2: Which LLM APIs does the desk support, and how do I connect them?
-                      (桌子支持哪些大模型 API，我该如何连接？)
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80">
-                      A: FlowShift supports major LLM APIs (like OpenAI, Anthropic, etc.) via our companion desktop app. You simply input your API key into the app, and the desk&apos;s integrated control module syncs seamlessly. It operates locally to trigger your IDE focus modes, mute notifications, and manage your &quot;Flow&quot; sessions.
-                    </p>
-                  </article>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={2}>
-              <div className="rounded-2xl border border-white/15 bg-black/35 p-6">
-                <p className="text-sm font-medium uppercase tracking-[0.14em] text-white/70">
-                  二、关于材质与硬核参数 (Materials &amp; Specifications)
-                </p>
-                <div className="mt-5 space-y-5">
-                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-sm font-semibold text-white">
-                      Q3: Is the 1600x800mm desktop one solid piece, or spliced together?
-                      (1600x800mm 的桌面是一整块实木还是拼接的？)
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80">
-                      A: It is a single, massive, uninterrupted 1600x800mm solid piece. We use top-tier ENF-grade material, ensuring zero formaldehyde emissions. It&apos;s finished with an industrial-grade Powder Coating that provides a premium matte texture (Matrix Black or Quantum White), making it highly scratch-resistant and visually stunning without any glare.
-                    </p>
-                  </article>
-                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-sm font-semibold text-white">
-                      Q4: How stable is the desk at its maximum height?
-                      (桌子在最高处有多稳？)
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80">
-                      A: Rock solid. FlowShift is built on a heavy-duty, commercial-grade 3-stage dual-motor frame. Even fully extended, you can type aggressively without your monitors shaking or your coffee spilling.
-                    </p>
-                  </article>
-                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-sm font-semibold text-white">
-                      Q5: Will my specific dual/triple monitor arm fit?
-                      (我的双屏/三屏显示器支架能装上吗？)
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80">
-                      A: Yes. The edge profile of the desktop is specifically designed to accommodate all standard C-clamp monitor arms perfectly, without interfering with the absolute cable management system underneath.
-                    </p>
-                  </article>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={3}>
-              <div className="rounded-2xl border border-white/15 bg-black/35 p-6">
-                <p className="text-sm font-medium uppercase tracking-[0.14em] text-white/70">
-                  三、关于发货与全球物流 (Shipping &amp; Logistics)
-                </p>
-                <div className="mt-5 space-y-5">
-                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-sm font-semibold text-white">
-                      Q6: Why is shipping not included in the pledge price?
-                      (为什么众筹价格里不包含运费？)
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80">
-                      A: FlowShift is a premium, heavy-duty piece of hardware (weighing roughly 45-50kg packaged). Shipping costs fluctuate greatly depending on your exact location. To offer you the lowest possible pledge price today, we will calculate and collect the exact shipping fees via a Pledge Manager after the campaign ends, ensuring transparent and fair pricing.
-                    </p>
-                  </article>
-                  <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-sm font-semibold text-white">
-                      Q7: How will you handle global shipping for such a heavy item?
-                      (对于这么重的物品，你们如何处理全球物流？)
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80">
-                      A: We use a highly optimized hybrid fulfillment strategy. For our core backers in the US, EU, UK, and AU, we ship via ocean freight to local 3PL warehouses first, and then use local couriers (like UPS/FedEx/DPD) for final delivery. For our backers in the Asia-Pacific region (like Japan, Korea, Singapore), we ship directly from our world-class manufacturing facilities in Malaysia and China. This minimizes transit times and dramatically reduces the risk of shipping damage.
-                    </p>
-                  </article>
-                </div>
-              </div>
-            </Reveal>
-
-            <div className="rounded-2xl border border-white/15 bg-black/35 p-6">
-              <p className="text-sm font-medium uppercase tracking-[0.14em] text-white/70">
-                四、关于售后保障 (Warranty &amp; Support)
-              </p>
-              <div className="mt-5">
-                <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                  <p className="text-sm font-semibold text-white">
-                    Q8: What exactly does the 10-Year Ironclad Warranty cover?
-                    (10年硬核质保具体包含什么？)
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-white/80">
-                    A: We stand by our engineering. The 10-year warranty covers all mechanical and structural components, including the dual motors, the steel frame, and the lifting mechanisms. The electronic components (control panel, built-in AI module) are covered by a comprehensive 3-year warranty.
-                  </p>
-                </article>
-              </div>
-            </div>
-          </div>
+          <Reveal delay={1}>
+            <FaqAccordion groups={FAQ_GROUPS} variant="dark" className="mx-auto mt-12 max-w-3xl md:mt-16" />
+          </Reveal>
         </div>
       </section>
 
