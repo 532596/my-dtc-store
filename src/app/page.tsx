@@ -166,85 +166,55 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="mt-12 grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
-              <article className="rounded-2xl border border-white/12 bg-white/[0.03] p-6 md:p-7">
-                <div className="flex items-start gap-4">
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm leading-relaxed text-white/90 md:text-base">
-                      Nobody ignores health on purpose. Traditional standing desks fail because they require your active attention at the exact moment you are most focused.
-                    </p>
-                  </div>
-                  <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-lg border border-white/10">
-                    <Image
-                      src="/images/scene-office.jpg"
-                      alt="Focused coding scene"
-                      fill
-                      className="object-cover brightness-75"
-                      sizes="112px"
-                    />
-                  </div>
+            <div className="mt-14 md:mt-16">
+              <div className="relative aspect-[21/9] w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-black/50">
+                <Image
+                  src="/images/scene-office.jpg"
+                  alt="Home office with a standing desk"
+                  fill
+                  className="object-cover brightness-[0.88]"
+                  sizes="(max-width: 768px) 100vw, 56rem"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-black/15"
+                  aria-hidden
+                />
+              </div>
+
+              <p className="mt-10 max-w-3xl text-base leading-relaxed text-white/88 md:mt-12 md:text-lg md:leading-relaxed">
+                Nobody ignores health on purpose. Traditional standing desks fail because they require your active attention
+                at the exact moment you are most focused.
+              </p>
+
+              <div className="mt-12 border-t border-white/10 md:mt-14">
+                <div className="grid gap-5 border-b border-white/10 py-8 md:grid-cols-[11rem_1fr] md:gap-12 md:py-10">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-amber-200/75">Core conflict</p>
+                  <p className="text-xl font-medium leading-snug tracking-tight text-white md:text-2xl md:leading-snug">
+                    You keep your flow, or you protect your body.
+                  </p>
                 </div>
-              </article>
-              <article className="rounded-2xl border border-white/10 bg-black/30 p-6 md:p-7">
-                <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">Core Conflict</p>
-                <p className="mt-3 text-xl font-medium leading-snug text-white md:text-2xl">
-                  You keep your flow,
-                  <br />
-                  or you protect your body.
-                </p>
-                <div className="mt-4 relative h-16 w-full overflow-hidden rounded-lg border border-white/10">
-                  <Image
-                    src="/images/hero.jpg"
-                    alt="Desk environment detail"
-                    fill
-                    className="object-cover opacity-60"
-                    sizes="(max-width: 768px) 100vw, 30vw"
-                  />
+                <div className="grid gap-5 border-b border-white/10 py-8 md:grid-cols-[11rem_1fr] md:gap-12 md:py-10">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-white/45">
+                    The ignored nudges
+                  </p>
+                  <p className="text-base leading-relaxed text-white/82 md:text-[17px]">
+                    &quot;One more minute.&quot; Then two hours pass. Alerts are soft, but cognitive lock-in is strong.
+                  </p>
                 </div>
-              </article>
+                <div className="grid gap-5 py-8 md:grid-cols-[11rem_1fr] md:gap-12 md:py-10">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-white/45">
+                    The context switch
+                  </p>
+                  <p className="text-base leading-relaxed text-white/82 md:text-[17px]">
+                    Reaching for controls breaks visual focus; by the time the desk moves, your mental stack is already gone.
+                  </p>
+                </div>
+              </div>
             </div>
           </Reveal>
 
-          <div className="mt-6 grid gap-4 md:mt-6 md:grid-cols-2">
-            <Reveal delay={2}>
-              <article className="rounded-2xl border border-white/12 bg-black/30 p-5 md:p-6">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Ignored Nudges</p>
-                <p className="mt-2.5 text-sm leading-relaxed text-white/85 md:text-base">
-                  &quot;One more minute.&quot; Then two hours pass. Alerts are soft, but cognitive lock-in is strong.
-                </p>
-                <div className="mt-4 relative h-16 w-full overflow-hidden rounded-lg border border-white/10">
-                  <Image
-                    src="/images/scene-learning.jpg"
-                    alt="Long sitting work session"
-                    fill
-                    className="object-cover opacity-60"
-                    sizes="(max-width: 768px) 100vw, 45vw"
-                  />
-                </div>
-              </article>
-            </Reveal>
-
-            <Reveal delay={3}>
-              <article className="rounded-2xl border border-white/12 bg-black/30 p-5 md:p-6">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/60">The Context Switch</p>
-                <p className="mt-2.5 text-sm leading-relaxed text-white/85 md:text-base">
-                  Reaching for controls breaks visual focus; by the time the desk moves, your mental stack is already gone.
-                </p>
-                <div className="mt-4 relative h-16 w-full overflow-hidden rounded-lg border border-white/10">
-                  <Image
-                    src="/images/height-memory.png"
-                    alt="Control panel interaction"
-                    fill
-                    className="object-cover opacity-60"
-                    sizes="(max-width: 768px) 100vw, 45vw"
-                  />
-                </div>
-              </article>
-            </Reveal>
-          </div>
-
-          <Reveal delay={3}>
-            <div className="mt-10 border-l border-white/35 pl-4 md:pl-5">
+          <Reveal delay={2}>
+            <div className="mt-12 border-l border-white/35 pl-4 md:mt-14 md:pl-5">
               <p className="text-lg font-medium text-white md:text-2xl">
                 You shouldn&apos;t have to interrupt your workflow to save your spine.
               </p>

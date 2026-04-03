@@ -86,7 +86,7 @@ export default function HeroShowcase({ slides }: { slides: HeroSlide[] }) {
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/75">
               Where deep work meets gentle technology
             </p>
-            <h1 className="mt-3 text-xl font-semibold tracking-tight md:text-3xl lg:text-4xl lg:leading-[1.1]">
+            <h1 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl lg:text-5xl lg:leading-[1.08]">
               FlowShift
             </h1>
             <h2 className="mt-1 text-xl font-semibold tracking-tight md:text-3xl lg:text-4xl lg:leading-[1.1]">
