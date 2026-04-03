@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isAdminRequest } from "@/lib/auth";
 import { createOrder, listOrders, listOrdersByEmail } from "@/lib/orders";
 
 export async function POST(request: NextRequest) {
@@ -38,14 +39,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function isAdminAuth(request: NextRequest): boolean {
-  const authHeader = request.headers.get("authorization");
-  const cookie = request.cookies.get("admin_token")?.value;
-  const expected = process.env.ADMIN_PASSWORD || "dtc-admin-2024";
-  if (authHeader === `Bearer ${expected}` || cookie === expected) return true;
-  return false;
-}
-
 export async function GET(request: NextRequest) {
   const email = request.nextUrl.searchParams.get("email")?.trim();
   if (email) {
@@ -57,7 +50,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "获取订单列表失败" }, { status: 500 });
     }
   }
-  if (!isAdminAuth(request)) {
+  if (!isAdminRequest(request)) {
     return NextResponse.json({ error: "未授权" }, { status: 401 });
   }
   try {

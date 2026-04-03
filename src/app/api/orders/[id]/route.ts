@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isAdminRequest } from "@/lib/auth";
 import { getOrder, markOrderPaid, updateOrderStatus } from "@/lib/orders";
 
 type Params = { params: Promise<{ id: string }> };
@@ -18,8 +19,11 @@ export async function GET(_request: NextRequest, { params }: Params) {
 export async function PATCH(request: NextRequest, { params }: Params) {
   const { id: orderId } = await params;
   try {
-    const body = await request.json() as { paymentMethod?: string; status?: string };
+    const body = (await request.json()) as { paymentMethod?: string; status?: string };
     if (body.status && ["shipped", "in_transit", "received"].includes(body.status)) {
+      if (!isAdminRequest(request)) {
+        return NextResponse.json({ error: "未授权" }, { status: 401 });
+      }
       const order = await updateOrderStatus(orderId, body.status as "shipped" | "in_transit" | "received");
       if (!order) return NextResponse.json({ error: "订单不存在" }, { status: 404 });
       return NextResponse.json(order);
