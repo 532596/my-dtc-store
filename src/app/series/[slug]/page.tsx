@@ -2,12 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import AddToCartButton from "@/components/AddToCartButton";
-import { getProduct, listProducts, seriesMainImage } from "@/lib/products";
+import { getProduct, seriesMainImage } from "@/lib/products";
 
-export async function generateStaticParams() {
-  const rows = await listProducts({ kind: "series" });
-  return rows.filter((p) => p.published).map((p) => ({ slug: p.id }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function ProductPage(props: { params: { slug: string } }) {
   const product = await getProduct(props.params.slug);

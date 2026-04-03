@@ -4,6 +4,8 @@ import Reveal from "@/components/Reveal";
 import AddToCartButton from "@/components/AddToCartButton";
 import { listProducts } from "@/lib/products";
 
+export const dynamic = "force-dynamic";
+
 function SpecChip({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg bg-warm-gray/15 px-2.5 py-1.5 text-xs">
