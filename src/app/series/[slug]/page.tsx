@@ -2,95 +2,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import AddToCartButton from "@/components/AddToCartButton";
+import { getProduct, listProducts, seriesMainImage } from "@/lib/products";
 
-const PRODUCTS: Record<
-  string,
-  {
-    name: string;
-    desc: string;
-    descZh: string;
-    specs: string[];
-    price: number;
-    comparePrice?: number;
-    dimensions: string;
-    colours: string[];
-    /** 多图：主图 + 多角度/细节，至少 2 张便于左右切换 */
-    images: string[];
-    /** 详细规格 */
-    heightRange: string;
-    loadCapacity: string;
-    motor: string;
-    noiseLevel: string;
-    warrantyMotor: string;
-    warrantyFrame: string;
-    certification: string;
-    material: string;
-  }
-> = {
-  "model-a": {
-    name: "Model A",
-    desc: "Compact, quiet lift. Ideal for small spaces.",
-    descZh: "紧凑静音升降，适合小空间。齐平式升降、线缆收纳、桌面简洁无杂乱。",
-    specs: ["24-43 in", "176 lbs", "Single motor"],
-    price: 2999,
-    comparePrice: 3499,
-    dimensions: "1200mm(L) × 600mm(W)",
-    colours: ["银色", "白色", "黑色"],
-    images: ["/images/model-a.jpg", "/images/model-a-2.jpg", "/images/model-a-3.jpg"],
-    heightRange: "610–1090mm",
-    loadCapacity: "80kg",
-    motor: "单电机",
-    noiseLevel: "≤45dB",
-    warrantyMotor: "5 年",
-    warrantyFrame: "3 年",
-    certification: "TÜV",
-    material: "冷轧钢支架 + 环保板材桌面",
-  },
-  "model-b": {
-    name: "Model B",
-    desc: "Fits 150-190cm. Smart control. Recommended.",
-    descZh: "适配 150–190cm 身高，智能记忆推荐。静音双电机、四档记忆、久坐提醒。",
-    specs: ["24-47 in", "220 lbs", "Dual motor", "Smart"],
-    price: 3999,
-    comparePrice: 4499,
-    dimensions: "1400mm(L) × 700mm(W)",
-    colours: ["银色", "黑色"],
-    images: ["/images/model-b.jpg", "/images/model-b-2.jpg", "/images/model-b-3.jpg"],
-    heightRange: "610–1200mm",
-    loadCapacity: "100kg",
-    motor: "双电机",
-    noiseLevel: "≤42dB",
-    warrantyMotor: "5 年",
-    warrantyFrame: "5 年",
-    certification: "TÜV、BIFMA",
-    material: "冷轧钢支架 + 实木贴皮/环保板",
-  },
-  "model-c": {
-    name: "Model C",
-    desc: "Full-featured. TUV certified.",
-    descZh: "全功能旗舰，TÜV 认证。静音双电机、线缆槽、四档记忆、久坐提醒、遇阻回弹。",
-    specs: ["24-50 in", "265 lbs", "Dual motor", "Smart"],
-    price: 4999,
-    comparePrice: 5599,
-    dimensions: "1600mm(L) × 800mm(W)",
-    colours: ["银色", "黑色", "胡桃木色"],
-    images: ["/images/model-c.jpg", "/images/model-c-2.jpg", "/images/model-c-3.jpg"],
-    heightRange: "610–1250mm",
-    loadCapacity: "120kg",
-    motor: "双电机",
-    noiseLevel: "≤40dB",
-    warrantyMotor: "5 年",
-    warrantyFrame: "5 年",
-    certification: "TÜV、BIFMA",
-    material: "冷轧钢支架 + 实木贴皮/环保板、金属线缆槽",
-  },
-};
+export async function generateStaticParams() {
+  const rows = await listProducts({ kind: "series" });
+  return rows.filter((p) => p.published).map((p) => ({ slug: p.id }));
+}
 
-export default function ProductPage(props: { params: { slug: string } }) {
-  const product = PRODUCTS[props.params.slug];
-  if (!product) notFound();
+export default async function ProductPage(props: { params: { slug: string } }) {
+  const product = await getProduct(props.params.slug);
+  if (!product || product.kind !== "series" || !product.published) notFound();
 
-  const mainImage = `/images/${props.params.slug}.jpg`;
+  const mainImage = seriesMainImage(props.params.slug, product);
   const images = product.images?.length ? product.images : [mainImage];
 
   const saving =
@@ -165,6 +88,11 @@ export default function ProductPage(props: { params: { slug: string } }) {
                   </>
                 )}
               </div>
+              {product.promotionLabel && (
+                <p className="mt-2 rounded-lg bg-amber-500/15 px-2 py-1.5 text-xs font-medium text-amber-900">
+                  {product.promotionLabel}
+                </p>
+              )}
               <Link href="/guide" className="mt-1 inline-block text-xs font-medium text-accent hover:underline">
                 了解更多
               </Link>
@@ -175,21 +103,21 @@ export default function ProductPage(props: { params: { slug: string } }) {
               <p className="text-sm font-semibold text-foreground">详细规格</p>
               <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                 <dt className="text-warm-muted">升降范围</dt>
-                <dd className="text-foreground">{product.heightRange}</dd>
+                <dd className="text-foreground">{product.heightRange ?? "—"}</dd>
                 <dt className="text-warm-muted">桌面承重</dt>
-                <dd className="text-foreground">{product.loadCapacity}</dd>
+                <dd className="text-foreground">{product.loadCapacity ?? "—"}</dd>
                 <dt className="text-warm-muted">电机类型</dt>
-                <dd className="text-foreground">{product.motor}</dd>
+                <dd className="text-foreground">{product.motor ?? "—"}</dd>
                 <dt className="text-warm-muted">运行噪音</dt>
-                <dd className="text-foreground">{product.noiseLevel}</dd>
+                <dd className="text-foreground">{product.noiseLevel ?? "—"}</dd>
                 <dt className="text-warm-muted">材质</dt>
-                <dd className="text-foreground">{product.material}</dd>
+                <dd className="text-foreground">{product.material ?? "—"}</dd>
                 <dt className="text-warm-muted">电机质保</dt>
-                <dd className="text-foreground">{product.warrantyMotor}</dd>
+                <dd className="text-foreground">{product.warrantyMotor ?? "—"}</dd>
                 <dt className="text-warm-muted">结构质保</dt>
-                <dd className="text-foreground">{product.warrantyFrame}</dd>
+                <dd className="text-foreground">{product.warrantyFrame ?? "—"}</dd>
                 <dt className="text-warm-muted">认证</dt>
-                <dd className="text-foreground">{product.certification}</dd>
+                <dd className="text-foreground">{product.certification ?? "—"}</dd>
               </dl>
             </div>
 
@@ -207,7 +135,7 @@ export default function ProductPage(props: { params: { slug: string } }) {
               <div className="flex items-center justify-between rounded-lg border border-warm-gray/40 bg-warm-white py-3 px-4">
                 <span className="text-sm text-foreground">颜色</span>
                 <span className="text-sm text-warm-muted">
-                  {product.colours[0]}
+                  {product.colours?.[0] ?? "—"}
                 </span>
                 <span className="text-warm-muted" aria-hidden>→</span>
               </div>

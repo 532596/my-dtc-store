@@ -55,9 +55,16 @@ export default function AdminOrdersPage() {
   return (
     <main className="min-h-screen bg-warm-cream">
       <div className="mx-auto max-w-5xl px-4 py-8 md:py-10">
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">订单列表</h1>
-          <Link href="/admin" className="text-sm text-warm-muted hover:text-accent">退出 / 重新登录</Link>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link href="/admin/products" className="text-sm font-medium text-accent hover:underline">
+              商品与促销
+            </Link>
+            <Link href="/admin" className="text-sm text-warm-muted hover:text-accent">
+              退出 / 重新登录
+            </Link>
+          </div>
         </div>
 
         <p className="mb-6 text-sm text-warm-muted">以下为所有下单记录，可查看下单账号（邮箱/电话）、订单信息及是否支付成功。</p>

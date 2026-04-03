@@ -2,57 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import AddToCartButton from "@/components/AddToCartButton";
-
-const PRODUCTS = [
-  {
-    slug: "model-a",
-    name: "Model A",
-    tagline: "紧凑静音 · 小空间首选",
-    desc: "齐平式升降、线缆收纳、桌面简洁无杂乱。",
-    heightRange: "610–1090mm",
-    loadCapacity: "80kg",
-    motor: "单电机",
-    noiseLevel: "≤45dB",
-    warranty: "电机 5 年 / 框架 3 年",
-    certification: "TÜV",
-    price: 2999,
-    comparePrice: 3499,
-    highlight: false,
-    img: "/images/series-model-a.jpg",
-  },
-  {
-    slug: "model-b",
-    name: "Model B",
-    tagline: "智能记忆 · 推荐",
-    desc: "适配 150–190cm 身高，静音双电机、四档记忆、久坐提醒。",
-    heightRange: "610–1200mm",
-    loadCapacity: "100kg",
-    motor: "双电机",
-    noiseLevel: "≤42dB",
-    warranty: "电机 5 年 / 框架 5 年",
-    certification: "TÜV、BIFMA",
-    price: 3999,
-    comparePrice: 4499,
-    highlight: true,
-    img: "/images/series-model-b.jpg",
-  },
-  {
-    slug: "model-c",
-    name: "Model C",
-    tagline: "全功能旗舰 · TÜV 认证",
-    desc: "静音双电机、线缆槽、四档记忆、久坐提醒、遇阻回弹。",
-    heightRange: "610–1250mm",
-    loadCapacity: "120kg",
-    motor: "双电机",
-    noiseLevel: "≤40dB",
-    warranty: "电机 5 年 / 框架 5 年",
-    certification: "TÜV、BIFMA",
-    price: 4999,
-    comparePrice: 5599,
-    highlight: false,
-    img: "/images/series-model-c.jpg",
-  },
-];
+import { listProducts } from "@/lib/products";
 
 function SpecChip({ label, value }: { label: string; value: string }) {
   return (
@@ -63,7 +13,9 @@ function SpecChip({ label, value }: { label: string; value: string }) {
   );
 }
 
-export default function SeriesPage() {
+export default async function SeriesPage() {
+  const PRODUCTS = await listProducts({ kind: "series", publishedOnly: true });
+
   return (
     <main className="min-h-screen bg-warm-white">
       {/* Hero：标题 + 价值主张 + 智能推荐入口 */}
@@ -112,8 +64,13 @@ export default function SeriesPage() {
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {PRODUCTS.map((p, i) => {
             const saving = p.comparePrice && p.comparePrice > p.price ? p.comparePrice - p.price : 0;
+            const cardImg = p.listImage || p.images?.[0] || `/images/series-${p.id}.jpg`;
+            const warranty =
+              p.warrantyMotor && p.warrantyFrame
+                ? `电机 ${p.warrantyMotor} · 框架 ${p.warrantyFrame}`
+                : "—";
             return (
-              <Reveal key={p.slug} delay={i === 0 ? 0 : i === 1 ? 1 : 2}>
+              <Reveal key={p.id} delay={i === 0 ? 0 : i === 1 ? 1 : 2}>
                 <div
                   className={`group flex flex-col overflow-hidden rounded-2xl border transition hover:shadow-lg ${
                     p.highlight
@@ -121,9 +78,9 @@ export default function SeriesPage() {
                       : "border-warm-gray/40 bg-warm-white hover:border-warm-gray/60"
                   }`}
                 >
-                  <Link href={`/series/${p.slug}`} className="relative aspect-[4/3] shrink-0 overflow-hidden bg-warm-gray/30">
+                  <Link href={`/series/${p.id}`} className="relative aspect-[4/3] shrink-0 overflow-hidden bg-warm-gray/30">
                     <Image
-                      src={p.img}
+                      src={cardImg}
                       alt={p.name}
                       fill
                       className="object-cover transition duration-300 group-hover:scale-105"
@@ -139,9 +96,14 @@ export default function SeriesPage() {
                         省 ¥{saving}
                       </span>
                     )}
+                    {p.promotionLabel && (
+                      <span className="absolute bottom-3 left-3 rounded-md bg-amber-500/95 px-2 py-0.5 text-[11px] font-medium text-white shadow">
+                        {p.promotionLabel}
+                      </span>
+                    )}
                   </Link>
                   <div className="flex flex-1 flex-col p-5">
-                    <Link href={`/series/${p.slug}`} className="w-fit">
+                    <Link href={`/series/${p.id}`} className="w-fit">
                       <h3 className="text-lg font-semibold text-foreground group-hover:text-accent">
                         {p.name}
                       </h3>
@@ -149,10 +111,10 @@ export default function SeriesPage() {
                     <p className="mt-0.5 text-xs font-medium text-accent">{p.tagline}</p>
                     <p className="mt-2 line-clamp-2 text-sm text-warm-muted">{p.desc}</p>
                     <div className="mt-4 flex flex-wrap gap-2">
-                      <SpecChip label="升降" value={p.heightRange} />
-                      <SpecChip label="承重" value={p.loadCapacity} />
-                      <SpecChip label="噪音" value={p.noiseLevel} />
-                      <SpecChip label="质保" value={p.warranty} />
+                      <SpecChip label="升降" value={p.heightRange ?? "—"} />
+                      <SpecChip label="承重" value={p.loadCapacity ?? "—"} />
+                      <SpecChip label="噪音" value={p.noiseLevel ?? "—"} />
+                      <SpecChip label="质保" value={warranty} />
                     </div>
                     <div className="mt-4 flex items-center justify-between gap-3 border-t border-warm-gray/30 pt-4">
                       <div>
@@ -164,18 +126,18 @@ export default function SeriesPage() {
                         )}
                       </div>
                       <Link
-                        href={`/series/${p.slug}`}
+                        href={`/series/${p.id}`}
                         className="rounded-lg bg-warm-gray/20 px-3 py-1.5 text-sm font-medium text-foreground transition hover:bg-accent/20 hover:text-accent"
                       >
                         查看详情
                       </Link>
                     </div>
                     <AddToCartButton
-                      slug={p.slug}
+                      slug={p.id}
                       name={p.name}
                       desc={p.desc}
                       price={p.price}
-                      image={p.img}
+                      image={cardImg}
                       redirectToCart={false}
                       className="mt-4 min-w-0 w-full px-4 py-2.5"
                     />
@@ -195,16 +157,18 @@ export default function SeriesPage() {
             <p className="mt-1 text-sm text-warm-muted">并排查看升降范围、承重、电机与价格，快速做决定。</p>
             <div className="mt-6 overflow-hidden rounded-2xl border border-warm-gray/40 bg-warm-white">
               <div className="grid grid-cols-1 gap-0 sm:grid-cols-3">
-                {PRODUCTS.map((p) => (
+                {PRODUCTS.map((p) => {
+                  const cardImg = p.listImage || p.images?.[0] || `/images/series-${p.id}.jpg`;
+                  return (
                   <div
-                    key={p.slug}
+                    key={p.id}
                     className={`flex flex-col border-warm-gray/30 sm:border-r last:sm:border-r-0 ${
                       p.highlight ? "bg-accent-light/10" : ""
                     }`}
                   >
                     <div className="relative aspect-video shrink-0 overflow-hidden bg-warm-gray/20">
                       <Image
-                        src={p.img}
+                        src={cardImg}
                         alt={p.name}
                         fill
                         className="object-cover"
@@ -223,14 +187,15 @@ export default function SeriesPage() {
                         ¥{p.price.toLocaleString()} 起
                       </div>
                       <Link
-                        href={`/series/${p.slug}`}
+                        href={`/series/${p.id}`}
                         className="mt-3 inline-block w-full rounded-lg border border-warm-gray/40 py-2 text-center text-sm font-medium text-foreground transition hover:border-accent hover:bg-accent-light/30"
                       >
                         查看
                       </Link>
                     </div>
                   </div>
-                ))}
+                );
+                })}
               </div>
             </div>
           </Reveal>

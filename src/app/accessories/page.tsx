@@ -2,45 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import AddToCartButton from "@/components/AddToCartButton";
-
-const ITEMS = [
-  {
-    id: "cable",
-    name: "理线架",
-    tagline: "桌下理线 · 整洁易维护",
-    desc: "线缆集中收纳，走线清晰、易维护，与升降桌框架无缝安装。",
-    features: "全系列适用",
-    material: "金属 + 塑料",
-    price: 129,
-    comparePrice: 159,
-    highlight: true,
-    img: "/images/acc-cable.png",
-  },
-  {
-    id: "charger",
-    name: "无线充电模块",
-    tagline: "桌面无线充电 · 随放随充",
-    desc: "嵌入式或桌面式可选，支持 15W 快充，手机、耳机随放随充。",
-    features: "Model B / C",
-    material: "ABS + 线圈",
-    price: 199,
-    comparePrice: 249,
-    highlight: false,
-    img: "/images/acc-charger.png",
-  },
-  {
-    id: "mat",
-    name: "防滑桌垫",
-    tagline: "保护桌面 · 静音防滑",
-    desc: "高密度橡胶基，防刮防滑，键盘鼠标更稳，久用无异味。",
-    features: "全系列适用",
-    material: "橡胶 + 织物",
-    price: 89,
-    comparePrice: 119,
-    highlight: false,
-    img: "/images/acc-mat.png",
-  },
-];
+import { listProducts } from "@/lib/products";
 
 function SpecChip({ label, value }: { label: string; value: string }) {
   return (
@@ -51,7 +13,9 @@ function SpecChip({ label, value }: { label: string; value: string }) {
   );
 }
 
-export default function AccessoriesPage() {
+export default async function AccessoriesPage() {
+  const ITEMS = await listProducts({ kind: "accessory", publishedOnly: true });
+
   return (
     <main className="min-h-screen bg-warm-white">
       {/* Hero：与系列页统一 */}
@@ -97,6 +61,7 @@ export default function AccessoriesPage() {
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {ITEMS.map((item, i) => {
             const saving = item.comparePrice && item.comparePrice > item.price ? item.comparePrice - item.price : 0;
+            const img = item.listImage || item.images?.[0] || `/images/acc-${item.id}.png`;
             return (
               <Reveal key={item.id} delay={i === 0 ? 0 : i === 1 ? 1 : 2}>
                 <div
@@ -108,7 +73,7 @@ export default function AccessoriesPage() {
                 >
                   <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-warm-gray/30">
                     <Image
-                      src={item.img}
+                      src={img}
                       alt={item.name}
                       fill
                       className="object-cover transition duration-300 group-hover:scale-105"
@@ -124,14 +89,19 @@ export default function AccessoriesPage() {
                         省 ¥{saving}
                       </span>
                     )}
+                    {item.promotionLabel && (
+                      <span className="absolute bottom-3 left-3 rounded-md bg-amber-500/95 px-2 py-0.5 text-[11px] font-medium text-white shadow">
+                        {item.promotionLabel}
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-1 flex-col p-5">
                     <h3 className="text-lg font-semibold text-foreground">{item.name}</h3>
                     <p className="mt-0.5 text-xs font-medium text-accent">{item.tagline}</p>
                     <p className="mt-2 line-clamp-2 text-sm text-warm-muted">{item.desc}</p>
                     <div className="mt-4 flex flex-wrap gap-2">
-                      <SpecChip label="适用" value={item.features} />
-                      <SpecChip label="材质" value={item.material} />
+                      <SpecChip label="适用" value={item.features ?? "—"} />
+                      <SpecChip label="材质" value={item.material ?? "—"} />
                     </div>
                     <div className="mt-4 flex items-center justify-between gap-3 border-t border-warm-gray/30 pt-4">
                       <div>
@@ -154,7 +124,7 @@ export default function AccessoriesPage() {
                       name={item.name}
                       desc={item.desc}
                       price={item.price}
-                      image={item.img}
+                      image={img}
                       redirectToCart={false}
                       className="mt-4 min-w-0 w-full px-4 py-2.5"
                     />
@@ -174,7 +144,9 @@ export default function AccessoriesPage() {
             <p className="mt-1 text-sm text-warm-muted">三款常用配件，均可与任意型号升降桌搭配使用。</p>
             <div className="mt-6 overflow-hidden rounded-2xl border border-warm-gray/40 bg-warm-white">
               <div className="grid grid-cols-1 gap-0 sm:grid-cols-3">
-                {ITEMS.map((item) => (
+                {ITEMS.map((item) => {
+                  const img = item.listImage || item.images?.[0] || `/images/acc-${item.id}.png`;
+                  return (
                   <div
                     key={item.id}
                     className={`flex flex-col border-warm-gray/30 sm:border-r last:sm:border-r-0 ${
@@ -183,7 +155,7 @@ export default function AccessoriesPage() {
                   >
                     <div className="relative aspect-video shrink-0 overflow-hidden bg-warm-gray/20">
                       <Image
-                        src={item.img}
+                        src={img}
                         alt={item.name}
                         fill
                         className="object-cover"
@@ -197,7 +169,7 @@ export default function AccessoriesPage() {
                     </div>
                     <div className="flex flex-1 flex-col p-4">
                       <div className="font-semibold text-foreground">{item.name}</div>
-                      <div className="mt-1 text-xs text-warm-muted">{item.features} · ¥{item.price}</div>
+                      <div className="mt-1 text-xs text-warm-muted">{item.features ?? "—"} · ¥{item.price}</div>
                       <Link
                         href="/series"
                         className="mt-3 inline-block w-full rounded-lg border border-warm-gray/40 py-2 text-center text-sm font-medium text-foreground transition hover:border-accent hover:bg-accent-light/30"
@@ -206,7 +178,8 @@ export default function AccessoriesPage() {
                       </Link>
                     </div>
                   </div>
-                ))}
+                );
+                })}
               </div>
             </div>
           </Reveal>
