@@ -211,21 +211,27 @@ export default function Home() {
           <Reveal delay={2}>
             <div className="mx-auto mt-20 max-w-5xl border-t border-white/[0.08] pt-16 md:mt-24 md:pt-20">
               <div className="grid gap-14 md:grid-cols-3 md:gap-10 lg:gap-12">
-                <div className="text-center">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-amber-200/75">Core conflict</p>
-                  <p className="mx-auto mt-4 max-w-[18rem] text-lg font-semibold leading-snug tracking-tight text-white md:text-xl">
+                <div className="group rounded-2xl px-4 py-3 text-center transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-white/[0.03]">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-amber-200/75 transition-colors duration-300 group-hover:text-amber-200/90">
+                    Core conflict
+                  </p>
+                  <p className="mx-auto mt-4 max-w-[18rem] text-lg font-semibold leading-snug tracking-tight text-white transition-colors duration-300 group-hover:text-white md:text-xl">
                     You keep your flow, or you protect your body.
                   </p>
                 </div>
-                <div className="text-center">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/40">The ignored nudges</p>
-                  <p className="mx-auto mt-4 max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 md:text-[17px] md:leading-relaxed">
+                <div className="group rounded-2xl px-4 py-3 text-center transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-white/[0.03]">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/40 transition-colors duration-300 group-hover:text-white/72">
+                    The ignored nudges
+                  </p>
+                  <p className="mx-auto mt-4 max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 transition-colors duration-300 group-hover:text-white/88 md:text-[17px] md:leading-relaxed">
                     &quot;One more minute.&quot; Then two hours pass. Alerts are soft, but cognitive lock-in is strong.
                   </p>
                 </div>
-                <div className="text-center">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/40">The context switch</p>
-                  <p className="mx-auto mt-4 max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 md:text-[17px] md:leading-relaxed">
+                <div className="group rounded-2xl px-4 py-3 text-center transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-white/[0.03]">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/40 transition-colors duration-300 group-hover:text-white/72">
+                    The context switch
+                  </p>
+                  <p className="mx-auto mt-4 max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 transition-colors duration-300 group-hover:text-white/88 md:text-[17px] md:leading-relaxed">
                     Reaching for controls breaks visual focus; by the time the desk moves, your mental stack is already gone.
                   </p>
                 </div>
@@ -252,7 +258,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Marketing Architecture · 02</p>
-            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
+            <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               The Invisible Intervention
             </h2>
             <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
@@ -295,15 +301,43 @@ export default function Home() {
             <div className="mx-auto mt-12 max-w-6xl border-t border-white/10 pt-12">
               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10">
                 {[
-                  { value: "2 mm/s", label: "Micro-Flow Cruise speed", tone: "text-[#ff9f43]" },
-                  { value: "< 45 dB", label: "Quiet motor profile", tone: "text-[#ffd587]" },
-                  { value: "5-10 cm", label: "Subtle floating range", tone: "text-[#4fa3ff]" },
-                  { value: "0 打断", label: "No harsh alerts", tone: "text-[#ffe08a]" },
-                  { value: "10 年", label: "Frame warranty", tone: "text-[#ffe2a6]" },
-                  { value: "150-195cm", label: "Height adaptability", tone: "text-[#3f8dff]" },
+                  {
+                    value: "2 mm/s",
+                    label: "Micro-Flow Cruise speed",
+                    gradient: "bg-gradient-to-r from-[#ff8f3d] via-[#ffc071] to-[#ffe19f]",
+                  },
+                  {
+                    value: "< 45 dB",
+                    label: "Quiet motor profile",
+                    gradient: "bg-gradient-to-r from-[#ffd98f] via-[#ffe5b1] to-[#fff0cc]",
+                  },
+                  {
+                    value: "5-10 cm",
+                    label: "Subtle floating range",
+                    gradient: "bg-gradient-to-r from-[#3f7dff] via-[#5ea8ff] to-[#89d1ff]",
+                  },
+                  {
+                    value: "0 打断",
+                    label: "No harsh alerts",
+                    gradient: "bg-gradient-to-r from-[#ffd07a] via-[#ffe1a8] to-[#fff0ce]",
+                  },
+                  {
+                    value: "10 年",
+                    label: "Frame warranty",
+                    gradient: "bg-gradient-to-r from-[#ffd998] via-[#ffe8bf] to-[#fff4df]",
+                  },
+                  {
+                    value: "150-195cm",
+                    label: "Height adaptability",
+                    gradient: "bg-gradient-to-r from-[#2f6fff] via-[#4698ff] to-[#7ec8ff]",
+                  },
                 ].map((metric) => (
                   <div key={metric.value} className="text-center md:text-left">
-                    <p className={`text-4xl font-semibold tracking-tight md:text-5xl ${metric.tone}`}>{metric.value}</p>
+                    <p
+                      className={`inline-block bg-clip-text text-3xl font-semibold tracking-tight text-transparent md:text-4xl ${metric.gradient}`}
+                    >
+                      {metric.value}
+                    </p>
                     <p className="mt-2 text-sm text-white/68 md:text-base">{metric.label}</p>
                   </div>
                 ))}
@@ -324,7 +358,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Marketing Architecture · 01</p>
-            <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
+            <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               The Cognitive Copilot
             </h2>
             <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
@@ -556,7 +590,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">Core Value Proposition</p>
-            <h2 className="mt-4 max-w-5xl text-3xl font-semibold tracking-tight md:text-5xl">
+            <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               把健康交给 AI 算法，把专注留给心流。
             </h2>
             <p className="mt-6 max-w-4xl text-base leading-relaxed text-white/78 md:text-lg">
@@ -634,7 +668,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">Rewards & Pricing</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+            <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               Choose Your Flow.
             </h2>
           </Reveal>
@@ -737,7 +771,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Brand Story</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+            <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               The Ultimate Balance Between Focus and Well-being.
             </h2>
             <p className="mt-4 text-base text-white/75 md:text-lg">
@@ -822,7 +856,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">Timeline & Shipping</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+            <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               Build Plan You Can Track.
             </h2>
           </Reveal>

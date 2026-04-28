@@ -12,6 +12,7 @@ export type SectionFloatingEntryItem = {
 
 export default function SectionFloatingEntry({ items }: { items: SectionFloatingEntryItem[] }) {
   const [activeId, setActiveId] = React.useState<string | null>(null);
+  const [displayId, setDisplayId] = React.useState<string | null>(null);
   const [visible, setVisible] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false);
   const hideTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -60,19 +61,23 @@ export default function SectionFloatingEntry({ items }: { items: SectionFloating
         clearTimeout(hideTimerRef.current);
         hideTimerRef.current = null;
       }
+      setDisplayId(activeId);
       setVisible(true);
       setExpanded(false);
-      const openTimer = setTimeout(() => setExpanded(true), 110);
+      const openTimer = setTimeout(() => setExpanded(true), 220);
       return () => clearTimeout(openTimer);
     }
     setExpanded(false);
-    hideTimerRef.current = setTimeout(() => setVisible(false), 260);
+    hideTimerRef.current = setTimeout(() => {
+      setVisible(false);
+      setDisplayId(null);
+    }, 700);
     return () => {
       if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
     };
   }, [activeId]);
 
-  const activeItem = items.find((item) => item.id === activeId) ?? null;
+  const activeItem = items.find((item) => item.id === displayId) ?? null;
   if (!visible || !activeItem) return null;
 
   return (
@@ -80,15 +85,15 @@ export default function SectionFloatingEntry({ items }: { items: SectionFloating
       <Link
         href={activeItem.href}
         className={
-          "pointer-events-auto group flex items-center overflow-hidden rounded-full bg-[#2f3136]/95 text-white shadow-[0_12px_40px_rgba(0,0,0,0.32)] backdrop-blur-sm transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
-          (expanded ? "w-[min(92vw,620px)] px-5 py-3.5" : "w-14 px-2 py-2")
+          "pointer-events-auto group flex items-center overflow-hidden rounded-full bg-[#2f3136]/95 text-white shadow-[0_12px_40px_rgba(0,0,0,0.32)] backdrop-blur-sm transition-all duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
+          (expanded ? "w-[min(92vw,620px)] translate-y-0 scale-100 px-5 py-3.5" : "w-14 translate-y-1.5 scale-[0.96] px-2 py-2")
         }
         aria-label={activeItem.label}
       >
         <span
           className={
-            "min-w-0 flex-1 whitespace-nowrap text-[22px] font-semibold tracking-tight transition-all duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
-            (expanded ? "max-w-full opacity-100" : "max-w-0 opacity-0")
+            "min-w-0 flex-1 whitespace-nowrap text-[22px] font-semibold tracking-tight transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
+            (expanded ? "max-w-full translate-x-0 opacity-100" : "max-w-0 -translate-x-2 opacity-0")
           }
         >
           {activeItem.label}
