@@ -181,7 +181,7 @@ export default function Home() {
           {/* 大图 + 分层说明（上图下文、文居中；首句加粗大字、次句略小） */}
           <Reveal delay={1}>
             <figure className="mx-auto mt-16 max-w-[1068px] md:mt-20">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[10px] bg-neutral-900 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.85)] md:aspect-[2/1] md:rounded-[12px]">
+              <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[12px] bg-neutral-900 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.85)] md:rounded-[12px]">
                 <Image
                   src="/images/scene-office.jpg"
                   alt="Home office with a standing desk"
@@ -479,7 +479,7 @@ export default function Home() {
           <Reveal delay={1}>
             <div className="mx-auto mt-14 max-w-[1068px] md:mt-16">
               <figure className="m-0">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] bg-neutral-900 shadow-[0_28px_90px_-28px_rgba(0,0,0,0.92)] md:rounded-[28px]">
+                <div className="relative aspect-[21/9] overflow-hidden rounded-[12px] bg-neutral-900 shadow-[0_28px_90px_-28px_rgba(0,0,0,0.92)] md:rounded-[12px]">
                   <Image
                     src="/images/scene-office.jpg"
                     alt="FlowShift 硬件爆炸图：展示材质、尺寸、理线系统与三节双电机底盘"
@@ -559,7 +559,7 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={2}>
-            <div className="mt-12 overflow-hidden rounded-2xl border border-white/15 bg-black/45 md:mt-16">
+            <div className="mt-12 overflow-hidden rounded-[12px] border border-white/15 bg-black/45 md:mt-16">
               <div className="relative aspect-[21/9]">
                 <Image
                   src="/images/hero.jpg"
