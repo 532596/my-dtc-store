@@ -1,0 +1,200 @@
+---
+description: Apple 官网风格的设计与动效规范,适用于所有前端组件、页面、样式修改
+globs: 
+  - "**/*.tsx"
+  - "**/*.jsx"
+  - "**/*.ts"
+  - "**/*.js"
+  - "**/*.css"
+  - "**/*.scss"
+  - "**/*.vue"
+alwaysApply: true
+---
+
+# Apple-Style Design System
+
+本项目追求 Apple 官网(apple.com)的视觉与交互风格。所有 UI 修改、新增组件、动效实现都必须遵循以下规范。
+
+## 核心设计哲学
+
+- **克制优于堆砌**:每屏只讲一件事,不要在一个 section 里塞多个并列卖点
+- **留白即设计**:留白占比应达到屏幕的 40% 以上,不要恐惧空白
+- **慢一点更高级**:动效时长比常规网站长 1.5-2 倍,缓动曲线偏"慢出"
+- **细节决定质感**:字距、行高、圆角、阴影的微小差异决定整体观感
+
+## 设计令牌(Design Tokens)
+
+修改或新增样式时,优先使用以下值。如果项目已有 design tokens 系统(如 Tailwind config、CSS variables),请将以下值合并进去而非另起炉灶。
+
+### 颜色
+
+```css
+--color-bg-primary: #FFFFFF;
+--color-bg-secondary: #F5F5F7;
+--color-bg-dark: #000000;
+--color-text-primary: #1D1D1F;
+--color-text-secondary: #86868B;
+--color-text-on-dark: #F5F5F7;
+--color-link: #0066CC;
+--color-link-hover: #0077ED;
+```
+
+强调色极度克制,通常只用于 CTA 链接。不要使用饱和度过高的颜色。
+
+### 字体
+
+```css
+font-family: "SF Pro Display", "SF Pro Text", -apple-system, 
+             BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", 
+             "Microsoft YaHei", sans-serif;
+```
+
+中文场景保留 PingFang SC / 微软雅黑作为 fallback。
+
+### 字号与字重
+
+| 用途 | 字号 | 字重 | letter-spacing | line-height |
+|------|------|------|----------------|-------------|
+| Hero 主标题 | 56-96px | 600 | -0.03em | 1.05 |
+| Section 标题 | 40-56px | 600 | -0.025em | 1.1 |
+| 副标题 | 21-28px | 400 | -0.01em | 1.4 |
+| 正文 | 17-19px | 400 | -0.01em | 1.5 |
+| 辅助文字 | 12-14px | 400 | 0 | 1.4 |
+
+**重要**:大字号必须收紧字距(negative letter-spacing),这是 Apple 视觉的关键特征之一。
+
+### 圆角与阴影
+
+```css
+--radius-card: 18px;
+--radius-large: 28px;
+--radius-button: 980px; /* 胶囊形 */
+--shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.06);
+--shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+```
+
+阴影使用极低透明度(0.04-0.10),不要使用深色或彩色阴影。
+
+### 间距与布局
+
+- 容器最大宽度:980px(文字内容)/ 1200px(图文混排)
+- Section 垂直内边距:80-120px
+- 元素间距遵循 8 的倍数:8 / 16 / 24 / 32 / 48 / 64 / 96 / 128
+
+## 动效规范
+
+### 缓动函数(必须遵守)
+
+```css
+--ease-apple: cubic-bezier(0.32, 0.72, 0, 1);     /* 主用,慢出 */
+--ease-apple-in: cubic-bezier(0.4, 0, 0.68, 0.06); /* 慢入 */
+--ease-apple-out: cubic-bezier(0.16, 1, 0.3, 1);   /* 强烈慢出 */
+```
+
+**禁止**使用 `ease-in-out`、`bounce`、`elastic` 等过于活泼的曲线。
+
+### 动效时长
+
+| 场景 | 时长 |
+|------|------|
+| 微交互(hover、按钮按下) | 200-300ms |
+| 入场动画 | 600-1000ms |
+| 大型转场 | 1000-1400ms |
+| 滚动视差 | 跟随滚动,无固定时长 |
+
+### 标准入场动画
+
+所有元素进入视口时使用以下模式:
+
+```css
+/* 初始状态 */
+opacity: 0;
+transform: translateY(24px);
+
+/* 进入视口后 */
+opacity: 1;
+transform: translateY(0);
+transition: opacity 800ms var(--ease-apple), 
+            transform 800ms var(--ease-apple);
+```
+
+实现方式优先级:
+1. **React 项目**:使用 Framer Motion 的 `whileInView` + `viewport={{ once: true }}`
+2. **Vue 项目**:使用 `@vueuse/motion` 或自定义 IntersectionObserver
+3. **纯 HTML/CSS**:使用 IntersectionObserver + class toggle
+
+### Hover 交互
+
+- 按钮:`scale(1.02)` + 背景色微变,200ms ease-out
+- 卡片:`translateY(-4px)` + 阴影加深,300ms var(--ease-apple)
+- 图片:`scale(1.04)`,600ms var(--ease-apple)
+- 文字链接:仅颜色过渡,不要下划线动画
+
+### 滚动驱动动效
+
+Hero 区或重点 section 应使用滚动视差:
+
+- 背景图/视频随滚动产生 0.3-0.5 倍速位移
+- 文字随滚动有轻微 fade 与位移
+- 优先使用 `transform: translateY()`(GPU 加速)
+- React 推荐 `useScroll` + `useTransform`(Framer Motion)
+
+### 性能要求
+
+- **只动画 `transform` 和 `opacity`**,不要动画 `width`/`height`/`top`/`left`
+- 长列表动画必须加 `will-change: transform`,动画结束后移除
+- 视频背景使用 `<video autoplay muted playsinline loop>`,提供 poster
+
+## 布局原则
+
+### Hero Section
+
+- 高度 ≥ 90vh
+- 主标题居中或左对齐,字号 ≥ 56px
+- 主标题下方留 24-32px 后接副标题
+- CTA 按钮组放在副标题下方 32-48px 处
+- 背景元素(图片/视频)占据视觉主导
+
+### 内容 Section
+
+- 单 section 最小高度 600px
+- 内容垂直居中
+- 一屏只承载一个核心信息点
+- 图文混排时,文字区宽度不超过容器的 50%
+
+### 卡片网格
+
+- 卡片间距 ≥ 24px
+- 移动端单列,平板双列,桌面 3-4 列
+- 每张卡片高度一致,使用 `aspect-ratio` 而非固定 px
+
+## 禁止事项
+
+修改 UI 时,以下做法**严禁**出现:
+
+- ❌ 使用渐变文字(除非项目原本就有)
+- ❌ 使用霓虹光、毛玻璃过度堆叠
+- ❌ 弹跳、旋转、闪烁、抖动等夸张动效
+- ❌ 多个鲜艳颜色并置
+- ❌ 字号小于 14px 的正文
+- ❌ 圆角不一致(同类元素必须统一圆角值)
+- ❌ 一次修改多个组件——每次改动聚焦单一组件或单一关注点
+
+## 工作流程
+
+接到 UI 修改需求时,请按以下顺序执行:
+
+1. **先读后写**:阅读相关组件的现有代码,理解项目架构(是否使用 Tailwind、CSS Modules、styled-components 等)
+2. **提出方案**:列出计划修改的文件、改动点、预期效果,等待确认后再动手
+3. **分阶段实现**:先改设计令牌(颜色、字体、间距),再改布局,最后加动效
+4. **保持兼容**:不破坏现有功能,新动效要考虑 `prefers-reduced-motion` 用户
+
+## 推荐技术栈
+
+如果项目尚未引入,可以建议但不要擅自安装:
+
+- **React**:Framer Motion(动效)+ Tailwind CSS(样式)
+- **Vue**:@vueuse/motion + UnoCSS / Tailwind
+- **通用**:GSAP + ScrollTrigger(复杂滚动动效)
+
+不要同时引入多个动画库。
