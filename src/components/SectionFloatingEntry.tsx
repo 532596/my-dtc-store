@@ -6,6 +6,8 @@ import * as React from "react";
 export type SectionFloatingEntryItem = {
   id: string;
   sectionId: string;
+  /** 若设置，滚动检测以该节点位置为准（用于「本段主要文案结束」即出现悬浮条，而非整段 section 底部） */
+  triggerAnchorId?: string;
   label: string;
   href: string;
 };
@@ -20,20 +22,21 @@ export default function SectionFloatingEntry({ items }: { items: SectionFloating
   React.useEffect(() => {
     let frame = 0;
     const detectActive = () => {
-      const viewportBottomTrigger = window.innerHeight * 0.82;
+      const viewportBottomTrigger = window.innerHeight * 0.86;
       let best: { id: string; distance: number } | null = null;
 
       for (const item of items) {
-        const el = document.getElementById(item.sectionId);
+        const anchorId = item.triggerAnchorId ?? item.sectionId;
+        const el = document.getElementById(anchorId);
         if (!el) continue;
         const rect = el.getBoundingClientRect();
-        // 只在「该分段底部」接近视口下方时触发
-        const sectionBottom = rect.bottom;
+        // 以锚点底边（或整段 section 底边）与视口下沿附近一条带对齐；带略放宽，避免难触发
+        const edgeBottom = rect.bottom;
         const nearBottomBand =
-          sectionBottom <= viewportBottomTrigger + 40 &&
-          sectionBottom >= viewportBottomTrigger - 140;
+          edgeBottom <= viewportBottomTrigger + 100 &&
+          edgeBottom >= viewportBottomTrigger - 220;
         if (!nearBottomBand) continue;
-        const distance = Math.abs(sectionBottom - viewportBottomTrigger);
+        const distance = Math.abs(edgeBottom - viewportBottomTrigger);
         if (!best || distance < best.distance) best = { id: item.id, distance };
       }
 

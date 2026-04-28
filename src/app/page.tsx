@@ -110,7 +110,13 @@ const TESTIMONIALS: TestimonialItem[] = [
 const FLOATING_PART_ENTRIES: SectionFloatingEntryItem[] = [
   { id: "part-01", sectionId: "part-invisible-intervention", label: "了解无感微动巡航", href: "/guide" },
   { id: "part-02", sectionId: "part-cognitive-copilot", label: "了解 AI 认知副驾", href: "/scenarios" },
-  { id: "part-03", sectionId: "part-ultimate-canvas", label: "查看硬件与材质细节", href: "/series" },
+  {
+    id: "part-03",
+    sectionId: "part-ultimate-canvas",
+    triggerAnchorId: "part-ultimate-canvas-floating-anchor",
+    label: "查看硬件与材质细节",
+    href: "/series",
+  },
   { id: "part-04", sectionId: "part-brand-story-03", label: "阅读完整品牌故事", href: "/about" },
   { id: "part-05", sectionId: "part-faq", label: "进入支持与服务中心", href: "/support" },
 ];
@@ -581,6 +587,13 @@ export default function Home() {
               </article>
             </Reveal>
           </div>
+
+          {/* 悬浮入口：以「三卡文案」结束为界，勿等整段 section（下方还有其它模块） */}
+          <div
+            id="part-ultimate-canvas-floating-anchor"
+            className="h-px w-full shrink-0 scroll-mt-0"
+            aria-hidden
+          />
         </div>
       </section>
 
