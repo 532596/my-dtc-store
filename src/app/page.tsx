@@ -2,41 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
-import HeroShowcase, { type HeroSlide } from "@/components/HeroShowcase";
+import HeroShowcase from "@/components/HeroShowcase";
 import SectionFloatingEntry, { type SectionFloatingEntryItem } from "@/components/SectionFloatingEntry";
 import MetricGradBreathScope from "@/components/MetricGradBreathScope";
 import TestimonialsSection, { type TestimonialItem } from "@/components/TestimonialsSection";
-
-const HERO_SLIDES: HeroSlide[] = [
-  {
-    id: "model-b",
-    name: "MODEL B",
-    tagline: "Smart control. Everyday ready.",
-    imageSrc: "/images/hero.jpg",
-    imageAlt: "Smart standing desk hero scene",
-  },
-  {
-    id: "office",
-    name: "DESK PRO",
-    tagline: "Home office focus.",
-    imageSrc: "/images/scene-office.jpg",
-    imageAlt: "Home office scene",
-  },
-  {
-    id: "learning",
-    name: "FAMILY MODE",
-    tagline: "One desk for all.",
-    imageSrc: "/images/scene-learning.jpg",
-    imageAlt: "Family learning scene",
-  },
-  {
-    id: "relax",
-    name: "STUDIO",
-    tagline: "Work, read, relax.",
-    imageSrc: "/images/scene-relax.jpg",
-    imageAlt: "Multi-purpose room scene",
-  },
-];
 
 const TESTIMONIALS: TestimonialItem[] = [
   {
@@ -148,7 +117,7 @@ const FLOATING_PART_ENTRIES: SectionFloatingEntryItem[] = [
 export default function Home() {
   return (
     <main className="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
-      <HeroShowcase slides={HERO_SLIDES} />
+      <HeroShowcase />
 
       <section className="relative overflow-hidden bg-[#050608] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-xl))]">
         <div className="absolute inset-0" aria-hidden>

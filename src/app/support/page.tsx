@@ -124,18 +124,18 @@ export default function SupportPage() {
         </Reveal>
       </section>
 
-      {/* 安装与配送、质保政策卡片 */}
+      {/* 安装与配送、质保政策：浅底卡片须用深色字，勿用全站 text-foreground（为深色页设计） */}
       <section className="mx-auto max-w-content px-6 pb-12 md:pb-16">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
           <Reveal>
             <div
               id="shipping"
-              className="scroll-mt-24 rounded-xl border border-warm-gray/60 bg-white p-8 shadow-sm"
+              className="scroll-mt-24 rounded-[18px] border border-zinc-200/90 bg-[#fafafa] p-8 shadow-[0_8px_32px_rgba(0,0,0,0.14)]"
             >
-              <h2 className="text-lg font-semibold text-foreground">
+              <h2 className="text-lg font-semibold tracking-tight text-zinc-900 md:text-xl">
                 安装与配送
               </h2>
-              <p className="mt-3 text-body text-warm-muted">
+              <p className="mt-3 text-[17px] leading-relaxed text-zinc-600">
                 提供 3D 交互式安装指南、视频教程。配送范围与时效在订单页明确可查。
               </p>
             </div>
@@ -143,12 +143,12 @@ export default function SupportPage() {
           <Reveal delay={1}>
             <div
               id="warranty"
-              className="scroll-mt-24 rounded-xl border border-warm-gray/60 bg-white p-8 shadow-sm"
+              className="scroll-mt-24 rounded-[18px] border border-zinc-200/90 bg-[#fafafa] p-8 shadow-[0_8px_32px_rgba(0,0,0,0.14)]"
             >
-              <h2 className="text-lg font-semibold text-foreground">
+              <h2 className="text-lg font-semibold tracking-tight text-zinc-900 md:text-xl">
                 质保政策
               </h2>
-              <p className="mt-3 text-body text-warm-muted">
+              <p className="mt-3 text-[17px] leading-relaxed text-zinc-600">
                 电机 5 年质保、桌架 3 年质保、桌面分模块质保。具体条款见购买页。
               </p>
             </div>
