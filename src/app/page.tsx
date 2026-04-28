@@ -680,115 +680,140 @@ export default function Home() {
           </Reveal>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-12 xl:gap-14">
-            {[
-              {
-                name: "Super Early Bird",
-                price: "$699",
-                limit: "Limited to 50",
-                sold: 44,
-                total: 50,
-                accent: "from-red-500/90 to-red-400/90",
-              },
-              {
-                name: "Early Bird",
-                price: "$899",
-                limit: "Limited to 150",
-                sold: 98,
-                total: 150,
-                accent: "from-amber-500/90 to-yellow-400/90",
-              },
-              {
-                name: "Kickstarter Special",
-                price: "$999",
-                limit: "Limited to 300",
-                sold: 126,
-                total: 300,
-                accent: "from-sky-500/90 to-cyan-400/90",
-              },
-            ].map((tier, index) => {
+            {(
+              [
+                {
+                  name: "Super Early Bird",
+                  tagline: "最优先产线锁定，首发最低入手价。",
+                  price: "$699",
+                  limit: "Limited to 50",
+                  sold: 44,
+                  total: 50,
+                  accent: "from-red-500/90 to-red-400/90",
+                  imageSrc: "/images/hero.jpg",
+                  imageAlt: "FlowShift 工作场景",
+                  topTint: "from-red-900/20",
+                },
+                {
+                  name: "Early Bird",
+                  tagline: "主力众筹档位，完整旗舰配置。",
+                  price: "$899",
+                  limit: "Limited to 150",
+                  sold: 98,
+                  total: 150,
+                  accent: "from-amber-500/90 to-yellow-400/90",
+                  imageSrc: "/images/scene-office.jpg",
+                  imageAlt: "家庭办公与 FlowShift 升降桌",
+                  topTint: "from-amber-900/20",
+                },
+                {
+                  name: "Kickstarter Special",
+                  tagline: "常规众筹价，同享全套权益。",
+                  price: "$999",
+                  limit: "Limited to 300",
+                  sold: 126,
+                  total: 300,
+                  accent: "from-sky-500/90 to-cyan-400/90",
+                  imageSrc: "/images/scene-learning.jpg",
+                  imageAlt: "多场景使用 FlowShift",
+                  topTint: "from-cyan-900/20",
+                },
+              ] as const
+            ).map((tier, index) => {
               const pct = Math.min(100, Math.round((tier.sold / tier.total) * 100));
-              const isEarlyBird = index === 1;
-              const defaultShell =
-                "flex h-full flex-col rounded-2xl border border-white/15 bg-black/40 p-6 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-white/22 hover:bg-black/50";
-              const earlyBirdShell =
-                "flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/40 p-0 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-white/22 hover:bg-black/50";
-
-              const body = (
-                <>
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-medium text-white/75">{tier.name}</p>
-                      <p className="mt-2 text-4xl font-semibold tracking-tight text-white">{tier.price}</p>
-                    </div>
-                    <span className="shrink-0 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85">
-                      {tier.limit}
-                    </span>
-                  </div>
-
-                  <div className="mt-5">
-                    <div className="flex items-center justify-between text-xs text-white/70">
-                      <span>{tier.sold} claimed</span>
-                      <span>{tier.total - tier.sold} left</span>
-                    </div>
-                    <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-white/10">
-                      <div
-                        className={`h-full rounded-full bg-gradient-to-r ${tier.accent}`}
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  <ul className="mt-6 space-y-2.5 text-sm text-white/85">
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
-                      FlowShift 桌子主体（1600x800mm）
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
-                      极致暗黑理线系统（线槽 + 走线管理）
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
-                      矩阵黑 / 量子白 自选配色
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
-                      三节双电机底盘 + 10 年质保
-                    </li>
-                  </ul>
-
-                  <Link
-                    href="/series"
-                    className="mt-7 inline-flex items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-white/90"
-                  >
-                    立即锁定席位
-                  </Link>
-                </>
-              );
-
               return (
                 <Reveal key={tier.name} delay={index as 0 | 1 | 2}>
-                  {isEarlyBird ? (
-                    <article className={earlyBirdShell}>
-                      <div className="relative aspect-[5/3] w-full shrink-0 border-b border-white/[0.08] bg-black/60">
-                        <Image
-                          src="/images/hero.jpg"
-                          alt="FlowShift 智能升降桌场景：Early Bird 档位配图"
-                          fill
-                          className="object-cover brightness-[0.85]"
-                          sizes="(max-width: 1024px) 100vw, 360px"
+                  <article
+                    className="flex h-full flex-col overflow-hidden rounded-[24px] border border-white/12 bg-[#0a0d12] transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/18 hover:shadow-[0_20px_50px_rgba(0,0,0,0.45)]"
+                    style={{ minHeight: "100%" }}
+                  >
+                    {/* 与 Apple 产品卡一致：首屏大图 + 下挂信息区（三档同一结构、均有配图） */}
+                    <div className="relative aspect-[1.1/1] w-full sm:aspect-[1.2/1]">
+                      <Image
+                        src={tier.imageSrc}
+                        alt={tier.imageAlt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 400px"
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0d12] from-25% via-[#0a0d12]/5 to-black/0"
+                        aria-hidden
+                      />
+                      <div
+                        className={`pointer-events-none absolute inset-0 bg-gradient-to-b ${tier.topTint} to-transparent to-50% mix-blend-soft-light opacity-80`}
+                        aria-hidden
+                      />
+                    </div>
+
+                    <div className="flex flex-1 flex-col border-t border-white/[0.06] p-5 md:p-6">
+                      <div className="flex items-center gap-1.5" aria-hidden>
+                        <span
+                          className="h-2.5 w-2.5 rounded-full border border-white/20 bg-zinc-900"
+                          title="Matrix Black"
                         />
-                        <div
-                          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent"
-                          aria-hidden
+                        <span
+                          className="h-2.5 w-2.5 rounded-full border border-white/25 bg-zinc-100"
+                          title="Quantum White"
                         />
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-transparent" aria-hidden />
                       </div>
-                      <div className="flex flex-1 flex-col p-6 pt-5">{body}</div>
-                    </article>
-                  ) : (
-                    <article className={defaultShell}>{body}</article>
-                  )}
+
+                      <div className="mt-4 flex items-start justify-between gap-3">
+                        <div>
+                          <h3 className="text-[1.25rem] font-semibold leading-snug tracking-[-0.02em] text-white md:text-xl">
+                            {tier.name}
+                          </h3>
+                          <p className="mt-1.5 text-sm leading-relaxed text-white/58">{tier.tagline}</p>
+                        </div>
+                        <span className="shrink-0 rounded-full border border-white/14 bg-white/[0.08] px-2.5 py-1 text-[0.7rem] font-medium leading-none text-white/80">
+                          {tier.limit}
+                        </span>
+                      </div>
+
+                      <p className="mt-5 text-[1.75rem] font-semibold leading-none tracking-[-0.03em] text-white md:text-[2rem]">
+                        {tier.price} <span className="text-base font-medium text-white/50">起</span>
+                      </p>
+
+                      <div className="mt-4">
+                        <div className="flex items-center justify-between text-xs text-white/60">
+                          <span>{tier.sold} claimed</span>
+                          <span>{tier.total - tier.sold} left</span>
+                        </div>
+                        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/[0.1]">
+                          <div
+                            className={`h-full rounded-full bg-gradient-to-r ${tier.accent}`}
+                            style={{ width: `${pct}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      <ul className="mt-4 space-y-2 text-[0.8125rem] leading-snug text-white/80">
+                        <li className="flex items-start gap-2">
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/50" aria-hidden />
+                          FlowShift 桌子主体（1600x800mm）
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/50" aria-hidden />
+                          极致暗黑理线系统（线槽 + 走线管理）
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/50" aria-hidden />
+                          矩阵黑 / 量子白 自选配色
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/50" aria-hidden />
+                          三节双电机底盘 + 10 年质保
+                        </li>
+                      </ul>
+
+                      <Link
+                        href="/series"
+                        className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-white py-2.5 text-sm font-medium text-zinc-950 transition hover:bg-white/90"
+                      >
+                        立即锁定席位
+                      </Link>
+                    </div>
+                  </article>
                 </Reveal>
               );
             })}
