@@ -239,15 +239,15 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-content px-6 text-white">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Magic</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Marketing Architecture · 02</p>
             <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
-              Meet the &quot;Subtle Shift&quot;: Gentle Technology at Work.
+              The Invisible Intervention
             </h2>
             <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
-              认识“无感升降”：温柔科技的实践。
+              隐形物理干预：解决“久坐但不想站”。
             </p>
             <p className="mt-6 max-w-4xl text-sm leading-relaxed text-white/80 md:text-base">
-              FlowShift 采用环境式智能（Ambient Intelligence）设计：最好的科技，不是频繁打断你，而是在你几乎感觉不到它存在的情况下，悄悄把环境调到最适合深度工作的状态。
+              在深度沉浸场景中，FlowShift 的 Micro-Flow Cruise 会以极缓、无声、几乎不可察觉的节奏，让身体保持微活动，缓解静力性僵硬，同时不打断你的认知流。
             </p>
           </Reveal>
 
@@ -268,10 +268,10 @@ export default function Home() {
                   </div>
                   <div className="absolute inset-x-4 bottom-4 flex flex-wrap gap-2">
                     <span className="rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
-                      Rises at micro-millimeters per second
+                      2 mm/s Ultra-Gentle Motion
                     </span>
                     <span className="rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
-                      Water surface stays steady
+                      5-10 cm smooth floating range
                     </span>
                   </div>
                 </div>
@@ -283,16 +283,16 @@ export default function Home() {
                 <p className="text-xs uppercase tracking-[0.16em] text-white/60">Dynamic Metrics</p>
                 <div className="mt-4 space-y-4">
                   <div className="rounded-xl border border-white/10 bg-black/35 p-4">
-                    <p className="text-2xl font-semibold text-white">micro-mm/s</p>
-                    <p className="mt-1 text-sm text-white/65">Ultra-slow adaptive lift speed</p>
+                    <p className="text-2xl font-semibold text-white">2 mm/s</p>
+                    <p className="mt-1 text-sm text-white/65">Micro-Flow Cruise speed</p>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-black/35 p-4">
                     <p className="text-2xl font-semibold text-white">&lt; 45 dB</p>
                     <p className="mt-1 text-sm text-white/65">Quiet motor profile for deep focus</p>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-black/35 p-4">
-                    <p className="text-2xl font-semibold text-white">0 abrupt cues</p>
-                    <p className="mt-1 text-sm text-white/65">No harsh alarms, no forced context switch</p>
+                    <p className="text-2xl font-semibold text-white">5-10 cm</p>
+                    <p className="mt-1 text-sm text-white/65">Subtle floating range per cycle</p>
                   </div>
                 </div>
               </div>
@@ -308,15 +308,15 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-content px-6 text-white">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The AI Copilot</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Marketing Architecture · 01</p>
             <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
-              Syncs with Your Brain, Not Just Your Room.
+              The Cognitive Copilot
             </h2>
             <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
-              与你的大脑同步，而不仅仅是你的房间。
+              认知副驾：不打断思路的软件与 AI 无感介入。
             </p>
             <p className="mt-5 max-w-4xl text-sm leading-relaxed text-white/80 md:text-base">
-              FlowShift 不只是升降桌，更是软硬一体的 AI 工作站：它理解你的专注状态、工具链与疲劳节奏，让环境围绕你的认知流自动调参。
+              系统通过网页端接入你常用的 AI Agent，以勿扰式柔性提醒与智能人体工学推荐，在尊重心流的前提下，提供恰到好处的健康陪伴。
             </p>
           </Reveal>
 
@@ -338,12 +338,12 @@ export default function Home() {
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <p className="text-xs uppercase tracking-[0.16em] text-white/60">01</p>
-                  <h3 className="mt-2 text-xl font-semibold text-white">IDE Focus Mode</h3>
+                  <h3 className="mt-2 text-xl font-semibold text-white">Ambient Notifications</h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">
-                    当编辑器进入全屏深度编码，桌面系统自动静音非关键通知，减少视觉与听觉干扰，让你不被环境打断。
+                    摒弃蜂鸣与震动式打扰。系统仅在后台以温和消息提醒你切换姿态，不强行打断当前思路。
                   </p>
                   <p className="mt-2 text-xs text-white/60">
-                    IDE 专注联动：代码进入冲刺态，桌面进入静默态。
+                    勿扰式柔性提醒：像懂你的助手，而不是警报器。
                   </p>
                 </div>
               </article>
@@ -366,12 +366,12 @@ export default function Home() {
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <p className="text-xs uppercase tracking-[0.16em] text-white/60">02</p>
-                  <h3 className="mt-2 text-xl font-semibold text-white">LLM Integration</h3>
+                  <h3 className="mt-2 text-xl font-semibold text-white">Smart Ergonomics</h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">
-                    触控面板提供极简 API Key 接入流程，状态灯以“呼吸光”反馈模型在线状态，帮助你在本地或云端快速接入 AI 能力。
+                    输入身高或语音指令后，AI 自动推荐最符合人体工学的坐站高度，让每一毫米升降都更贴合你的身体数据。
                   </p>
                   <p className="mt-2 text-xs text-white/60">
-                    大模型接入：从硬件面板到开发工作流，一次配置，持续可用。
+                    智能人体工学推荐：告别反复试探与盲目调节。
                   </p>
                 </div>
               </article>
@@ -394,12 +394,12 @@ export default function Home() {
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <p className="text-xs uppercase tracking-[0.16em] text-white/60">03</p>
-                  <h3 className="mt-2 text-xl font-semibold text-white">Smart Fatigue Tracking</h3>
+                  <h3 className="mt-2 text-xl font-semibold text-white">AI Agent Web Integration</h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">
-                    不需要你主动去按，系统会综合你的久坐时长与工作节奏，自动计算疲劳阈值并触发轻量、无感的姿态干预。
+                    不额外强制你下载冗余 App。通过网页端连接你已有工具链，把健康策略自然嵌入现有工作流。
                   </p>
                   <p className="mt-2 text-xs text-white/60">
-                    智能疲劳追踪：少一点意志力消耗，多一点身体与认知的长期稳定性。
+                    你的工作流不变，健康干预在后台无感发生。
                   </p>
                 </div>
               </article>
@@ -416,12 +416,12 @@ export default function Home() {
         <div className="relative mx-auto max-w-content px-5 text-white md:px-8">
           <Reveal>
             <header className="mx-auto max-w-4xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">The Hardware</p>
+              <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">The Marketing Architecture · 03</p>
               <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-tight md:mt-6 md:text-5xl md:leading-[1.05] lg:text-[3.25rem]">
-                Over-Engineered for the Ultimate Setup.
+                The Ultimate Canvas / Workstation
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-white/65 md:mt-6 md:text-xl md:leading-relaxed">
-                为终极桌面生态而过度设计。
+                重新定义美学与性能：硬核工业设计与材质用料，建立高端心智。
               </p>
             </header>
           </Reveal>
@@ -450,10 +450,10 @@ export default function Home() {
 
               <ul className="mx-auto mt-12 grid max-w-4xl list-none gap-10 pl-0 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 md:mt-16">
                 {[
-                  { title: "矩阵黑 / 量子白", desc: "静电喷粉哑光工艺，ENF 级环保无醛" },
-                  { title: "1600×800mm 画布", desc: "可容纳超宽带鱼屏 + 双竖屏 + 主机" },
-                  { title: "极致暗黑理线系统", desc: "桌底走线槽吞噬所有乱线" },
-                  { title: "三节双电机底盘", desc: "跑车级稳定性 + 10 年质保" },
+                  { title: "科学桌面分区 + 80cm 超深桌面", desc: "更自由的人机工学活动空间，坐站切换与多设备摆位都更从容" },
+                  { title: "硬核稳定性", desc: "升降时水杯中的水面依然稳定；外力冲击下桌体仍保持低晃动" },
+                  { title: "宽域升降适配", desc: "大跨度三节双电机底盘，覆盖约 150-195cm 身高区间的坐站工学需求" },
+                  { title: "稳如磐石的满载承托", desc: "无论坐姿推演还是站立编码，都可稳定承载显示器、主机与外设系统" },
                 ].map((item, i) => (
                   <li key={item.title} className="flex gap-5">
                     <span className="mt-0.5 shrink-0 tabular-nums text-[13px] font-medium text-white/30">
@@ -483,11 +483,9 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-transparent" />
                 <div className="absolute inset-x-6 bottom-6 text-center">
-                  <p className="text-2xl font-semibold text-white md:text-4xl">
-                    Powder Coated MDF. Engineering the perfect surface.
-                  </p>
+                  <p className="text-2xl font-semibold text-white md:text-4xl">Engineering the Perfect Surface.</p>
                   <p className="mt-3 text-sm text-white/75 md:text-lg">
-                    We didn&apos;t just build a desk. We reinvented the canvas.
+                    It&apos;s not just a desk surface. It&apos;s the physical canvas of deep work.
                   </p>
                 </div>
               </div>
@@ -497,38 +495,116 @@ export default function Home() {
           <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8">
             <Reveal delay={0}>
               <article className="flex h-full flex-col rounded-3xl border border-white/10 bg-black/25 p-6 md:p-8">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">The Seamless Edge</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">Eco Powder Coating</p>
                 <h3 className="mt-4 text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl md:leading-tight">
-                  Zero Seams. Zero Swelling.
+                  Matte, Clean, Durable.
                 </h3>
                 <p className="mt-5 text-pretty text-[0.9375rem] leading-relaxed text-white/55 md:text-[15px]">
-                  无传统封边条，360° 包裹型材；接缝消失，潮气难入，久用仍稳。
+                  桌面采用环保静电喷粉工艺，在低 VOC 前提下保持细腻高级感与装甲级耐磨性。
                 </p>
               </article>
             </Reveal>
             <Reveal delay={1}>
               <article className="flex h-full flex-col rounded-3xl border border-white/10 bg-black/25 p-6 md:p-8">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">The Pure Air</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">Toray Ultrasuede Edge</p>
                 <h3 className="mt-4 text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl md:leading-tight">
-                  0 Glue. True 0 VOC.
+                  Soft Touch, Long Session Comfort.
                 </h3>
                 <p className="mt-5 text-pretty text-[0.9375rem] leading-relaxed text-white/55 md:text-[15px]">
-                  零溶剂贴面胶，静电吸附与高温固化；低 VOC，无刺鼻异味。
+                  手腕接触区域采用东丽翻毛皮质感饰面，触感温润，长时间输入时更稳定、舒适。
                 </p>
               </article>
             </Reveal>
             <Reveal delay={2}>
               <article className="flex h-full flex-col rounded-3xl border border-white/10 bg-black/25 p-6 md:p-8">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">The Armor</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">Absolute Cable Control</p>
                 <h3 className="mt-4 text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl md:leading-tight">
-                  Feels like silk. Resists like armor.
+                  Snap, Hide, Rebuild.
                 </h3>
                 <p className="mt-5 text-pretty text-[0.9375rem] leading-relaxed text-white/55 md:text-[15px]">
-                  微磨砂高级手感，耐刮耐磨；键盘、主机与重型支架均可稳载。
+                  桌面级磁吸快拆理线模块可快速吞噬杂线，增减设备时无需钻到桌底即可完成线缆重构。
                 </p>
               </article>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#06080d] py-16 md:py-20">
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-16 top-8 h-72 w-72 rounded-full bg-cyan-300/10 blur-[120px]" />
+          <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-indigo-300/10 blur-[130px]" />
+        </div>
+        <div className="relative mx-auto max-w-content px-6 text-white">
+          <Reveal>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">Core Value Proposition</p>
+            <h2 className="mt-4 max-w-5xl text-3xl font-semibold tracking-tight md:text-5xl">
+              把健康交给 AI 算法，把专注留给心流。
+            </h2>
+            <p className="mt-5 max-w-4xl text-sm leading-relaxed text-white/80 md:text-base">
+              AI Agent 量身定制坐站规划，工业级无感设计静默执行。我们把复杂的健康策略隐藏到后台，把认知带宽还给真正重要的创造工作。
+            </p>
+          </Reveal>
+
+          <Reveal delay={1}>
+            <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {[
+                {
+                  id: "01",
+                  title: "AI 坐站规划",
+                  desc: "输入身高与基本信息，AI 自动生成最科学的坐站比与专属高度，用算法全面接管健康策略。",
+                },
+                {
+                  id: "02",
+                  title: "静默消息提醒",
+                  desc: "摒弃刺耳蜂鸣。系统搭载环境级柔性通知协议，将健康提醒无缝隐匿于数字工作流中，在绝对捍卫专注力的前提下完成无打扰姿态引导。",
+                },
+                {
+                  id: "03",
+                  title: "无感微动巡航",
+                  desc: "针对极度沉浸时刻，底层激活潜意识物理干预引擎，通过零感知的空间微幅起伏，在思绪不断连状态下悄然唤醒核心肌群以化解静态疲劳。",
+                },
+                {
+                  id: "04",
+                  title: "环保耐刮涂层",
+                  desc: "采用零胶水、低 VOC 的静电喷粉工艺。告别工业异味，呈现细腻哑光质感，同时具备装甲级防刮耐磨性。",
+                },
+                {
+                  id: "05",
+                  title: "跑车级翻毛皮护腕",
+                  desc: "手腕高频接触区选用跑车内饰同款东丽翻毛皮。告别桌面的冷硬，提供温润触感与缓冲支撑。",
+                },
+                {
+                  id: "06",
+                  title: "磁吸隐形理线",
+                  desc: "随取随吸的快拆模块，瞬间吞噬冗杂电源与信号线。增减设备无需钻入桌底，抬手即可完成极简桌搭。",
+                },
+                {
+                  id: "07",
+                  title: "80cm 超深桌面",
+                  desc: "科学划分“视觉展示区”与“高频操作区”，拉开合理的人机工学距离，让全套生产力工具各就其位、互不干扰。",
+                },
+                {
+                  id: "08",
+                  title: "磐石级抗晃底盘",
+                  desc: "升降时杯水不溢，意外撞击桌面不晃。极致稳固的双电机底盘，提供可靠物理承托。",
+                },
+                {
+                  id: "09",
+                  title: "全域身高适配",
+                  desc: "从 1.5 米到 1.95 米全面覆盖。大跨度升降系统精准匹配各类身型，自由切换坐立工作姿态。",
+                },
+              ].map((item, i) => (
+                <Reveal key={item.id} delay={(i % 3) as 0 | 1 | 2}>
+                  <article className="flex h-full flex-col rounded-2xl border border-white/15 bg-black/35 p-5">
+                    <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/45">{item.id}</p>
+                    <h3 className="mt-2 text-lg font-semibold tracking-tight text-white md:text-xl">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-white/75">{item.desc}</p>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -639,15 +715,15 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-content px-6 text-white">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Team & Philosophy</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Brand Story</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
-              From ZJU Labs to Your Workspace.
+              The Ultimate Balance Between Focus and Well-being.
             </h2>
             <p className="mt-4 text-base text-white/75 md:text-lg">
-              Who We Are: Engineering the Flow State
+              在专注与健康之间，找到终极平衡。
             </p>
             <p className="mt-2 text-sm text-white/60 md:text-base">
-              我们是谁：为心流状态而生的缔造者
+              From Zhejiang University research to a quiet cognitive co-pilot.
             </p>
           </Reveal>
 
@@ -673,7 +749,7 @@ export default function Home() {
             <Reveal delay={2}>
               <article className="rounded-2xl border border-white/15 bg-white/[0.03] p-6 backdrop-blur">
                 <p className="text-sm leading-relaxed text-white/85">
-                  我们来自浙大实验室，用 CS + HCI + 工业设计把“心流理论”做成了实体 AI 工作站。下面是完整品牌故事。
+                  一、用户故事：重构工作站的底层逻辑（Why We Do This）。我们希望用「AI Agent 策略 + 硬件无感执行」重写专注与健康之间的关系。
                 </p>
                 <details className="group mt-5 rounded-xl border border-white/10 bg-black/25 p-4">
                   <summary className="cursor-pointer list-none text-sm font-medium text-white">
@@ -683,30 +759,32 @@ export default function Home() {
                   </summary>
 
                   <div className="mt-4 space-y-4">
-                    <p className="text-sm leading-relaxed text-white/85">
-                      We are a collective of PhD and Master&apos;s researchers from Zhejiang University (ZJU), specializing in Computer Science, Human-Computer Interaction (HCI), and Industrial Design. For years, our daily lives involved writing endless lines of code, drafting complex research papers, and endlessly rendering 3D models. We lived in our chairs. We experienced firsthand the physical toll of deep work, and the extreme frustration of having our &quot;flow state&quot; shattered by the jarring alarms of traditional smart devices.
-                    </p>
-                    <p className="text-sm leading-relaxed text-white/70">
-                      我们是一群来自浙江大学的博士和硕士研究人员，深耕于计算机科学、人机交互（HCI）和工业设计领域。多年来，我们的日常就是编写无尽的代码、撰写复杂的学术论文以及无休止地渲染 3D 模型。我们几乎“长”在了椅子上。我们亲身体验了深度工作对身体的消耗，以及“心流状态”被传统智能设备刺耳的警报声生硬打断时的极度挫败感。
-                    </p>
-                    <p className="text-sm leading-relaxed text-white/85">
-                      In our HCI research, we explore concepts like &quot;Gentle Technology&quot; and &quot;Ethical Friction&quot;—the philosophy that technology shouldn&apos;t always scream for our instant attention. Sometimes, deliberately slowing down an interaction is the best way to protect our cognitive and physical well-being. We looked at traditional standing desks and realized they were designed completely backward: they were passive machines that forced humans to adapt to their disruptive mechanical rhythms.
-                    </p>
-                    <p className="text-sm leading-relaxed text-white/70">
-                      在人机交互研究中，我们一直在探索“温柔科技”和“伦理摩擦”的概念——即技术不应总是尖叫着争夺我们的注意力。有时候，刻意放缓交互节奏，才是保护我们认知和身体健康的最佳方式。我们审视了传统的升降桌，意识到它们的设计逻辑完全反了：它们是被动的机器，强迫人类去适应它们那充满干扰的机械节奏。
-                    </p>
-                    <p className="text-sm leading-relaxed text-white/85">
-                      We decided to change that. FlowShift is the culmination of our three disciplines. Our CS team engineered the local LLM integrations to sync directly with your workflow. Our HCI researchers designed the micro-millimeter &quot;Subtle Shift&quot; engine-a physiological intervention completely invisible to your conscious mind. And our Industrial Design team obsessively crafted the physical form, insisting on zero-emission, seamless Powder Coated MDF and an absolute cable management system to eliminate visual clutter.
-                    </p>
-                    <p className="text-sm leading-relaxed text-white/70">
-                      我们决定改变这一切。FlowShift 是我们三个学科领域的结晶。我们的计算机团队开发了本地大模型集成，使其与你的工作流直接同步。我们的 HCI 研究员设计了微毫米级的“无感升降”引擎——一种对你的意识完全隐形的生理干预。而我们的工业设计团队则对物理形态进行了近乎偏执的雕琢，坚持采用零甲醛、无缝接的静电喷粉 MDF 板材和极致的暗黑理线系统，彻底抹除视觉上的杂乱。
-                    </p>
-                    <p className="border-l-2 border-white/35 pl-4 text-sm leading-relaxed text-white/85">
-                      It&apos;s not just a desk. It&apos;s an academic theory engineered into a physical AI Workstation. We are bringing the intelligence of the lab directly to your workspace. Join us, and let&apos;s redefine how the world works.
-                    </p>
-                    <p className="pl-4 text-sm leading-relaxed text-white/70">
-                      它不仅仅是一张桌子。它是一个被转化为实体 AI 工作站的学术理论。我们正将实验室里的智能直接带到你的工作空间。加入我们，一起重新定义世界的工作方式。
-                    </p>
+                    <div className="space-y-2">
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
+                        01 / 痛点溯源：创造力与健康的零和博弈
+                      </p>
+                      <p className="text-sm leading-relaxed text-white/85">
+                        我们最具创造力的时光，几乎都在书桌前度过。这里是推演逻辑、构建代码、探索世界的核心阵地；但深度思考的代价同样真实——久坐让脊椎受压、肩颈前倾。在“保持专注”与“保护身体”之间，我们常常被迫牺牲后者。
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
+                        02 / 行业盲区：以“破坏专注力”为代价的伪健康
+                      </p>
+                      <p className="text-sm leading-relaxed text-white/85">
+                        真正健康来自坐与站的动态平衡。但传统升降桌往往用刺耳蜂鸣、震动或粗暴电机声来“提醒”你，反而撕裂心流与注意力。它们给出的不是解法，而是“健康与专注二选一”的糟糕妥协。
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
+                        03 / 我们的破局：做物理世界最安静的“认知副驾”
+                      </p>
+                      <p className="border-l-2 border-white/35 pl-4 text-sm leading-relaxed text-white/85">
+                        我们重构工作站底层逻辑，以「AI Agent 策略 + 硬件无感执行」让健康干预在后台静默运行。它不强迫你改变习惯，而是在绝对尊重心流的前提下，完成健康与专注的闭环。
+                      </p>
+                    </div>
                   </div>
                 </details>
               </article>
