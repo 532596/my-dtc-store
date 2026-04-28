@@ -830,74 +830,81 @@ export default function Home() {
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               The Ultimate Balance Between Focus and Well-being.
             </h2>
-            <p className="mt-4 text-base text-white/75 md:text-lg">
+            <p className="mx-auto mt-4 max-w-3xl text-center text-base text-white/75 md:text-lg">
               在专注与健康之间，找到终极平衡。
             </p>
-            <p className="mt-2 text-sm text-white/60 md:text-base">
+            <p className="mx-auto mt-2 max-w-3xl text-center text-sm text-white/60 md:text-base">
               From Zhejiang University research to a quiet cognitive co-pilot.
             </p>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-            <Reveal delay={1}>
-              <div className="overflow-hidden rounded-2xl border border-white/15 bg-black/40">
-                <div className="relative aspect-[16/10]">
+          <Reveal delay={1}>
+            <div className="mx-auto mt-10 max-w-[1068px]">
+              <div className="overflow-hidden rounded-[12px] border border-white/15 bg-black/40">
+                <div className="relative aspect-[21/9]">
                   <Image
                     src="/images/scene-office.jpg"
                     alt="FlowShift 团队在实验室和工厂测试原型的真实场景"
                     fill
                     className="object-cover brightness-[0.72]"
-                    sizes="(max-width: 1024px) 100vw, 62vw"
+                    sizes="(max-width: 1024px) 100vw, 1068px"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/85">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/10" />
+                  <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/85 md:left-5 md:top-5">
                     Team Lab / Factory Test (Placeholder)
                   </span>
                 </div>
               </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={2}>
+            <p className="mx-auto mt-10 max-w-3xl text-center text-sm leading-relaxed text-white/70 md:text-base">
+              一、用户故事：重构工作站的底层逻辑（Why We Do This）。我们希望用「AI Agent 策略 + 硬件无感执行」重写专注与健康之间的关系。
+            </p>
+          </Reveal>
+
+          <div className="mx-auto mt-14 max-w-[980px] space-y-12 md:mt-16 md:space-y-16">
+            <Reveal delay={0}>
+              <article
+                id="part-brand-story-01"
+                className="scroll-mt-28 rounded-[12px] border border-white/15 bg-white/[0.03] p-6 md:p-10"
+              >
+                <h3 className="text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">
+                  01 / 痛点溯源：创造力与健康的零和博弈
+                </h3>
+                <p className="mt-5 text-base leading-relaxed text-white/78 md:text-[1.0625rem] md:leading-[1.65]">
+                  我们一天中最具创造力的时光，几乎都在书桌前度过。这里是我们推演逻辑、构建代码、探索世界的核心阵地。然而，深度思考的代价是隐蔽且沉重的——久坐正在让脊椎受压、肩颈前倾。在“保持专注”与“保护身体”之间，我们往往被迫牺牲了后者。
+                </p>
+              </article>
+            </Reveal>
+
+            <Reveal delay={1}>
+              <article
+                id="part-brand-story-02"
+                className="scroll-mt-28 rounded-[12px] border border-white/15 bg-white/[0.03] p-6 md:p-10"
+              >
+                <h3 className="text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">
+                  02 / 行业盲区：以“破坏专注力”为代价的伪健康
+                </h3>
+                <p className="mt-5 text-base leading-relaxed text-white/78 md:text-[1.0625rem] md:leading-[1.65]">
+                  真正的健康，源于坐与站的动态平衡。但纵观市面上的升降桌，它们试图用刺耳的蜂鸣、震动或粗暴的电机声来“拯救”你的身体。这种反人性的交互，无情撕裂了脑力工作者最宝贵的资产——心流与注意力。在专注与健康的选择中，传统升降桌给出了最糟糕的妥协。
+                </p>
+              </article>
             </Reveal>
 
             <Reveal delay={2}>
-              <article className="rounded-2xl border border-white/15 bg-white/[0.03] p-6 backdrop-blur">
-                <p className="text-sm leading-relaxed text-white/85">
-                  一、用户故事：重构工作站的底层逻辑（Why We Do This）。我们希望用「AI Agent 策略 + 硬件无感执行」重写专注与健康之间的关系。
+              <article
+                id="part-brand-story-03"
+                className="scroll-mt-28 rounded-[12px] border border-white/15 bg-white/[0.03] p-6 md:p-10"
+              >
+                <h3 className="text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">
+                  03 / 我们的破局：做物理世界最安静的“认知副驾”
+                </h3>
+                <p className="mt-5 text-base leading-relaxed text-white/78 md:text-[1.0625rem] md:leading-[1.65]">
+                  最好的科技，绝不该尖叫着争夺用户的注意力。因此，我们决定重构工作站的底层逻辑。
+                  通过「AI Agent 策略 + 硬件无感执行」的模式，让健康干预在后台静默运行。它不是一张强迫你改变习惯的桌子，而是绝对尊重你心流状态的守护者——在不打断思路的前提下，完成健康与专注的完美闭环。
                 </p>
-                <details className="group mt-5 rounded-xl border border-white/10 bg-black/25 p-4">
-                  <summary className="cursor-pointer list-none text-sm font-medium text-white">
-                    展开完整故事 / Collapse story
-                    <span className="ml-2 text-white/60 group-open:hidden">[点击展开]</span>
-                    <span className="ml-2 hidden text-white/60 group-open:inline">[已展开]</span>
-                  </summary>
-
-                  <div className="mt-4 space-y-4">
-                    <div className="space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
-                        01 / 痛点溯源：创造力与健康的零和博弈
-                      </p>
-                      <p className="text-sm leading-relaxed text-white/85">
-                        我们最具创造力的时光，几乎都在书桌前度过。这里是推演逻辑、构建代码、探索世界的核心阵地；但深度思考的代价同样真实——久坐让脊椎受压、肩颈前倾。在“保持专注”与“保护身体”之间，我们常常被迫牺牲后者。
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
-                        02 / 行业盲区：以“破坏专注力”为代价的伪健康
-                      </p>
-                      <p className="text-sm leading-relaxed text-white/85">
-                        真正健康来自坐与站的动态平衡。但传统升降桌往往用刺耳蜂鸣、震动或粗暴电机声来“提醒”你，反而撕裂心流与注意力。它们给出的不是解法，而是“健康与专注二选一”的糟糕妥协。
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
-                        03 / 我们的破局：做物理世界最安静的“认知副驾”
-                      </p>
-                      <p className="border-l-2 border-white/35 pl-4 text-sm leading-relaxed text-white/85">
-                        我们重构工作站底层逻辑，以「AI Agent 策略 + 硬件无感执行」让健康干预在后台静默运行。它不强迫你改变习惯，而是在绝对尊重心流的前提下，完成健康与专注的闭环。
-                      </p>
-                    </div>
-                  </div>
-                </details>
               </article>
             </Reveal>
           </div>
