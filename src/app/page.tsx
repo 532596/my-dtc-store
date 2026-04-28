@@ -530,7 +530,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#06080d] py-16 md:py-20">
+      <section className="relative overflow-hidden bg-[#06080d] py-20 md:py-28">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-16 top-8 h-72 w-72 rounded-full bg-cyan-300/10 blur-[120px]" />
           <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-indigo-300/10 blur-[130px]" />
@@ -541,13 +541,13 @@ export default function Home() {
             <h2 className="mt-4 max-w-5xl text-3xl font-semibold tracking-tight md:text-5xl">
               把健康交给 AI 算法，把专注留给心流。
             </h2>
-            <p className="mt-5 max-w-4xl text-sm leading-relaxed text-white/80 md:text-base">
+            <p className="mt-6 max-w-4xl text-base leading-relaxed text-white/78 md:text-lg">
               AI Agent 量身定制坐站规划，工业级无感设计静默执行。我们把复杂的健康策略隐藏到后台，把认知带宽还给真正重要的创造工作。
             </p>
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 md:gap-8">
               {[
                 {
                   id: "01",
@@ -596,10 +596,10 @@ export default function Home() {
                 },
               ].map((item, i) => (
                 <Reveal key={item.id} delay={(i % 3) as 0 | 1 | 2}>
-                  <article className="flex h-full flex-col rounded-2xl border border-white/15 bg-black/35 p-5">
+                  <article className="flex h-full min-h-[220px] flex-col rounded-[20px] border border-white/15 bg-black/35 p-6 md:p-8">
                     <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/45">{item.id}</p>
-                    <h3 className="mt-2 text-lg font-semibold tracking-tight text-white md:text-xl">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/75">{item.desc}</p>
+                    <h3 className="mt-3 text-[1.75rem] font-semibold leading-tight tracking-tight text-white">{item.title}</h3>
+                    <p className="mt-4 max-w-[34ch] text-[15px] leading-7 text-white/72 md:text-base">{item.desc}</p>
                   </article>
                 </Reveal>
               ))}
