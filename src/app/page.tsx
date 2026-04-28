@@ -142,7 +142,7 @@ const FLOATING_PART_ENTRIES: SectionFloatingEntryItem[] = [
   { id: "part-01", sectionId: "part-invisible-intervention", label: "了解无感微动巡航", href: "/guide" },
   { id: "part-02", sectionId: "part-cognitive-copilot", label: "了解 AI 认知副驾", href: "/scenarios" },
   { id: "part-03", sectionId: "part-ultimate-canvas", label: "查看硬件与材质细节", href: "/series" },
-  { id: "part-04", sectionId: "part-brand-story", label: "阅读完整品牌故事", href: "/about" },
+  { id: "part-04", sectionId: "part-brand-story-03", label: "阅读完整品牌故事", href: "/about" },
   { id: "part-05", sectionId: "part-faq", label: "进入支持与服务中心", href: "/support" },
 ];
 
@@ -863,51 +863,151 @@ export default function Home() {
               一、用户故事：重构工作站的底层逻辑（Why We Do This）。我们希望用「AI Agent 策略 + 硬件无感执行」重写专注与健康之间的关系。
             </p>
           </Reveal>
+        </div>
+      </section>
 
-          <div className="mx-auto mt-14 max-w-[980px] space-y-12 md:mt-16 md:space-y-16">
-            <Reveal delay={0}>
-              <article
-                id="part-brand-story-01"
-                className="scroll-mt-28 rounded-[12px] border border-white/15 bg-white/[0.03] p-6 md:p-10"
-              >
-                <h3 className="text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">
-                  01 / 痛点溯源：创造力与健康的零和博弈
-                </h3>
-                <p className="mt-5 text-base leading-relaxed text-white/78 md:text-[1.0625rem] md:leading-[1.65]">
-                  我们一天中最具创造力的时光，几乎都在书桌前度过。这里是我们推演逻辑、构建代码、探索世界的核心阵地。然而，深度思考的代价是隐蔽且沉重的——久坐正在让脊椎受压、肩颈前倾。在“保持专注”与“保护身体”之间，我们往往被迫牺牲了后者。
-                </p>
-              </article>
-            </Reveal>
+      <section
+        id="part-brand-story-01"
+        className="relative overflow-hidden bg-[#07090c] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]"
+      >
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-24 top-8 h-80 w-80 rounded-full bg-amber-300/10 blur-[130px]" />
+          <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-white/5 blur-[140px]" />
+        </div>
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
+          <Reveal>
+            <h2 className="mx-auto mt-4 max-w-5xl text-center text-3xl font-semibold tracking-tight md:text-5xl">
+              01 / 痛点溯源：创造力与健康的零和博弈
+            </h2>
+            <p className="mx-auto mt-6 max-w-4xl text-center text-sm leading-relaxed text-white/80 md:text-base">
+              我们一天中最具创造力的时光，几乎都在书桌前度过。这里是我们推演逻辑、构建代码、探索世界的核心阵地。然而，深度思考的代价是隐蔽且沉重的——久坐正在让脊椎受压、肩颈前倾。在“保持专注”与“保护身体”之间，我们往往被迫牺牲了后者。
+            </p>
+          </Reveal>
 
-            <Reveal delay={1}>
-              <article
-                id="part-brand-story-02"
-                className="scroll-mt-28 rounded-[12px] border border-white/15 bg-white/[0.03] p-6 md:p-10"
-              >
-                <h3 className="text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">
-                  02 / 行业盲区：以“破坏专注力”为代价的伪健康
-                </h3>
-                <p className="mt-5 text-base leading-relaxed text-white/78 md:text-[1.0625rem] md:leading-[1.65]">
-                  真正的健康，源于坐与站的动态平衡。但纵观市面上的升降桌，它们试图用刺耳的蜂鸣、震动或粗暴的电机声来“拯救”你的身体。这种反人性的交互，无情撕裂了脑力工作者最宝贵的资产——心流与注意力。在专注与健康的选择中，传统升降桌给出了最糟糕的妥协。
-                </p>
-              </article>
-            </Reveal>
+          <Reveal delay={1}>
+            <div className="-mx-6 mt-12 md:-mx-12 md:mt-16">
+              <div className="relative aspect-[21/10] w-full md:aspect-[24/9]">
+                <Image
+                  src="/images/scene-office.jpg"
+                  alt="深夜书桌前专注工作：创造力与健康在久坐中的张力"
+                  fill
+                  className="object-cover brightness-[0.82]"
+                  sizes="100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/10" />
+                <div className="absolute left-6 top-6 md:left-10 md:top-8">
+                  <div className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-xs text-white/90">
+                    Deep Work at Desk (Placeholder)
+                  </div>
+                </div>
+                <div className="absolute inset-x-6 bottom-6 flex flex-wrap gap-2 md:inset-x-10 md:bottom-8">
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    Focus vs. wellbeing
+                  </span>
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    Sedentary cost
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
-            <Reveal delay={2}>
-              <article
-                id="part-brand-story-03"
-                className="scroll-mt-28 rounded-[12px] border border-white/15 bg-white/[0.03] p-6 md:p-10"
-              >
-                <h3 className="text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">
-                  03 / 我们的破局：做物理世界最安静的“认知副驾”
-                </h3>
-                <p className="mt-5 text-base leading-relaxed text-white/78 md:text-[1.0625rem] md:leading-[1.65]">
-                  最好的科技，绝不该尖叫着争夺用户的注意力。因此，我们决定重构工作站的底层逻辑。
-                  通过「AI Agent 策略 + 硬件无感执行」的模式，让健康干预在后台静默运行。它不是一张强迫你改变习惯的桌子，而是绝对尊重你心流状态的守护者——在不打断思路的前提下，完成健康与专注的完美闭环。
-                </p>
-              </article>
-            </Reveal>
-          </div>
+      <section
+        id="part-brand-story-02"
+        className="relative overflow-hidden bg-[#06080c] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]"
+      >
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-20 top-6 h-72 w-72 rounded-full bg-red-300/10 blur-[120px]" />
+          <div className="absolute -right-20 bottom-4 h-72 w-72 rounded-full bg-orange-300/10 blur-[130px]" />
+        </div>
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
+          <Reveal>
+            <h2 className="mx-auto mt-4 max-w-5xl text-center text-3xl font-semibold tracking-tight md:text-5xl">
+              02 / 行业盲区：以“破坏专注力”为代价的伪健康
+            </h2>
+            <p className="mx-auto mt-6 max-w-4xl text-center text-sm leading-relaxed text-white/80 md:text-base">
+              真正的健康，源于坐与站的动态平衡。但纵观市面上的升降桌，它们试图用刺耳的蜂鸣、震动或粗暴的电机声来“拯救”你的身体。这种反人性的交互，无情撕裂了脑力工作者最宝贵的资产——心流与注意力。在专注与健康的选择中，传统升降桌给出了最糟糕的妥协。
+            </p>
+          </Reveal>
+
+          <Reveal delay={1}>
+            <div className="-mx-6 mt-12 md:-mx-12 md:mt-16">
+              <div className="relative aspect-[21/10] w-full md:aspect-[24/9]">
+                <Image
+                  src="/images/hero.jpg"
+                  alt="传统升降桌交互：警报与电机声打断专注的示意"
+                  fill
+                  className="object-cover brightness-[0.78]"
+                  sizes="100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/10" />
+                <div className="absolute left-6 top-6 md:left-10 md:top-8">
+                  <div className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-xs text-white/90">
+                    Harsh Alerts vs. Flow (Placeholder)
+                  </div>
+                </div>
+                <div className="absolute inset-x-6 bottom-6 flex flex-wrap gap-2 md:inset-x-10 md:bottom-8">
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    Beep / vibration
+                  </span>
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    Context switch
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section
+        id="part-brand-story-03"
+        className="relative overflow-hidden bg-[#05070a] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]"
+      >
+        <div className="absolute inset-0" aria-hidden>
+          <div className="absolute -left-24 top-8 h-80 w-80 rounded-full bg-violet-300/10 blur-[130px]" />
+          <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-300/10 blur-[140px]" />
+        </div>
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
+          <Reveal>
+            <h2 className="mx-auto mt-4 max-w-5xl text-center text-3xl font-semibold tracking-tight md:text-5xl">
+              03 / 我们的破局：做物理世界最安静的“认知副驾”
+            </h2>
+            <p className="mx-auto mt-6 max-w-4xl text-center text-sm leading-relaxed text-white/80 md:text-base">
+              最好的科技，绝不该尖叫着争夺用户的注意力。因此，我们决定重构工作站的底层逻辑。
+              通过「AI Agent 策略 + 硬件无感执行」的模式，让健康干预在后台静默运行。它不是一张强迫你改变习惯的桌子，而是绝对尊重你心流状态的守护者——在不打断思路的前提下，完成健康与专注的完美闭环。
+            </p>
+          </Reveal>
+
+          <Reveal delay={1}>
+            <div className="-mx-6 mt-12 md:-mx-12 md:mt-16">
+              <div className="relative aspect-[21/10] w-full md:aspect-[24/9]">
+                <Image
+                  src="/images/scene-learning.jpg"
+                  alt="温和科技：AI 与无感硬件协同的工作站愿景"
+                  fill
+                  className="object-cover brightness-[0.8]"
+                  sizes="100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/10" />
+                <div className="absolute left-6 top-6 md:left-10 md:top-8">
+                  <div className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-xs text-white/90">
+                    Quiet Cognitive Copilot (Placeholder)
+                  </div>
+                </div>
+                <div className="absolute inset-x-6 bottom-6 flex flex-wrap gap-2 md:inset-x-10 md:bottom-8">
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    AI Agent + silent hardware
+                  </span>
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    Flow-first
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
