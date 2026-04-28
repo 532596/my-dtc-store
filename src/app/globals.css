@@ -7,6 +7,53 @@
   --foreground: #f3f6fb;
   --accent: #8fa8c0;
   --accent-hover: #a8bdd0;
+
+  /* MDC: visual tokens */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0b0c0f;
+  --color-surface: #121318;
+  --color-text-primary: #f5f5f7;
+  --color-text-secondary: #a1a1aa;
+  --color-accent: #0066cc;
+  --color-divider: rgba(255, 255, 255, 0.12);
+
+  /* MDC: typography tokens */
+  --font-family-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-family-text: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-size-hero: clamp(2.5rem, 6vw, 6rem);
+  --font-size-h1: clamp(2rem, 4.8vw, 4rem);
+  --font-size-h2: clamp(1.5rem, 3.4vw, 3rem);
+  --font-size-h3: clamp(1.25rem, 2.2vw, 2rem);
+  --font-size-body: 1.0625rem;
+  --font-size-caption: 0.8125rem;
+  --line-height-display: 1.06;
+  --line-height-body: 1.5;
+
+  /* MDC: spacing tokens */
+  --space-xxs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 5rem;
+
+  /* MDC: motion tokens */
+  --motion-duration-instant: 100ms;
+  --motion-duration-fast: 200ms;
+  --motion-duration-normal: 400ms;
+  --motion-duration-slow: 800ms;
+  --motion-duration-cinematic: 1600ms;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --scale-hover: 1.03;
+  --scale-press: 0.98;
+  --scale-reveal-start: 0.92;
+  --translate-reveal-y: 40px;
+  --blur-reveal-start: 12px;
 }
 
 html {
@@ -16,22 +63,28 @@ html {
 body {
   color: var(--foreground);
   background: var(--background);
+  font-family: var(--font-family-text);
 }
 
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(var(--translate-reveal-y)) scale(var(--scale-reveal-start));
+  filter: blur(var(--blur-reveal-start));
+  transition:
+    opacity var(--motion-duration-slow) var(--ease-standard),
+    transform var(--motion-duration-slow) var(--ease-standard),
+    filter var(--motion-duration-slow) var(--ease-standard);
 }
 
 .reveal.reveal-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-1 { transition-delay: 120ms; }
+.reveal-delay-2 { transition-delay: 220ms; }
+.reveal-delay-3 { transition-delay: 320ms; }
 
 /* 主按钮：亮一些的灰青渐变，带一点霓虹感，仍贴合网站调性 */
 @layer components {
@@ -41,6 +94,15 @@ body {
   }
   .btn-primary:hover:not(:disabled) {
     background-image: linear-gradient(135deg, #78b0c4 0%, #6298ac 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.reveal-visible {
+    transition-duration: 120ms;
+    transform: none;
+    filter: none;
   }
 }
 

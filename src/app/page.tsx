@@ -139,10 +139,10 @@ const TESTIMONIALS: TestimonialItem[] = [
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
       <HeroShowcase slides={HERO_SLIDES} />
 
-      <section className="relative overflow-hidden bg-[#050608] py-24 md:py-32">
+      <section className="relative overflow-hidden bg-[#050608] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-xl))]">
         <div className="absolute inset-0" aria-hidden>
           <Image
             src="/images/scene-office.jpg"
@@ -156,7 +156,7 @@ export default function Home() {
           <div className="absolute -right-16 bottom-8 h-80 w-80 rounded-full bg-sky-300/10 blur-[130px]" />
         </div>
 
-        <div className="relative mx-auto max-w-content px-5 text-white md:px-8">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           {/* 苹果式：眉题 + 大标题 + 副文案，居中窄行宽 */}
           <Reveal>
             <header className="mx-auto max-w-4xl text-center">
@@ -232,12 +232,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#07090c] py-16 md:py-20">
+      <section className="relative overflow-hidden bg-[#07090c] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-24 top-8 h-80 w-80 rounded-full bg-white/5 blur-[130px]" />
           <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-300/10 blur-[140px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-6 text-white">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Marketing Architecture · 02</p>
             <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
@@ -301,12 +301,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#06080c] py-16 md:py-20">
+      <section className="relative overflow-hidden bg-[#06080c] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-20 top-6 h-72 w-72 rounded-full bg-indigo-300/10 blur-[120px]" />
           <div className="absolute -right-20 bottom-4 h-72 w-72 rounded-full bg-cyan-300/10 blur-[130px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-6 text-white">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Marketing Architecture · 01</p>
             <h2 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">
@@ -408,12 +408,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#05070a] py-24 md:py-28">
+      <section className="relative overflow-hidden bg-[#05070a] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-lg))]">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-20 top-8 h-80 w-80 rounded-full bg-white/5 blur-[120px]" />
           <div className="absolute -right-20 bottom-8 h-80 w-80 rounded-full bg-blue-300/10 blur-[140px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-5 text-white md:px-8">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <header className="mx-auto max-w-4xl text-center">
               <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">The Marketing Architecture · 03</p>
@@ -530,12 +530,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#06080d] py-20 md:py-28">
+      <section className="relative overflow-hidden bg-[#06080d] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-lg))]">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-16 top-8 h-72 w-72 rounded-full bg-cyan-300/10 blur-[120px]" />
           <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-indigo-300/10 blur-[130px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-6 text-white">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">Core Value Proposition</p>
             <h2 className="mt-4 max-w-5xl text-3xl font-semibold tracking-tight md:text-5xl">
@@ -608,12 +608,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#06080b] py-16 md:py-20">
+      <section className="relative overflow-hidden bg-[#06080b] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-20 top-8 h-72 w-72 rounded-full bg-red-300/10 blur-[120px]" />
           <div className="absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-amber-300/10 blur-[130px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-6 text-white">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">Rewards & Pricing</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
@@ -708,12 +708,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#05070b] py-16 md:py-20">
+      <section className="relative overflow-hidden bg-[#05070b] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-16 top-12 h-72 w-72 rounded-full bg-violet-300/10 blur-[120px]" />
           <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-white/5 blur-[120px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-6 text-white">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Brand Story</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
@@ -793,12 +793,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#06080c] py-16 md:py-20">
+      <section className="relative overflow-hidden bg-[#06080c] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-sky-300/10 blur-[120px]" />
           <div className="absolute -right-20 bottom-8 h-72 w-72 rounded-full bg-emerald-300/10 blur-[130px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-6 text-white">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.18em] text-white/60">Timeline & Shipping</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
@@ -861,12 +861,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#05070a] py-24 md:py-32">
+      <section className="relative overflow-hidden bg-[#05070a] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-xl))]">
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-16 top-12 h-72 w-72 rounded-full bg-cyan-300/10 blur-[120px]" />
           <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-indigo-300/10 blur-[130px]" />
         </div>
-        <div className="relative mx-auto max-w-content px-5 text-white md:px-8">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <header className="mx-auto max-w-2xl text-center">
               <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">FAQ</p>
