@@ -593,7 +593,8 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mx-auto mt-14 max-w-6xl">
+              <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {[
                 {
                   id: "01",
@@ -651,7 +652,7 @@ export default function Home() {
                 },
               ].map((item, i) => (
                 <Reveal key={item.id} delay={(i % 3) as 0 | 1 | 2}>
-                  <article className="group flex h-full min-h-[300px] flex-col rounded-[28px] bg-[#070a10] p-7 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-[#0a0e16] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.14),0_18px_42px_rgba(0,0,0,0.38)] md:p-8">
+                  <article className="group flex h-full min-h-[300px] w-[22.5rem] shrink-0 snap-start flex-col rounded-[28px] bg-[#070a10] p-7 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-[#0a0e16] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.14),0_18px_42px_rgba(0,0,0,0.38)] md:p-8">
                     <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/8 text-sm font-semibold text-white/88">
                       {item.id}
                     </div>
@@ -663,6 +664,7 @@ export default function Home() {
                   </article>
                 </Reveal>
               ))}
+              </div>
             </div>
           </Reveal>
         </div>
