@@ -2,11 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
-import FaqAccordion from "@/components/FaqAccordion";
 import HeroShowcase, { type HeroSlide } from "@/components/HeroShowcase";
 import SectionFloatingEntry, { type SectionFloatingEntryItem } from "@/components/SectionFloatingEntry";
 import TestimonialsSection, { type TestimonialItem } from "@/components/TestimonialsSection";
-import { FAQ_GROUPS } from "@/data/faq";
 
 const HERO_SLIDES: HeroSlide[] = [
   {
@@ -1089,17 +1087,36 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <header className="mx-auto max-w-2xl text-center">
-              <h2 className="mt-4 text-[2rem] font-semibold leading-[1.08] tracking-tight md:text-5xl md:leading-[1.05]">
+              <h2 className="mx-auto mt-4 max-w-5xl text-4xl font-semibold tracking-tight md:text-6xl">
                 常见问题
               </h2>
-              <p className="mx-auto mt-4 max-w-lg text-[1.0625rem] text-white/55 md:text-lg">
-                点击展开答案。更多细节可在帮助中心搜索。
+              <p className="mx-auto mt-5 max-w-lg text-base text-white/65 md:text-lg">
+                完整问答与分类已集中在帮助中心，首页仅保留入口，避免信息堆叠。
               </p>
             </header>
           </Reveal>
 
           <Reveal delay={1}>
-            <FaqAccordion groups={FAQ_GROUPS} variant="dark" className="mx-auto mt-12 max-w-3xl md:mt-16" />
+            <div className="mx-auto mt-12 max-w-xl md:mt-14">
+              <Link
+                href="/support#faq"
+                className="group flex flex-col rounded-[12px] border border-white/15 bg-white/[0.04] p-8 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:border-white/25 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] md:p-10"
+              >
+                <span className="text-sm font-medium text-white/55">帮助中心 · FAQ</span>
+                <span className="mt-3 text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">
+                  前往查看全部问题与解答
+                </span>
+                <span className="mt-3 text-sm leading-relaxed text-white/62">
+                  支持关键词搜索、按主题浏览；产品参数、众筹与物流说明也在同一页面。
+                </span>
+                <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-[#4ea4ff] transition-colors group-hover:text-[#79bcff]">
+                  打开帮助中心
+                  <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </span>
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
