@@ -86,19 +86,28 @@ export default function SectionFloatingEntry({ items }: { items: SectionFloating
         href={activeItem.href}
         className={
           "pointer-events-auto group flex items-center overflow-hidden rounded-full bg-[#2f3136]/95 text-white shadow-[0_12px_40px_rgba(0,0,0,0.32)] backdrop-blur-sm transition-all duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
-          (expanded ? "w-[min(92vw,620px)] translate-y-0 scale-100 px-5 py-3.5" : "w-14 translate-y-1.5 scale-[0.96] px-2 py-2")
+          (expanded
+            ? "w-[min(92vw,620px)] translate-y-0 scale-100 justify-start px-5 py-3.5"
+            : "h-14 w-14 translate-y-1.5 scale-[0.96] justify-center px-0 py-0")
         }
         aria-label={activeItem.label}
       >
         <span
           className={
-            "min-w-0 flex-1 whitespace-nowrap text-[22px] font-semibold tracking-tight transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
-            (expanded ? "max-w-full translate-x-0 opacity-100" : "max-w-0 -translate-x-2 opacity-0")
+            "min-w-0 whitespace-nowrap text-[22px] font-semibold tracking-tight transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
+            (expanded
+              ? "max-w-full flex-1 translate-x-0 opacity-100"
+              : "max-w-0 w-0 flex-none -translate-x-2 overflow-hidden opacity-0")
           }
         >
           {activeItem.label}
         </span>
-        <span className="ml-3 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0071e3] text-white transition-transform duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]">
+        <span
+          className={
+            "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0071e3] text-white transition-transform duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] " +
+            (expanded ? "ml-3" : "ml-0")
+          }
+        >
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.4} d="M12 5v14m-7-7h14" />
           </svg>
