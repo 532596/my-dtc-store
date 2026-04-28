@@ -169,7 +169,6 @@ export default function Home() {
           {/* 苹果式：眉题 + 大标题 + 副文案，居中窄行宽 */}
           <Reveal>
             <header className="mx-auto max-w-4xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">The Problem</p>
               <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-tight text-white md:mt-7 md:text-5xl md:leading-[1.05] lg:text-[3.25rem]">
                 The &quot;Smart&quot; Desk Dilemma: It Forces You to Choose Between Health and Focus.
               </h2>
@@ -182,18 +181,32 @@ export default function Home() {
           {/* 大图 + 分层说明（上图下文、文居中；首句加粗大字、次句略小） */}
           <Reveal delay={1}>
             <figure className="mx-auto mt-16 max-w-[1068px] md:mt-20">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[22px] bg-neutral-900 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.85)] md:aspect-[2/1] md:rounded-[28px]">
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[10px] bg-neutral-900 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.85)] md:aspect-[2/1] md:rounded-[12px]">
                 <Image
                   src="/images/scene-office.jpg"
                   alt="Home office with a standing desk"
                   fill
-                  className="object-cover brightness-[0.92]"
+                  className="object-cover brightness-[0.84]"
                   sizes="(max-width: 768px) 100vw, 1068px"
                 />
                 <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/15"
                   aria-hidden
                 />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/45 via-transparent to-transparent" aria-hidden />
+                <div className="absolute left-5 top-5 md:left-7 md:top-6">
+                  <div className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-xs text-white/90">
+                    Timelapse Demo GIF (Placeholder)
+                  </div>
+                </div>
+                <div className="absolute inset-x-5 bottom-5 flex flex-wrap gap-2 md:inset-x-7 md:bottom-6">
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    2 mm/s Ultra-Gentle Motion
+                  </span>
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    5-10 cm smooth floating range
+                  </span>
+                </div>
               </div>
               <figcaption className="mx-auto mt-12 max-w-[40rem] text-center md:mt-14">
                 <p className="text-[1.375rem] font-semibold leading-snug tracking-tight text-white md:text-[1.75rem] md:leading-[1.15]">
@@ -212,26 +225,17 @@ export default function Home() {
             <div className="mx-auto mt-20 max-w-5xl border-t border-white/[0.08] pt-16 md:mt-24 md:pt-20">
               <div className="grid gap-14 md:grid-cols-3 md:gap-10 lg:gap-12">
                 <div className="group rounded-2xl px-4 py-3 text-center transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-white/[0.03]">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-amber-200/75 transition-colors duration-300 group-hover:text-amber-200/90">
-                    Core conflict
-                  </p>
-                  <p className="mx-auto mt-4 max-w-[18rem] text-lg font-semibold leading-snug tracking-tight text-white transition-colors duration-300 group-hover:text-white md:text-xl">
+                  <p className="mx-auto max-w-[18rem] text-lg font-semibold leading-snug tracking-tight text-white transition-colors duration-300 group-hover:text-white md:text-xl">
                     You keep your flow, or you protect your body.
                   </p>
                 </div>
                 <div className="group rounded-2xl px-4 py-3 text-center transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-white/[0.03]">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/40 transition-colors duration-300 group-hover:text-white/72">
-                    The ignored nudges
-                  </p>
-                  <p className="mx-auto mt-4 max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 transition-colors duration-300 group-hover:text-white/88 md:text-[17px] md:leading-relaxed">
+                  <p className="mx-auto max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 transition-colors duration-300 group-hover:text-white/88 md:text-[17px] md:leading-relaxed">
                     &quot;One more minute.&quot; Then two hours pass. Alerts are soft, but cognitive lock-in is strong.
                   </p>
                 </div>
                 <div className="group rounded-2xl px-4 py-3 text-center transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-white/[0.03]">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/40 transition-colors duration-300 group-hover:text-white/72">
-                    The context switch
-                  </p>
-                  <p className="mx-auto mt-4 max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 transition-colors duration-300 group-hover:text-white/88 md:text-[17px] md:leading-relaxed">
+                  <p className="mx-auto max-w-[18rem] text-[1.0625rem] leading-relaxed text-white/75 transition-colors duration-300 group-hover:text-white/88 md:text-[17px] md:leading-relaxed">
                     Reaching for controls breaks visual focus; by the time the desk moves, your mental stack is already gone.
                   </p>
                 </div>
@@ -257,7 +261,6 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Marketing Architecture · 02</p>
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               The Invisible Intervention
             </h2>
@@ -357,7 +360,6 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Marketing Architecture · 01</p>
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               The Cognitive Copilot
             </h2>
@@ -371,13 +373,13 @@ export default function Home() {
 
           <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             <Reveal delay={0}>
-              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35">
+              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/30 hover:bg-black/45 hover:shadow-[0_18px_46px_rgba(0,0,0,0.42)]">
                 <div className="relative aspect-video">
                   <Image
                     src="/images/scene-office.jpg"
                     alt="IDE Focus Mode：代码编辑器全屏时，桌面自动静音通知"
                     fill
-                    className="object-cover brightness-[0.7]"
+                    className="object-cover brightness-[0.7] transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                     sizes="(max-width: 1280px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
@@ -386,8 +388,7 @@ export default function Home() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
-                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">01</p>
-                  <h3 className="mt-2 text-xl font-semibold text-white">Ambient Notifications</h3>
+                  <h3 className="text-xl font-semibold text-white">Ambient Notifications</h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">
                     摒弃蜂鸣与震动式打扰。系统仅在后台以温和消息提醒你切换姿态，不强行打断当前思路。
                   </p>
@@ -399,13 +400,13 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={1}>
-              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35">
+              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/30 hover:bg-black/45 hover:shadow-[0_18px_46px_rgba(0,0,0,0.42)]">
                 <div className="relative aspect-video">
                   <Image
                     src="/images/hero.jpg"
                     alt="LLM Integration：触控面板 AI 呼吸灯与 API Key 极简输入界面"
                     fill
-                    className="object-cover brightness-[0.68]"
+                    className="object-cover brightness-[0.68] transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                     sizes="(max-width: 1280px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
@@ -414,8 +415,7 @@ export default function Home() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
-                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">02</p>
-                  <h3 className="mt-2 text-xl font-semibold text-white">Smart Ergonomics</h3>
+                  <h3 className="text-xl font-semibold text-white">Smart Ergonomics</h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">
                     输入身高或语音指令后，AI 自动推荐最符合人体工学的坐站高度，让每一毫米升降都更贴合你的身体数据。
                   </p>
@@ -427,13 +427,13 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={2}>
-              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35 md:col-span-2 xl:col-span-1">
+              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/30 hover:bg-black/45 hover:shadow-[0_18px_46px_rgba(0,0,0,0.42)] md:col-span-2 xl:col-span-1">
                 <div className="relative aspect-video">
                   <Image
                     src="/images/scene-learning.jpg"
                     alt="Smart Fatigue Tracking：系统自动计算久坐阈值并触发无感干预"
                     fill
-                    className="object-cover brightness-[0.72]"
+                    className="object-cover brightness-[0.72] transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                     sizes="(max-width: 1280px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
@@ -442,8 +442,7 @@ export default function Home() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
-                  <p className="text-xs uppercase tracking-[0.16em] text-white/60">03</p>
-                  <h3 className="mt-2 text-xl font-semibold text-white">AI Agent Web Integration</h3>
+                  <h3 className="text-xl font-semibold text-white">AI Agent Web Integration</h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">
                     不额外强制你下载冗余 App。通过网页端连接你已有工具链，把健康策略自然嵌入现有工作流。
                   </p>
@@ -468,7 +467,6 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <header className="mx-auto max-w-4xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">The Marketing Architecture · 03</p>
               <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-tight md:mt-6 md:text-5xl md:leading-[1.05] lg:text-[3.25rem]">
                 The Ultimate Canvas / Workstation
               </h2>
@@ -493,9 +491,6 @@ export default function Home() {
                     className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10"
                     aria-hidden
                   />
-                  <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/40 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white/80 backdrop-blur-sm md:left-5 md:top-5">
-                    Exploded View (Placeholder)
-                  </span>
                 </div>
                 <figcaption className="sr-only">硬件场景与结构示意</figcaption>
               </figure>
@@ -589,7 +584,6 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">Core Value Proposition</p>
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               把健康交给 AI 算法，把专注留给心流。
             </h2>
@@ -599,59 +593,73 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 md:gap-8">
+            <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
               {[
                 {
                   id: "01",
                   title: "AI 坐站规划",
                   desc: "输入身高与基本信息，AI 自动生成最科学的坐站比与专属高度，用算法全面接管健康策略。",
+                  link: "进一步了解坐站规划",
                 },
                 {
                   id: "02",
                   title: "静默消息提醒",
                   desc: "摒弃刺耳蜂鸣。系统搭载环境级柔性通知协议，将健康提醒无缝隐匿于数字工作流中，在绝对捍卫专注力的前提下完成无打扰姿态引导。",
+                  link: "进一步了解提醒协议",
                 },
                 {
                   id: "03",
                   title: "无感微动巡航",
                   desc: "针对极度沉浸时刻，底层激活潜意识物理干预引擎，通过零感知的空间微幅起伏，在思绪不断连状态下悄然唤醒核心肌群以化解静态疲劳。",
+                  link: "进一步了解微动巡航",
                 },
                 {
                   id: "04",
                   title: "环保耐刮涂层",
                   desc: "采用零胶水、低 VOC 的静电喷粉工艺。告别工业异味，呈现细腻哑光质感，同时具备装甲级防刮耐磨性。",
+                  link: "进一步了解表面工艺",
                 },
                 {
                   id: "05",
                   title: "跑车级翻毛皮护腕",
                   desc: "手腕高频接触区选用跑车内饰同款东丽翻毛皮。告别桌面的冷硬，提供温润触感与缓冲支撑。",
+                  link: "进一步了解材质细节",
                 },
                 {
                   id: "06",
                   title: "磁吸隐形理线",
                   desc: "随取随吸的快拆模块，瞬间吞噬冗杂电源与信号线。增减设备无需钻入桌底，抬手即可完成极简桌搭。",
+                  link: "进一步了解理线系统",
                 },
                 {
                   id: "07",
                   title: "80cm 超深桌面",
                   desc: "科学划分“视觉展示区”与“高频操作区”，拉开合理的人机工学距离，让全套生产力工具各就其位、互不干扰。",
+                  link: "进一步了解桌面分区",
                 },
                 {
                   id: "08",
                   title: "磐石级抗晃底盘",
                   desc: "升降时杯水不溢，意外撞击桌面不晃。极致稳固的双电机底盘，提供可靠物理承托。",
+                  link: "进一步了解稳定结构",
                 },
                 {
                   id: "09",
                   title: "全域身高适配",
                   desc: "从 1.5 米到 1.95 米全面覆盖。大跨度升降系统精准匹配各类身型，自由切换坐立工作姿态。",
+                  link: "进一步了解适配范围",
                 },
               ].map((item, i) => (
                 <Reveal key={item.id} delay={(i % 3) as 0 | 1 | 2}>
-                  <article className="flex h-full min-h-[220px] flex-col rounded-[20px] border border-white/15 bg-black/35 p-6 md:p-8">
-                    <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/45">{item.id}</p>
-                    <h3 className="mt-3 text-[1.75rem] font-semibold leading-tight tracking-tight text-white">{item.title}</h3>
-                    <p className="mt-4 max-w-[34ch] text-[15px] leading-7 text-white/72 md:text-base">{item.desc}</p>
+                  <article className="group flex h-full min-h-[300px] flex-col rounded-[28px] bg-[#070a10] p-7 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-[#0a0e16] hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.14),0_18px_42px_rgba(0,0,0,0.38)] md:p-8">
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/8 text-sm font-semibold text-white/88">
+                      {item.id}
+                    </div>
+                    <h3 className="mt-6 text-[2rem] font-semibold leading-[1.15] tracking-tight text-white">{item.title}</h3>
+                    <p className="mt-5 max-w-[34ch] text-base leading-8 text-white/72">{item.desc}</p>
+                    <span className="mt-auto pt-6 text-sm font-medium text-[#4ea4ff] transition-colors duration-300 group-hover:text-[#79bcff]">
+                      {item.link} &gt;
+                    </span>
                   </article>
                 </Reveal>
               ))}
@@ -667,7 +675,6 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">Rewards & Pricing</p>
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               Choose Your Flow.
             </h2>
@@ -770,7 +777,6 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">The Brand Story</p>
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               The Ultimate Balance Between Focus and Well-being.
             </h2>
@@ -855,7 +861,6 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.18em] text-white/60">Timeline & Shipping</p>
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               Build Plan You Can Track.
             </h2>
@@ -927,7 +932,6 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <header className="mx-auto max-w-2xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/45">FAQ</p>
               <h2 className="mt-4 text-[2rem] font-semibold leading-[1.08] tracking-tight md:text-5xl md:leading-[1.05]">
                 常见问题
               </h2>
@@ -997,9 +1001,6 @@ export default function Home() {
                         sizes="(max-width: 768px) 50vw, 25vw"
                       />
                     </div>
-                    <p className="mt-2 text-xs font-medium uppercase tracking-wider text-warm-stone">
-                      站立办公
-                    </p>
                     <p className="mt-0.5 text-xs text-warm-muted">坐站交替，减轻久坐负担</p>
                   </div>
                   <div className="flex flex-col">
@@ -1012,9 +1013,6 @@ export default function Home() {
                         sizes="(max-width: 768px) 50vw, 25vw"
                       />
                     </div>
-                    <p className="mt-2 text-xs font-medium uppercase tracking-wider text-warm-stone">
-                      坐姿办公
-                    </p>
                     <p className="mt-0.5 text-xs text-warm-muted">一键记忆，找回舒适高度</p>
                   </div>
                 </div>
