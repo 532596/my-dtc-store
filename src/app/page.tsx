@@ -707,7 +707,7 @@ export default function Home() {
                   topTint: "from-amber-900/20",
                 },
                 {
-                  name: "Kickstarter Special",
+                  name: "Kickstarter",
                   tagline: "常规众筹价，同享全套权益。",
                   price: "$999",
                   limit: "Limited to 300",
