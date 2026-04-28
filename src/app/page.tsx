@@ -4,6 +4,7 @@ import Link from "next/link";
 import Reveal, { type RevealProps } from "@/components/Reveal";
 import FaqAccordion from "@/components/FaqAccordion";
 import HeroShowcase, { type HeroSlide } from "@/components/HeroShowcase";
+import SectionFloatingEntry, { type SectionFloatingEntryItem } from "@/components/SectionFloatingEntry";
 import TestimonialsSection, { type TestimonialItem } from "@/components/TestimonialsSection";
 import { FAQ_GROUPS } from "@/data/faq";
 
@@ -137,12 +138,12 @@ const TESTIMONIALS: TestimonialItem[] = [
   },
 ];
 
-const MINI_PAGE_ENTRIES = [
-  { id: "mini-series", title: "探索 FlowShift 产品矩阵", href: "/series" },
-  { id: "mini-scenarios", title: "查看真实使用场景", href: "/scenarios" },
-  { id: "mini-guide", title: "阅读技术与健康指南", href: "/guide" },
-  { id: "mini-about", title: "了解团队与品牌故事", href: "/about" },
-  { id: "mini-support", title: "进入支持与服务中心", href: "/support" },
+const FLOATING_PART_ENTRIES: SectionFloatingEntryItem[] = [
+  { id: "part-01", sectionId: "part-invisible-intervention", label: "了解无感微动巡航", href: "/guide" },
+  { id: "part-02", sectionId: "part-cognitive-copilot", label: "了解 AI 认知副驾", href: "/scenarios" },
+  { id: "part-03", sectionId: "part-ultimate-canvas", label: "查看硬件与材质细节", href: "/series" },
+  { id: "part-04", sectionId: "part-brand-story", label: "阅读完整品牌故事", href: "/about" },
+  { id: "part-05", sectionId: "part-faq", label: "进入支持与服务中心", href: "/support" },
 ];
 
 export default function Home() {
@@ -240,7 +241,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#07090c] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]">
+      <section
+        id="part-invisible-intervention"
+        className="relative overflow-hidden bg-[#07090c] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]"
+      >
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-24 top-8 h-80 w-80 rounded-full bg-white/5 blur-[130px]" />
           <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-300/10 blur-[140px]" />
@@ -309,7 +313,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#06080c] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]">
+      <section
+        id="part-cognitive-copilot"
+        className="relative overflow-hidden bg-[#06080c] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]"
+      >
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-20 top-6 h-72 w-72 rounded-full bg-indigo-300/10 blur-[120px]" />
           <div className="absolute -right-20 bottom-4 h-72 w-72 rounded-full bg-cyan-300/10 blur-[130px]" />
@@ -416,7 +423,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#05070a] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-lg))]">
+      <section
+        id="part-ultimate-canvas"
+        className="relative overflow-hidden bg-[#05070a] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-lg))]"
+      >
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-20 top-8 h-80 w-80 rounded-full bg-white/5 blur-[120px]" />
           <div className="absolute -right-20 bottom-8 h-80 w-80 rounded-full bg-blue-300/10 blur-[140px]" />
@@ -716,7 +726,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#05070b] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]">
+      <section
+        id="part-brand-story"
+        className="relative overflow-hidden bg-[#05070b] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]"
+      >
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-16 top-12 h-72 w-72 rounded-full bg-violet-300/10 blur-[120px]" />
           <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-white/5 blur-[120px]" />
@@ -869,7 +882,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#05070a] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-xl))]">
+      <section
+        id="part-faq"
+        className="relative overflow-hidden bg-[#05070a] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-xl))]"
+      >
         <div className="absolute inset-0" aria-hidden>
           <div className="absolute -left-16 top-12 h-72 w-72 rounded-full bg-cyan-300/10 blur-[120px]" />
           <div className="absolute -right-16 bottom-8 h-72 w-72 rounded-full bg-indigo-300/10 blur-[130px]" />
@@ -890,40 +906,6 @@ export default function Home() {
           <Reveal delay={1}>
             <FaqAccordion groups={FAQ_GROUPS} variant="dark" className="mx-auto mt-12 max-w-3xl md:mt-16" />
           </Reveal>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-[#040507] py-[var(--space-3xl)] md:py-[calc(var(--space-3xl)+var(--space-md))]">
-        <div className="mx-auto max-w-[1200px] px-6 md:px-12">
-          <Reveal>
-            <header className="text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.24em] text-white/45">Explore More</p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl">
-                向下探索，进入每个详细页面
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-base text-white/65 md:text-lg">
-                每个入口在滚动到视口时弹出显示，点击即可跳转到对应详情页。
-              </p>
-            </header>
-          </Reveal>
-
-          <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:mt-14">
-            {MINI_PAGE_ENTRIES.map((entry, index) => (
-              <Reveal key={entry.id} delay={(index % 4) as 0 | 1 | 2 | 3}>
-                <Link
-                  href={entry.href}
-                  className="group flex items-center justify-between rounded-full border border-white/10 bg-white/[0.08] px-5 py-4 text-white transition-all duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:translate-y-[-2px] hover:border-white/20 hover:bg-white/[0.12]"
-                >
-                  <span className="text-lg font-semibold tracking-tight md:text-[1.75rem]">{entry.title}</span>
-                  <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0071e3] text-white transition-transform duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]">
-                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v14m-7-7h14" />
-                    </svg>
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -1039,6 +1021,7 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+      <SectionFloatingEntry items={FLOATING_PART_ENTRIES} />
     </main>
   );
 }
