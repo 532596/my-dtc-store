@@ -62,12 +62,12 @@ export default function HeroShowcase({ slides, cta }: HeroShowcaseProps) {
 
   return (
     <section
-      className="relative min-h-[85vh] overflow-hidden bg-black md:min-h-screen"
+      className="relative min-h-[85vh] overflow-hidden bg-[#f5f5f7] md:min-h-screen"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       {/* background slides */}
-      <div className="absolute inset-0">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[34%] md:top-[30%]">
         {slides.map((s, i) => (
           <div
             key={s.id}
@@ -83,43 +83,41 @@ export default function HeroShowcase({ slides, cta }: HeroShowcaseProps) {
               alt={s.imageAlt}
               fill
               priority={i === 0}
-              className="object-cover"
+              className="object-contain object-bottom"
               sizes="100vw"
             />
           </div>
         ))}
       </div>
 
-      {/* overlay for readability */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/[0.68] via-black/[0.52] to-black/[0.62]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#f5f5f7] via-[#f5f5f7]/85 to-transparent" />
 
-      <div className="relative flex min-h-[85vh] w-full flex-col justify-between px-6 pb-12 pt-14 md:min-h-screen md:px-12 md:pb-16 md:pt-16">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-1 items-center">
-          <div className="relative w-full max-w-4xl text-white">
-            <div className="pointer-events-none absolute -inset-x-4 -inset-y-6 rounded-[22px] bg-[rgba(0,0,0,0.25)]" />
+      <div className="relative flex min-h-[85vh] w-full flex-col justify-between px-6 pb-10 pt-12 md:min-h-screen md:px-12 md:pb-14 md:pt-16">
+        <div className="mx-auto flex w-full max-w-[1200px] flex-1 items-start justify-center text-center">
+          <div className="relative w-full max-w-4xl text-[#1d1d1f]">
             <div className="relative">
-              <p className="text-[12px] font-medium uppercase tracking-[0.22em] text-white/72">
+              <p className="text-[12px] font-medium uppercase tracking-[0.22em] text-[#6e6e73]">
                 Where deep work meets gentle technology
               </p>
-              <h1 className="mt-4 text-[40px] font-semibold leading-[1.05] tracking-[-0.02em] md:text-[76px] md:tracking-[-0.03em] lg:text-[92px]">
+              <h1 className="mt-4 text-[40px] font-semibold leading-[1.05] tracking-[-0.02em] md:text-[74px] md:tracking-[-0.03em] lg:text-[88px]">
                 FlowShift
               </h1>
-              <h2 className="mt-5 text-[20px] font-medium leading-[1.35] tracking-[-0.01em] text-white/90 md:text-[30px] md:leading-[1.3]">
+              <h2 className="mt-4 text-[20px] font-normal leading-[1.3] tracking-[-0.01em] text-[#1d1d1f] md:text-[32px]">
                 The World&apos;s First AI-Native Flow Workstation
               </h2>
-              <p className="mt-6 max-w-3xl text-[16px] leading-[1.5] text-white/82 md:text-[19px]">
+              <p className="mx-auto mt-5 max-w-3xl text-[16px] leading-[1.5] text-[#6e6e73] md:text-[19px]">
                 构建你的终极 AI 工作站。深度工作与温和科技的交汇。零打扰，全同步。
               </p>
-              <p className="mt-3 hidden max-w-3xl text-[16px] leading-[1.5] text-white/72 md:block md:text-[17px]">
+              <p className="mx-auto mt-2 hidden max-w-3xl text-[16px] leading-[1.5] text-[#6e6e73] md:block md:text-[17px]">
                 As your cognitive copilot in the physical world, FlowShift quietly manages posture and environment so you can keep your mind fully on code and logic.
               </p>
 
               {cta?.primary || cta?.secondary ? (
-                <div className="mt-10 flex flex-wrap items-center gap-6">
+                <div className="mt-8 flex flex-wrap items-center justify-center gap-4 md:mt-9">
                   {cta?.primary ? (
                     <Link
                       href={cta.primary.href}
-                      className="inline-flex min-w-[11rem] items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-opacity duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:opacity-90"
+                      className="inline-flex min-w-[10.5rem] items-center justify-center rounded-full bg-[#0071e3] px-6 py-3 text-sm font-medium text-white transition-colors duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:bg-[#0077ed]"
                     >
                       {cta.primary.label}
                     </Link>
@@ -127,7 +125,7 @@ export default function HeroShowcase({ slides, cta }: HeroShowcaseProps) {
                   {cta?.secondary ? (
                     <Link
                       href={cta.secondary.href}
-                      className="text-[15px] font-medium text-[#0066CC] transition-colors duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:text-[#0077ED]"
+                      className="text-[15px] font-medium text-[#0066cc] transition-colors duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:text-[#0077ed]"
                     >
                       {cta.secondary.label} →
                     </Link>
@@ -169,7 +167,7 @@ export default function HeroShowcase({ slides, cta }: HeroShowcaseProps) {
         <div className="absolute inset-x-0 bottom-6 z-20 px-6 md:bottom-8 md:px-12">
           <div className="mx-auto w-full max-w-[1200px]">
             {activeSlide && (
-              <p className="mb-3 text-[12px] font-medium uppercase tracking-[0.22em] text-white/70">
+              <p className="mb-2 text-center text-[12px] font-medium uppercase tracking-[0.22em] text-[#6e6e73]">
                 {activeSlide.name}
               </p>
             )}
@@ -177,7 +175,7 @@ export default function HeroShowcase({ slides, cta }: HeroShowcaseProps) {
               <button
                 type="button"
                 aria-label="Previous"
-                className="inline-flex items-center justify-center text-white/50 transition-opacity duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:text-white/90"
+                className="inline-flex items-center justify-center text-[#6e6e73] transition-opacity duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:opacity-75"
                 onClick={() => go(safeActive - 1)}
               >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,7 +199,7 @@ export default function HeroShowcase({ slides, cta }: HeroShowcaseProps) {
                     <span
                       className={
                         "block h-[1.5px] w-full transition-all duration-[400ms] [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] " +
-                        (i === safeActive ? "opacity-100 bg-white" : "opacity-30 bg-white group-hover:opacity-60")
+                        (i === safeActive ? "opacity-100 bg-[#1d1d1f]" : "opacity-30 bg-[#1d1d1f] group-hover:opacity-60")
                       }
                     />
                   </button>
@@ -211,7 +209,7 @@ export default function HeroShowcase({ slides, cta }: HeroShowcaseProps) {
               <button
                 type="button"
                 aria-label="Next"
-                className="inline-flex items-center justify-center text-white/50 transition-opacity duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:text-white/90"
+                className="inline-flex items-center justify-center text-[#6e6e73] transition-opacity duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:opacity-75"
                 onClick={() => go(safeActive + 1)}
               >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
