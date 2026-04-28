@@ -17,7 +17,7 @@ export default function HeroShowcase() {
       <div className="relative z-10 flex min-h-svh w-full items-center justify-center px-6">
         <h1
           id="hero-brand-title"
-          className="text-center text-6xl font-bold tracking-[-0.04em] text-white drop-shadow-[0_8px_48px_rgba(0,0,0,0.45)] sm:text-7xl md:text-8xl lg:text-9xl"
+          className="text-center text-5xl font-bold tracking-[-0.04em] text-white drop-shadow-[0_8px_48px_rgba(0,0,0,0.45)] sm:text-6xl md:text-7xl lg:text-8xl"
         >
           FlowShift
         </h1>

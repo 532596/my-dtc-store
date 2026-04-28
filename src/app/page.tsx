@@ -134,15 +134,12 @@ export default function Home() {
         </div>
 
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
-          {/* 苹果式：眉题 + 大标题 + 副文案，居中窄行宽 */}
+          {/* 区块主标题：仅保留原副文案一句，居中 */}
           <Reveal>
-            <header className="mx-auto max-w-4xl text-center">
+            <header className="mx-auto max-w-5xl text-center">
               <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-tight text-white md:mt-7 md:text-5xl md:leading-[1.05] lg:text-[3.25rem]">
-                The &quot;Smart&quot; Desk Dilemma: It Forces You to Choose Between Health and Focus.
-              </h2>
-              <p className="mx-auto mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-white/65 md:mt-6 md:text-xl md:leading-relaxed">
                 You should never need to choose between cognitive flow and physical wellbeing.
-              </p>
+              </h2>
             </header>
           </Reveal>
 
@@ -212,8 +209,10 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={3}>
-            <p className="mx-auto mt-16 max-w-[36rem] text-center text-[1.3125rem] font-medium leading-snug text-white md:mt-20 md:text-2xl md:leading-snug">
-              You shouldn&apos;t have to interrupt your workflow to save your spine.
+            <p className="grad-text-hover-wrap mx-auto mt-16 max-w-[44rem] cursor-default text-center md:mt-20">
+              <span className="grad-text grad-text--quote block text-2xl font-semibold leading-[1.12] tracking-[-0.025em] md:text-3xl md:leading-[1.1] lg:text-4xl">
+                You shouldn&apos;t have to interrupt your workflow to save your spine.
+              </span>
             </p>
           </Reveal>
         </div>
