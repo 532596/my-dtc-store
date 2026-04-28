@@ -724,7 +724,7 @@ export default function Home() {
               return (
                 <Reveal key={tier.name} delay={index as 0 | 1 | 2}>
                   <article
-                    className="flex h-full flex-col overflow-hidden rounded-[24px] border border-white/12 bg-[#0a0d12] transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/18 hover:shadow-[0_20px_50px_rgba(0,0,0,0.45)]"
+                    className="flex h-full flex-col overflow-hidden rounded-[24px] bg-[#0a0d12] transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.45)]"
                     style={{ minHeight: "100%" }}
                   >
                     {/* 与 Apple 产品卡一致：首屏大图 + 下挂信息区（三档同一结构、均有配图） */}
@@ -746,7 +746,7 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="flex flex-1 flex-col border-t border-white/[0.06] p-5 md:p-6">
+                    <div className="flex flex-1 flex-col p-5 md:p-6">
                       <div className="flex items-center gap-1.5" aria-hidden>
                         <span
                           className="h-2.5 w-2.5 rounded-full border border-white/20 bg-zinc-900"
