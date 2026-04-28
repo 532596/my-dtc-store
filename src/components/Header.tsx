@@ -44,7 +44,7 @@ export default function Header() {
   const [cartOpen, setCartOpen] = React.useState(false);
   const cartCloseTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const MEGA_EXIT_MS = 180;
+  const MEGA_EXIT_MS = 240;
   const cartSubtotal = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
 
   /** 当前展示的面板类型（收起时展示正在收起的；否则展示当前打开的） */
@@ -165,13 +165,13 @@ export default function Header() {
 
   return (
     <header
-      className="relative sticky top-0 z-50 border-b border-warm-gray/50 bg-warm-white/85 backdrop-blur-md"
+      className="relative sticky top-0 z-50 border-b border-white/10 bg-black/85"
       onMouseLeave={closeAll}
     >
       <nav className="relative mx-auto flex max-w-content items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="text-xl font-medium tracking-tight text-foreground transition-opacity hover:opacity-80"
+          className="text-xl font-medium tracking-tight text-white/92 transition-opacity hover:opacity-80"
         >
           Smart Standing Desk
         </Link>
@@ -180,8 +180,8 @@ export default function Header() {
           {NAV.map((item) => {
             const isActive = pathname === item.href;
             const baseClass =
-              "transition-colors " +
-              (isActive ? "font-medium text-foreground" : "text-warm-muted hover:text-foreground");
+              "transition-colors duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
+              (isActive ? "font-medium text-white" : "text-white/62 hover:text-white");
 
             // 产品：悬浮展开满屏 mega menu，移出后快速收起
             if (item.menu === "products") {
@@ -461,7 +461,7 @@ export default function Header() {
       {/* 单一 mega 面板：左右切换只换内容不收回，高度随内容过渡 */}
       {megaVisible && (
         <div
-          className={`absolute left-0 right-0 top-full z-40 overflow-hidden border-t border-warm-gray/40 bg-warm-cream/95 shadow-[0_18px_46px_rgba(0,0,0,0.35)] transition-[height] duration-200 ease-out ${isMegaClosing ? "mega-menu-panel-out" : "mega-menu-panel"}`}
+          className={`absolute left-0 right-0 top-full z-40 overflow-hidden border-t border-white/10 bg-[#0b0c0f]/98 transition-[height] duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${isMegaClosing ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           style={{ height: megaPanelHeight }}
           onMouseEnter={keepMegaOpen}
         >
