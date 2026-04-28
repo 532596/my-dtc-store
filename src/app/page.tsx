@@ -1097,23 +1097,30 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="mx-auto mt-12 max-w-xl md:mt-14">
+            <div className="mx-auto mt-14 max-w-3xl md:mt-16">
               <Link
                 href="/support#faq"
-                className="group flex flex-col rounded-[12px] border border-white/15 bg-white/[0.04] p-8 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:border-white/25 hover:bg-white/[0.07] hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] md:p-10"
+                className="group flex flex-col gap-5 border-y border-white/[0.12] py-8 transition-[border-color,opacity] duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:border-white/[0.22] md:flex-row md:items-center md:justify-between md:gap-8 md:py-10"
               >
-                <span className="text-sm font-medium text-white/55">帮助中心 · FAQ</span>
-                <span className="mt-3 text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">
-                  前往查看全部问题与解答
-                </span>
-                <span className="mt-3 text-sm leading-relaxed text-white/62">
-                  支持关键词搜索、按主题浏览；产品参数、众筹与物流说明也在同一页面。
-                </span>
-                <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-[#4ea4ff] transition-colors group-hover:text-[#79bcff]">
-                  打开帮助中心
-                  <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">
-                    →
-                  </span>
+                <div className="min-w-0 text-left">
+                  <p className="text-[17px] font-semibold leading-snug tracking-tight text-white md:text-[1.125rem]">
+                    在帮助中心查看全部问题与解答
+                  </p>
+                  <p className="mt-2 max-w-md text-[15px] leading-relaxed text-white/58">
+                    支持搜索与按主题浏览；产品参数、众筹与物流说明也在同一页面。
+                  </p>
+                </div>
+                <span className="inline-flex shrink-0 items-center gap-1.5 text-[15px] font-medium text-[#0071e3] transition-colors duration-200 group-hover:text-[#0077ed] md:self-center">
+                  前往帮助中心
+                  <svg
+                    className="h-4 w-4 transition-transform duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </span>
               </Link>
             </div>
