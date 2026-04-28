@@ -264,10 +264,10 @@ export default function Home() {
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               The Invisible Intervention
             </h2>
-            <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
+            <p className="mx-auto mt-4 max-w-4xl text-center text-base text-white/75 md:text-lg">
               隐形物理干预：解决“久坐但不想站”。
             </p>
-            <p className="mt-6 max-w-4xl text-sm leading-relaxed text-white/80 md:text-base">
+            <p className="mx-auto mt-6 max-w-4xl text-center text-sm leading-relaxed text-white/80 md:text-base">
               在深度沉浸场景中，FlowShift 的 Micro-Flow Cruise 会以极缓、无声、几乎不可察觉的节奏，让身体保持微活动，缓解静力性僵硬，同时不打断你的认知流。
             </p>
           </Reveal>
@@ -363,15 +363,15 @@ export default function Home() {
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               The Cognitive Copilot
             </h2>
-            <p className="mt-4 max-w-4xl text-base text-white/75 md:text-lg">
+            <p className="mx-auto mt-4 max-w-4xl text-center text-base text-white/75 md:text-lg">
               认知副驾：不打断思路的软件与 AI 无感介入。
             </p>
-            <p className="mt-5 max-w-4xl text-sm leading-relaxed text-white/80 md:text-base">
+            <p className="mx-auto mt-5 max-w-4xl text-center text-sm leading-relaxed text-white/80 md:text-base">
               系统通过网页端接入你常用的 AI Agent，以勿扰式柔性提醒与智能人体工学推荐，在尊重心流的前提下，提供恰到好处的健康陪伴。
             </p>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-12 grid gap-8 md:grid-cols-2 md:gap-10 xl:grid-cols-3">
             <Reveal delay={0}>
               <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/30 hover:bg-black/45 hover:shadow-[0_18px_46px_rgba(0,0,0,0.42)]">
                 <div className="relative aspect-video">
@@ -587,7 +587,7 @@ export default function Home() {
             <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
               把健康交给 AI 算法，把专注留给心流。
             </h2>
-            <p className="mt-6 max-w-4xl text-base leading-relaxed text-white/78 md:text-lg">
+            <p className="mx-auto mt-6 max-w-4xl text-center text-base leading-relaxed text-white/78 md:text-lg">
               AI Agent 量身定制坐站规划，工业级无感设计静默执行。我们把复杂的健康策略隐藏到后台，把认知带宽还给真正重要的创造工作。
             </p>
           </Reveal>
