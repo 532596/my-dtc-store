@@ -27,10 +27,10 @@ function buildDeskTargets(pw: number, ph: number): Pt[] {
     }
   };
 
-  addGrid(30, 5, -0.52, -0.24, 0.52, -0.13);
-  addGrid(5, 26, -0.36, -0.11, -0.21, 0.4);
-  addGrid(5, 26, 0.21, -0.11, 0.36, 0.4);
-  addGrid(18, 3, -0.3, 0.2, 0.3, 0.3);
+  addGrid(42, 7, -0.52, -0.24, 0.52, -0.13);
+  addGrid(7, 32, -0.36, -0.11, -0.21, 0.4);
+  addGrid(7, 32, 0.21, -0.11, 0.36, 0.4);
+  addGrid(26, 4, -0.3, 0.2, 0.3, 0.3);
 
   return pts;
 }
@@ -72,7 +72,7 @@ type DeskState = {
 };
 
 function initIons(w: number, h: number): IonState {
-  const ionN = Math.min(160, Math.max(48, Math.floor((w * h) / 9000)));
+  const ionN = Math.min(240, Math.max(72, Math.floor((w * h) / 6500)));
   const ionX = new Float32Array(ionN);
   const ionY = new Float32Array(ionN);
   const ionVx = new Float32Array(ionN);
@@ -135,7 +135,7 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
     canvas.style.height = `${h}px`;
 
     const deskFull = buildDeskTargets(w, h);
-    const maxN = w < 520 ? 300 : w < 900 ? 400 : 520;
+    const maxN = w < 520 ? 480 : w < 900 ? 640 : 860;
     const step = Math.max(1, Math.ceil(deskFull.length / maxN));
     const desk: Pt[] = [];
     for (let i = 0; i < deskFull.length; i += step) desk.push(deskFull[i]);

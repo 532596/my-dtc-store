@@ -134,46 +134,16 @@ export default function Home() {
         </div>
 
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
-          {/* 区块主标题：仅保留原副文案一句，居中 */}
+          {/* 标题 → 原图下文案（Nobody ignores…）→ 大图 */}
           <Reveal>
-            <header className="mx-auto max-w-5xl text-center">
-              <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-tight text-white md:mt-7 md:text-5xl md:leading-[1.05] lg:text-[3.25rem]">
-                You should never need to choose between cognitive flow and physical wellbeing.
-              </h2>
-            </header>
-          </Reveal>
+            <div className="mx-auto max-w-[1068px]">
+              <header className="mx-auto max-w-5xl text-center">
+                <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-tight text-white md:mt-7 md:text-5xl md:leading-[1.05] lg:text-[3.25rem]">
+                  You should never need to choose between cognitive flow and physical wellbeing.
+                </h2>
+              </header>
 
-          {/* 大图 + 分层说明（上图下文、文居中；首句加粗大字、次句略小） */}
-          <Reveal delay={1}>
-            <figure className="mx-auto mt-16 max-w-[1068px] md:mt-20">
-              <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[12px] bg-neutral-900 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.85)] md:rounded-[12px]">
-                <Image
-                  src="/images/scene-office.jpg"
-                  alt="Home office with a standing desk"
-                  fill
-                  className="object-cover brightness-[0.84]"
-                  sizes="(max-width: 768px) 100vw, 1068px"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/15"
-                  aria-hidden
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/45 via-transparent to-transparent" aria-hidden />
-                <div className="absolute left-5 top-5 md:left-7 md:top-6">
-                  <div className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-xs text-white/90">
-                    Timelapse Demo GIF (Placeholder)
-                  </div>
-                </div>
-                <div className="absolute inset-x-5 bottom-5 flex flex-wrap gap-2 md:inset-x-7 md:bottom-6">
-                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
-                    2 mm/s Ultra-Gentle Motion
-                  </span>
-                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
-                    5-10 cm smooth floating range
-                  </span>
-                </div>
-              </div>
-              <figcaption className="grad-text-hover-wrap mx-auto mt-12 max-w-[40rem] cursor-default text-center md:mt-14">
+              <div className="grad-text-hover-wrap mx-auto mt-10 max-w-[40rem] cursor-default text-center md:mt-12">
                 <p className="text-[1.625rem] font-semibold leading-snug tracking-tight md:text-[2.125rem] md:leading-[1.12]">
                   <span className="grad-text grad-text--quote">Nobody ignores health on purpose.</span>
                 </p>
@@ -181,12 +151,42 @@ export default function Home() {
                   Traditional standing desks fail because they require your active attention at the exact moment you are most
                   focused.
                 </p>
-              </figcaption>
-            </figure>
+              </div>
+
+              <figure className="mt-10 md:mt-14">
+                <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[12px] bg-neutral-900 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.85)] md:rounded-[12px]">
+                  <Image
+                    src="/images/scene-office.jpg"
+                    alt="Home office with a standing desk"
+                    fill
+                    className="object-cover brightness-[0.84]"
+                    sizes="(max-width: 768px) 100vw, 1068px"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/15"
+                    aria-hidden
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/45 via-transparent to-transparent" aria-hidden />
+                  <div className="absolute left-5 top-5 md:left-7 md:top-6">
+                    <div className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-xs text-white/90">
+                      Timelapse Demo GIF (Placeholder)
+                    </div>
+                  </div>
+                  <div className="absolute inset-x-5 bottom-5 flex flex-wrap gap-2 md:inset-x-7 md:bottom-6">
+                    <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                      2 mm/s Ultra-Gentle Motion
+                    </span>
+                    <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                      5-10 cm smooth floating range
+                    </span>
+                  </div>
+                </div>
+              </figure>
+            </div>
           </Reveal>
 
           {/* 三列要点：等宽、居中、少装饰线，接近产品页 feature 三栏 */}
-          <Reveal delay={2}>
+          <Reveal delay={1}>
             <div className="mx-auto mt-20 max-w-5xl border-t border-white/[0.08] pt-16 md:mt-24 md:pt-20">
               <div className="grid gap-14 md:grid-cols-3 md:gap-10 lg:gap-12">
                 <div className="group rounded-2xl px-4 py-3 text-center transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:bg-white/[0.03]">
