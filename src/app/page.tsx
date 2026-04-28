@@ -302,22 +302,26 @@ export default function Home() {
             <div className="mx-auto mt-12 max-w-5xl border-t border-white/10 pt-12">
               <div className="grid place-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10">
                 {[
-                  { value: "2 mm/s", label: "Micro-Flow Cruise speed", grad: "grad-text--m1" as const },
-                  { value: "< 45 dB", label: "Quiet motor profile", grad: "grad-text--m2" as const },
-                  { value: "5-10 cm", label: "Subtle floating range", grad: "grad-text--m3" as const },
-                  { value: "0 打断", label: "No harsh alerts", grad: "grad-text--m4" as const },
-                  { value: "10 年", label: "Frame warranty", grad: "grad-text--m5" as const },
-                  { value: "150-195cm", label: "Height adaptability", grad: "grad-text--m6" as const },
-                ].map((metric) => (
+                  { value: "2 mm/s", label: "Micro-Flow Cruise speed" },
+                  { value: "< 45 dB", label: "Quiet motor profile" },
+                  { value: "5-10 cm", label: "Subtle floating range" },
+                  { value: "0 打断", label: "No harsh alerts" },
+                  { value: "10 年", label: "Frame warranty" },
+                  { value: "150-195cm", label: "Height adaptability" },
+                ].map((metric, i) => {
+                  const grad =
+                    i % 3 === 0 ? "grad-text--apple-warm" : i % 3 === 1 ? "grad-text--apple-mix" : "grad-text--apple-cool";
+                  return (
                   <div key={metric.value} className="grad-text-hover-wrap text-center">
                     <p
-                      className={`grad-text ${metric.grad} inline-block text-4xl font-semibold tracking-tight md:text-5xl`}
+                      className={`grad-text ${grad} inline-block text-4xl font-semibold tracking-tight md:text-5xl`}
                     >
                       {metric.value}
                     </p>
                     <p className="mt-2 text-sm text-white/68 md:text-base">{metric.label}</p>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </Reveal>

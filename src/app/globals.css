@@ -136,7 +136,7 @@ body {
   transform-origin: top;
 }
 
-/* 首页渐变字：初始色与 p1 每格一致；hover 仅小幅平移背景，避免整段从蓝翻到黄 */
+/* 首页渐变字：规格区与苹果 p2 一致——三列循环（暖金 / 金→蓝 / 深蓝→天蓝）；hover 仅小幅平移 */
 .grad-text {
   background-size: 125% 100%;
   background-position: 48% 50%;
@@ -151,32 +151,38 @@ body {
   background-position: 56% 50%;
 }
 
+/* 引用句：与 p2 中列同系（暖金 → 米白 → 青蓝），一行英文也耐看 */
 .grad-text--quote {
-  background-image: linear-gradient(105deg, #ff8f3d 0%, #ffd9a8 38%, #f2efe8 62%, #8eb8ff 100%);
+  background-image: linear-gradient(
+    100deg,
+    #e8d5b8 0%,
+    #f2ebe4 28%,
+    #e8eef4 52%,
+    #9fd4f0 78%,
+    #38bdf8 100%
+  );
 }
 
-.grad-text--m1 {
-  background-image: linear-gradient(105deg, #ff8f3d 0%, #ffc071 50%, #ffe19f 100%);
+/* 第 1、4 格：深橙 → 金黄 */
+.grad-text--apple-warm {
+  background-image: linear-gradient(
+    100deg,
+    #c2410c 0%,
+    #ea580c 22%,
+    #f59e0b 52%,
+    #fbbf24 78%,
+    #fde68a 100%
+  );
 }
 
-.grad-text--m2 {
-  background-image: linear-gradient(105deg, #ffd98f 0%, #ffe5b1 50%, #fff0cc 100%);
+/* 第 2、5 格：浅金 → 青蓝（与 p2 中列一致） */
+.grad-text--apple-mix {
+  background-image: linear-gradient(100deg, #e8d5b8 0%, #f0ebe4 35%, #b8d4e8 62%, #5ecfff 100%);
 }
 
-.grad-text--m3 {
-  background-image: linear-gradient(105deg, #3f7dff 0%, #5ea8ff 52%, #89d1ff 100%);
-}
-
-.grad-text--m4 {
-  background-image: linear-gradient(105deg, #ffd07a 0%, #ffe1a8 50%, #fff0ce 100%);
-}
-
-.grad-text--m5 {
-  background-image: linear-gradient(105deg, #ffd998 0%, #ffe8bf 50%, #fff4df 100%);
-}
-
-.grad-text--m6 {
-  background-image: linear-gradient(105deg, #2f6fff 0%, #4698ff 52%, #7ec8ff 100%);
+/* 第 3、6 格：皇家蓝 → 天蓝 */
+.grad-text--apple-cool {
+  background-image: linear-gradient(100deg, #1e3a8a 0%, #2563eb 40%, #0ea5e9 78%, #7dd3fc 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
