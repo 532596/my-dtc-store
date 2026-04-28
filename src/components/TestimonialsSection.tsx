@@ -29,7 +29,14 @@ function parseDateKey(purchaseDate: string): number {
   return y * 12 + mo;
 }
 
-export default function TestimonialsSection({ items }: { items: TestimonialItem[] }) {
+export default function TestimonialsSection({
+  items,
+  sectionClassName = "py-section md:py-section-md",
+}: {
+  items: TestimonialItem[];
+  /** 覆盖区块上下内边距（首页可加大 part 间距） */
+  sectionClassName?: string;
+}) {
   const { displayCode: userCountryCode } = useUserCountry();
   const [timeSort, setTimeSort] = useState<"desc" | "asc" | "">("");
   const [lengthSort, setLengthSort] = useState<"desc" | "asc" | "">("");
@@ -65,7 +72,7 @@ export default function TestimonialsSection({ items }: { items: TestimonialItem[
   const hasMore = sorted.length > initialCount;
 
   return (
-    <section className="bg-warm-white py-section md:py-section-md">
+    <section className={`bg-warm-white ${sectionClassName}`}>
       <div className="mx-auto max-w-content px-6">
         <Reveal>
           <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">

@@ -37,7 +37,7 @@
   --space-lg: 1.5rem;
   --space-xl: 2rem;
   --space-2xl: 3rem;
-  --space-3xl: 5rem;
+  --space-3xl: 6.75rem;
 
   /* MDC: motion tokens */
   --motion-duration-instant: 100ms;
@@ -136,35 +136,55 @@ body {
   transform-origin: top;
 }
 
-/* 与首页参数区统一的 p2 渐变字：hover 时背景位轻微平移 */
-.text-p2-gradient {
-  background-image: linear-gradient(
-    105deg,
-    #ff9f4a 0%,
-    #ffd9a0 22%,
-    #f5f4f1 48%,
-    #a8d4ff 72%,
-    #3d8dff 100%
-  );
-  background-size: 220% 100%;
-  background-position: 0% 50%;
+/* 首页渐变字：初始色与 p1 每格一致；hover 仅小幅平移背景，避免整段从蓝翻到黄 */
+.grad-text {
+  background-size: 125% 100%;
+  background-position: 48% 50%;
   background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  transition: background-position 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-position 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.p2-gradient-hover-wrap:hover .text-p2-gradient {
-  background-position: 100% 50%;
+.grad-text-hover-wrap:hover .grad-text {
+  background-position: 56% 50%;
+}
+
+.grad-text--quote {
+  background-image: linear-gradient(105deg, #ff8f3d 0%, #ffd9a8 38%, #f2efe8 62%, #8eb8ff 100%);
+}
+
+.grad-text--m1 {
+  background-image: linear-gradient(105deg, #ff8f3d 0%, #ffc071 50%, #ffe19f 100%);
+}
+
+.grad-text--m2 {
+  background-image: linear-gradient(105deg, #ffd98f 0%, #ffe5b1 50%, #fff0cc 100%);
+}
+
+.grad-text--m3 {
+  background-image: linear-gradient(105deg, #3f7dff 0%, #5ea8ff 52%, #89d1ff 100%);
+}
+
+.grad-text--m4 {
+  background-image: linear-gradient(105deg, #ffd07a 0%, #ffe1a8 50%, #fff0ce 100%);
+}
+
+.grad-text--m5 {
+  background-image: linear-gradient(105deg, #ffd998 0%, #ffe8bf 50%, #fff4df 100%);
+}
+
+.grad-text--m6 {
+  background-image: linear-gradient(105deg, #2f6fff 0%, #4698ff 52%, #7ec8ff 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .text-p2-gradient {
+  .grad-text {
     transition: none;
   }
-  .p2-gradient-hover-wrap:hover .text-p2-gradient {
-    background-position: 0% 50%;
+  .grad-text-hover-wrap:hover .grad-text {
+    background-position: 48% 50%;
   }
 }
 

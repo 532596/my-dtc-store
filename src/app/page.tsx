@@ -206,9 +206,9 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <figcaption className="p2-gradient-hover-wrap mx-auto mt-12 max-w-[40rem] cursor-default text-center md:mt-14">
+              <figcaption className="grad-text-hover-wrap mx-auto mt-12 max-w-[40rem] cursor-default text-center md:mt-14">
                 <p className="text-[1.625rem] font-semibold leading-snug tracking-tight md:text-[2.125rem] md:leading-[1.12]">
-                  <span className="text-p2-gradient">Nobody ignores health on purpose.</span>
+                  <span className="grad-text grad-text--quote">Nobody ignores health on purpose.</span>
                 </p>
                 <p className="mt-4 text-[1.0625rem] leading-[1.5] text-white/72 md:mt-5 md:text-[1.1875rem] md:leading-[1.47]">
                   Traditional standing desks fail because they require your active attention at the exact moment you are most
@@ -302,15 +302,17 @@ export default function Home() {
             <div className="mx-auto mt-12 max-w-5xl border-t border-white/10 pt-12">
               <div className="grid place-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10">
                 {[
-                  { value: "2 mm/s", label: "Micro-Flow Cruise speed" },
-                  { value: "< 45 dB", label: "Quiet motor profile" },
-                  { value: "5-10 cm", label: "Subtle floating range" },
-                  { value: "0 打断", label: "No harsh alerts" },
-                  { value: "10 年", label: "Frame warranty" },
-                  { value: "150-195cm", label: "Height adaptability" },
+                  { value: "2 mm/s", label: "Micro-Flow Cruise speed", grad: "grad-text--m1" as const },
+                  { value: "< 45 dB", label: "Quiet motor profile", grad: "grad-text--m2" as const },
+                  { value: "5-10 cm", label: "Subtle floating range", grad: "grad-text--m3" as const },
+                  { value: "0 打断", label: "No harsh alerts", grad: "grad-text--m4" as const },
+                  { value: "10 年", label: "Frame warranty", grad: "grad-text--m5" as const },
+                  { value: "150-195cm", label: "Height adaptability", grad: "grad-text--m6" as const },
                 ].map((metric) => (
-                  <div key={metric.value} className="p2-gradient-hover-wrap text-center">
-                    <p className="text-p2-gradient inline-block text-4xl font-semibold tracking-tight md:text-5xl">
+                  <div key={metric.value} className="grad-text-hover-wrap text-center">
+                    <p
+                      className={`grad-text ${metric.grad} inline-block text-4xl font-semibold tracking-tight md:text-5xl`}
+                    >
                       {metric.value}
                     </p>
                     <p className="mt-2 text-sm text-white/68 md:text-base">{metric.label}</p>
@@ -702,7 +704,7 @@ export default function Home() {
             </h2>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          <div className="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-12 xl:gap-14">
             {[
               {
                 name: "Super Early Bird",
@@ -1109,7 +1111,7 @@ export default function Home() {
       </section>
 
       {/* 健康指南：场景化科普，传递「购买的是健康生活方式」 */}
-      <section className="bg-warm-cream py-section md:py-section-md">
+      <section className="bg-warm-cream py-[8.5rem] md:py-[11rem]">
         <div className="mx-auto max-w-content px-6">
           <Reveal>
             <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground">
@@ -1183,10 +1185,10 @@ export default function Home() {
         </div>
       </section>
 
-      <TestimonialsSection items={TESTIMONIALS} />
+      <TestimonialsSection items={TESTIMONIALS} sectionClassName="py-[8.5rem] md:py-[11rem]" />
 
       {/* P2：买的不是家具，hero 首图做背景、黑白+低对比 */}
-      <section className="relative py-12 md:py-16">
+      <section className="relative py-16 md:py-24">
         <div className="absolute inset-0 overflow-hidden" aria-hidden>
           <Image
             src="/images/hero.jpg"
