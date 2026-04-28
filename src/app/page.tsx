@@ -206,9 +206,9 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <figcaption className="mx-auto mt-12 max-w-[40rem] text-center md:mt-14">
-                <p className="text-[1.375rem] font-semibold leading-snug tracking-tight text-white md:text-[1.75rem] md:leading-[1.15]">
-                  Nobody ignores health on purpose.
+              <figcaption className="p2-gradient-hover-wrap mx-auto mt-12 max-w-[40rem] cursor-default text-center md:mt-14">
+                <p className="text-[1.625rem] font-semibold leading-snug tracking-tight md:text-[2.125rem] md:leading-[1.12]">
+                  <span className="text-p2-gradient">Nobody ignores health on purpose.</span>
                 </p>
                 <p className="mt-4 text-[1.0625rem] leading-[1.5] text-white/72 md:mt-5 md:text-[1.1875rem] md:leading-[1.47]">
                   Traditional standing desks fail because they require your active attention at the exact moment you are most
@@ -302,41 +302,15 @@ export default function Home() {
             <div className="mx-auto mt-12 max-w-5xl border-t border-white/10 pt-12">
               <div className="grid place-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10">
                 {[
-                  {
-                    value: "2 mm/s",
-                    label: "Micro-Flow Cruise speed",
-                    gradient: "bg-gradient-to-r from-[#ff8f3d] via-[#ffc071] to-[#ffe19f]",
-                  },
-                  {
-                    value: "< 45 dB",
-                    label: "Quiet motor profile",
-                    gradient: "bg-gradient-to-r from-[#ffd98f] via-[#ffe5b1] to-[#fff0cc]",
-                  },
-                  {
-                    value: "5-10 cm",
-                    label: "Subtle floating range",
-                    gradient: "bg-gradient-to-r from-[#3f7dff] via-[#5ea8ff] to-[#89d1ff]",
-                  },
-                  {
-                    value: "0 打断",
-                    label: "No harsh alerts",
-                    gradient: "bg-gradient-to-r from-[#ffd07a] via-[#ffe1a8] to-[#fff0ce]",
-                  },
-                  {
-                    value: "10 年",
-                    label: "Frame warranty",
-                    gradient: "bg-gradient-to-r from-[#ffd998] via-[#ffe8bf] to-[#fff4df]",
-                  },
-                  {
-                    value: "150-195cm",
-                    label: "Height adaptability",
-                    gradient: "bg-gradient-to-r from-[#2f6fff] via-[#4698ff] to-[#7ec8ff]",
-                  },
+                  { value: "2 mm/s", label: "Micro-Flow Cruise speed" },
+                  { value: "< 45 dB", label: "Quiet motor profile" },
+                  { value: "5-10 cm", label: "Subtle floating range" },
+                  { value: "0 打断", label: "No harsh alerts" },
+                  { value: "10 年", label: "Frame warranty" },
+                  { value: "150-195cm", label: "Height adaptability" },
                 ].map((metric) => (
-                  <div key={metric.value} className="text-center">
-                    <p
-                      className={`inline-block bg-clip-text text-3xl font-semibold tracking-tight text-transparent md:text-4xl ${metric.gradient}`}
-                    >
+                  <div key={metric.value} className="p2-gradient-hover-wrap text-center">
+                    <p className="text-p2-gradient inline-block text-4xl font-semibold tracking-tight md:text-5xl">
                       {metric.value}
                     </p>
                     <p className="mt-2 text-sm text-white/68 md:text-base">{metric.label}</p>
@@ -507,7 +481,7 @@ export default function Home() {
                 <figcaption className="sr-only">硬件场景与结构示意</figcaption>
               </figure>
 
-              <ul className="mx-auto mt-12 grid max-w-5xl list-none gap-x-12 gap-y-12 pl-0 sm:grid-cols-2 md:mt-16 md:gap-x-16 md:gap-y-14">
+              <ul className="mx-auto mt-12 grid max-w-5xl list-none gap-x-16 gap-y-16 pl-0 sm:grid-cols-2 md:mt-16 md:gap-x-24 md:gap-y-20 lg:gap-x-28 lg:gap-y-24">
                 {[
                   {
                     title: "科学桌面分区 + 80cm 超深桌面",
@@ -874,9 +848,11 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
-            <h2 className="mx-auto mt-4 max-w-5xl text-center text-3xl font-semibold tracking-tight md:text-5xl">
-              01 / 痛点溯源：创造力与健康的零和博弈
-            </h2>
+            <div className="mt-4 flex justify-center overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <h2 className="whitespace-nowrap px-1 text-center text-3xl font-semibold tracking-tight md:text-5xl">
+                01 / 痛点溯源：创造力与健康的零和博弈
+              </h2>
+            </div>
             <p className="mx-auto mt-6 max-w-4xl text-center text-sm leading-relaxed text-white/80 md:text-base">
               我们一天中最具创造力的时光，几乎都在书桌前度过。这里是我们推演逻辑、构建代码、探索世界的核心阵地。然而，深度思考的代价是隐蔽且沉重的——久坐正在让脊椎受压、肩颈前倾。在“保持专注”与“保护身体”之间，我们往往被迫牺牲了后者。
             </p>
@@ -922,9 +898,11 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
-            <h2 className="mx-auto mt-4 max-w-5xl text-center text-3xl font-semibold tracking-tight md:text-5xl">
-              02 / 行业盲区：以“破坏专注力”为代价的伪健康
-            </h2>
+            <div className="mt-4 flex justify-center overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <h2 className="whitespace-nowrap px-1 text-center text-3xl font-semibold tracking-tight md:text-5xl">
+                02 / 行业盲区：以“破坏专注力”为代价的伪健康
+              </h2>
+            </div>
             <p className="mx-auto mt-6 max-w-4xl text-center text-sm leading-relaxed text-white/80 md:text-base">
               真正的健康，源于坐与站的动态平衡。但纵观市面上的升降桌，它们试图用刺耳的蜂鸣、震动或粗暴的电机声来“拯救”你的身体。这种反人性的交互，无情撕裂了脑力工作者最宝贵的资产——心流与注意力。在专注与健康的选择中，传统升降桌给出了最糟糕的妥协。
             </p>
@@ -970,9 +948,11 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
-            <h2 className="mx-auto mt-4 max-w-5xl text-center text-3xl font-semibold tracking-tight md:text-5xl">
-              03 / 我们的破局：做物理世界最安静的“认知副驾”
-            </h2>
+            <div className="mt-4 flex justify-center overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <h2 className="whitespace-nowrap px-1 text-center text-3xl font-semibold tracking-tight md:text-5xl">
+                03 / 我们的破局：做物理世界最安静的“认知副驾”
+              </h2>
+            </div>
             <p className="mx-auto mt-6 max-w-4xl text-center text-sm leading-relaxed text-white/80 md:text-base">
               最好的科技，绝不该尖叫着争夺用户的注意力。因此，我们决定重构工作站的底层逻辑。
               通过「AI Agent 策略 + 硬件无感执行」的模式，让健康干预在后台静默运行。它不是一张强迫你改变习惯的桌子，而是绝对尊重你心流状态的守护者——在不打断思路的前提下，完成健康与专注的完美闭环。
