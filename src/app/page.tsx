@@ -707,58 +707,88 @@ export default function Home() {
               },
             ].map((tier, index) => {
               const pct = Math.min(100, Math.round((tier.sold / tier.total) * 100));
+              const isEarlyBird = index === 1;
+              const defaultShell =
+                "flex h-full flex-col rounded-2xl border border-white/15 bg-black/40 p-6 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-white/22 hover:bg-black/50";
+              const earlyBirdShell =
+                "flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/40 p-0 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-white/22 hover:bg-black/50";
+
+              const body = (
+                <>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-medium text-white/75">{tier.name}</p>
+                      <p className="mt-2 text-4xl font-semibold tracking-tight text-white">{tier.price}</p>
+                    </div>
+                    <span className="shrink-0 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85">
+                      {tier.limit}
+                    </span>
+                  </div>
+
+                  <div className="mt-5">
+                    <div className="flex items-center justify-between text-xs text-white/70">
+                      <span>{tier.sold} claimed</span>
+                      <span>{tier.total - tier.sold} left</span>
+                    </div>
+                    <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-white/10">
+                      <div
+                        className={`h-full rounded-full bg-gradient-to-r ${tier.accent}`}
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <ul className="mt-6 space-y-2.5 text-sm text-white/85">
+                    <li className="flex items-start gap-2">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
+                      FlowShift 桌子主体（1600x800mm）
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
+                      极致暗黑理线系统（线槽 + 走线管理）
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
+                      矩阵黑 / 量子白 自选配色
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
+                      三节双电机底盘 + 10 年质保
+                    </li>
+                  </ul>
+
+                  <Link
+                    href="/series"
+                    className="mt-7 inline-flex items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-white/90"
+                  >
+                    立即锁定席位
+                  </Link>
+                </>
+              );
+
               return (
                 <Reveal key={tier.name} delay={index as 0 | 1 | 2}>
-                  <article className="flex h-full flex-col rounded-2xl border border-white/15 bg-black/40 p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-white/75">{tier.name}</p>
-                        <p className="mt-2 text-4xl font-semibold tracking-tight text-white">{tier.price}</p>
-                      </div>
-                      <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85">
-                        {tier.limit}
-                      </span>
-                    </div>
-
-                    <div className="mt-5">
-                      <div className="flex items-center justify-between text-xs text-white/70">
-                        <span>{tier.sold} claimed</span>
-                        <span>{tier.total - tier.sold} left</span>
-                      </div>
-                      <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-white/10">
-                        <div
-                          className={`h-full rounded-full bg-gradient-to-r ${tier.accent}`}
-                          style={{ width: `${pct}%` }}
+                  {isEarlyBird ? (
+                    <article className={earlyBirdShell}>
+                      <div className="relative aspect-[5/3] w-full shrink-0 border-b border-white/[0.08] bg-black/60">
+                        <Image
+                          src="/images/hero.jpg"
+                          alt="FlowShift 智能升降桌场景：Early Bird 档位配图"
+                          fill
+                          className="object-cover brightness-[0.85]"
+                          sizes="(max-width: 1024px) 100vw, 360px"
                         />
+                        <div
+                          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent"
+                          aria-hidden
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-transparent" aria-hidden />
                       </div>
-                    </div>
-
-                    <ul className="mt-6 space-y-2.5 text-sm text-white/85">
-                      <li className="flex items-start gap-2">
-                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
-                        FlowShift 桌子主体（1600x800mm）
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
-                        极致暗黑理线系统（线槽 + 走线管理）
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
-                        矩阵黑 / 量子白 自选配色
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" aria-hidden />
-                        三节双电机底盘 + 10 年质保
-                      </li>
-                    </ul>
-
-                    <Link
-                      href="/series"
-                      className="mt-7 inline-flex items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-white/90"
-                    >
-                      立即锁定席位
-                    </Link>
-                  </article>
+                      <div className="flex flex-1 flex-col p-6 pt-5">{body}</div>
+                    </article>
+                  ) : (
+                    <article className={defaultShell}>{body}</article>
+                  )}
                 </Reveal>
               );
             })}
