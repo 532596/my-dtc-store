@@ -19,7 +19,7 @@ export default function SectionFloatingEntry({ items }: { items: SectionFloating
   React.useEffect(() => {
     let frame = 0;
     const detectActive = () => {
-      const viewportBottomTrigger = window.innerHeight * 0.82;
+      const viewportBottomTrigger = window.innerHeight * 0.74;
       let best: { id: string; distance: number } | null = null;
 
       for (const item of items) {
@@ -29,8 +29,8 @@ export default function SectionFloatingEntry({ items }: { items: SectionFloating
         // 只在「该分段底部」接近视口下方时触发
         const sectionBottom = rect.bottom;
         const nearBottomBand =
-          sectionBottom <= viewportBottomTrigger + 40 &&
-          sectionBottom >= viewportBottomTrigger - 140;
+          sectionBottom <= viewportBottomTrigger + 56 &&
+          sectionBottom >= viewportBottomTrigger - 180;
         if (!nearBottomBand) continue;
         const distance = Math.abs(sectionBottom - viewportBottomTrigger);
         if (!best || distance < best.distance) best = { id: item.id, distance };
@@ -62,11 +62,11 @@ export default function SectionFloatingEntry({ items }: { items: SectionFloating
       }
       setVisible(true);
       setExpanded(false);
-      const openTimer = setTimeout(() => setExpanded(true), 110);
+      const openTimer = setTimeout(() => setExpanded(true), 190);
       return () => clearTimeout(openTimer);
     }
     setExpanded(false);
-    hideTimerRef.current = setTimeout(() => setVisible(false), 260);
+    hideTimerRef.current = setTimeout(() => setVisible(false), 380);
     return () => {
       if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
     };
@@ -80,15 +80,17 @@ export default function SectionFloatingEntry({ items }: { items: SectionFloating
       <Link
         href={activeItem.href}
         className={
-          "pointer-events-auto group flex items-center overflow-hidden rounded-full bg-[#2f3136]/95 text-white shadow-[0_12px_40px_rgba(0,0,0,0.32)] backdrop-blur-sm transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
-          (expanded ? "w-[min(92vw,620px)] px-5 py-3.5" : "w-14 px-2 py-2")
+          "pointer-events-auto group flex items-center overflow-hidden rounded-full bg-[#2f3136]/95 text-white shadow-[0_12px_40px_rgba(0,0,0,0.32)] backdrop-blur-sm transition-all duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
+          (expanded
+            ? "w-[min(92vw,620px)] translate-y-0 scale-100 px-5 py-3.5"
+            : "w-14 translate-y-2 scale-[0.95] px-2 py-2")
         }
         aria-label={activeItem.label}
       >
         <span
           className={
-            "min-w-0 flex-1 whitespace-nowrap text-[22px] font-semibold tracking-tight transition-all duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
-            (expanded ? "max-w-full opacity-100" : "max-w-0 opacity-0")
+            "min-w-0 flex-1 whitespace-nowrap text-[22px] font-semibold tracking-tight transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] " +
+            (expanded ? "max-w-full translate-x-0 opacity-100" : "max-w-0 -translate-x-2 opacity-0")
           }
         >
           {activeItem.label}
