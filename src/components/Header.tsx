@@ -260,7 +260,7 @@ export default function Header() {
               </svg>
             </button>
             {accountOpen && (
-              <div className="absolute right-0 top-full z-40 mt-3 w-56 rounded-xl border border-warm-gray/50 bg-warm-cream/95 p-3 text-xs text-warm-muted shadow-xl">
+              <div className="absolute right-0 top-full z-40 mt-3 w-56 rounded-xl border border-warm-gray/50 bg-warm-cream p-3 text-xs text-warm-muted shadow-xl">
                 <Link
                   href="/account"
                   onClick={() => setAccountOpen(false)}
@@ -330,7 +330,7 @@ export default function Header() {
               )}
             </Link>
             {cartOpen && (
-              <div className="absolute right-0 top-full z-40 mt-2 w-80 rounded-xl border border-warm-gray/50 bg-warm-cream/95 shadow-xl">
+              <div className="absolute right-0 top-full z-40 mt-2 w-80 rounded-xl border border-warm-gray/50 bg-warm-cream shadow-xl">
                 <div className="max-h-[min(70vh,320px)] overflow-y-auto p-3">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">
                     购物车 {cartCount > 0 ? `（${cartCount} 件）` : ""}
@@ -461,14 +461,14 @@ export default function Header() {
       {/* 单一 mega 面板：左右切换只换内容不收回，高度随内容过渡 */}
       {megaVisible && (
         <div
-          className={`absolute left-0 right-0 top-full z-40 overflow-hidden border-t border-white/10 bg-[#0b0c0f]/98 transition-[height] duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${isMegaClosing ? "mega-menu-panel-out" : "mega-menu-panel"}`}
+          className={`absolute left-0 right-0 top-full z-40 overflow-hidden border-t border-white/10 bg-[#0b0c0f] transition-[height] duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${isMegaClosing ? "mega-menu-panel-out" : "mega-menu-panel"}`}
           style={{ height: megaPanelHeight }}
           onMouseEnter={keepMegaOpen}
         >
           <div ref={megaContentRef} className="mx-auto flex max-w-content px-6 py-8">
             {activePanel === "products" && (
               <>
-                <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4" onMouseLeave={() => setMegaProductsSub(0)}>
+                <aside className="w-52 shrink-0 rounded-xl bg-[#151821] py-4 pr-4" onMouseLeave={() => setMegaProductsSub(0)}>
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">产品</p>
                   <Link href="/series" onMouseEnter={() => setMegaProductsSub(0)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaProductsSub === 0 ? "bg-warm-cream/60" : ""}`}>升降桌系列</Link>
                   <Link href="/accessories" onMouseEnter={() => setMegaProductsSub(1)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaProductsSub === 1 ? "bg-warm-cream/60" : ""}`}>配件</Link>
@@ -541,7 +541,7 @@ export default function Header() {
             )}
             {activePanel === "solutions" && (
               <>
-                <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4" onMouseLeave={() => setMegaSolutionsSub(0)}>
+                <aside className="w-52 shrink-0 rounded-xl bg-[#151821] py-4 pr-4" onMouseLeave={() => setMegaSolutionsSub(0)}>
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">解决方案</p>
                   <Link href="/scenarios" onMouseEnter={() => setMegaSolutionsSub(0)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSolutionsSub === 0 ? "bg-warm-cream/60" : ""}`}>场景</Link>
                   <Link href="/guide" onMouseEnter={() => setMegaSolutionsSub(1)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSolutionsSub === 1 ? "bg-warm-cream/60" : ""}`}>技术原理</Link>
@@ -584,7 +584,7 @@ export default function Header() {
             )}
             {activePanel === "/about" && (
               <>
-                <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4" onMouseLeave={() => setMegaAboutSub(0)}>
+                <aside className="w-52 shrink-0 rounded-xl bg-[#151821] py-4 pr-4" onMouseLeave={() => setMegaAboutSub(0)}>
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">关于</p>
                   <Link href="/about" onMouseEnter={() => setMegaAboutSub(0)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaAboutSub === 0 ? "bg-warm-cream/60" : ""}`}>关于我们</Link>
                   <Link href="/about#stories" onMouseEnter={() => setMegaAboutSub(1)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaAboutSub === 1 ? "bg-warm-cream/60" : ""}`}>客户故事</Link>
@@ -614,7 +614,7 @@ export default function Header() {
             )}
             {activePanel === "/support" && (
               <>
-                <aside className="w-52 shrink-0 rounded-xl bg-warm-gray/20 py-4 pr-4" onMouseLeave={() => setMegaSupportSub(0)}>
+                <aside className="w-52 shrink-0 rounded-xl bg-[#151821] py-4 pr-4" onMouseLeave={() => setMegaSupportSub(0)}>
                   <p className="px-4 pb-3 text-xs font-semibold uppercase tracking-wide text-warm-muted">支持</p>
                   <Link href="/support/contact" onMouseEnter={() => setMegaSupportSub(0)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 0 ? "bg-warm-cream/60" : ""}`}>联系我们</Link>
                   <Link href="/support" onMouseEnter={() => setMegaSupportSub(1)} className={`block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-warm-cream/70 hover:translate-x-0.5 ${megaSupportSub === 1 ? "bg-warm-cream/60" : ""}`}>常见问题解答</Link>

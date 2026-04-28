@@ -292,18 +292,21 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={2}>
-            <div className="mx-auto mt-10 grid max-w-5xl gap-8 border-t border-white/10 pt-10 md:grid-cols-3 md:gap-10 md:pt-12">
-              <div className="text-center md:text-left">
-                <p className="text-4xl font-semibold tracking-tight text-white md:text-5xl">2 mm/s</p>
-                <p className="mt-2 text-sm text-white/65 md:text-base">Micro-Flow Cruise speed</p>
-              </div>
-              <div className="text-center md:text-left">
-                <p className="text-4xl font-semibold tracking-tight text-white md:text-5xl">&lt; 45 dB</p>
-                <p className="mt-2 text-sm text-white/65 md:text-base">Quiet motor profile for deep focus</p>
-              </div>
-              <div className="text-center md:text-left">
-                <p className="text-4xl font-semibold tracking-tight text-white md:text-5xl">5-10 cm</p>
-                <p className="mt-2 text-sm text-white/65 md:text-base">Subtle floating range per cycle</p>
+            <div className="mx-auto mt-12 max-w-6xl border-t border-white/10 pt-12">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10">
+                {[
+                  { value: "2 mm/s", label: "Micro-Flow Cruise speed", tone: "text-[#ff9f43]" },
+                  { value: "< 45 dB", label: "Quiet motor profile", tone: "text-[#ffd587]" },
+                  { value: "5-10 cm", label: "Subtle floating range", tone: "text-[#4fa3ff]" },
+                  { value: "0 打断", label: "No harsh alerts", tone: "text-[#ffe08a]" },
+                  { value: "10 年", label: "Frame warranty", tone: "text-[#ffe2a6]" },
+                  { value: "150-195cm", label: "Height adaptability", tone: "text-[#3f8dff]" },
+                ].map((metric) => (
+                  <div key={metric.value} className="text-center md:text-left">
+                    <p className={`text-4xl font-semibold tracking-tight md:text-5xl ${metric.tone}`}>{metric.value}</p>
+                    <p className="mt-2 text-sm text-white/68 md:text-base">{metric.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </Reveal>
