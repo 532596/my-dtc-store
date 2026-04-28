@@ -263,53 +263,50 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-            <Reveal delay={1}>
-              <div className="overflow-hidden rounded-2xl border border-white/15 bg-black/40">
-                <div className="relative aspect-video">
-                  <Image
-                    src="/images/scene-office.jpg"
-                    alt="一杯满水放在桌角，桌面缓慢升降且水面保持稳定的演示画面"
-                    fill
-                    className="object-cover brightness-[0.75]"
-                    sizes="(max-width: 1024px) 100vw, 65vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent" />
-                  <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
+          <Reveal delay={1}>
+            <div className="-mx-6 mt-12 md:-mx-12 md:mt-16">
+              <div className="relative aspect-[21/10] w-full md:aspect-[24/9]">
+                <Image
+                  src="/images/scene-office.jpg"
+                  alt="一杯满水放在桌角，桌面缓慢升降且水面保持稳定的演示画面"
+                  fill
+                  className="object-cover brightness-[0.82]"
+                  sizes="100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/10" />
+                <div className="absolute left-6 top-6 md:left-10 md:top-8">
+                  <div className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-xs text-white/90">
                     Timelapse Demo GIF (Placeholder)
                   </div>
-                  <div className="absolute inset-x-4 bottom-4 flex flex-wrap gap-2">
-                    <span className="rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
-                      2 mm/s Ultra-Gentle Motion
-                    </span>
-                    <span className="rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/90">
-                      5-10 cm smooth floating range
-                    </span>
-                  </div>
+                </div>
+                <div className="absolute inset-x-6 bottom-6 flex flex-wrap gap-2 md:inset-x-10 md:bottom-8">
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    2 mm/s Ultra-Gentle Motion
+                  </span>
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    5-10 cm smooth floating range
+                  </span>
                 </div>
               </div>
-            </Reveal>
+            </div>
+          </Reveal>
 
-            <Reveal delay={2}>
-              <div className="rounded-2xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/60">Dynamic Metrics</p>
-                <div className="mt-4 space-y-4">
-                  <div className="rounded-xl border border-white/10 bg-black/35 p-4">
-                    <p className="text-2xl font-semibold text-white">2 mm/s</p>
-                    <p className="mt-1 text-sm text-white/65">Micro-Flow Cruise speed</p>
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-black/35 p-4">
-                    <p className="text-2xl font-semibold text-white">&lt; 45 dB</p>
-                    <p className="mt-1 text-sm text-white/65">Quiet motor profile for deep focus</p>
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-black/35 p-4">
-                    <p className="text-2xl font-semibold text-white">5-10 cm</p>
-                    <p className="mt-1 text-sm text-white/65">Subtle floating range per cycle</p>
-                  </div>
-                </div>
+          <Reveal delay={2}>
+            <div className="mx-auto mt-10 grid max-w-5xl gap-8 border-t border-white/10 pt-10 md:grid-cols-3 md:gap-10 md:pt-12">
+              <div className="text-center md:text-left">
+                <p className="text-4xl font-semibold tracking-tight text-white md:text-5xl">2 mm/s</p>
+                <p className="mt-2 text-sm text-white/65 md:text-base">Micro-Flow Cruise speed</p>
               </div>
-            </Reveal>
-          </div>
+              <div className="text-center md:text-left">
+                <p className="text-4xl font-semibold tracking-tight text-white md:text-5xl">&lt; 45 dB</p>
+                <p className="mt-2 text-sm text-white/65 md:text-base">Quiet motor profile for deep focus</p>
+              </div>
+              <div className="text-center md:text-left">
+                <p className="text-4xl font-semibold tracking-tight text-white md:text-5xl">5-10 cm</p>
+                <p className="mt-2 text-sm text-white/65 md:text-base">Subtle floating range per cycle</p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
