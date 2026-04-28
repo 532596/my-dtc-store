@@ -301,8 +301,8 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={2}>
-            <div className="mx-auto mt-12 max-w-6xl border-t border-white/10 pt-12">
-              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10">
+            <div className="mx-auto mt-12 max-w-5xl border-t border-white/10 pt-12">
+              <div className="grid place-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10">
                 {[
                   {
                     value: "2 mm/s",
@@ -335,7 +335,7 @@ export default function Home() {
                     gradient: "bg-gradient-to-r from-[#2f6fff] via-[#4698ff] to-[#7ec8ff]",
                   },
                 ].map((metric) => (
-                  <div key={metric.value} className="text-center md:text-left">
+                  <div key={metric.value} className="text-center">
                     <p
                       className={`inline-block bg-clip-text text-3xl font-semibold tracking-tight text-transparent md:text-4xl ${metric.gradient}`}
                     >
@@ -484,34 +484,74 @@ export default function Home() {
                     src="/images/scene-office.jpg"
                     alt="FlowShift 硬件爆炸图：展示材质、尺寸、理线系统与三节双电机底盘"
                     fill
-                    className="object-cover brightness-[0.9]"
+                    className="object-cover brightness-[0.84]"
                     sizes="(max-width: 1024px) 100vw, 1068px"
                   />
                   <div
-                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10"
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10"
                     aria-hidden
                   />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/45 via-transparent to-transparent" aria-hidden />
+                  <div className="absolute left-5 top-5 md:left-7 md:top-6">
+                    <div className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-xs text-white/90">
+                      Hardware Layer Preview (Placeholder)
+                    </div>
+                  </div>
+                  <div className="absolute inset-x-5 bottom-5 flex flex-wrap gap-2 md:inset-x-7 md:bottom-6">
+                    <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                      80 cm Deep Work Zone
+                    </span>
+                    <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                      Dual-motor Stable Lift
+                    </span>
+                  </div>
                 </div>
                 <figcaption className="sr-only">硬件场景与结构示意</figcaption>
               </figure>
 
-              <ul className="mx-auto mt-12 grid max-w-4xl list-none gap-10 pl-0 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 md:mt-16">
+              <ul className="mx-auto mt-12 grid max-w-5xl list-none gap-x-12 gap-y-12 pl-0 sm:grid-cols-2 md:mt-16 md:gap-x-16 md:gap-y-14">
                 {[
-                  { title: "科学桌面分区 + 80cm 超深桌面", desc: "更自由的人机工学活动空间，坐站切换与多设备摆位都更从容" },
-                  { title: "硬核稳定性", desc: "升降时水杯中的水面依然稳定；外力冲击下桌体仍保持低晃动" },
-                  { title: "宽域升降适配", desc: "大跨度三节双电机底盘，覆盖约 150-195cm 身高区间的坐站工学需求" },
-                  { title: "稳如磐石的满载承托", desc: "无论坐姿推演还是站立编码，都可稳定承载显示器、主机与外设系统" },
-                ].map((item, i) => (
-                  <li key={item.title} className="flex gap-5">
-                    <span className="mt-0.5 shrink-0 tabular-nums text-[13px] font-medium text-white/30">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-[1.0625rem] font-semibold leading-snug tracking-tight text-white md:text-[1.125rem]">
-                        {item.title}
-                      </p>
-                      <p className="mt-2 text-[0.9375rem] leading-relaxed text-white/62 md:text-[15px]">{item.desc}</p>
-                    </div>
+                  {
+                    title: "科学桌面分区 + 80cm 超深桌面",
+                    desc: "更自由的人机工学活动空间，坐站切换与多设备摆位都更从容",
+                    icon: (
+                      <svg className="h-10 w-10 text-white/95" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 8h18M7 8v9m10-9v9M5 17h14" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    title: "硬核稳定性",
+                    desc: "升降时水杯中的水面依然稳定；外力冲击下桌体仍保持低晃动",
+                    icon: (
+                      <svg className="h-10 w-10 text-white/95" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 4l7 4v8l-7 4-7-4V8l7-4z" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    title: "宽域升降适配",
+                    desc: "大跨度三节双电机底盘，覆盖约 150-195cm 身高区间的坐站工学需求",
+                    icon: (
+                      <svg className="h-10 w-10 text-white/95" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M7 5v14m10-14v14M5 7l2-2 2 2m6 10l2 2 2-2" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    title: "稳如磐石的满载承托",
+                    desc: "无论坐姿推演还是站立编码，都可稳定承载显示器、主机与外设系统",
+                    icon: (
+                      <svg className="h-10 w-10 text-white/95" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 16h16M6 16l2-8h8l2 8M10 12h4" />
+                      </svg>
+                    ),
+                  },
+                ].map((item) => (
+                  <li key={item.title} className="min-w-0">
+                    <div className="mb-4">{item.icon}</div>
+                    <p className="text-[1.75rem] font-semibold leading-tight tracking-tight text-white md:text-[1.9rem]">{item.title}</p>
+                    <p className="mt-3 text-[1.0625rem] leading-relaxed text-white/62 md:text-[1.125rem]">{item.desc}</p>
                   </li>
                 ))}
               </ul>
@@ -525,15 +565,23 @@ export default function Home() {
                   src="/images/hero.jpg"
                   alt="矩阵黑桌面边缘微距：圆润倒角、无缝质感、细腻哑光表面"
                   fill
-                  className="object-cover brightness-[0.7]"
+                  className="object-cover brightness-[0.8]"
                   sizes="100vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-transparent" />
-                <div className="absolute inset-x-6 bottom-6 text-center">
-                  <p className="text-2xl font-semibold text-white md:text-4xl">Engineering the Perfect Surface.</p>
-                  <p className="mt-3 text-sm text-white/75 md:text-lg">
-                    It&apos;s not just a desk surface. It&apos;s the physical canvas of deep work.
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/68 via-black/20 to-black/10" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/45 via-transparent to-transparent" aria-hidden />
+                <div className="absolute left-5 top-5 md:left-7 md:top-6">
+                  <div className="rounded-full border border-white/25 bg-black/35 px-3 py-1 text-xs text-white/90">
+                    Surface Material Preview (Placeholder)
+                  </div>
+                </div>
+                <div className="absolute inset-x-5 bottom-5 flex flex-wrap gap-2 md:inset-x-7 md:bottom-6">
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    Matte Anti-scratch Finish
+                  </span>
+                  <span className="rounded-full border border-white/25 bg-black/40 px-3 py-1 text-xs text-white/90">
+                    Premium Touch Edge
+                  </span>
                 </div>
               </div>
             </div>
