@@ -177,6 +177,22 @@ body {
   background-image: linear-gradient(90deg, #2980b9 0%, #3498db 100%);
 }
 
+/* Hero 四字标语：图二式横铺多色（蓝 → 靛紫 → 品红 → 暖橙） */
+.grad-text--hero-slogan {
+  background-image: linear-gradient(
+    90deg,
+    #2997ff 0%,
+    #5b8def 12%,
+    #7c5cff 28%,
+    #bf5af2 44%,
+    #e040c2 58%,
+    #ff6482 72%,
+    #ff9f0a 100%
+  );
+  background-size: 110% 100%;
+  background-position: 50% 50%;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .grad-text--quote {
     transition: none;

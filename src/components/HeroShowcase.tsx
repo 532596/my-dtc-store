@@ -15,12 +15,20 @@ export default function HeroShowcase() {
         aria-hidden
       />
       <div className="relative z-10 flex min-h-svh w-full items-center justify-center px-6">
-        <h1
-          id="hero-brand-title"
-          className="text-center text-5xl font-bold tracking-[-0.04em] text-white drop-shadow-[0_8px_48px_rgba(0,0,0,0.45)] sm:text-6xl md:text-7xl lg:text-8xl"
-        >
-          FlowShift
-        </h1>
+        <div className="mx-auto max-w-3xl text-center">
+          <h1
+            id="hero-brand-title"
+            className="text-4xl font-bold tracking-[-0.04em] text-white drop-shadow-[0_8px_48px_rgba(0,0,0,0.45)] sm:text-5xl md:text-6xl lg:text-7xl"
+          >
+            FlowShift
+          </h1>
+          <p
+            className="grad-text grad-text--hero-slogan mt-4 text-xl font-semibold tracking-[0.12em] sm:mt-5 sm:text-2xl md:mt-6 md:text-3xl"
+            lang="zh-Hans"
+          >
+            心流无界
+          </p>
+        </div>
       </div>
     </section>
   );
