@@ -226,12 +226,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 深底 + 左列胶囊、右列大图（位于 spine 金句与 Invisible Intervention 之间） */}
+      {/* 深底 + 全幅主图叠层（p2 式铺满视窗），位于 spine 金句与 Invisible Intervention 之间 */}
       <section
-        className="relative overflow-hidden bg-[#06080c] py-20 md:py-28 lg:py-32"
+        className="relative w-full overflow-x-hidden overflow-y-hidden bg-[#06080c] py-0"
         aria-label="FlowShift 产品亮点"
       >
-        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
+        <div className="relative w-full text-white">
           <Reveal delay={2}>
             <ProductFeatureShowcase />
           </Reveal>
