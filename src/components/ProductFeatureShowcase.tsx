@@ -4,6 +4,9 @@ import Image from "next/image";
 import { Plus } from "lucide-react";
 import * as React from "react";
 
+const EASE = "[transition-timing-function:cubic-bezier(0.32,0.72,0,1)]";
+const SMOOTH = `transition-all duration-500 ${EASE} motion-reduce:duration-0 motion-reduce:transition-none`;
+
 const ITEMS = [
   {
     id: "look",
@@ -72,7 +75,7 @@ const ITEMS = [
 ] as const;
 
 /**
- * 左侧纵向卖点 + 选中展开说明；右侧大图（产品亮点区，非 Cognitive Copilot）。
+ * 图二式：左栏浅底胶囊、右栏大图。选项切换时以 grid 0fr↔1fr 丝滑展开/收起说明。
  */
 export default function ProductFeatureShowcase() {
   const [active, setActive] = React.useState(0);
@@ -80,9 +83,12 @@ export default function ProductFeatureShowcase() {
   const panelId = "product-feature-panel";
 
   return (
-    <div className="mx-auto max-w-[1120px]">
-      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-12">
-        <nav className="flex w-full min-w-0 flex-col gap-2" aria-label="产品卖点">
+    <div className="mx-auto w-full max-w-[min(100%,1200px)]">
+      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,18.5rem)_1fr] lg:gap-10 xl:grid-cols-[minmax(0,20rem)_1fr]">
+        <nav
+          className="flex w-full min-w-0 flex-col gap-2.5"
+          aria-label="产品卖点"
+        >
           {ITEMS.map((item, i) => {
             const isOn = i === active;
             return (
@@ -91,48 +97,58 @@ export default function ProductFeatureShowcase() {
                 type="button"
                 aria-pressed={isOn}
                 aria-expanded={isOn}
-                aria-controls={isOn ? `${item.id}-detail` : undefined}
+                id={`pfs-btn-${item.id}`}
+                aria-controls={`${item.id}-detail`}
                 onClick={() => setActive(i)}
                 className={
-                  "w-full min-w-0 text-left transition-[background-color,box-shadow,transform,border-color] duration-500 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] " +
+                  `flex w-full min-w-0 flex-col px-3.5 py-2.5 text-left ${SMOOTH} ` +
                   (isOn
-                    ? "rounded-2xl border border-white/12 bg-white/[0.10] px-4 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-md"
-                    : "flex items-center gap-3 rounded-full px-4 py-3 text-white/58 transition-colors hover:bg-white/[0.06] hover:text-white/88")
+                    ? "rounded-2xl border border-white/14 bg-white/[0.16] text-white shadow-[0_2px_16px_rgba(0,0,0,0.2)] ring-1 ring-inset ring-white/[0.08] sm:px-4 sm:py-3"
+                    : "rounded-full border border-white/[0.08] bg-white/[0.09] text-white/72 hover:border-white/14 hover:bg-white/[0.12] hover:text-white/92 sm:px-4 sm:py-2.5")
                 }
               >
-                {isOn ? (
-                  <div className="flex w-full min-w-0 flex-col gap-0">
-                    <div className="flex items-center gap-3">
-                      <span
-                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/10"
-                        aria-hidden
-                      >
-                        <span className="h-2 w-2 rounded-full bg-white" />
-                      </span>
-                      <span className="min-w-0 text-[0.9375rem] font-medium leading-snug tracking-tight text-white">
-                        {item.label}
-                      </span>
-                    </div>
+                <div className="flex w-full items-center gap-3">
+                  <span
+                    className={
+                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-full sm:h-8 sm:w-8 " +
+                      (isOn
+                        ? "border-0 bg-white/[0.2]"
+                        : "border border-white/18 bg-white/[0.04]")
+                    }
+                    aria-hidden
+                  >
+                    {isOn ? (
+                      <span className="h-2 w-2 rounded-full bg-white" />
+                    ) : (
+                      <Plus className="h-3.5 w-3.5 text-white/55" strokeWidth={1.8} />
+                    )}
+                  </span>
+                  <span
+                    className={
+                      "min-w-0 flex-1 text-left text-[0.875rem] font-medium leading-snug tracking-tight sm:text-[0.9375rem]"
+                    }
+                  >
+                    {item.label}
+                  </span>
+                </div>
+
+                <div
+                  className={
+                    "grid w-full min-h-0 " +
+                    "[transition:grid-template-rows_520ms_cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none " +
+                    (isOn ? "grid-rows-[1fr]" : "grid-rows-[0fr]")
+                  }
+                >
+                  <div className="min-h-0 overflow-hidden">
                     <p
                       id={`${item.id}-detail`}
-                      className="mt-3 border-t border-white/10 pt-3 text-[0.8125rem] leading-[1.65] text-white/70"
+                      className="mt-3 border-t border-white/12 pt-3 text-left text-[0.8125rem] leading-[1.65] text-white/70 sm:mt-3.5"
+                      aria-hidden={!isOn}
                     >
                       {item.detail}
                     </p>
                   </div>
-                ) : (
-                  <>
-                    <span
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.04]"
-                      aria-hidden
-                    >
-                      <Plus className="h-4 w-4 text-white/45" strokeWidth={1.75} />
-                    </span>
-                    <span className="min-w-0 text-[0.9375rem] font-medium tracking-tight">
-                      {item.label}
-                    </span>
-                  </>
-                )}
+                </div>
               </button>
             );
           })}
@@ -142,20 +158,20 @@ export default function ProductFeatureShowcase() {
           id={panelId}
           role="region"
           aria-live="polite"
-          aria-label={current.label}
-          className="relative aspect-[4/3] w-full min-w-0 overflow-hidden rounded-[22px] bg-zinc-900 shadow-[0_24px_60px_rgba(0,0,0,0.35)] sm:aspect-[16/11] lg:aspect-[16/10]"
+          aria-labelledby={`pfs-btn-${current.id}`}
+          className="relative w-full min-w-0 overflow-hidden rounded-[1.5rem] bg-zinc-900/80 shadow-[0_28px_64px_rgba(0,0,0,0.38)] sm:rounded-[1.75rem] lg:aspect-[16/10] lg:min-h-[min(64svh,700px)]"
         >
           <Image
-            key={current.imageSrc + active}
+            key={current.id}
             src={current.imageSrc}
             alt={current.imageAlt}
             fill
-            className="object-cover brightness-[0.88] transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)]"
-            sizes="(max-width: 1024px) 100vw, 720px"
+            className={`object-cover object-center brightness-[0.9] sm:brightness-[0.88] ${SMOOTH} transition-opacity duration-500`}
+            sizes="(max-width: 1024px) 100vw, 880px"
             priority={false}
           />
           <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/5"
             aria-hidden
           />
         </div>
