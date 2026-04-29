@@ -1,20 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { Plus } from "lucide-react";
+import { ChevronDown, ChevronUp, Plus } from "lucide-react";
 import * as React from "react";
 
 /**
- * 底图按 p2 铺满视窗（全宽 + 约 100svh）；左侧胶囊+展开说明在同列；grid 0fr↔1fr 与透明度丝滑过渡。
+ * 底图为大圆角卡片；未选为窄胶囊，展开横向变宽；标题与说明同段无横线。非首项时左侧出现浅底双圆钮（上/下一项），默认首项不显示。
  */
 const EASE_OUT = "cubic-bezier(0.16,1,0.3,1)";
 const SHELL =
-  `transition-[border-radius,background-color,border-color,box-shadow,padding,ring-color] duration-500 [transition-timing-function:${EASE_OUT}] motion-reduce:duration-0 motion-reduce:transition-none`;
-const GRID_EASE = `[transition:grid-template-rows_580ms_cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none`;
-const DETAIL_IN =
-  "opacity-100 [transition:opacity_420ms_cubic-bezier(0.16,1,0.3,1)_70ms,transform_520ms_cubic-bezier(0.16,1,0.3,1)_45ms] translate-y-0 motion-reduce:transition-none";
-const DETAIL_OUT =
-  "pointer-events-none opacity-0 [transition:opacity_160ms_ease-out,transform_200ms_cubic-bezier(0.4,0,0.2,1)] -translate-y-1 sm:-translate-y-1.5 motion-reduce:transition-none";
+  "transition-[border-radius,background-color,border-color,box-shadow,padding,ring-color,max-width] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none";
+const DETAIL_FADE =
+  "transition-[opacity,transform] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none";
 
 const ITEMS = [
   {
@@ -94,7 +91,7 @@ export default function ProductFeatureShowcase() {
         id={panelId}
         role="region"
         aria-labelledby={`pfs-btn-${current.id}`}
-        className="relative w-full min-h-[100svh] overflow-hidden bg-zinc-900 shadow-[0_8px_40px_rgba(0,0,0,0.25)]"
+        className="relative w-full min-h-[min(68svh,760px)] overflow-hidden rounded-[1.5rem] bg-zinc-900 shadow-[0_16px_48px_rgba(0,0,0,0.35)] sm:min-h-[min(72svh,800px)] sm:rounded-2xl md:min-h-[min(74svh,840px)]"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -102,8 +99,8 @@ export default function ProductFeatureShowcase() {
             src={current.imageSrc}
             alt={current.imageAlt}
             fill
-            className="object-cover object-center transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 sm:object-[58%_center] lg:object-[62%_center]"
-            sizes="100vw"
+            className="object-cover object-center transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 sm:object-[58%_center] lg:object-[60%_center]"
+            sizes="(max-width: 1200px) 100vw, 1200px"
             priority={false}
           />
         </div>
@@ -112,84 +109,104 @@ export default function ProductFeatureShowcase() {
           aria-hidden
         />
 
-        <nav
-          className="relative z-10 flex w-full min-w-0 max-w-64 flex-col items-start gap-3.5 p-3 pt-4 sm:max-w-60 sm:gap-4 sm:p-5 sm:pt-5 md:max-w-64 md:pl-5 md:pt-6"
-          aria-label="产品卖点"
-        >
-          {ITEMS.map((item, i) => {
-            const isOn = i === active;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                aria-pressed={isOn}
-                aria-expanded={isOn}
-                aria-controls={`${item.id}-detail`}
-                id={`pfs-btn-${item.id}`}
-                onClick={() => setActive(i)}
-                className={
-                  `min-w-0 text-left ${SHELL} ` +
-                  "flex flex-col " +
-                  (isOn
-                    ? "w-full max-w-full min-h-0 rounded-2xl border border-zinc-200/90 bg-[#F5F5F7] px-3.5 py-3 text-[#1D1D1F] shadow-[0_4px_20px_rgba(0,0,0,0.12)] sm:px-4 sm:py-3.5"
-                    : "w-fit max-w-full min-h-0 rounded-full border border-white/20 bg-white/10 px-3.5 py-2.5 text-white/90 [min-height:2.75rem] shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16 sm:px-4 sm:py-2.5")
-                }
-              >
-                <div className="flex min-h-0 w-full min-w-0 items-center gap-2.5 sm:gap-3">
-                  <span
-                    className={
-                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-full sm:h-8 sm:w-8 " +
-                      (isOn
-                        ? "bg-[#D2D2D7]"
-                        : "border border-white/30 bg-white/12")
-                    }
-                    aria-hidden
-                  >
-                    {isOn ? (
-                      <span className="h-2 w-2 rounded-full bg-[#6E6E73] sm:h-2.5 sm:w-2.5" />
-                    ) : (
-                      <Plus
-                        className="h-3.5 w-3.5 text-white/75 sm:h-4 sm:w-4"
-                        strokeWidth={1.75}
-                      />
-                    )}
-                  </span>
-                  <span
-                    className={
-                      "min-w-0 flex-1 text-left text-[0.9375rem] font-medium leading-tight tracking-[-0.01em] sm:text-base " +
-                      (isOn ? "font-semibold" : "font-medium")
-                    }
-                  >
-                    {item.label}
-                  </span>
-                </div>
+        <div className="relative z-10 box-border flex w-full min-w-0 items-center gap-0 p-3 pt-4 sm:gap-1 sm:p-5 sm:pt-5 md:pl-6 md:pt-6">
+          <div
+            className={
+              "flex h-full min-h-0 shrink-0 flex-col items-center justify-center gap-1.5 self-stretch overflow-hidden " +
+              "transition-[width,opacity,transform] duration-500 " +
+              "[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none " +
+              (active > 0
+                ? "w-8 pr-0.5 opacity-100 sm:w-9"
+                : "w-0 min-w-0 translate-x-0 opacity-0 pointer-events-none")
+            }
+            aria-hidden={active === 0}
+          >
+            <button
+              type="button"
+              className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-200/80 bg-[#F5F5F7] text-zinc-800 shadow-sm transition-transform duration-200 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:bg-zinc-100 active:scale-[0.97] sm:h-8 sm:w-8"
+              aria-label="上一项"
+              onClick={() => setActive((a) => Math.max(0, a - 1))}
+            >
+              <ChevronUp className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.8} />
+            </button>
+            <button
+              type="button"
+              className={
+                "flex h-7 w-7 items-center justify-center rounded-full border text-zinc-800 shadow-sm transition sm:h-8 sm:w-8 " +
+                (active >= ITEMS.length - 1
+                  ? "cursor-not-allowed border-zinc-200/40 bg-[#F5F5F7]/50 text-zinc-500/50"
+                  : "border-zinc-200/80 bg-[#F5F5F7] transition-transform duration-200 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:bg-zinc-100 active:scale-[0.97]")
+              }
+              aria-label="下一项"
+              disabled={active >= ITEMS.length - 1}
+              onClick={() =>
+                setActive((a) => Math.min(ITEMS.length - 1, a + 1))
+              }
+            >
+              <ChevronDown className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.8} />
+            </button>
+          </div>
 
-                <div
+          <nav
+            className="flex min-h-0 min-w-0 flex-1 flex-col items-start gap-3.5 sm:gap-4"
+            aria-label="产品卖点"
+          >
+            {ITEMS.map((item, i) => {
+              const isOn = i === active;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  aria-pressed={isOn}
+                  aria-expanded={isOn}
+                  id={`pfs-btn-${item.id}`}
+                  onClick={() => setActive(i)}
                   className={
-                    "grid w-full min-w-0 min-h-0 " +
-                    GRID_EASE +
-                    (isOn ? " grid-rows-[1fr]" : " grid-rows-[0fr]")
+                    `min-w-0 text-left ${SHELL} ` +
+                    (isOn
+                      ? "self-start flex w-auto max-w-[min(100%,32rem)] flex-col items-stretch gap-0 rounded-2xl border border-zinc-200/90 bg-[#F5F5F7] px-3.5 py-2.5 text-left text-[#1D1D1F] shadow-[0_4px_20px_rgba(0,0,0,0.14)] sm:max-w-[min(100%,40rem)] sm:px-4 sm:py-3 md:max-w-[min(100%,48rem)]"
+                      : "flex w-fit max-w-sm flex-row flex-nowrap items-center gap-2.5 self-start rounded-full border border-white/20 bg-white/10 px-3.5 py-2.5 text-white/90 [min-height:2.6rem] shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16 sm:gap-3 sm:px-4 sm:py-2.5")
                   }
                 >
-                  <div className="min-h-0 w-full min-w-0 max-h-80 overflow-y-auto sm:max-h-96">
-                    <p
-                      id={`${item.id}-detail`}
-                      className={
-                        "mt-2.5 border-t border-zinc-200/90 pt-2.5 text-left text-sm font-normal leading-[1.55] tracking-[-0.01em] text-zinc-600 sm:mt-3 sm:pt-3 " +
-                        (isOn
-                          ? `${DETAIL_IN}`
-                          : `border-0 text-transparent ${DETAIL_OUT}`)
-                      }
-                      aria-hidden={!isOn}
-                    >
-                      {item.detail}
-                    </p>
-                  </div>
-                </div>
-              </button>
-            );
-          })}
-        </nav>
+                  {isOn ? (
+                    <div className="flex w-full min-w-0 items-start gap-2.5 sm:gap-3">
+                      <span
+                        className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#D2D2D7] sm:h-8 sm:w-8"
+                        aria-hidden
+                      >
+                        <span className="h-2 w-2 rounded-full bg-[#6E6E73] sm:h-2.5 sm:w-2.5" />
+                      </span>
+                      <p className="min-w-0 flex-1 text-pretty text-left text-[0.9rem] leading-[1.55] tracking-[-0.01em] text-zinc-600 sm:text-[0.9375rem]">
+                        <span className="font-semibold text-[#1D1D1F]">
+                          {item.label}
+                        </span>
+                        <span className={"inline text-zinc-600 " + DETAIL_FADE}>
+                          {" "}
+                          {item.detail}
+                        </span>
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      <span
+                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/12 sm:h-8 sm:w-8"
+                        aria-hidden
+                      >
+                        <Plus
+                          className="h-3.5 w-3.5 text-white/75 sm:h-4 sm:w-4"
+                          strokeWidth={1.75}
+                        />
+                      </span>
+                      <span className="min-w-0 pr-0.5 text-left text-[0.9375rem] font-medium leading-tight tracking-[-0.01em] sm:text-base">
+                        {item.label}
+                      </span>
+                    </>
+                  )}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
       </div>
     </div>
   );
