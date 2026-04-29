@@ -131,7 +131,7 @@ function normalizePoints(input: Vec3[]): Vec3[] {
 }
 
 function sampleForViewport(unit: Vec3[], w: number): Vec3[] {
-  const maxN = w < 520 ? 2200 : w < 900 ? 4200 : 6800;
+  const maxN = w < 520 ? 17600 : w < 900 ? 33600 : 54400;
   if (unit.length <= maxN) return unit;
   const step = Math.ceil(unit.length / maxN);
   return unit.filter((_, i) => i % step === 0);
@@ -288,7 +288,7 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
       ctx.fillStyle = "#030305";
       ctx.fillRect(0, 0, w, h);
 
-      const ionCount = Math.min(420, Math.max(180, Math.floor((w * h) / 4800)));
+      const ionCount = Math.min(3360, Math.max(1440, Math.floor((w * h) / 600)));
       for (let i = 0; i < ionCount; i++) {
         const ang = i * 0.618 + now * 0.00028;
         const rr = Math.sin(i * 7.11 + now * 0.00023) * 0.5 + 0.5;
@@ -298,17 +298,6 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
         const hue = 198 + (Math.sin(i * 0.11 + now * 0.00055) * 0.5 + 0.5) * 82;
         ctx.fillStyle = `hsla(${hue},88%,72%,${alpha})`;
         ctx.fillRect(ix, iy, 1, 1);
-      }
-
-      if (!introDone && t > T_BURST * 0.78) {
-        const a = Math.min(1, (t - T_BURST * 0.78) / (T_ASSEMBLE * 0.9));
-        const y = h * (0.18 + a * 0.62);
-        const g = ctx.createLinearGradient(0, y - 16, 0, y + 16);
-        g.addColorStop(0, "rgba(60,120,255,0)");
-        g.addColorStop(0.5, "rgba(120,170,255,0.24)");
-        g.addColorStop(1, "rgba(190,95,255,0)");
-        ctx.fillStyle = g;
-        ctx.fillRect(0, y - 16, w, 32);
       }
 
       for (let i = 0; i < n; i++) {
