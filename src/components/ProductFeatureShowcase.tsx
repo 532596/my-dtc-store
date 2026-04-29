@@ -5,17 +5,14 @@ import { Plus } from "lucide-react";
 import * as React from "react";
 
 /**
- * 与 p2 一致：产品图为「底层」全幅铺底，胶囊列表叠在上方（非 DOM 中位于图片下的纵向排版）。
- * 深底区段由父级提供；主图在圆角容器内，左侧略加暗便于阅读。高度 0fr/1fr + ease-apple-out。
+ * 主图铺底；说明为「全幅近似铺满当前区块」的浅底大圆角卡，左侧保留窄胶囊切换。
+ * 侧栏 w-fit 限宽，与大面积说明卡分离。浅底 z-12、nav z-20 保证胶囊可点。
  */
 const EASE_OUT = "cubic-bezier(0.16,1,0.3,1)";
 const SHELL =
-  `transition-[border-radius,background-color,border-color,box-shadow,padding] duration-500 [transition-timing-function:${EASE_OUT}] motion-reduce:duration-0 motion-reduce:transition-none`;
-const GRID_EASE = `[transition:grid-template-rows_580ms_cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none`;
-const DETAIL_IN =
-  "opacity-100 [transition:opacity_420ms_cubic-bezier(0.16,1,0.3,1)_70ms,transform_520ms_cubic-bezier(0.16,1,0.3,1)_45ms] translate-y-0 motion-reduce:transition-none";
-const DETAIL_OUT =
-  "pointer-events-none opacity-0 [transition:opacity_160ms_ease-out,transform_200ms_cubic-bezier(0.4,0,0.2,1)] -translate-y-1 sm:-translate-y-1.5 motion-reduce:transition-none";
+  `transition-[background-color,border-color,box-shadow,ring-color] duration-500 [transition-timing-function:${EASE_OUT}] motion-reduce:duration-0 motion-reduce:transition-none`;
+const PANEL_CARDFADE =
+  "transition-[opacity,transform] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none";
 
 const ITEMS = [
   {
@@ -84,6 +81,8 @@ const ITEMS = [
   },
 ] as const;
 
+const DETAIL_PANEL_ID = "pfs-detail-panel";
+
 export default function ProductFeatureShowcase() {
   const [active, setActive] = React.useState(0);
   const current = ITEMS[active];
@@ -95,7 +94,7 @@ export default function ProductFeatureShowcase() {
         id={panelId}
         role="region"
         aria-labelledby={`pfs-btn-${current.id}`}
-        className="relative w-full min-h-[min(72svh,820px)] overflow-hidden rounded-[1.75rem] bg-zinc-900 shadow-[0_16px_48px_rgba(0,0,0,0.4)] sm:min-h-[min(78svh,880px)] sm:rounded-[2rem]"
+        className="relative w-full min-h-[min(88svh,900px)] overflow-hidden rounded-[1.75rem] bg-zinc-900 shadow-[0_16px_48px_rgba(0,0,0,0.4)] sm:min-h-[min(90svh,920px)] sm:rounded-[2rem]"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -108,14 +107,42 @@ export default function ProductFeatureShowcase() {
             priority={false}
           />
         </div>
-        {/* 左侧压暗，便于白字胶囊与 p2 叠图可读性 */}
         <div
           className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black/60 via-black/30 to-black/0 sm:from-black/50 sm:via-black/20"
           aria-hidden
         />
 
+        {/* 近似铺满当前视窗内区块的大说明卡（在照片之上、胶囊之下） */}
+        <article
+          id={DETAIL_PANEL_ID}
+          key={active}
+          className={
+            "pointer-events-auto absolute inset-1.5 z-[12] flex min-h-0 flex-col overflow-hidden rounded-2xl border border-zinc-200/80 bg-[#F5F5F7] shadow-[0_8px_48px_rgba(0,0,0,0.1)] sm:inset-2 sm:rounded-3xl md:inset-3 md:p-0 lg:inset-4 " +
+            PANEL_CARDFADE
+          }
+        >
+          <div className="min-h-0 flex flex-1 flex-col overflow-y-auto overscroll-y-contain px-4 pb-4 pt-5 sm:px-6 sm:pb-6 sm:pt-6 md:px-10 md:py-8 lg:px-12 lg:py-10">
+            <div className="mb-0 flex w-full min-w-0 max-w-3xl items-center gap-3 sm:gap-3.5">
+              <span
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#D2D2D2] sm:h-9 sm:w-9"
+                aria-hidden
+              >
+                <span className="h-2.5 w-2.5 rounded-full bg-[#6E6E73] sm:h-3 sm:w-3" />
+              </span>
+              <h2 className="min-w-0 text-xl font-semibold leading-tight tracking-[-0.02em] text-[#1D1D1F] sm:text-2xl md:text-3xl">
+                {current.label}
+              </h2>
+            </div>
+            <div className="mt-4 max-w-3xl border-t border-zinc-300/90 pt-4 sm:mt-5 sm:pt-5 md:mt-6 md:pt-6">
+              <p className="text-[0.9375rem] font-normal leading-[1.6] text-zinc-600 sm:text-lg md:max-w-2xl md:text-xl md:leading-[1.55]">
+                {current.detail}
+              </p>
+            </div>
+          </div>
+        </article>
+
         <nav
-          className="relative z-10 flex w-full min-w-0 max-w-80 flex-col items-start gap-4 p-5 pt-6 sm:max-w-[20rem] sm:p-7 sm:pt-8 md:p-8 md:pt-10 md:pl-9 xl:max-w-[22rem] xl:pl-10"
+          className="pointer-events-auto relative z-20 flex w-full min-w-0 max-w-64 flex-col items-start gap-3.5 p-3 pt-4 sm:max-w-60 sm:gap-4 sm:p-5 sm:pt-5 md:max-w-64 md:pl-5 md:pt-6"
           aria-label="产品卖点"
         >
           {ITEMS.map((item, i) => {
@@ -126,67 +153,38 @@ export default function ProductFeatureShowcase() {
                 type="button"
                 aria-pressed={isOn}
                 aria-expanded={isOn}
+                aria-controls={DETAIL_PANEL_ID}
                 id={`pfs-btn-${item.id}`}
-                aria-controls={`${item.id}-detail`}
                 onClick={() => setActive(i)}
                 className={
-                  `min-w-0 flex flex-col text-left ${SHELL} ` +
+                  `min-w-0 w-fit max-w-full ${SHELL} ` +
+                  "flex flex-row items-center gap-2.5 rounded-full border px-3.5 py-2.5 text-left [min-height:2.75rem] sm:gap-3 sm:px-4 sm:py-2.5 " +
                   (isOn
-                    ? "w-full min-h-0 rounded-[20px] border border-zinc-300/80 bg-white/95 px-4 py-3.5 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.2)] backdrop-blur-sm sm:px-5 sm:py-4"
-                    : "w-fit max-w-full min-h-0 rounded-full border border-white/20 bg-white/10 px-4 py-3 [min-height:3.25rem] text-white/90 shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16 sm:px-5 sm:py-3")
+                    ? "border-white/45 bg-white/20 text-white ring-1 ring-inset ring-white/30 backdrop-blur-md"
+                    : "border-white/20 bg-white/10 text-white/90 shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16")
                 }
               >
-                <div className="flex min-h-[2.5rem] w-full min-w-0 items-center gap-3 sm:min-h-0 sm:gap-3.5">
-                  <span
-                    className={
-                      "flex h-8 w-8 shrink-0 items-center justify-center rounded-full " +
-                      (isOn
-                        ? "bg-[#D2D2D7]"
-                        : "border border-white/30 bg-white/12")
-                    }
-                    aria-hidden
-                  >
-                    {isOn ? (
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#6E6E73]" />
-                    ) : (
-                      <Plus
-                        className="h-4 w-4 text-white/75"
-                        strokeWidth={1.75}
-                      />
-                    )}
-                  </span>
-                  <span
-                    className={
-                      "min-w-0 flex-1 text-left text-base leading-tight tracking-[-0.015em] sm:text-lg " +
-                      (isOn ? "font-semibold" : "font-medium")
-                    }
-                  >
-                    {item.label}
-                  </span>
-                </div>
-
-                <div
+                <span
                   className={
-                    "grid w-full min-h-0 " +
-                    GRID_EASE +
-                    (isOn ? " grid-rows-[1fr]" : " grid-rows-[0fr]")
+                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-full sm:h-8 sm:w-8 " +
+                    (isOn
+                      ? "bg-[#D2D2D7]"
+                      : "border border-white/30 bg-white/12")
                   }
+                  aria-hidden
                 >
-                  <div className="min-h-0 overflow-hidden">
-                    <p
-                      id={`${item.id}-detail`}
-                      className={
-                        "mt-3 border-t pt-3 text-left text-[0.9375rem] font-normal leading-[1.5] tracking-[-0.01em] sm:mt-3.5 sm:text-base " +
-                        (isOn
-                          ? `border-zinc-200/90 text-[#86868B] ${DETAIL_IN}`
-                          : `border-zinc-200/0 text-[#86868B] ${DETAIL_OUT}`)
-                      }
-                      aria-hidden={!isOn}
-                    >
-                      {item.detail}
-                    </p>
-                  </div>
-                </div>
+                  {isOn ? (
+                    <span className="h-2 w-2 rounded-full bg-[#6E6E73] sm:h-2.5 sm:w-2.5" />
+                  ) : (
+                    <Plus
+                      className="h-3.5 w-3.5 text-white/75 sm:h-4 sm:w-4"
+                      strokeWidth={1.75}
+                    />
+                  )}
+                </span>
+                <span className="min-w-0 pr-0.5 text-left text-[0.9375rem] font-medium leading-tight tracking-[-0.01em] sm:text-base">
+                  {item.label}
+                </span>
               </button>
             );
           })}
