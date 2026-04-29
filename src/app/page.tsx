@@ -685,7 +685,7 @@ export default function Home() {
                         sizes="(max-width: 1024px) 100vw, 400px"
                       />
                       <div
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0d12] from-25% via-[#0a0d12]/5 to-black/0"
+                        className="pointer-events-none absolute inset-x-0 -bottom-px top-0 bg-gradient-to-t from-[#0a0d12] from-35% via-[#0a0d12]/45 to-black/0"
                         aria-hidden
                       />
                       <div

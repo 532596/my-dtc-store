@@ -2,122 +2,134 @@
 
 import * as React from "react";
 
-type Pt = { x: number; y: number };
+type Vec3 = { x: number; y: number; z: number };
+type Vec2 = { x: number; y: number };
 
-const EASE_OUT = (t: number) => 1 - Math.pow(1 - t, 2.8);
-const EASE_IN_OUT = (t: number) =>
-  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const EASE_OUT = (t: number) => 1 - Math.pow(1 - t, 2.7);
+const EASE_IN_OUT = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-/** 在画布上生成「智能升降桌」正视图轮廓采样点（桌面 + 双腿 + 下横梁） */
-function buildDeskTargets(pw: number, ph: number): Pt[] {
-  const cx = pw * 0.5;
-  const cy = ph * 0.44;
-  const u = Math.min(pw, ph);
-  const sx = u * 0.46;
-  const sy = u * 0.52;
-  const pts: Pt[] = [];
+function mix(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
 
-  const addGrid = (nx: number, ny: number, x0: number, y0: number, x1: number, y1: number) => {
-    for (let i = 0; i < nx; i++) {
-      for (let j = 0; j < ny; j++) {
-        const fx = nx <= 1 ? (x0 + x1) / 2 : x0 + (i / (nx - 1)) * (x1 - x0);
-        const fy = ny <= 1 ? (y0 + y1) / 2 : y0 + (j / (ny - 1)) * (y1 - y0);
-        pts.push({ x: cx + fx * sx, y: cy + fy * sy });
-      }
+function rotate3D(p: Vec3, rx: number, ry: number): Vec3 {
+  const cY = Math.cos(ry);
+  const sY = Math.sin(ry);
+  const x1 = p.x * cY + p.z * sY;
+  const z1 = -p.x * sY + p.z * cY;
+
+  const cX = Math.cos(rx);
+  const sX = Math.sin(rx);
+  const y2 = p.y * cX - z1 * sX;
+  const z2 = p.y * sX + z1 * cX;
+  return { x: x1, y: y2, z: z2 };
+}
+
+function project(p: Vec3, w: number, h: number): Vec2 {
+  const fov = Math.min(w, h) * 1.03;
+  const z = p.z + 560;
+  const k = fov / Math.max(140, z);
+  return { x: w * 0.5 + p.x * k, y: h * 0.49 + p.y * k };
+}
+
+function addCuboidShell(
+  out: Vec3[],
+  cx: number,
+  cy: number,
+  cz: number,
+  sx: number,
+  sy: number,
+  sz: number,
+  density: number
+) {
+  const nx = Math.max(3, Math.floor(sx * density));
+  const ny = Math.max(3, Math.floor(sy * density));
+  const nz = Math.max(3, Math.floor(sz * density));
+  const push = (x: number, y: number, z: number) => out.push({ x: cx + x, y: cy + y, z: cz + z });
+
+  for (let ix = 0; ix < nx; ix++) {
+    const x = -sx * 0.5 + (ix / (nx - 1)) * sx;
+    for (let iz = 0; iz < nz; iz++) {
+      const z = -sz * 0.5 + (iz / (nz - 1)) * sz;
+      push(x, -sy * 0.5, z);
+      push(x, sy * 0.5, z);
     }
-  };
-
-  addGrid(42, 7, -0.52, -0.24, 0.52, -0.13);
-  addGrid(7, 32, -0.36, -0.11, -0.21, 0.4);
-  addGrid(7, 32, 0.21, -0.11, 0.36, 0.4);
-  addGrid(26, 4, -0.3, 0.2, 0.3, 0.3);
-
-  return pts;
-}
-
-function shuffleIndices(n: number, seed: number): number[] {
-  const a = Array.from({ length: n }, (_, i) => i);
-  let s = seed;
-  for (let i = n - 1; i > 0; i--) {
-    s = (s * 1103515245 + 12345) & 0x7fffffff;
-    const j = s % (i + 1);
-    [a[i], a[j]] = [a[j], a[i]];
   }
-  return a;
+  for (let iy = 0; iy < ny; iy++) {
+    const y = -sy * 0.5 + (iy / (ny - 1)) * sy;
+    for (let iz = 0; iz < nz; iz++) {
+      const z = -sz * 0.5 + (iz / (nz - 1)) * sz;
+      push(-sx * 0.5, y, z);
+      push(sx * 0.5, y, z);
+    }
+  }
+  for (let ix = 0; ix < nx; ix++) {
+    const x = -sx * 0.5 + (ix / (nx - 1)) * sx;
+    for (let iy = 0; iy < ny; iy++) {
+      const y = -sy * 0.5 + (iy / (ny - 1)) * sy;
+      push(x, y, -sz * 0.5);
+      push(x, y, sz * 0.5);
+    }
+  }
 }
 
-type IonState = {
-  ionN: number;
-  ionX: Float32Array;
-  ionY: Float32Array;
-  ionVx: Float32Array;
-  ionVy: Float32Array;
-};
+/**
+ * 预置「升降桌」3D 点云占位模型。
+ * 后续你上传真实模型文件时，可直接替换为模型采样点云。
+ */
+function buildDeskModelPoints(w: number, h: number): Vec3[] {
+  const u = Math.min(w, h);
+  const scale = u * 0.42;
+  const points: Vec3[] = [];
+  const d = 0.065;
 
-type DeskState = {
-  desk: Pt[];
-  scatter: Pt[];
-  center: Pt;
-  delays: number[];
-  start: number;
-  reduce: boolean;
+  // 桌板
+  addCuboidShell(points, 0, -0.24 * scale, 0, 1.65 * scale, 0.12 * scale, 0.58 * scale, d);
+  // 左右立柱
+  addCuboidShell(points, -0.53 * scale, 0.14 * scale, 0, 0.12 * scale, 0.78 * scale, 0.12 * scale, d);
+  addCuboidShell(points, 0.53 * scale, 0.14 * scale, 0, 0.12 * scale, 0.78 * scale, 0.12 * scale, d);
+  // 左右底脚
+  addCuboidShell(points, -0.53 * scale, 0.56 * scale, 0, 0.62 * scale, 0.055 * scale, 0.18 * scale, d);
+  addCuboidShell(points, 0.53 * scale, 0.56 * scale, 0, 0.62 * scale, 0.055 * scale, 0.18 * scale, d);
+  // 横梁
+  addCuboidShell(points, 0, 0.24 * scale, 0, 0.86 * scale, 0.06 * scale, 0.1 * scale, d);
+
+  const maxN = w < 520 ? 900 : w < 900 ? 1200 : 1600;
+  if (points.length <= maxN) return points;
+  const step = Math.ceil(points.length / maxN);
+  return points.filter((_, i) => i % step === 0);
+}
+
+type ParticleState = {
+  target: Vec3[];
+  scatter: Vec3[];
+  delays: Float32Array;
+  driftX: Float32Array;
+  driftY: Float32Array;
+  driftZ: Float32Array;
+  startAt: number;
+  reduceMotion: boolean;
   raf: number;
-  driftVx: Float32Array;
-  driftVy: Float32Array;
-  driftOx: Float32Array;
-  driftOy: Float32Array;
-  ions: IonState;
   w: number;
   h: number;
+  targetRotX: number;
+  targetRotY: number;
+  rotX: number;
+  rotY: number;
+  pointerOn: boolean;
 };
-
-function initIons(w: number, h: number): IonState {
-  const ionN = Math.min(240, Math.max(72, Math.floor((w * h) / 6500)));
-  const ionX = new Float32Array(ionN);
-  const ionY = new Float32Array(ionN);
-  const ionVx = new Float32Array(ionN);
-  const ionVy = new Float32Array(ionN);
-  let s = 901;
-  for (let i = 0; i < ionN; i++) {
-    s = (s * 1103515245 + 12345) & 0x7fffffff;
-    ionX[i] = (s / 0x7fffffff) * w;
-    s = (s * 1103515245 + 12345) & 0x7fffffff;
-    ionY[i] = (s / 0x7fffffff) * h;
-    ionVx[i] = ((s % 1000) / 1000 - 0.5) * 0.55;
-    ionVy[i] = (((s >> 8) % 1000) / 1000 - 0.5) * 0.55;
-  }
-  return { ionN, ionX, ionY, ionVx, ionVy };
-}
-
-function stepIons(ions: IonState, w: number, h: number, cx: number, cy: number) {
-  const { ionN, ionX, ionY, ionVx, ionVy } = ions;
-  for (let i = 0; i < ionN; i++) {
-    ionVx[i] += (Math.random() - 0.5) * 0.12 + (cx - ionX[i]) * 0.000015;
-    ionVy[i] += (Math.random() - 0.5) * 0.12 + (cy - ionY[i]) * 0.000012;
-    ionVx[i] *= 0.985;
-    ionVy[i] *= 0.985;
-    ionX[i] += ionVx[i];
-    ionY[i] += ionVy[i];
-    if (ionX[i] < -20 || ionX[i] > w + 20 || ionY[i] < -20 || ionY[i] > h + 20) {
-      ionX[i] = cx + (Math.random() - 0.5) * Math.min(w, h) * 0.15;
-      ionY[i] = cy + (Math.random() - 0.5) * Math.min(w, h) * 0.12;
-      ionVx[i] = (Math.random() - 0.5) * 0.9;
-      ionVy[i] = (Math.random() - 0.5) * 0.9;
-    }
-  }
-}
 
 type HeroParticleDeskProps = {
   className?: string;
 };
 
 /**
- * 首屏背景：中心挥散 → 重组为升降桌轮廓；之后持续「离子扩散」式微动（环境微粒 + 轮廓布朗漂移）。
+ * 首屏粒子：扩散 -> 汇聚成升降桌 -> 鼠标 3D 旋转 + 轻微能量漂移。
  */
 export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
   const wrapRef = React.useRef<HTMLDivElement>(null);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
-  const stateRef = React.useRef<DeskState | null>(null);
+  const stateRef = React.useRef<ParticleState | null>(null);
 
   const initAndDraw = React.useCallback(() => {
     const wrap = wrapRef.current;
@@ -134,151 +146,139 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
     canvas.style.width = `${w}px`;
     canvas.style.height = `${h}px`;
 
-    const deskFull = buildDeskTargets(w, h);
-    const maxN = w < 520 ? 480 : w < 900 ? 640 : 860;
-    const step = Math.max(1, Math.ceil(deskFull.length / maxN));
-    const desk: Pt[] = [];
-    for (let i = 0; i < deskFull.length; i += step) desk.push(deskFull[i]);
-    const n = desk.length;
-
-    const cx = w * 0.5;
-    const cy = h * 0.44;
-    const center: Pt = { x: cx, y: cy };
-    const u = Math.min(w, h);
-
-    const scatter: Pt[] = new Array(n);
-    let seed = 42;
+    const target = buildDeskModelPoints(w, h);
+    const n = target.length;
+    const scatter: Vec3[] = new Array(n);
+    const delays = new Float32Array(n);
+    const driftX = new Float32Array(n);
+    const driftY = new Float32Array(n);
+    const driftZ = new Float32Array(n);
+    const spread = Math.min(w, h) * 0.52;
+    let seed = 73;
     for (let i = 0; i < n; i++) {
       seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-      const ang = (seed / 0x7fffffff) * Math.PI * 2;
-      const rr = u * (0.28 + (seed % 1000) / 1000 * 0.38);
+      const theta = (seed / 0x7fffffff) * Math.PI * 2;
+      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+      const phi = ((seed / 0x7fffffff) - 0.5) * Math.PI;
+      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+      const rr = spread * (0.25 + (seed / 0x7fffffff) * 0.85);
       scatter[i] = {
-        x: cx + Math.cos(ang) * rr,
-        y: cy + Math.sin(ang) * rr,
+        x: Math.cos(theta) * Math.cos(phi) * rr,
+        y: Math.sin(phi) * rr * 0.78,
+        z: Math.sin(theta) * Math.cos(phi) * rr,
       };
+      delays[i] = (Math.abs(target[i].x) / spread) * 0.22 + (i / n) * 0.28;
     }
-
-    const order = shuffleIndices(n, 7);
-    const delays = new Array(n);
-    const maxD = 0.42;
-    for (let k = 0; k < n; k++) {
-      const ti = order[k];
-      const tx = desk[ti].x / w;
-      delays[ti] = (tx * 0.35 + (k / n) * 0.2) * maxD;
-    }
-
-    const driftVx = new Float32Array(n);
-    const driftVy = new Float32Array(n);
-    const driftOx = new Float32Array(n);
-    const driftOy = new Float32Array(n);
-
-    const ions = initIons(w, h);
 
     stateRef.current = {
-      desk,
+      target,
       scatter,
-      center,
       delays,
-      start: performance.now(),
-      reduce:
+      driftX,
+      driftY,
+      driftZ,
+      startAt: performance.now(),
+      reduceMotion:
         typeof window.matchMedia === "function" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches,
       raf: 0,
-      driftVx,
-      driftVy,
-      driftOx,
-      driftOy,
-      ions,
       w,
       h,
+      targetRotX: -0.12,
+      targetRotY: 0.22,
+      rotX: -0.12,
+      rotY: 0.22,
+      pointerOn: false,
     };
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const T_BURST = 1100;
-    const T_ASSEMBLE = 3400;
+    const T_BURST = 1300;
+    const T_ASSEMBLE = 3000;
+    const MAX_DELAY = 0.5;
 
     const tick = (now: number) => {
       const st = stateRef.current;
       if (!st) return;
-      const { desk: D, scatter: S, center: C, delays: del, start: t0, reduce } = st;
+      const { target: model, scatter, startAt, reduceMotion } = st;
+      const t = now - startAt;
+      const introDone = reduceMotion || t >= T_BURST + T_ASSEMBLE;
+      const idleT = introDone ? Math.max(0, t - T_BURST - T_ASSEMBLE) : 0;
+
+      // 鼠标旋转缓动（无鼠标时缓慢自动旋转）
+      if (!st.pointerOn) {
+        st.targetRotY += 0.00055;
+      }
+      st.rotX = mix(st.rotX, st.targetRotX, 0.065);
+      st.rotY = mix(st.rotY, st.targetRotY, 0.065);
 
       ctx.fillStyle = "#030305";
       ctx.fillRect(0, 0, w, h);
 
-      const t = now - t0;
-
-      if (!reduce) {
-        stepIons(st.ions, w, h, C.x, C.y);
-        const { ionN, ionX, ionY } = st.ions;
-        for (let i = 0; i < ionN; i++) {
-          const flicker = 0.04 + (Math.sin(now * 0.002 + i * 0.7) * 0.5 + 0.5) * 0.055;
-          ctx.fillStyle = `rgba(186,210,235,${flicker})`;
-          ctx.fillRect(ionX[i] - 0.4, ionY[i] - 0.4, 0.9, 0.9);
-        }
+      // 背景离子薄层
+      const ionCount = Math.min(220, Math.max(90, Math.floor((w * h) / 7800)));
+      for (let i = 0; i < ionCount; i++) {
+        const ang = i * 0.618 + now * 0.00028;
+        const rr = Math.sin(i * 7.11 + now * 0.00023) * 0.5 + 0.5;
+        const ix = w * 0.5 + Math.cos(ang) * (w * 0.52 * rr);
+        const iy = h * 0.5 + Math.sin(ang * 1.37) * (h * 0.42 * rr);
+        const alpha = 0.018 + (Math.sin(i * 0.72 + now * 0.0022) * 0.5 + 0.5) * 0.03;
+        ctx.fillStyle = `rgba(154,188,224,${alpha})`;
+        ctx.fillRect(ix, iy, 1, 1);
       }
 
-      const introDone = reduce || t >= T_BURST + T_ASSEMBLE;
-      const idleT = introDone ? Math.max(0, t - T_BURST - T_ASSEMBLE) : 0;
-
       for (let i = 0; i < n; i++) {
-        let x: number;
-        let y: number;
-        if (reduce) {
-          x = D[i].x;
-          y = D[i].y;
-        } else if (t < T_BURST) {
-          const p = EASE_OUT(t / T_BURST);
-          x = C.x + (S[i].x - C.x) * p;
-          y = C.y + (S[i].y - C.y) * p;
+        let p: Vec3;
+        if (reduceMotion) {
+          p = model[i];
+        } else if (t <= T_BURST) {
+          const burstP = EASE_OUT(t / T_BURST);
+          p = {
+            x: scatter[i].x * burstP,
+            y: scatter[i].y * burstP,
+            z: scatter[i].z * burstP,
+          };
         } else if (t < T_BURST + T_ASSEMBLE) {
           const t2 = t - T_BURST;
           const raw = Math.min(1, t2 / T_ASSEMBLE);
-          const di = del[i] ?? 0;
-          const span = 1 - maxD;
-          const uu = Math.max(0, Math.min(1, (raw - di) / span));
-          const p = EASE_IN_OUT(uu);
-          x = S[i].x + (D[i].x - S[i].x) * p;
-          y = S[i].y + (D[i].y - S[i].y) * p;
+          const shifted = Math.max(0, Math.min(1, (raw - st.delays[i]) / (1 - MAX_DELAY)));
+          const k = EASE_IN_OUT(shifted);
+          p = {
+            x: mix(scatter[i].x, model[i].x, k),
+            y: mix(scatter[i].y, model[i].y, k),
+            z: mix(scatter[i].z, model[i].z, k),
+          };
         } else {
-          st.driftVx[i] += (Math.random() - 0.5) * 0.22;
-          st.driftVy[i] += (Math.random() - 0.5) * 0.22;
-          st.driftVx[i] *= 0.9;
-          st.driftVy[i] *= 0.9;
-          st.driftOx[i] += st.driftVx[i];
-          st.driftOy[i] += st.driftVy[i];
-          st.driftOx[i] -= st.driftOx[i] * 0.035;
-          st.driftOy[i] -= st.driftOy[i] * 0.035;
-          const wave =
-            Math.sin(idleT * 0.001 + i * 0.13) * 2.2 + Math.cos(idleT * 0.00075 + i * 0.09) * 1.6;
-          const waveY =
-            Math.cos(idleT * 0.0009 + i * 0.11) * 2 + Math.sin(idleT * 0.0011 + i * 0.07) * 1.4;
-          x = D[i].x + st.driftOx[i] + wave * 0.35;
-          y = D[i].y + st.driftOy[i] + waveY * 0.35;
+          st.driftX[i] = st.driftX[i] * 0.92 + (Math.random() - 0.5) * 0.45;
+          st.driftY[i] = st.driftY[i] * 0.92 + (Math.random() - 0.5) * 0.45;
+          st.driftZ[i] = st.driftZ[i] * 0.92 + (Math.random() - 0.5) * 0.45;
+          const breathe = Math.sin(idleT * 0.001 + i * 0.031) * 1.1;
+          p = {
+            x: model[i].x + st.driftX[i] * 0.6,
+            y: model[i].y + st.driftY[i] * 0.6 + breathe,
+            z: model[i].z + st.driftZ[i] * 0.8,
+          };
         }
 
-        let alpha: number;
-        if (reduce) alpha = 0.55;
-        else if (t < 180) alpha = (t / 180) * 0.72;
-        else if (introDone) alpha = 0.58 + Math.sin(idleT * 0.0006 + i * 0.08) * 0.1;
-        else alpha = 0.72;
-
-        ctx.fillStyle = `rgba(232,236,242,${alpha})`;
-        ctx.fillRect(x - 0.65, y - 0.65, 1.35, 1.35);
+        const rp = rotate3D(p, st.rotX, st.rotY);
+        const sp = project(rp, w, h);
+        const depth = Math.max(0, Math.min(1, (rp.z + 240) / 520));
+        const size = 0.75 + depth * 1.65;
+        const glow = introDone ? 0.54 + Math.sin(idleT * 0.001 + i * 0.04) * 0.08 : 0.66;
+        const alpha = reduceMotion ? 0.56 : glow;
+        const r = 212 + Math.floor(depth * 24);
+        const g = 226 + Math.floor(depth * 18);
+        const b = 248 + Math.floor(depth * 8);
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.fillRect(sp.x - size * 0.5, sp.y - size * 0.5, size, size);
       }
 
-      if (!reduce) {
-        st.raf = requestAnimationFrame(tick);
-      }
+      st.raf = requestAnimationFrame(tick);
     };
 
-    if (stateRef.current.reduce) {
-      tick(performance.now());
-    } else {
-      stateRef.current.raf = requestAnimationFrame(tick);
-    }
+    stateRef.current.raf = requestAnimationFrame(tick);
   }, []);
 
   React.useEffect(() => {
@@ -289,8 +289,33 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
       initAndDraw();
     });
     if (wrapRef.current) ro.observe(wrapRef.current);
+    const onMove = (ev: PointerEvent) => {
+      const wrapEl = wrapRef.current;
+      const st = stateRef.current;
+      if (!wrapEl || !st) return;
+      const rect = wrapEl.getBoundingClientRect();
+      const nx = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
+      const ny = ((ev.clientY - rect.top) / rect.height) * 2 - 1;
+      st.pointerOn = true;
+      st.targetRotY = 0.22 + nx * 0.42;
+      st.targetRotX = -0.12 + ny * 0.24;
+    };
+
+    const onLeave = () => {
+      const st = stateRef.current;
+      if (!st) return;
+      st.pointerOn = false;
+      st.targetRotX = -0.12;
+    };
+
+    const wrapEl = wrapRef.current;
+    wrapEl?.addEventListener("pointermove", onMove, { passive: true });
+    wrapEl?.addEventListener("pointerleave", onLeave, { passive: true });
+
     return () => {
       ro.disconnect();
+      wrapEl?.removeEventListener("pointermove", onMove);
+      wrapEl?.removeEventListener("pointerleave", onLeave);
       if (stateRef.current?.raf) cancelAnimationFrame(stateRef.current.raf);
     };
   }, [initAndDraw]);
