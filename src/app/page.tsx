@@ -977,8 +977,8 @@ export default function Home() {
 
           <Reveal delay={1}>
             <div className="mt-10 overflow-x-auto">
-              <div className="min-w-[980px] rounded-2xl border border-white/15 bg-black/35 p-6">
-                <div className="grid grid-cols-6 gap-4">
+              <div className="min-w-[1080px] rounded-2xl border border-white/15 bg-black/35 p-6 sm:p-8">
+                <div className="grid grid-cols-6 gap-6 md:gap-8 lg:gap-10">
                   {[
                     { name: "Concept", done: true },
                     { name: "Prototyping", done: true },

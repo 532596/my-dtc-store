@@ -145,7 +145,7 @@ export default function ProductFeatureShowcase() {
 
         <div
           className={
-            "relative z-10 box-border w-full min-w-0 py-3 pr-3 pt-4 transition-[padding-left] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none sm:py-5 sm:pr-5 sm:pt-5 md:pt-6 " +
+            "relative z-10 box-border w-full min-w-0 pb-3 pr-3 pt-10 transition-[padding-left] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none sm:pb-5 sm:pr-5 sm:pt-14 md:pt-18 " +
             (active > 0
               ? "pl-[3.75rem] sm:pl-16 md:pl-[4.5rem]"
               : "pl-3 sm:pl-5 md:pl-6")
