@@ -4,11 +4,20 @@ import Image from "next/image";
 import { Plus } from "lucide-react";
 import * as React from "react";
 
-/** 与 Apple 产品页 / p2 一致：浅区 #F5F5F7 由父级提供；本组件仅负责双栏与胶囊交互 */
-const EASE = "[transition-timing-function:cubic-bezier(0.32,0.72,0,1)]";
-const SMOOTH = `transition-all duration-500 ${EASE} motion-reduce:duration-0 motion-reduce:transition-none`;
-const GRID_SMOOTH =
-  "[transition:grid-template-rows_520ms_cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none";
+/**
+ * 深底上的双栏产品卖点：未选为半透灰胶囊，选中为白底圆角块。
+ * 高度用 grid 0fr/1fr；主缓动为 --ease-apple-out，说明区配合错开轻淡入。
+ */
+const EASE_OUT = "cubic-bezier(0.16,1,0.3,1)";
+/* 与全局 design token 一致，略长一点让高度更“落得住” */
+const SHELL =
+  `transition-[border-radius,background-color,border-color,box-shadow,padding] duration-500 [transition-timing-function:${EASE_OUT}] motion-reduce:duration-0 motion-reduce:transition-none`;
+const GRID_EASE = `[transition:grid-template-rows_580ms_cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none`;
+/* 展开时略晚、收起时先隐去文字，体感和高度更同步 */
+const DETAIL_IN =
+  "opacity-100 [transition:opacity_420ms_cubic-bezier(0.16,1,0.3,1)_70ms,transform_520ms_cubic-bezier(0.16,1,0.3,1)_45ms] translate-y-0 motion-reduce:transition-none";
+const DETAIL_OUT =
+  "pointer-events-none opacity-0 [transition:opacity_160ms_ease-out,transform_200ms_cubic-bezier(0.4,0,0.2,1)] -translate-y-1 sm:-translate-y-1.5 motion-reduce:transition-none";
 
 const ITEMS = [
   {
@@ -101,10 +110,10 @@ export default function ProductFeatureShowcase() {
                 aria-controls={`${item.id}-detail`}
                 onClick={() => setActive(i)}
                 className={
-                  `flex w-full min-w-0 flex-col text-left ${SMOOTH} ` +
+                  `flex w-full min-w-0 flex-col text-left ${SHELL} ` +
                   (isOn
-                    ? "rounded-[20px] border border-zinc-300/90 bg-white px-4 py-3 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.06)] sm:px-[1.125rem] sm:py-3.5"
-                    : "rounded-full border border-transparent bg-[#E5E5EA] px-4 py-2.5 text-[#1D1D1F] hover:bg-[#DCDCE0] sm:px-[1.125rem] sm:py-2.5")
+                    ? "rounded-[20px] border border-zinc-300/80 bg-white px-4 py-3 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.12),0_1px_0_rgba(0,0,0,0.04)] sm:px-[1.125rem] sm:py-3.5"
+                    : "rounded-full border border-white/[0.1] bg-white/10 px-4 py-2.5 text-white/88 hover:border-white/16 hover:bg-white/[0.14] sm:px-[1.125rem] sm:py-2.5")
                 }
               >
                 <div className="flex w-full items-center gap-3">
@@ -113,7 +122,7 @@ export default function ProductFeatureShowcase() {
                       "flex h-7 w-7 shrink-0 items-center justify-center rounded-full sm:h-8 sm:w-8 " +
                       (isOn
                         ? "bg-[#D2D2D7]"
-                        : "border border-[#C7C7CC] bg-white/80")
+                        : "border border-white/22 bg-white/[0.08]")
                     }
                     aria-hidden
                   >
@@ -121,7 +130,7 @@ export default function ProductFeatureShowcase() {
                       <span className="h-2 w-2 rounded-full bg-[#6E6E73]" />
                     ) : (
                       <Plus
-                        className="h-3.5 w-3.5 text-[#6E6E73]"
+                        className="h-3.5 w-3.5 text-white/65"
                         strokeWidth={1.8}
                       />
                     )}
@@ -139,14 +148,19 @@ export default function ProductFeatureShowcase() {
                 <div
                   className={
                     "grid w-full min-h-0 " +
-                    GRID_SMOOTH +
+                    GRID_EASE +
                     (isOn ? " grid-rows-[1fr]" : " grid-rows-[0fr]")
                   }
                 >
                   <div className="min-h-0 overflow-hidden">
                     <p
                       id={`${item.id}-detail`}
-                      className="mt-3 border-t border-zinc-200/90 pt-3 text-left text-[0.875rem] font-normal leading-[1.5] tracking-[-0.01em] text-[#86868B] sm:mt-3.5"
+                      className={
+                        "mt-3 border-t pt-3 text-left text-[0.875rem] font-normal leading-[1.5] tracking-[-0.01em] sm:mt-3.5 " +
+                        (isOn
+                          ? `border-zinc-200/90 text-[#86868B] ${DETAIL_IN}`
+                          : `border-zinc-200/0 text-[#86868B] ${DETAIL_OUT}`)
+                      }
                       aria-hidden={!isOn}
                     >
                       {item.detail}
@@ -163,14 +177,14 @@ export default function ProductFeatureShowcase() {
           role="region"
           aria-live="polite"
           aria-labelledby={`pfs-btn-${current.id}`}
-          className="relative w-full min-w-0 overflow-hidden rounded-[1.75rem] bg-zinc-200/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] sm:rounded-[2rem] lg:aspect-[16/10] lg:min-h-[min(64svh,700px)]"
+          className="relative w-full min-w-0 overflow-hidden rounded-[1.75rem] bg-zinc-900/50 shadow-[0_12px_40px_rgba(0,0,0,0.45)] sm:rounded-[2rem] lg:aspect-[16/10] lg:min-h-[min(64svh,700px)]"
         >
           <Image
             key={current.id}
             src={current.imageSrc}
             alt={current.imageAlt}
             fill
-            className={`object-cover object-center ${SMOOTH}`}
+            className="object-cover object-center transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0"
             sizes="(max-width: 1024px) 100vw, 65vw"
             priority={false}
           />

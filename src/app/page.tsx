@@ -226,12 +226,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 与 Apple 产品页一致：浅灰区 + 左列胶囊、右列大图（位于 spine 金句与 Invisible Intervention 之间） */}
+      {/* 深底 + 左列胶囊、右列大图（位于 spine 金句与 Invisible Intervention 之间） */}
       <section
-        className="relative overflow-hidden bg-[#F5F5F7] py-20 md:py-28 lg:py-32"
+        className="relative overflow-hidden bg-[#06080c] py-20 md:py-28 lg:py-32"
         aria-label="FlowShift 产品亮点"
       >
-        <div className="relative mx-auto max-w-[1200px] px-6 text-[#1D1D1F] md:px-12">
+        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal delay={2}>
             <ProductFeatureShowcase />
           </Reveal>
