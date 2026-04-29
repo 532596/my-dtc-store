@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Plus } from "lucide-react";
 import * as React from "react";
 
 const ITEMS = [
@@ -71,100 +72,92 @@ const ITEMS = [
 ] as const;
 
 /**
- * 图二式：上方大图 + 中间横向标签切换 + 下方说明（深色站适配）。
+ * 左侧纵向卖点 + 选中展开说明；右侧大图（产品亮点区，非 Cognitive Copilot）。
  */
 export default function ProductFeatureShowcase() {
   const [active, setActive] = React.useState(0);
-  const uid = React.useId();
   const current = ITEMS[active];
-  const textPanelId = `pfs-text-${uid}`;
-  const tabId = (i: number) => `pfs-tab-${i}-${uid}`;
+  const panelId = "product-feature-panel";
 
   return (
-    <div className="mx-auto w-full max-w-[min(100%,1200px)]">
-      <div
-        className="flex flex-col"
-        role="region"
-        aria-label="产品特性展示"
-        aria-live="polite"
-      >
+    <div className="mx-auto max-w-[1120px]">
+      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-12">
+        <nav className="flex w-full min-w-0 flex-col gap-2" aria-label="产品卖点">
+          {ITEMS.map((item, i) => {
+            const isOn = i === active;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                aria-pressed={isOn}
+                aria-expanded={isOn}
+                aria-controls={isOn ? `${item.id}-detail` : undefined}
+                onClick={() => setActive(i)}
+                className={
+                  "w-full min-w-0 text-left transition-[background-color,box-shadow,transform,border-color] duration-500 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] " +
+                  (isOn
+                    ? "rounded-2xl border border-white/12 bg-white/[0.10] px-4 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-md"
+                    : "flex items-center gap-3 rounded-full px-4 py-3 text-white/58 transition-colors hover:bg-white/[0.06] hover:text-white/88")
+                }
+              >
+                {isOn ? (
+                  <div className="flex w-full min-w-0 flex-col gap-0">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/10"
+                        aria-hidden
+                      >
+                        <span className="h-2 w-2 rounded-full bg-white" />
+                      </span>
+                      <span className="min-w-0 text-[0.9375rem] font-medium leading-snug tracking-tight text-white">
+                        {item.label}
+                      </span>
+                    </div>
+                    <p
+                      id={`${item.id}-detail`}
+                      className="mt-3 border-t border-white/10 pt-3 text-[0.8125rem] leading-[1.65] text-white/70"
+                    >
+                      {item.detail}
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <span
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.04]"
+                      aria-hidden
+                    >
+                      <Plus className="h-4 w-4 text-white/45" strokeWidth={1.75} />
+                    </span>
+                    <span className="min-w-0 text-[0.9375rem] font-medium tracking-tight">
+                      {item.label}
+                    </span>
+                  </>
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
         <div
-          className="relative w-full min-h-[min(52svh,560px)] overflow-hidden rounded-[28px] bg-zinc-900 shadow-[0_32px_80px_rgba(0,0,0,0.45)] sm:min-h-[min(58svh,640px)] md:min-h-[min(62svh,720px)] md:rounded-[32px]"
+          id={panelId}
+          role="region"
+          aria-live="polite"
+          aria-label={current.label}
+          className="relative aspect-[4/3] w-full min-w-0 overflow-hidden rounded-[22px] bg-zinc-900 shadow-[0_24px_60px_rgba(0,0,0,0.35)] sm:aspect-[16/11] lg:aspect-[16/10]"
         >
           <Image
             key={current.imageSrc + active}
             src={current.imageSrc}
             alt={current.imageAlt}
             fill
-            className="object-cover object-center brightness-[0.88] transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)]"
-            sizes="(max-width: 768px) 100vw, 1200px"
+            className="object-cover brightness-[0.88] transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)]"
+            sizes="(max-width: 1024px) 100vw, 720px"
             priority={false}
           />
           <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-black/5"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10"
             aria-hidden
           />
-        </div>
-
-        <div className="mt-8 flex justify-center px-0 sm:mt-10">
-          <div
-            className="flex max-w-full items-center gap-0.5 overflow-x-auto scroll-smooth rounded-full bg-white/[0.08] p-1.5 [scrollbar-width:none] [-ms-overflow-style:none] md:gap-1 md:p-1.5 [&::-webkit-scrollbar]:hidden"
-            role="tablist"
-            aria-label="选择卖点"
-          >
-            {ITEMS.map((item, i) => {
-              const isOn = i === active;
-              return (
-                <button
-                  key={item.id}
-                  id={tabId(i)}
-                  type="button"
-                  role="tab"
-                  aria-selected={isOn}
-                  aria-controls={textPanelId}
-                  tabIndex={isOn ? 0 : -1}
-                  onClick={() => setActive(i)}
-                  onKeyDown={(e) => {
-                    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-                      e.preventDefault();
-                      setActive((a) => (a + 1) % ITEMS.length);
-                    }
-                    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-                      e.preventDefault();
-                      setActive((a) => (a - 1 + ITEMS.length) % ITEMS.length);
-                    }
-                    if (e.key === "Home") {
-                      e.preventDefault();
-                      setActive(0);
-                    }
-                    if (e.key === "End") {
-                      e.preventDefault();
-                      setActive(ITEMS.length - 1);
-                    }
-                  }}
-                  className={
-                    "shrink-0 rounded-full px-3 py-2.5 text-[0.8rem] font-medium tracking-tight transition-all duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] sm:px-4 sm:text-sm md:px-5 md:py-2.5 md:text-[0.9375rem] " +
-                    (isOn
-                      ? "bg-[#1d1d1f] text-white shadow-sm"
-                      : "text-white/60 hover:text-white/88")
-                  }
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div
-          id={textPanelId}
-          className="mt-8 sm:mt-10"
-          role="tabpanel"
-          aria-labelledby={tabId(active)}
-        >
-          <p className="mx-auto max-w-[40rem] text-pretty text-center text-[0.9375rem] leading-relaxed text-white/75 md:text-[1.0625rem] md:leading-[1.65]">
-            {current.detail}
-          </p>
         </div>
       </div>
     </div>

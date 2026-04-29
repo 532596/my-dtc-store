@@ -6,6 +6,7 @@ import HeroShowcase from "@/components/HeroShowcase";
 import SectionFloatingEntry, { type SectionFloatingEntryItem } from "@/components/SectionFloatingEntry";
 import MetricGradBreathScope from "@/components/MetricGradBreathScope";
 import ProductFeatureShowcase from "@/components/ProductFeatureShowcase";
+import CognitiveCopilotShowcase from "@/components/CognitiveCopilotShowcase";
 import TestimonialsSection, { type TestimonialItem } from "@/components/TestimonialsSection";
 
 const TESTIMONIALS: TestimonialItem[] = [
@@ -336,88 +337,9 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-8 md:grid-cols-2 md:gap-10 xl:grid-cols-3">
-            <Reveal delay={0}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/30 hover:bg-black/45 hover:shadow-[0_18px_46px_rgba(0,0,0,0.42)]">
-                <div className="relative aspect-video">
-                  <Image
-                    src="/images/scene-office.jpg"
-                    alt="IDE Focus Mode：代码编辑器全屏时，桌面自动静音通知"
-                    fill
-                    className="object-cover brightness-[0.7] transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                    sizes="(max-width: 1280px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/85">
-                    IDE Focus Mode UI (Placeholder)
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="text-xl font-semibold text-white">Ambient Notifications</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/80">
-                    摒弃蜂鸣与震动式打扰。系统仅在后台以温和消息提醒你切换姿态，不强行打断当前思路。
-                  </p>
-                  <p className="mt-2 text-xs text-white/60">
-                    勿扰式柔性提醒：像懂你的助手，而不是警报器。
-                  </p>
-                </div>
-              </article>
-            </Reveal>
-
-            <Reveal delay={1}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/30 hover:bg-black/45 hover:shadow-[0_18px_46px_rgba(0,0,0,0.42)]">
-                <div className="relative aspect-video">
-                  <Image
-                    src="/images/hero.jpg"
-                    alt="LLM Integration：触控面板 AI 呼吸灯与 API Key 极简输入界面"
-                    fill
-                    className="object-cover brightness-[0.68] transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                    sizes="(max-width: 1280px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/85">
-                    API Key Minimal Panel (Placeholder)
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="text-xl font-semibold text-white">Smart Ergonomics</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/80">
-                    输入身高或语音指令后，AI 自动推荐最符合人体工学的坐站高度，让每一毫米升降都更贴合你的身体数据。
-                  </p>
-                  <p className="mt-2 text-xs text-white/60">
-                    智能人体工学推荐：告别反复试探与盲目调节。
-                  </p>
-                </div>
-              </article>
-            </Reveal>
-
-            <Reveal delay={2}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black/35 transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/30 hover:bg-black/45 hover:shadow-[0_18px_46px_rgba(0,0,0,0.42)] md:col-span-2 xl:col-span-1">
-                <div className="relative aspect-video">
-                  <Image
-                    src="/images/scene-learning.jpg"
-                    alt="Smart Fatigue Tracking：系统自动计算久坐阈值并触发无感干预"
-                    fill
-                    className="object-cover brightness-[0.72] transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                    sizes="(max-width: 1280px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs text-white/85">
-                    Passive Fatigue Model (Placeholder)
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="text-xl font-semibold text-white">AI Agent Web Integration</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/80">
-                    不额外强制你下载冗余 App。通过网页端连接你已有工具链，把健康策略自然嵌入现有工作流。
-                  </p>
-                  <p className="mt-2 text-xs text-white/60">
-                    你的工作流不变，健康干预在后台无感发生。
-                  </p>
-                </div>
-              </article>
-            </Reveal>
-          </div>
+          <Reveal delay={1}>
+            <CognitiveCopilotShowcase />
+          </Reveal>
         </div>
       </section>
 
