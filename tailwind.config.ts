@@ -45,6 +45,8 @@ const config: Config = {
       animation: {
         "fade-in": "fadeIn 0.6s ease-out forwards",
         "fade-in-up": "fadeInUp 0.6s ease-out forwards",
+        /** 产品卖点：展开态入场（GPU translate + scale，避免 max-width 卡顿） */
+        "pfs-pill-open": "pfsPillOpen 0.58s cubic-bezier(0.16, 1, 0.3, 1) forwards",
       },
       backgroundImage: {
         "accent-gradient":
@@ -60,6 +62,16 @@ const config: Config = {
         fadeInUp: {
           "0%": { opacity: "0", transform: "translateY(16px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        pfsPillOpen: {
+          "0%": {
+            opacity: "0.88",
+            transform: "translate3d(0, 10px, 0) scale(0.985)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translate3d(0, 0, 0) scale(1)",
+          },
         },
       },
     },

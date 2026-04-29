@@ -5,15 +5,11 @@ import { ChevronDown, ChevronUp, Plus } from "lucide-react";
 import * as React from "react";
 
 /**
- * 底图为大圆角卡片；胶囊未选与展开共用玻璃样式。展开壳子约 720ms + cubic-bezier(0.16,1,0.3,1)，说明略晚淡入；主图与上下钮过渡同步略拉长。
+ * 左侧为上下钮预留槽位（active>0 时加大 pl），避免与胶囊重合。
+ * 展开交互：宽度瞬时到位，圆角/内边距等用 transition；入场用 translate+scale 关键帧（无 max-width 过渡卡顿）。
  */
-/** Apple 式慢出，略拉长时长让 max-width / 圆角更顺滑落位 */
 const SHELL =
-  "transform-gpu transition-[max-width,border-radius,padding,background-color,border-color,box-shadow] duration-[720ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none";
-/** 说明略晚于壳子展开，位移更轻 */
-const DETAIL_LINE =
-  "[transition:opacity_620ms_cubic-bezier(0.16,1,0.3,1)_110ms,transform_700ms_cubic-bezier(0.16,1,0.3,1)_70ms] motion-reduce:transition-none";
-
+  "transform-gpu transition-[border-radius,padding,background-color,border-color,box-shadow] duration-[520ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none";
 const ITEMS = [
   {
     id: "look",
@@ -110,14 +106,14 @@ export default function ProductFeatureShowcase() {
           aria-hidden
         />
 
-        {/* 相对整张底图卡片垂直居中，与左侧列表解耦 */}
+        {/* 固定在左侧浅槽内，与列表 pl 预留区对齐 */}
         <div
           className={
-            "pointer-events-auto absolute left-3 top-1/2 z-20 flex flex-col items-center gap-1.5 sm:left-4 md:left-5 " +
-            "-translate-y-1/2 transition-[opacity,transform] duration-[600ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none " +
+            "pointer-events-auto absolute left-4 top-1/2 z-20 flex w-8 flex-col items-center gap-1.5 sm:left-5 sm:w-9 " +
+            "-translate-y-1/2 transition-[opacity,transform] duration-[500ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none " +
             (active > 0
               ? "translate-x-0 opacity-100"
-              : "-translate-x-2 opacity-0 pointer-events-none")
+              : "-translate-x-1.5 opacity-0 pointer-events-none")
           }
           aria-hidden={active === 0}
         >
@@ -147,7 +143,14 @@ export default function ProductFeatureShowcase() {
           </button>
         </div>
 
-        <div className="relative z-10 box-border w-full min-w-0 p-3 pt-4 sm:p-5 sm:pt-5 md:pl-6 md:pt-6">
+        <div
+          className={
+            "relative z-10 box-border w-full min-w-0 py-3 pr-3 pt-4 transition-[padding-left] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none sm:py-5 sm:pr-5 sm:pt-5 md:pt-6 " +
+            (active > 0
+              ? "pl-[3.75rem] sm:pl-16 md:pl-[4.5rem]"
+              : "pl-3 sm:pl-5 md:pl-6")
+          }
+        >
           <nav
             className="flex min-h-0 min-w-0 flex-col items-start gap-3.5 sm:gap-4"
             aria-label="产品卖点"
@@ -165,7 +168,7 @@ export default function ProductFeatureShowcase() {
                   className={
                     `min-w-0 text-left ${SHELL} ` +
                     (isOn
-                      ? "self-start flex w-auto max-w-[min(100%,32rem)] flex-col items-stretch gap-0 rounded-2xl border border-white/20 bg-white/10 px-3.5 py-2.5 text-left text-white/90 shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16 sm:max-w-[min(100%,40rem)] sm:px-4 sm:py-3 md:max-w-[min(100%,48rem)]"
+                      ? "animate-pfs-pill-open motion-reduce:animate-none self-start flex w-full max-w-[min(calc(100%-0.5rem),32rem)] flex-col items-stretch gap-0 rounded-2xl border border-white/20 bg-white/10 px-3.5 py-2.5 text-left text-white/90 shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16 sm:max-w-[min(100%,40rem)] sm:px-4 sm:py-3 md:max-w-[min(100%,48rem)]"
                       : "flex w-fit max-w-sm flex-row flex-nowrap items-center gap-2.5 self-start rounded-full border border-white/20 bg-white/10 px-3.5 py-2.5 text-white/90 [min-height:2.6rem] shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16 sm:gap-3 sm:px-4 sm:py-2.5")
                   }
                 >
@@ -181,7 +184,7 @@ export default function ProductFeatureShowcase() {
                         <span className="font-semibold text-white">
                           {item.label}
                         </span>
-                        <span className={"inline translate-y-0 text-white/70 " + DETAIL_LINE}>
+                        <span className="inline text-white/70 motion-reduce:animate-none animate-fade-in-up [animation-delay:90ms]">
                           {" "}
                           {item.detail}
                         </span>
