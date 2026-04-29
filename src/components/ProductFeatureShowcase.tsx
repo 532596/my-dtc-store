@@ -5,8 +5,8 @@ import { Plus } from "lucide-react";
 import * as React from "react";
 
 /**
- * 深底上的双栏产品卖点：未选为半透灰胶囊，选中为白底圆角块。
- * 高度用 grid 0fr/1fr；主缓动为 --ease-apple-out，说明区配合错开轻淡入。
+ * 深底 + 与 p1 图一致的左栏：胶囊高度/圆角/内边距/字阶（约 1/3 + 2/3）。
+ * 未选 = 全圆角胶囊 + 细边；选中 = 同宽圆角块（~20px）+ 白底。高度 0fr/1fr + ease-apple-out。
  */
 const EASE_OUT = "cubic-bezier(0.16,1,0.3,1)";
 /* 与全局 design token 一致，略长一点让高度更“落得住” */
@@ -93,9 +93,10 @@ export default function ProductFeatureShowcase() {
 
   return (
     <div className="mx-auto w-full max-w-[min(100%,1200px)]">
-      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,34%)_minmax(0,1fr)] lg:gap-12 xl:gap-16">
+      {/* 与 p1 一致：左约 1/3、右约 2/3 */}
+      <div className="grid items-start gap-10 lg:grid-cols-[1fr_2fr] lg:gap-10 xl:gap-14">
         <nav
-          className="flex w-full min-w-0 flex-col gap-3 sm:gap-3.5"
+          className="flex w-full min-w-0 max-w-full flex-col gap-4"
           aria-label="产品卖点"
         >
           {ITEMS.map((item, i) => {
@@ -112,14 +113,15 @@ export default function ProductFeatureShowcase() {
                 className={
                   `flex w-full min-w-0 flex-col text-left ${SHELL} ` +
                   (isOn
-                    ? "rounded-[20px] border border-zinc-300/80 bg-white px-4 py-3 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.12),0_1px_0_rgba(0,0,0,0.04)] sm:px-[1.125rem] sm:py-3.5"
-                    : "rounded-full border border-white/[0.1] bg-white/10 px-4 py-2.5 text-white/88 hover:border-white/16 hover:bg-white/[0.14] sm:px-[1.125rem] sm:py-2.5")
+                    ? "min-h-0 rounded-[20px] border border-zinc-300/80 bg-white px-5 py-3.5 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.12),0_1px_0_rgba(0,0,0,0.04)] sm:px-5 sm:py-4"
+                    : "min-h-0 rounded-full border border-white/[0.1] bg-white/10 px-5 py-3 text-white/88 [min-height:3.25rem] hover:border-white/16 hover:bg-white/[0.14] sm:px-5 sm:py-3")
                 }
               >
-                <div className="flex w-full items-center gap-3">
+                <div className="flex w-full min-h-[2.5rem] items-center gap-3.5 sm:min-h-0 sm:gap-4">
+                  {/* 固定 32×32 与 p1 图左侧图标对齐，避免断点下变小 */}
                   <span
                     className={
-                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-full sm:h-8 sm:w-8 " +
+                      "flex h-8 w-8 shrink-0 items-center justify-center rounded-full " +
                       (isOn
                         ? "bg-[#D2D2D7]"
                         : "border border-white/22 bg-white/[0.08]")
@@ -127,17 +129,17 @@ export default function ProductFeatureShowcase() {
                     aria-hidden
                   >
                     {isOn ? (
-                      <span className="h-2 w-2 rounded-full bg-[#6E6E73]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#6E6E73]" />
                     ) : (
                       <Plus
-                        className="h-3.5 w-3.5 text-white/65"
-                        strokeWidth={1.8}
+                        className="h-4 w-4 text-white/65"
+                        strokeWidth={1.75}
                       />
                     )}
                   </span>
                   <span
                     className={
-                      "min-w-0 flex-1 text-left text-[0.9375rem] leading-snug tracking-[-0.01em] " +
+                      "min-w-0 flex-1 text-left text-base leading-tight tracking-[-0.015em] sm:text-lg " +
                       (isOn ? "font-semibold" : "font-medium")
                     }
                   >
@@ -156,7 +158,7 @@ export default function ProductFeatureShowcase() {
                     <p
                       id={`${item.id}-detail`}
                       className={
-                        "mt-3 border-t pt-3 text-left text-[0.875rem] font-normal leading-[1.5] tracking-[-0.01em] sm:mt-3.5 " +
+                        "mt-3 border-t pt-3 text-left text-[0.9375rem] font-normal leading-[1.5] tracking-[-0.01em] sm:mt-3.5 sm:text-base " +
                         (isOn
                           ? `border-zinc-200/90 text-[#86868B] ${DETAIL_IN}`
                           : `border-zinc-200/0 text-[#86868B] ${DETAIL_OUT}`)
