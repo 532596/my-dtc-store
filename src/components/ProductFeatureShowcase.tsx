@@ -4,8 +4,11 @@ import Image from "next/image";
 import { Plus } from "lucide-react";
 import * as React from "react";
 
+/** 与 Apple 产品页 / p2 一致：浅区 #F5F5F7 由父级提供；本组件仅负责双栏与胶囊交互 */
 const EASE = "[transition-timing-function:cubic-bezier(0.32,0.72,0,1)]";
 const SMOOTH = `transition-all duration-500 ${EASE} motion-reduce:duration-0 motion-reduce:transition-none`;
+const GRID_SMOOTH =
+  "[transition:grid-template-rows_520ms_cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none";
 
 const ITEMS = [
   {
@@ -74,9 +77,6 @@ const ITEMS = [
   },
 ] as const;
 
-/**
- * 图二式：左栏浅底胶囊、右栏大图。选项切换时以 grid 0fr↔1fr 丝滑展开/收起说明。
- */
 export default function ProductFeatureShowcase() {
   const [active, setActive] = React.useState(0);
   const current = ITEMS[active];
@@ -84,9 +84,9 @@ export default function ProductFeatureShowcase() {
 
   return (
     <div className="mx-auto w-full max-w-[min(100%,1200px)]">
-      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,18.5rem)_1fr] lg:gap-10 xl:grid-cols-[minmax(0,20rem)_1fr]">
+      <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,34%)_minmax(0,1fr)] lg:gap-12 xl:gap-16">
         <nav
-          className="flex w-full min-w-0 flex-col gap-2.5"
+          className="flex w-full min-w-0 flex-col gap-3 sm:gap-3.5"
           aria-label="产品卖点"
         >
           {ITEMS.map((item, i) => {
@@ -101,10 +101,10 @@ export default function ProductFeatureShowcase() {
                 aria-controls={`${item.id}-detail`}
                 onClick={() => setActive(i)}
                 className={
-                  `flex w-full min-w-0 flex-col px-3.5 py-2.5 text-left ${SMOOTH} ` +
+                  `flex w-full min-w-0 flex-col text-left ${SMOOTH} ` +
                   (isOn
-                    ? "rounded-2xl border border-white/14 bg-white/[0.16] text-white shadow-[0_2px_16px_rgba(0,0,0,0.2)] ring-1 ring-inset ring-white/[0.08] sm:px-4 sm:py-3"
-                    : "rounded-full border border-white/[0.08] bg-white/[0.09] text-white/72 hover:border-white/14 hover:bg-white/[0.12] hover:text-white/92 sm:px-4 sm:py-2.5")
+                    ? "rounded-[20px] border border-zinc-300/90 bg-white px-4 py-3 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.06)] sm:px-[1.125rem] sm:py-3.5"
+                    : "rounded-full border border-transparent bg-[#E5E5EA] px-4 py-2.5 text-[#1D1D1F] hover:bg-[#DCDCE0] sm:px-[1.125rem] sm:py-2.5")
                 }
               >
                 <div className="flex w-full items-center gap-3">
@@ -112,20 +112,24 @@ export default function ProductFeatureShowcase() {
                     className={
                       "flex h-7 w-7 shrink-0 items-center justify-center rounded-full sm:h-8 sm:w-8 " +
                       (isOn
-                        ? "border-0 bg-white/[0.2]"
-                        : "border border-white/18 bg-white/[0.04]")
+                        ? "bg-[#D2D2D7]"
+                        : "border border-[#C7C7CC] bg-white/80")
                     }
                     aria-hidden
                   >
                     {isOn ? (
-                      <span className="h-2 w-2 rounded-full bg-white" />
+                      <span className="h-2 w-2 rounded-full bg-[#6E6E73]" />
                     ) : (
-                      <Plus className="h-3.5 w-3.5 text-white/55" strokeWidth={1.8} />
+                      <Plus
+                        className="h-3.5 w-3.5 text-[#6E6E73]"
+                        strokeWidth={1.8}
+                      />
                     )}
                   </span>
                   <span
                     className={
-                      "min-w-0 flex-1 text-left text-[0.875rem] font-medium leading-snug tracking-tight sm:text-[0.9375rem]"
+                      "min-w-0 flex-1 text-left text-[0.9375rem] leading-snug tracking-[-0.01em] " +
+                      (isOn ? "font-semibold" : "font-medium")
                     }
                   >
                     {item.label}
@@ -135,14 +139,14 @@ export default function ProductFeatureShowcase() {
                 <div
                   className={
                     "grid w-full min-h-0 " +
-                    "[transition:grid-template-rows_520ms_cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none " +
-                    (isOn ? "grid-rows-[1fr]" : "grid-rows-[0fr]")
+                    GRID_SMOOTH +
+                    (isOn ? " grid-rows-[1fr]" : " grid-rows-[0fr]")
                   }
                 >
                   <div className="min-h-0 overflow-hidden">
                     <p
                       id={`${item.id}-detail`}
-                      className="mt-3 border-t border-white/12 pt-3 text-left text-[0.8125rem] leading-[1.65] text-white/70 sm:mt-3.5"
+                      className="mt-3 border-t border-zinc-200/90 pt-3 text-left text-[0.875rem] font-normal leading-[1.5] tracking-[-0.01em] text-[#86868B] sm:mt-3.5"
                       aria-hidden={!isOn}
                     >
                       {item.detail}
@@ -159,20 +163,16 @@ export default function ProductFeatureShowcase() {
           role="region"
           aria-live="polite"
           aria-labelledby={`pfs-btn-${current.id}`}
-          className="relative w-full min-w-0 overflow-hidden rounded-[1.5rem] bg-zinc-900/80 shadow-[0_28px_64px_rgba(0,0,0,0.38)] sm:rounded-[1.75rem] lg:aspect-[16/10] lg:min-h-[min(64svh,700px)]"
+          className="relative w-full min-w-0 overflow-hidden rounded-[1.75rem] bg-zinc-200/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] sm:rounded-[2rem] lg:aspect-[16/10] lg:min-h-[min(64svh,700px)]"
         >
           <Image
             key={current.id}
             src={current.imageSrc}
             alt={current.imageAlt}
             fill
-            className={`object-cover object-center brightness-[0.9] sm:brightness-[0.88] ${SMOOTH} transition-opacity duration-500`}
-            sizes="(max-width: 1024px) 100vw, 880px"
+            className={`object-cover object-center ${SMOOTH}`}
+            sizes="(max-width: 1024px) 100vw, 65vw"
             priority={false}
-          />
-          <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/5"
-            aria-hidden
           />
         </div>
       </div>
