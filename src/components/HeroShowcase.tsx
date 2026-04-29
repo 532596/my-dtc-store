@@ -23,7 +23,7 @@ export default function HeroShowcase() {
             FlowShift
           </h1>
           <p
-            className="grad-text grad-text--hero-slogan mt-4 text-xl font-semibold tracking-[0.12em] sm:mt-5 sm:text-2xl md:mt-6 md:text-3xl"
+            className="grad-text grad-text--hero-slogan mt-1.5 text-xl font-semibold tracking-[0.12em] sm:mt-2 sm:text-2xl md:mt-2.5 md:text-3xl"
             lang="zh-Hans"
           >
             心流无界
