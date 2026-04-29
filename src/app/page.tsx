@@ -146,7 +146,7 @@ export default function Home() {
             <div className="mx-auto max-w-[1068px]">
               <header className="mx-auto max-w-5xl text-center">
                 <h2 className="mt-5 text-[2rem] font-semibold leading-[1.08] tracking-tight text-white md:mt-7 md:text-5xl md:leading-[1.05] lg:text-[3.25rem]">
-                  You should never need to choose between cognitive flow and physical wellbeing.
+                  You shouldn&apos;t have to pick between focus and wellbeing.
                 </h2>
               </header>
 
