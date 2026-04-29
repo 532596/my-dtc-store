@@ -5,13 +5,14 @@ import { ChevronDown, ChevronUp, Plus } from "lucide-react";
 import * as React from "react";
 
 /**
- * 底图为大圆角卡片；未选为窄胶囊，展开横向变宽；标题与说明同段无横线。非首项时左侧出现浅底双圆钮（上/下一项），默认首项不显示。
+ * 底图为大圆角卡片；胶囊未选与展开共用玻璃样式。展开壳子约 720ms + cubic-bezier(0.16,1,0.3,1)，说明略晚淡入；主图与上下钮过渡同步略拉长。
  */
-const EASE_OUT = "cubic-bezier(0.16,1,0.3,1)";
+/** Apple 式慢出，略拉长时长让 max-width / 圆角更顺滑落位 */
 const SHELL =
-  "transition-[border-radius,background-color,border-color,box-shadow,padding,ring-color,max-width] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none";
-const DETAIL_FADE =
-  "transition-[opacity,transform] duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none";
+  "transform-gpu transition-[max-width,border-radius,padding,background-color,border-color,box-shadow] duration-[720ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none";
+/** 说明略晚于壳子展开，位移更轻 */
+const DETAIL_LINE =
+  "[transition:opacity_620ms_cubic-bezier(0.16,1,0.3,1)_110ms,transform_700ms_cubic-bezier(0.16,1,0.3,1)_70ms] motion-reduce:transition-none";
 
 const ITEMS = [
   {
@@ -91,7 +92,7 @@ export default function ProductFeatureShowcase() {
         id={panelId}
         role="region"
         aria-labelledby={`pfs-btn-${current.id}`}
-        className="relative w-full min-h-[min(68svh,760px)] overflow-hidden rounded-[1.5rem] bg-zinc-900 shadow-[0_16px_48px_rgba(0,0,0,0.35)] sm:min-h-[min(72svh,800px)] sm:rounded-2xl md:min-h-[min(74svh,840px)]"
+        className="relative w-full min-h-[min(78svh,860px)] overflow-hidden rounded-[1.5rem] bg-zinc-900 shadow-[0_16px_48px_rgba(0,0,0,0.35)] sm:min-h-[min(82svh,920px)] sm:rounded-2xl md:min-h-[min(86svh,980px)] lg:min-h-[min(88svh,1020px)]"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -99,8 +100,8 @@ export default function ProductFeatureShowcase() {
             src={current.imageSrc}
             alt={current.imageAlt}
             fill
-            className="object-cover object-center transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 sm:object-[58%_center] lg:object-[60%_center]"
-            sizes="(max-width: 1200px) 100vw, 1200px"
+            className="object-cover object-center transition-opacity duration-[700ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 sm:object-[58%_center] lg:object-[60%_center]"
+            sizes="(max-width: 1320px) 100vw, 1320px"
             priority={false}
           />
         </div>
@@ -109,46 +110,46 @@ export default function ProductFeatureShowcase() {
           aria-hidden
         />
 
-        <div className="relative z-10 box-border flex w-full min-w-0 items-center gap-0 p-3 pt-4 sm:gap-1 sm:p-5 sm:pt-5 md:pl-6 md:pt-6">
-          <div
-            className={
-              "flex h-full min-h-0 shrink-0 flex-col items-center justify-center gap-1.5 self-stretch overflow-hidden " +
-              "transition-[width,opacity,transform] duration-500 " +
-              "[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none " +
-              (active > 0
-                ? "w-8 pr-0.5 opacity-100 sm:w-9"
-                : "w-0 min-w-0 translate-x-0 opacity-0 pointer-events-none")
-            }
-            aria-hidden={active === 0}
+        {/* 相对整张底图卡片垂直居中，与左侧列表解耦 */}
+        <div
+          className={
+            "pointer-events-auto absolute left-3 top-1/2 z-20 flex flex-col items-center gap-1.5 sm:left-4 md:left-5 " +
+            "-translate-y-1/2 transition-[opacity,transform] duration-[600ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 motion-reduce:transition-none " +
+            (active > 0
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-2 opacity-0 pointer-events-none")
+          }
+          aria-hidden={active === 0}
+        >
+          <button
+            type="button"
+            className="flex h-7 w-7 items-center justify-center rounded-full border border-white/25 bg-white/12 text-white shadow-sm backdrop-blur-md transition-transform duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:border-white/35 hover:bg-white/18 active:scale-[0.97] sm:h-8 sm:w-8"
+            aria-label="上一项"
+            onClick={() => setActive((a) => Math.max(0, a - 1))}
           >
-            <button
-              type="button"
-              className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-200/80 bg-[#F5F5F7] text-zinc-800 shadow-sm transition-transform duration-200 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:bg-zinc-100 active:scale-[0.97] sm:h-8 sm:w-8"
-              aria-label="上一项"
-              onClick={() => setActive((a) => Math.max(0, a - 1))}
-            >
-              <ChevronUp className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.8} />
-            </button>
-            <button
-              type="button"
-              className={
-                "flex h-7 w-7 items-center justify-center rounded-full border text-zinc-800 shadow-sm transition sm:h-8 sm:w-8 " +
-                (active >= ITEMS.length - 1
-                  ? "cursor-not-allowed border-zinc-200/40 bg-[#F5F5F7]/50 text-zinc-500/50"
-                  : "border-zinc-200/80 bg-[#F5F5F7] transition-transform duration-200 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:bg-zinc-100 active:scale-[0.97]")
-              }
-              aria-label="下一项"
-              disabled={active >= ITEMS.length - 1}
-              onClick={() =>
-                setActive((a) => Math.min(ITEMS.length - 1, a + 1))
-              }
-            >
-              <ChevronDown className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.8} />
-            </button>
-          </div>
+            <ChevronUp className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.8} />
+          </button>
+          <button
+            type="button"
+            className={
+              "flex h-7 w-7 items-center justify-center rounded-full border text-white shadow-sm backdrop-blur-md transition sm:h-8 sm:w-8 " +
+              (active >= ITEMS.length - 1
+                ? "cursor-not-allowed border-white/15 bg-white/[0.06] text-white/35"
+                : "border-white/25 bg-white/12 transition-transform duration-300 [transition-timing-function:cubic-bezier(0.32,0.72,0,1)] hover:border-white/35 hover:bg-white/18 active:scale-[0.97]")
+            }
+            aria-label="下一项"
+            disabled={active >= ITEMS.length - 1}
+            onClick={() =>
+              setActive((a) => Math.min(ITEMS.length - 1, a + 1))
+            }
+          >
+            <ChevronDown className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.8} />
+          </button>
+        </div>
 
+        <div className="relative z-10 box-border w-full min-w-0 p-3 pt-4 sm:p-5 sm:pt-5 md:pl-6 md:pt-6">
           <nav
-            className="flex min-h-0 min-w-0 flex-1 flex-col items-start gap-3.5 sm:gap-4"
+            className="flex min-h-0 min-w-0 flex-col items-start gap-3.5 sm:gap-4"
             aria-label="产品卖点"
           >
             {ITEMS.map((item, i) => {
@@ -164,23 +165,23 @@ export default function ProductFeatureShowcase() {
                   className={
                     `min-w-0 text-left ${SHELL} ` +
                     (isOn
-                      ? "self-start flex w-auto max-w-[min(100%,32rem)] flex-col items-stretch gap-0 rounded-2xl border border-zinc-200/90 bg-[#F5F5F7] px-3.5 py-2.5 text-left text-[#1D1D1F] shadow-[0_4px_20px_rgba(0,0,0,0.14)] sm:max-w-[min(100%,40rem)] sm:px-4 sm:py-3 md:max-w-[min(100%,48rem)]"
+                      ? "self-start flex w-auto max-w-[min(100%,32rem)] flex-col items-stretch gap-0 rounded-2xl border border-white/20 bg-white/10 px-3.5 py-2.5 text-left text-white/90 shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16 sm:max-w-[min(100%,40rem)] sm:px-4 sm:py-3 md:max-w-[min(100%,48rem)]"
                       : "flex w-fit max-w-sm flex-row flex-nowrap items-center gap-2.5 self-start rounded-full border border-white/20 bg-white/10 px-3.5 py-2.5 text-white/90 [min-height:2.6rem] shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16 sm:gap-3 sm:px-4 sm:py-2.5")
                   }
                 >
                   {isOn ? (
                     <div className="flex w-full min-w-0 items-start gap-2.5 sm:gap-3">
                       <span
-                        className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#D2D2D7] sm:h-8 sm:w-8"
+                        className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/12 sm:h-8 sm:w-8"
                         aria-hidden
                       >
-                        <span className="h-2 w-2 rounded-full bg-[#6E6E73] sm:h-2.5 sm:w-2.5" />
+                        <span className="h-2 w-2 rounded-full bg-white/85 sm:h-2.5 sm:w-2.5" />
                       </span>
-                      <p className="min-w-0 flex-1 text-pretty text-left text-[0.9rem] leading-[1.55] tracking-[-0.01em] text-zinc-600 sm:text-[0.9375rem]">
-                        <span className="font-semibold text-[#1D1D1F]">
+                      <p className="min-w-0 flex-1 text-pretty text-left text-[0.9rem] leading-[1.55] tracking-[-0.01em] text-white/72 sm:text-[0.9375rem]">
+                        <span className="font-semibold text-white">
                           {item.label}
                         </span>
-                        <span className={"inline text-zinc-600 " + DETAIL_FADE}>
+                        <span className={"inline translate-y-0 text-white/70 " + DETAIL_LINE}>
                           {" "}
                           {item.detail}
                         </span>

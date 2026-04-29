@@ -231,7 +231,7 @@ export default function Home() {
         className="relative w-full overflow-x-hidden bg-[#06080c] py-10 md:py-14 lg:py-16"
         aria-label="FlowShift 产品亮点"
       >
-        <div className="relative mx-auto w-full max-w-[min(100%,1200px)] px-4 text-white sm:px-6 md:px-8">
+        <div className="relative mx-auto w-full max-w-[min(100%,1320px)] px-4 text-white sm:px-6 md:px-8">
           <Reveal delay={2}>
             <ProductFeatureShowcase />
           </Reveal>
