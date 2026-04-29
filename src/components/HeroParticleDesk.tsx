@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { BufferGeometry, Matrix4, Mesh, Vector3 } from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 type Vec3 = { x: number; y: number; z: number };
 type Vec2 = { x: number; y: number };
@@ -26,7 +28,7 @@ function rotate3D(p: Vec3, rx: number, ry: number): Vec3 {
 }
 
 function project(p: Vec3, w: number, h: number): Vec2 {
-  const fov = Math.min(w, h) * 1.03;
+  const fov = Math.min(w, h) * 1.02;
   const z = p.z + 560;
   const k = fov / Math.max(140, z);
   return { x: w * 0.5 + p.x * k, y: h * 0.49 + p.y * k };
@@ -73,31 +75,66 @@ function addCuboidShell(
   }
 }
 
-/**
- * 预置「升降桌」3D 点云占位模型。
- * 后续你上传真实模型文件时，可直接替换为模型采样点云。
- */
-function buildDeskModelPoints(w: number, h: number): Vec3[] {
-  const u = Math.min(w, h);
-  const scale = u * 0.42;
+function buildFallbackDeskUnitPoints(): Vec3[] {
   const points: Vec3[] = [];
-  const d = 0.065;
+  const d = 44;
 
-  // 桌板
-  addCuboidShell(points, 0, -0.24 * scale, 0, 1.65 * scale, 0.12 * scale, 0.58 * scale, d);
-  // 左右立柱
-  addCuboidShell(points, -0.53 * scale, 0.14 * scale, 0, 0.12 * scale, 0.78 * scale, 0.12 * scale, d);
-  addCuboidShell(points, 0.53 * scale, 0.14 * scale, 0, 0.12 * scale, 0.78 * scale, 0.12 * scale, d);
-  // 左右底脚
-  addCuboidShell(points, -0.53 * scale, 0.56 * scale, 0, 0.62 * scale, 0.055 * scale, 0.18 * scale, d);
-  addCuboidShell(points, 0.53 * scale, 0.56 * scale, 0, 0.62 * scale, 0.055 * scale, 0.18 * scale, d);
-  // 横梁
-  addCuboidShell(points, 0, 0.24 * scale, 0, 0.86 * scale, 0.06 * scale, 0.1 * scale, d);
+  addCuboidShell(points, 0, -0.24, 0, 1.65, 0.12, 0.58, d);
+  addCuboidShell(points, -0.53, 0.14, 0, 0.12, 0.78, 0.12, d);
+  addCuboidShell(points, 0.53, 0.14, 0, 0.12, 0.78, 0.12, d);
+  addCuboidShell(points, -0.53, 0.56, 0, 0.62, 0.055, 0.18, d);
+  addCuboidShell(points, 0.53, 0.56, 0, 0.62, 0.055, 0.18, d);
+  addCuboidShell(points, 0, 0.24, 0, 0.86, 0.06, 0.1, d);
+  addCuboidShell(points, 0.42, -0.1, 0.24, 0.22, 0.06, 0.08, d);
+  addCuboidShell(points, 0, -0.12, 0.18, 1.08, 0.045, 0.06, d);
 
-  const maxN = w < 520 ? 900 : w < 900 ? 1200 : 1600;
+  const maxN = 5000;
   if (points.length <= maxN) return points;
   const step = Math.ceil(points.length / maxN);
   return points.filter((_, i) => i % step === 0);
+}
+
+function extractMeshPoints(geom: BufferGeometry, world: Matrix4, out: Vec3[]) {
+  const pos = geom.getAttribute("position");
+  if (!pos) return;
+  const targetRaw = 22000;
+  const stride = Math.max(1, Math.floor(pos.count / targetRaw));
+  const v = new Vector3();
+  for (let i = 0; i < pos.count; i += stride) {
+    v.set(pos.getX(i), pos.getY(i), pos.getZ(i));
+    v.applyMatrix4(world);
+    out.push({ x: v.x, y: v.y, z: v.z });
+  }
+}
+
+function normalizePoints(input: Vec3[]): Vec3[] {
+  if (input.length < 24) return buildFallbackDeskUnitPoints();
+  let minX = Infinity;
+  let minY = Infinity;
+  let minZ = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  let maxZ = -Infinity;
+  for (const p of input) {
+    if (p.x < minX) minX = p.x;
+    if (p.y < minY) minY = p.y;
+    if (p.z < minZ) minZ = p.z;
+    if (p.x > maxX) maxX = p.x;
+    if (p.y > maxY) maxY = p.y;
+    if (p.z > maxZ) maxZ = p.z;
+  }
+  const cx = (minX + maxX) * 0.5;
+  const cy = (minY + maxY) * 0.5;
+  const cz = (minZ + maxZ) * 0.5;
+  const maxDim = Math.max(maxX - minX, maxY - minY, maxZ - minZ, 1e-6);
+  return input.map((p) => ({ x: (p.x - cx) / maxDim, y: (p.y - cy) / maxDim, z: (p.z - cz) / maxDim }));
+}
+
+function sampleForViewport(unit: Vec3[], w: number): Vec3[] {
+  const maxN = w < 520 ? 2200 : w < 900 ? 4200 : 6800;
+  if (unit.length <= maxN) return unit;
+  const step = Math.ceil(unit.length / maxN);
+  return unit.filter((_, i) => i % step === 0);
 }
 
 type ParticleState = {
@@ -110,8 +147,6 @@ type ParticleState = {
   startAt: number;
   reduceMotion: boolean;
   raf: number;
-  w: number;
-  h: number;
   targetRotX: number;
   targetRotY: number;
   rotX: number;
@@ -123,15 +158,48 @@ type HeroParticleDeskProps = {
   className?: string;
 };
 
-/**
- * 首屏粒子：扩散 -> 汇聚成升降桌 -> 鼠标 3D 旋转 + 轻微能量漂移。
- */
 export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
   const wrapRef = React.useRef<HTMLDivElement>(null);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const stateRef = React.useRef<ParticleState | null>(null);
+  const unitPointsRef = React.useRef<Vec3[] | null>(null);
+  const loadingRef = React.useRef<Promise<Vec3[]> | null>(null);
 
-  const initAndDraw = React.useCallback(() => {
+  const loadModelUnitPoints = React.useCallback(async () => {
+    if (unitPointsRef.current) return unitPointsRef.current;
+    if (loadingRef.current) return loadingRef.current;
+
+    const job = new Promise<Vec3[]>((resolve) => {
+      const loader = new GLTFLoader();
+      loader.load(
+        "/models/flowshift-desk.glb",
+        (gltf) => {
+          const pts: Vec3[] = [];
+          gltf.scene.updateMatrixWorld(true);
+          gltf.scene.traverse((obj) => {
+            if (!(obj instanceof Mesh)) return;
+            const geom = obj.geometry;
+            if (!geom) return;
+            extractMeshPoints(geom, obj.matrixWorld, pts);
+          });
+          const normalized = normalizePoints(pts);
+          unitPointsRef.current = normalized;
+          resolve(normalized);
+        },
+        undefined,
+        () => {
+          const fallback = buildFallbackDeskUnitPoints();
+          unitPointsRef.current = fallback;
+          resolve(fallback);
+        }
+      );
+    });
+
+    loadingRef.current = job;
+    return job;
+  }, []);
+
+  const initAndDraw = React.useCallback(async () => {
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
     if (!wrap || !canvas) return;
@@ -146,14 +214,22 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
     canvas.style.width = `${w}px`;
     canvas.style.height = `${h}px`;
 
-    const target = buildDeskModelPoints(w, h);
+    const unit = await loadModelUnitPoints();
+    const sampled = sampleForViewport(unit, w);
+    const sceneScale = Math.min(w, h) * 1.12;
+    const target = sampled.map((p) => ({
+      x: p.x * sceneScale,
+      y: p.y * sceneScale,
+      z: p.z * sceneScale,
+    }));
+
     const n = target.length;
     const scatter: Vec3[] = new Array(n);
     const delays = new Float32Array(n);
     const driftX = new Float32Array(n);
     const driftY = new Float32Array(n);
     const driftZ = new Float32Array(n);
-    const spread = Math.min(w, h) * 0.52;
+    const spread = Math.min(w, h) * 0.56;
     let seed = 73;
     for (let i = 0; i < n; i++) {
       seed = (seed * 1103515245 + 12345) & 0x7fffffff;
@@ -161,13 +237,13 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
       seed = (seed * 1103515245 + 12345) & 0x7fffffff;
       const phi = ((seed / 0x7fffffff) - 0.5) * Math.PI;
       seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-      const rr = spread * (0.25 + (seed / 0x7fffffff) * 0.85);
+      const rr = spread * (0.22 + (seed / 0x7fffffff) * 0.95);
       scatter[i] = {
         x: Math.cos(theta) * Math.cos(phi) * rr,
-        y: Math.sin(phi) * rr * 0.78,
+        y: Math.sin(phi) * rr * 0.82,
         z: Math.sin(theta) * Math.cos(phi) * rr,
       };
-      delays[i] = (Math.abs(target[i].x) / spread) * 0.22 + (i / n) * 0.28;
+      delays[i] = (Math.abs(target[i].x) / spread) * 0.18 + (i / n) * 0.3;
     }
 
     stateRef.current = {
@@ -182,8 +258,6 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
         typeof window.matchMedia === "function" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches,
       raf: 0,
-      w,
-      h,
       targetRotX: -0.12,
       targetRotY: 0.22,
       rotX: -0.12,
@@ -196,37 +270,45 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     const T_BURST = 1300;
-    const T_ASSEMBLE = 3000;
+    const T_ASSEMBLE = 3200;
     const MAX_DELAY = 0.5;
 
     const tick = (now: number) => {
       const st = stateRef.current;
       if (!st) return;
-      const { target: model, scatter, startAt, reduceMotion } = st;
+      const { target: model, scatter: cloud, startAt, reduceMotion } = st;
       const t = now - startAt;
       const introDone = reduceMotion || t >= T_BURST + T_ASSEMBLE;
       const idleT = introDone ? Math.max(0, t - T_BURST - T_ASSEMBLE) : 0;
 
-      // 鼠标旋转缓动（无鼠标时缓慢自动旋转）
-      if (!st.pointerOn) {
-        st.targetRotY += 0.00055;
-      }
+      if (!st.pointerOn) st.targetRotY += 0.0005;
       st.rotX = mix(st.rotX, st.targetRotX, 0.065);
       st.rotY = mix(st.rotY, st.targetRotY, 0.065);
 
       ctx.fillStyle = "#030305";
       ctx.fillRect(0, 0, w, h);
 
-      // 背景离子薄层
-      const ionCount = Math.min(220, Math.max(90, Math.floor((w * h) / 7800)));
+      const ionCount = Math.min(420, Math.max(180, Math.floor((w * h) / 4800)));
       for (let i = 0; i < ionCount; i++) {
         const ang = i * 0.618 + now * 0.00028;
         const rr = Math.sin(i * 7.11 + now * 0.00023) * 0.5 + 0.5;
-        const ix = w * 0.5 + Math.cos(ang) * (w * 0.52 * rr);
-        const iy = h * 0.5 + Math.sin(ang * 1.37) * (h * 0.42 * rr);
-        const alpha = 0.018 + (Math.sin(i * 0.72 + now * 0.0022) * 0.5 + 0.5) * 0.03;
-        ctx.fillStyle = `rgba(154,188,224,${alpha})`;
+        const ix = w * 0.5 + Math.cos(ang) * (w * 0.54 * rr);
+        const iy = h * 0.5 + Math.sin(ang * 1.37) * (h * 0.44 * rr);
+        const alpha = 0.016 + (Math.sin(i * 0.72 + now * 0.0022) * 0.5 + 0.5) * 0.03;
+        const hue = 198 + (Math.sin(i * 0.11 + now * 0.00055) * 0.5 + 0.5) * 82;
+        ctx.fillStyle = `hsla(${hue},88%,72%,${alpha})`;
         ctx.fillRect(ix, iy, 1, 1);
+      }
+
+      if (!introDone && t > T_BURST * 0.78) {
+        const a = Math.min(1, (t - T_BURST * 0.78) / (T_ASSEMBLE * 0.9));
+        const y = h * (0.18 + a * 0.62);
+        const g = ctx.createLinearGradient(0, y - 16, 0, y + 16);
+        g.addColorStop(0, "rgba(60,120,255,0)");
+        g.addColorStop(0.5, "rgba(120,170,255,0.24)");
+        g.addColorStop(1, "rgba(190,95,255,0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, y - 16, w, 32);
       }
 
       for (let i = 0; i < n; i++) {
@@ -236,9 +318,9 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
         } else if (t <= T_BURST) {
           const burstP = EASE_OUT(t / T_BURST);
           p = {
-            x: scatter[i].x * burstP,
-            y: scatter[i].y * burstP,
-            z: scatter[i].z * burstP,
+            x: cloud[i].x * burstP,
+            y: cloud[i].y * burstP,
+            z: cloud[i].z * burstP,
           };
         } else if (t < T_BURST + T_ASSEMBLE) {
           const t2 = t - T_BURST;
@@ -246,32 +328,34 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
           const shifted = Math.max(0, Math.min(1, (raw - st.delays[i]) / (1 - MAX_DELAY)));
           const k = EASE_IN_OUT(shifted);
           p = {
-            x: mix(scatter[i].x, model[i].x, k),
-            y: mix(scatter[i].y, model[i].y, k),
-            z: mix(scatter[i].z, model[i].z, k),
+            x: mix(cloud[i].x, model[i].x, k),
+            y: mix(cloud[i].y, model[i].y, k),
+            z: mix(cloud[i].z, model[i].z, k),
           };
         } else {
           st.driftX[i] = st.driftX[i] * 0.92 + (Math.random() - 0.5) * 0.45;
           st.driftY[i] = st.driftY[i] * 0.92 + (Math.random() - 0.5) * 0.45;
           st.driftZ[i] = st.driftZ[i] * 0.92 + (Math.random() - 0.5) * 0.45;
-          const breathe = Math.sin(idleT * 0.001 + i * 0.031) * 1.1;
+          const breathe = Math.sin(idleT * 0.001 + i * 0.031) * 1.05;
           p = {
-            x: model[i].x + st.driftX[i] * 0.6,
-            y: model[i].y + st.driftY[i] * 0.6 + breathe,
+            x: model[i].x + st.driftX[i] * 0.58,
+            y: model[i].y + st.driftY[i] * 0.58 + breathe,
             z: model[i].z + st.driftZ[i] * 0.8,
           };
         }
 
         const rp = rotate3D(p, st.rotX, st.rotY);
         const sp = project(rp, w, h);
-        const depth = Math.max(0, Math.min(1, (rp.z + 240) / 520));
-        const size = 0.75 + depth * 1.65;
-        const glow = introDone ? 0.54 + Math.sin(idleT * 0.001 + i * 0.04) * 0.08 : 0.66;
+        const depth = Math.max(0, Math.min(1, (rp.z + 260) / 580));
+        const size = 0.62 + depth * 1.1;
+        const glow = introDone ? 0.52 + Math.sin(idleT * 0.001 + i * 0.04) * 0.1 : 0.7;
         const alpha = reduceMotion ? 0.56 : glow;
-        const r = 212 + Math.floor(depth * 24);
-        const g = 226 + Math.floor(depth * 18);
-        const b = 248 + Math.floor(depth * 8);
-        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+        const hue = introDone
+          ? 194 + (Math.sin(idleT * 0.0011 + i * 0.018) * 0.5 + 0.5) * 86
+          : 208 + depth * 70;
+        const sat = 85 + depth * 12;
+        const light = 73 - depth * 11;
+        ctx.fillStyle = `hsla(${hue},${sat}%,${light}%,${alpha})`;
         ctx.fillRect(sp.x - size * 0.5, sp.y - size * 0.5, size, size);
       }
 
@@ -279,16 +363,17 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
     };
 
     stateRef.current.raf = requestAnimationFrame(tick);
-  }, []);
+  }, [loadModelUnitPoints]);
 
   React.useEffect(() => {
-    initAndDraw();
+    void initAndDraw();
     const ro = new ResizeObserver(() => {
       if (stateRef.current?.raf) cancelAnimationFrame(stateRef.current.raf);
       stateRef.current = null;
-      initAndDraw();
+      void initAndDraw();
     });
     if (wrapRef.current) ro.observe(wrapRef.current);
+
     const onMove = (ev: PointerEvent) => {
       const wrapEl = wrapRef.current;
       const st = stateRef.current;
