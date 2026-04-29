@@ -5,8 +5,7 @@ import { Plus } from "lucide-react";
 import * as React from "react";
 
 /**
- * 深底 + 与 p1 图一致的左栏：胶囊高度/圆角/内边距/字阶（约 1/3 + 2/3）。
- * 未选 = 全圆角胶囊 + 细边；选中 = 同宽圆角块（~20px）+ 白底。高度 0fr/1fr + ease-apple-out。
+ * 深底、纵向：上为胶囊列表，下为产品图（与参考一致，图在按钮下方）。胶囊 w-fit、列限宽；高度 0fr/1fr + ease-apple-out。
  */
 const EASE_OUT = "cubic-bezier(0.16,1,0.3,1)";
 /* 与全局 design token 一致，略长一点让高度更“落得住” */
@@ -93,10 +92,10 @@ export default function ProductFeatureShowcase() {
 
   return (
     <div className="mx-auto w-full max-w-[min(100%,1200px)]">
-      {/* 与 p1 一致：左约 1/3、右约 2/3 */}
-      <div className="grid items-start gap-10 lg:grid-cols-[1fr_2fr] lg:gap-10 xl:gap-14">
+      {/* 上：胶囊列表，下：主图（全断点堆叠，非左右分栏） */}
+      <div className="flex flex-col items-stretch gap-10 md:gap-12">
         <nav
-          className="flex w-full min-w-0 max-w-full flex-col gap-4"
+          className="flex w-full min-w-0 max-w-80 flex-col items-start gap-4 self-start xl:max-w-[22rem]"
           aria-label="产品卖点"
         >
           {ITEMS.map((item, i) => {
@@ -111,13 +110,13 @@ export default function ProductFeatureShowcase() {
                 aria-controls={`${item.id}-detail`}
                 onClick={() => setActive(i)}
                 className={
-                  `flex w-full min-w-0 flex-col text-left ${SHELL} ` +
+                  `min-w-0 flex flex-col text-left ${SHELL} ` +
                   (isOn
-                    ? "min-h-0 rounded-[20px] border border-zinc-300/80 bg-white px-5 py-3.5 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.12),0_1px_0_rgba(0,0,0,0.04)] sm:px-5 sm:py-4"
-                    : "min-h-0 rounded-full border border-white/[0.1] bg-white/10 px-5 py-3 text-white/88 [min-height:3.25rem] hover:border-white/16 hover:bg-white/[0.14] sm:px-5 sm:py-3")
+                    ? "w-full min-h-0 rounded-[20px] border border-zinc-300/80 bg-white px-4 py-3.5 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.12),0_1px_0_rgba(0,0,0,0.04)] sm:px-5 sm:py-4"
+                    : "w-fit max-w-full min-h-0 rounded-full border border-white/[0.1] bg-white/10 px-4 py-3 text-white/88 [min-height:3.25rem] hover:border-white/16 hover:bg-white/[0.14] sm:px-5 sm:py-3")
                 }
               >
-                <div className="flex w-full min-h-[2.5rem] items-center gap-3.5 sm:min-h-0 sm:gap-4">
+                <div className="flex min-h-[2.5rem] w-full min-w-0 items-center gap-3 sm:min-h-0 sm:gap-3.5">
                   {/* 固定 32×32 与 p1 图左侧图标对齐，避免断点下变小 */}
                   <span
                     className={
@@ -179,7 +178,7 @@ export default function ProductFeatureShowcase() {
           role="region"
           aria-live="polite"
           aria-labelledby={`pfs-btn-${current.id}`}
-          className="relative w-full min-w-0 overflow-hidden rounded-[1.75rem] bg-zinc-900/50 shadow-[0_12px_40px_rgba(0,0,0,0.45)] sm:rounded-[2rem] lg:aspect-[16/10] lg:min-h-[min(64svh,700px)]"
+          className="relative min-h-0 w-full min-w-0 aspect-[16/10] max-h-[min(80svh,800px)] overflow-hidden rounded-[1.75rem] bg-zinc-900/50 shadow-[0_12px_40px_rgba(0,0,0,0.45)] sm:rounded-[2rem]"
         >
           <Image
             key={current.id}
@@ -187,7 +186,7 @@ export default function ProductFeatureShowcase() {
             alt={current.imageAlt}
             fill
             className="object-cover object-center transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0"
-            sizes="(max-width: 1024px) 100vw, 65vw"
+            sizes="(max-width: 1200px) 100vw, min(100vw,1200px)"
             priority={false}
           />
         </div>
