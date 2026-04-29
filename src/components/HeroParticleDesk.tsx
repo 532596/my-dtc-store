@@ -216,7 +216,8 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
 
     const unit = await loadModelUnitPoints();
     const sampled = sampleForViewport(unit, w);
-    const sceneScale = Math.min(w, h) * 1.12;
+    // 缩小模型在背景中的占比，保留高密粒子细节
+    const sceneScale = Math.min(w, h) * 0.78;
     const target = sampled.map((p) => ({
       x: p.x * sceneScale,
       y: p.y * sceneScale,
@@ -285,8 +286,10 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
       st.rotX = mix(st.rotX, st.targetRotX, 0.065);
       st.rotY = mix(st.rotY, st.targetRotY, 0.065);
 
+      ctx.globalCompositeOperation = "source-over";
       ctx.fillStyle = "#030305";
       ctx.fillRect(0, 0, w, h);
+      ctx.globalCompositeOperation = "lighter";
 
       const ionCount = Math.min(3360, Math.max(1440, Math.floor((w * h) / 600)));
       for (let i = 0; i < ionCount; i++) {
@@ -294,10 +297,10 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
         const rr = Math.sin(i * 7.11 + now * 0.00023) * 0.5 + 0.5;
         const ix = w * 0.5 + Math.cos(ang) * (w * 0.54 * rr);
         const iy = h * 0.5 + Math.sin(ang * 1.37) * (h * 0.44 * rr);
-        const alpha = 0.016 + (Math.sin(i * 0.72 + now * 0.0022) * 0.5 + 0.5) * 0.03;
-        const hue = 198 + (Math.sin(i * 0.11 + now * 0.00055) * 0.5 + 0.5) * 82;
-        ctx.fillStyle = `hsla(${hue},88%,72%,${alpha})`;
-        ctx.fillRect(ix, iy, 1, 1);
+        const alpha = 0.012 + (Math.sin(i * 0.72 + now * 0.0022) * 0.5 + 0.5) * 0.022;
+        const hue = 206 + (Math.sin(i * 0.11 + now * 0.00055) * 0.5 + 0.5) * 76;
+        ctx.fillStyle = `hsla(${hue},84%,70%,${alpha})`;
+        ctx.fillRect(ix - 0.6, iy - 0.6, 1.2, 1.2);
       }
 
       for (let i = 0; i < n; i++) {
@@ -336,18 +339,26 @@ export default function HeroParticleDesk({ className }: HeroParticleDeskProps) {
         const rp = rotate3D(p, st.rotX, st.rotY);
         const sp = project(rp, w, h);
         const depth = Math.max(0, Math.min(1, (rp.z + 260) / 580));
-        const size = 0.62 + depth * 1.1;
-        const glow = introDone ? 0.52 + Math.sin(idleT * 0.001 + i * 0.04) * 0.1 : 0.7;
-        const alpha = reduceMotion ? 0.56 : glow;
+        const coreSize = 0.48 + depth * 0.82;
+        const haloSize = coreSize * 3.1;
+        const glow = introDone ? 0.34 + Math.sin(idleT * 0.001 + i * 0.04) * 0.08 : 0.46;
+        const coreAlpha = reduceMotion ? 0.52 : glow + 0.22;
+        const haloAlpha = reduceMotion ? 0.18 : glow * 0.34;
         const hue = introDone
-          ? 194 + (Math.sin(idleT * 0.0011 + i * 0.018) * 0.5 + 0.5) * 86
-          : 208 + depth * 70;
-        const sat = 85 + depth * 12;
-        const light = 73 - depth * 11;
-        ctx.fillStyle = `hsla(${hue},${sat}%,${light}%,${alpha})`;
-        ctx.fillRect(sp.x - size * 0.5, sp.y - size * 0.5, size, size);
+          ? 286 + (Math.sin(idleT * 0.0011 + i * 0.018) * 0.5 + 0.5) * 44
+          : 268 + depth * 54;
+        const sat = 78 + depth * 14;
+        const light = 72 - depth * 7;
+
+        // 外圈雾化光晕：模拟 p1 的半透明体积感
+        ctx.fillStyle = `hsla(${hue},${sat}%,${light + 6}%,${haloAlpha})`;
+        ctx.fillRect(sp.x - haloSize * 0.5, sp.y - haloSize * 0.5, haloSize, haloSize);
+        // 内核亮点：保证结构边界可读
+        ctx.fillStyle = `hsla(${hue + 8},${sat + 4}%,${light + 10}%,${coreAlpha})`;
+        ctx.fillRect(sp.x - coreSize * 0.5, sp.y - coreSize * 0.5, coreSize, coreSize);
       }
 
+      ctx.globalCompositeOperation = "source-over";
       st.raf = requestAnimationFrame(tick);
     };
 
