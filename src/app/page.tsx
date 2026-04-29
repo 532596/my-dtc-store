@@ -122,6 +122,15 @@ const FLOATING_PART_ENTRIES: SectionFloatingEntryItem[] = [
   { id: "part-05", sectionId: "part-faq", label: "进入支持与服务中心", href: "/support" },
 ];
 
+const BUILD_PLAN_STEPS = [
+  { name: "Concept", done: true },
+  { name: "Prototyping", done: true },
+  { name: "Kickstarter Launch", done: false },
+  { name: "Tooling & Production", done: false },
+  { name: "Ocean Freight", done: false },
+  { name: "Local Delivery", done: false },
+] as const;
+
 export default function Home() {
   return (
     <main className="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
@@ -627,7 +636,7 @@ export default function Home() {
             </h2>
           </Reveal>
 
-          <div className="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-12 xl:gap-14">
+          <div className="mt-12 grid gap-12 lg:grid-cols-3 lg:gap-16 xl:gap-20">
             {(
               [
                 {
@@ -809,12 +818,6 @@ export default function Home() {
               </div>
             </div>
           </Reveal>
-
-          <Reveal delay={2}>
-            <p className="mx-auto mt-10 max-w-3xl text-center text-sm leading-relaxed text-white/70 md:text-base">
-              一、用户故事：重构工作站的底层逻辑（Why We Do This）。我们希望用「AI Agent 策略 + 硬件无感执行」重写专注与健康之间的关系。
-            </p>
-          </Reveal>
         </div>
       </section>
 
@@ -974,63 +977,113 @@ export default function Home() {
           <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-sky-300/10 blur-[120px]" />
           <div className="absolute -right-20 bottom-8 h-72 w-72 rounded-full bg-emerald-300/10 blur-[130px]" />
         </div>
-        <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
+        <div className="relative mx-auto max-w-[min(100%,1080px)] px-6 text-white md:px-10">
           <Reveal>
-            <h2 className="mx-auto mt-4 max-w-5xl text-center text-4xl font-semibold tracking-tight md:text-6xl">
+            <h2 className="mx-auto mt-4 max-w-4xl text-center text-[clamp(2rem,4.8vw,3.5rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-white">
               Build Plan You Can Track.
             </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-center text-[17px] font-normal leading-[1.5] tracking-[-0.01em] text-white/58">
+              从概念验证到本地履约，关键节点公开透明；运费在众筹结束后于 Pledge Manager 中结算。
+            </p>
           </Reveal>
 
           <Reveal delay={1}>
-            <div className="mt-10 overflow-x-auto">
-              <div className="min-w-[980px] rounded-2xl border border-white/15 bg-black/35 p-6">
-                <div className="grid grid-cols-6 gap-4">
-                  {[
-                    { name: "Concept", done: true },
-                    { name: "Prototyping", done: true },
-                    { name: "Kickstarter Launch", done: false },
-                    { name: "Tooling & Production", done: false },
-                    { name: "Ocean Freight", done: false },
-                    { name: "Local Delivery", done: false },
-                  ].map((item, idx, arr) => (
-                    <div key={item.name} className="relative">
-                      <div className="flex flex-col items-start">
+            <div className="mx-auto mt-14 md:mt-16">
+              <div className="rounded-[22px] border border-white/[0.1] bg-[#070a10]/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.28)] backdrop-blur-md sm:p-8 md:rounded-[28px] md:p-10 lg:p-12">
+                {/** 移动端：分隔列表，避免横向强滚 */}
+                <ol className="divide-y divide-white/[0.08] md:hidden" aria-label="项目里程碑">
+                  {BUILD_PLAN_STEPS.map((item, idx) => (
+                    <li key={item.name} className="flex items-start gap-4 py-5 first:pt-0 last:pb-0">
+                      <span
+                        className={
+                          "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-[11px] font-semibold tabular-nums " +
+                          (item.done
+                            ? "border-emerald-400/45 bg-emerald-500/[0.14] text-emerald-100"
+                            : "border-white/[0.18] bg-white/[0.04] text-white/55")
+                        }
+                      >
+                        {item.done ? (
+                          <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" aria-hidden>
+                            <path
+                              d="M20 6L9 17l-5-5"
+                              stroke="currentColor"
+                              strokeWidth="2.25"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        ) : (
+                          idx + 1
+                        )}
+                      </span>
+                      <div className="min-w-0 flex-1 pt-0.5">
+                        <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-white/92">
+                          {item.name}
+                        </p>
+                        <p className="mt-1 text-[13px] leading-snug text-white/48">
+                          {item.done ? "Completed" : "Planned"}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+
+                {/** 桌面端：居中对齐节点 + 居中轨道 */}
+                <div className="relative hidden md:block" aria-label="项目里程碑">
+                  <div
+                    className="pointer-events-none absolute top-4 h-px bg-gradient-to-r from-transparent via-white/[0.16] to-transparent"
+                    style={{ left: "calc(100% / 12)", width: "calc(100% * 5 / 6)" }}
+                    aria-hidden
+                  />
+                  <div className="grid grid-cols-6 gap-x-1 lg:gap-x-2">
+                    {BUILD_PLAN_STEPS.map((item, idx) => (
+                      <div key={item.name} className="flex flex-col items-center text-center">
                         <span
                           className={
-                            "inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium " +
+                            "relative z-[1] flex h-8 w-8 items-center justify-center rounded-full border text-[11px] font-semibold tabular-nums " +
                             (item.done
-                              ? "border-emerald-300/60 bg-emerald-300/15 text-emerald-200"
-                              : "border-white/25 bg-white/5 text-white/75")
+                              ? "border-emerald-400/45 bg-emerald-500/[0.14] text-emerald-100 shadow-[0_0_0_6px_rgba(5,8,12,0.95)]"
+                              : "border-white/[0.18] bg-[#070a10] text-white/55 shadow-[0_0_0_6px_rgba(5,8,12,0.95)]")
                           }
                         >
-                          {item.done ? "✓" : idx + 1}
+                          {item.done ? (
+                            <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" aria-hidden>
+                              <path
+                                d="M20 6L9 17l-5-5"
+                                stroke="currentColor"
+                                strokeWidth="2.25"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          ) : (
+                            idx + 1
+                          )}
                         </span>
-                        <p className="mt-3 text-sm text-white/85">{item.name}</p>
-                        <p className="mt-1 text-xs text-white/55">{item.done ? "Completed" : "Planned"}</p>
+                        <p className="mt-5 max-w-[9.5rem] text-[15px] font-semibold leading-snug tracking-[-0.01em] text-white/92 lg:max-w-none">
+                          {item.name}
+                        </p>
+                        <p className="mt-1.5 text-[12px] leading-snug text-white/48">
+                          {item.done ? "Completed" : "Planned"}
+                        </p>
                       </div>
-                      {idx < arr.length - 1 && (
-                        <span className="absolute left-10 top-4 h-px w-[calc(100%-1rem)] bg-white/20" aria-hidden />
-                      )}
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={2}>
-            <div className="mt-8 rounded-2xl border border-amber-300/40 bg-amber-400/10 p-6">
-              <p className="text-base font-semibold text-amber-100">
-                Shipping is NOT included. Collected via Pledge Manager later.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-amber-50/85">
-                运费不包含在本次 pledge 金额中，后续会通过 Pledge Manager 单独收取并确认地址。
-              </p>
-              <ul className="mt-4 space-y-2 text-sm text-amber-50/90">
-                <li>美国：西海岸入仓 + 本地尾程配送，降低末端延误风险。</li>
-                <li>欧洲：EU 区域中转仓分发，优先保障主要国家清关与派送稳定。</li>
-                <li>亚太：混合仓储与分批履约策略，按地区波次发货并同步追踪号。</li>
-              </ul>
+            <div className="mx-auto mt-16 max-w-[min(100%,640px)] md:mt-24">
+              <div className="rounded-[22px] border border-amber-400/22 bg-gradient-to-b from-amber-400/[0.05] to-transparent px-6 py-7 shadow-[inset_0_1px_0_0_rgba(255,214,153,0.08)] md:rounded-[28px] md:px-9 md:py-9">
+                <p className="text-[17px] font-semibold leading-snug tracking-[-0.01em] text-[#e8d4a8]">
+                  Shipping is NOT included. Collected via Pledge Manager later.
+                </p>
+                <p className="mt-4 text-[15px] leading-relaxed tracking-[-0.01em] text-white/62">
+                  运费不包含在本次 pledge 金额中，后续会通过 Pledge Manager 单独收取并确认地址。
+                </p>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -1047,7 +1100,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1200px] px-6 text-white md:px-12">
           <Reveal>
             <header className="mx-auto max-w-2xl text-center">
-              <h2 className="mx-auto mt-4 max-w-5xl text-4xl font-semibold tracking-tight md:text-6xl">
+              <h2 className="mx-auto mt-4 max-w-5xl text-3xl font-semibold tracking-tight text-white">
                 常见问题
               </h2>
               <p className="mx-auto mt-5 max-w-lg text-base text-white/65 md:text-lg">
