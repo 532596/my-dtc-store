@@ -6,11 +6,37 @@ import * as React from "react";
 export type SectionFloatingEntryItem = {
   id: string;
   sectionId: string;
-  /** 若设置，滚动检测以该节点位置为准（用于「本段主要文案结束」即出现悬浮条，而非整段 section 底部） */
+  /** 若设置，与 section 顶构成「本段有效高度」；按该高度的一半入视时即可触发（见 isPartAtLeastHalfInView） */
   triggerAnchorId?: string;
   label: string;
   href: string;
 };
+
+/** 与视口相交的纵长（px） */
+function verticalOverlapInViewport(top: number, bottom: number, vh: number) {
+  const v0 = Math.max(0, top);
+  const v1 = Math.min(vh, bottom);
+  return Math.max(0, v1 - v0);
+}
+
+/**
+ * 「出现到一半」：有锚点时指 section 顶 → 锚点底 这一段；无锚点为整段 section。
+ * 超高区块用 min(块高, 2vh) 作分母，避免整段比两屏还长时永远到不了 50%。
+ */
+function isPartAtLeastHalfInView(
+  sectionEl: HTMLElement,
+  endEl: HTMLElement | null,
+  vh: number
+): boolean {
+  const sr = sectionEl.getBoundingClientRect();
+  const top = sr.top;
+  const bottom = endEl ? endEl.getBoundingClientRect().bottom : sr.bottom;
+  const h = bottom - top;
+  if (h < 1) return false;
+  const vis = verticalOverlapInViewport(top, bottom, vh);
+  const denom = Math.min(h, 2 * vh);
+  return vis / denom >= 0.5;
+}
 
 export default function SectionFloatingEntry({ items }: { items: SectionFloatingEntryItem[] }) {
   const [activeId, setActiveId] = React.useState<string | null>(null);
@@ -22,22 +48,20 @@ export default function SectionFloatingEntry({ items }: { items: SectionFloating
   React.useEffect(() => {
     let frame = 0;
     const detectActive = () => {
-      const viewportBottomTrigger = window.innerHeight * 0.86;
-      let best: { id: string; distance: number } | null = null;
+      const vh = window.innerHeight;
+      let best: { id: string; order: number } | null = null;
 
-      for (const item of items) {
-        const anchorId = item.triggerAnchorId ?? item.sectionId;
-        const el = document.getElementById(anchorId);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        // 以锚点底边（或整段 section 底边）与视口下沿附近一条带对齐；带略放宽，避免难触发
-        const edgeBottom = rect.bottom;
-        const nearBottomBand =
-          edgeBottom <= viewportBottomTrigger + 100 &&
-          edgeBottom >= viewportBottomTrigger - 220;
-        if (!nearBottomBand) continue;
-        const distance = Math.abs(edgeBottom - viewportBottomTrigger);
-        if (!best || distance < best.distance) best = { id: item.id, distance };
+      for (let order = 0; order < items.length; order++) {
+        const item = items[order]!;
+        const sectionEl = document.getElementById(item.sectionId);
+        if (!sectionEl) continue;
+        const endEl = item.triggerAnchorId ? document.getElementById(item.triggerAnchorId) : null;
+        if (item.triggerAnchorId && !endEl) continue;
+
+        if (!isPartAtLeastHalfInView(sectionEl, endEl, vh)) continue;
+        if (!best || order > best.order) {
+          best = { id: item.id, order };
+        }
       }
 
       setActiveId(best?.id ?? null);
