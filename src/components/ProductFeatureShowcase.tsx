@@ -5,14 +5,13 @@ import { Plus } from "lucide-react";
 import * as React from "react";
 
 /**
- * 深底、纵向：上为胶囊列表，下为产品图（与参考一致，图在按钮下方）。胶囊 w-fit、列限宽；高度 0fr/1fr + ease-apple-out。
+ * 与 p2 一致：产品图为「底层」全幅铺底，胶囊列表叠在上方（非 DOM 中位于图片下的纵向排版）。
+ * 深底区段由父级提供；主图在圆角容器内，左侧略加暗便于阅读。高度 0fr/1fr + ease-apple-out。
  */
 const EASE_OUT = "cubic-bezier(0.16,1,0.3,1)";
-/* 与全局 design token 一致，略长一点让高度更“落得住” */
 const SHELL =
   `transition-[border-radius,background-color,border-color,box-shadow,padding] duration-500 [transition-timing-function:${EASE_OUT}] motion-reduce:duration-0 motion-reduce:transition-none`;
 const GRID_EASE = `[transition:grid-template-rows_580ms_cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none`;
-/* 展开时略晚、收起时先隐去文字，体感和高度更同步 */
 const DETAIL_IN =
   "opacity-100 [transition:opacity_420ms_cubic-bezier(0.16,1,0.3,1)_70ms,transform_520ms_cubic-bezier(0.16,1,0.3,1)_45ms] translate-y-0 motion-reduce:transition-none";
 const DETAIL_OUT =
@@ -92,10 +91,31 @@ export default function ProductFeatureShowcase() {
 
   return (
     <div className="mx-auto w-full max-w-[min(100%,1200px)]">
-      {/* 上：胶囊列表，下：主图（全断点堆叠，非左右分栏） */}
-      <div className="flex flex-col items-stretch gap-10 md:gap-12">
+      <div
+        id={panelId}
+        role="region"
+        aria-labelledby={`pfs-btn-${current.id}`}
+        className="relative w-full min-h-[min(72svh,820px)] overflow-hidden rounded-[1.75rem] bg-zinc-900 shadow-[0_16px_48px_rgba(0,0,0,0.4)] sm:min-h-[min(78svh,880px)] sm:rounded-[2rem]"
+      >
+        <div className="absolute inset-0 z-0">
+          <Image
+            key={current.id}
+            src={current.imageSrc}
+            alt={current.imageAlt}
+            fill
+            className="object-cover object-center transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0 sm:object-[60%_center] lg:object-[65%_center]"
+            sizes="(max-width: 1200px) 100vw, min(100vw, 1200px)"
+            priority={false}
+          />
+        </div>
+        {/* 左侧压暗，便于白字胶囊与 p2 叠图可读性 */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black/60 via-black/30 to-black/0 sm:from-black/50 sm:via-black/20"
+          aria-hidden
+        />
+
         <nav
-          className="flex w-full min-w-0 max-w-80 flex-col items-start gap-4 self-start xl:max-w-[22rem]"
+          className="relative z-10 flex w-full min-w-0 max-w-80 flex-col items-start gap-4 p-5 pt-6 sm:max-w-[20rem] sm:p-7 sm:pt-8 md:p-8 md:pt-10 md:pl-9 xl:max-w-[22rem] xl:pl-10"
           aria-label="产品卖点"
         >
           {ITEMS.map((item, i) => {
@@ -112,18 +132,17 @@ export default function ProductFeatureShowcase() {
                 className={
                   `min-w-0 flex flex-col text-left ${SHELL} ` +
                   (isOn
-                    ? "w-full min-h-0 rounded-[20px] border border-zinc-300/80 bg-white px-4 py-3.5 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.12),0_1px_0_rgba(0,0,0,0.04)] sm:px-5 sm:py-4"
-                    : "w-fit max-w-full min-h-0 rounded-full border border-white/[0.1] bg-white/10 px-4 py-3 text-white/88 [min-height:3.25rem] hover:border-white/16 hover:bg-white/[0.14] sm:px-5 sm:py-3")
+                    ? "w-full min-h-0 rounded-[20px] border border-zinc-300/80 bg-white/95 px-4 py-3.5 text-[#1D1D1F] shadow-[0_4px_24px_rgba(0,0,0,0.2)] backdrop-blur-sm sm:px-5 sm:py-4"
+                    : "w-fit max-w-full min-h-0 rounded-full border border-white/20 bg-white/10 px-4 py-3 [min-height:3.25rem] text-white/90 shadow-sm backdrop-blur-md hover:border-white/28 hover:bg-white/16 sm:px-5 sm:py-3")
                 }
               >
                 <div className="flex min-h-[2.5rem] w-full min-w-0 items-center gap-3 sm:min-h-0 sm:gap-3.5">
-                  {/* 固定 32×32 与 p1 图左侧图标对齐，避免断点下变小 */}
                   <span
                     className={
                       "flex h-8 w-8 shrink-0 items-center justify-center rounded-full " +
                       (isOn
                         ? "bg-[#D2D2D7]"
-                        : "border border-white/22 bg-white/[0.08]")
+                        : "border border-white/30 bg-white/12")
                     }
                     aria-hidden
                   >
@@ -131,7 +150,7 @@ export default function ProductFeatureShowcase() {
                       <span className="h-2.5 w-2.5 rounded-full bg-[#6E6E73]" />
                     ) : (
                       <Plus
-                        className="h-4 w-4 text-white/65"
+                        className="h-4 w-4 text-white/75"
                         strokeWidth={1.75}
                       />
                     )}
@@ -172,24 +191,6 @@ export default function ProductFeatureShowcase() {
             );
           })}
         </nav>
-
-        <div
-          id={panelId}
-          role="region"
-          aria-live="polite"
-          aria-labelledby={`pfs-btn-${current.id}`}
-          className="relative min-h-0 w-full min-w-0 aspect-[16/10] max-h-[min(80svh,800px)] overflow-hidden rounded-[1.75rem] bg-zinc-900/50 shadow-[0_12px_40px_rgba(0,0,0,0.45)] sm:rounded-[2rem]"
-        >
-          <Image
-            key={current.id}
-            src={current.imageSrc}
-            alt={current.imageAlt}
-            fill
-            className="object-cover object-center transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] motion-reduce:duration-0"
-            sizes="(max-width: 1200px) 100vw, min(100vw,1200px)"
-            priority={false}
-          />
-        </div>
       </div>
     </div>
   );
